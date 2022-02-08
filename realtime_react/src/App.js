@@ -1,24 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import TopNav from "components/Header/TopNav";
+import PageLogin from "pages/accounts/PageLogin";
+import PageUserJoin from "pages/accounts/PageUserJoin";
+import PageShopJoin from "pages/accounts/PageShopJoin";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TopNav />
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<PageShopJoin />} />
+          <Route path="/accounts/login/" element={<PageLogin />} />
+          <Route path="/account/shopjoin/" element={<PageShopJoin />} />
+          <Route path="/account/userjoin/" element={<PageUserJoin />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
