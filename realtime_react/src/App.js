@@ -4,14 +4,17 @@ import TopNav from "components/Header/TopNav";
 import PageLogin from "pages/accounts/PageLogin";
 import PageUserJoin from "pages/accounts/PageUserJoin";
 import PageShopJoin from "pages/accounts/PageShopJoin";
+import PageIndex from "pages/PageIndex";
 
 function App() {
   return (
     <>
       <TopNav />
+      <Routes>
+        <Route path="/" element={<PageIndex />} />
+      </Routes>
       <div className="App">
         <Routes>
-          <Route path="/" element={<PageShopJoin />} />
           <Route path="/accounts/login/" element={<PageLogin />} />
           <Route path="/account/shopjoin/" element={<PageShopJoin />} />
           <Route path="/account/userjoin/" element={<PageUserJoin />} />
