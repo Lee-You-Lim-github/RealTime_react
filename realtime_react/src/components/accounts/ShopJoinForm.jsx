@@ -9,20 +9,6 @@ function ShopJoinForm() {
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
       </div>
-      <p className="text-left ml-56">비밀번호</p>
-      <div>
-        <input
-          placeholder="영문/숫자 혼합 8자 이상 입력해주세요."
-          className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-        />
-      </div>
-      <p className="text-left ml-56">비밀번호 확인</p>
-      <div>
-        <input
-          placeholder="영문/숫자 혼합 8자 이상 입력해주세요."
-          className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-        />
-      </div>
       <p className="text-left ml-56">매장명</p>
       <div>
         <input
