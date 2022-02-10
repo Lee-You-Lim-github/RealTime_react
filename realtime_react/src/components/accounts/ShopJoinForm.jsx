@@ -28,7 +28,7 @@ function ShopJoinForm({ shopId, handleDidSave }) {
     {
       laoding: shopFormLoading,
       error: shopFormError,
-      errorMessages: saveErrorMessages,
+      errorMessages: ShopSavedErrorMessages,
     },
     saveShopRequest,
   ] = useApiAxios(
@@ -48,10 +48,10 @@ function ShopJoinForm({ shopId, handleDidSave }) {
   // useEffect(() => {
   //   setFieldValues(
   //     produce((draft) => {
-  //       draft.photo = ""
+  //       draft.photo = "";
   //     })
-  //   )
-  // }, [])
+  //   );
+  // }, []);
 
   const shopHandleSubmit = (e) => {
     e.preventDefault();
@@ -79,6 +79,7 @@ function ShopJoinForm({ shopId, handleDidSave }) {
   return (
     <div className="mt-2">
       <DebugStates
+        ShopSavedErrorMessages={ShopSavedErrorMessages}
         fieldValues={fieldValues}
         shopFormLoading={shopFormLoading}
         shopFormError={shopFormError}
@@ -95,6 +96,11 @@ function ShopJoinForm({ shopId, handleDidSave }) {
           placeholder="10자리 숫자로만 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
+        {ShopSavedErrorMessages.shop_num?.map((message, index) => (
+          <p key={index} className="text-xs text-red-400">
+            {message}
+          </p>
+        ))}
 
         <p className="text-left ml-56 mt-2">매장명</p>
         <input
@@ -105,6 +111,11 @@ function ShopJoinForm({ shopId, handleDidSave }) {
           placeholder="매장명을 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
+        {ShopSavedErrorMessages.name?.map((message, index) => (
+          <p key={index} className="text-xs text-red-400">
+            {message}
+          </p>
+        ))}
 
         <p className="text-left ml-56 mt-2">업종</p>
         <select
@@ -119,6 +130,11 @@ function ShopJoinForm({ shopId, handleDidSave }) {
           <option>중식</option>
           <option>분식</option>
         </select>
+        {ShopSavedErrorMessages.category?.map((message, index) => (
+          <p key={index} className="text-xs text-red-400">
+            {message}
+          </p>
+        ))}
 
         <p className="text-left ml-56 mt-2">매장 주소</p>
         <input
@@ -129,26 +145,41 @@ function ShopJoinForm({ shopId, handleDidSave }) {
           placeholder="주소를 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
+        {ShopSavedErrorMessages.address?.map((message, index) => (
+          <p key={index} className="text-xs text-red-400">
+            {message}
+          </p>
+        ))}
 
         <p className="text-left ml-56 mt-2">위도</p>
         <input
-          type="text"
+          type="number"
           name="lat"
           value={fieldValues.lat}
           onChange={handleFieldChange}
-          placeholder="위도를 입력해주세요."
+          placeholder="위도를 입력해주세요. 예) 127.00000"
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
+        {ShopSavedErrorMessages.lat?.map((message, index) => (
+          <p key={index} className="text-xs text-red-400">
+            {message}
+          </p>
+        ))}
 
         <p className="text-left ml-56 mt-2">경도</p>
         <input
-          type="text"
+          type="number"
           name="long"
           value={fieldValues.long}
           onChange={handleFieldChange}
-          placeholder="경도를 입력해주세요."
+          placeholder="경도를 입력해주세요. 예) 36.00000"
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
+        {ShopSavedErrorMessages.long?.map((message, index) => (
+          <p key={index} className="text-xs text-red-400">
+            {message}
+          </p>
+        ))}
 
         <p className="text-left ml-56 mt-2">매장 전화번호</p>
         <input
@@ -159,6 +190,11 @@ function ShopJoinForm({ shopId, handleDidSave }) {
           placeholder="숫자만 입력해주세요. 예)01022334567"
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
+        {ShopSavedErrorMessages.telephone?.map((message, index) => (
+          <p key={index} className="text-xs text-red-400">
+            {message}
+          </p>
+        ))}
 
         <p className="text-left ml-56 mt-2">영업 시간</p>
         <textarea
@@ -177,6 +213,7 @@ function ShopJoinForm({ shopId, handleDidSave }) {
           value={fieldValues.total_table_count}
           onChange={handleFieldChange}
           placeholder="10"
+          min={0}
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
 
@@ -187,15 +224,16 @@ function ShopJoinForm({ shopId, handleDidSave }) {
           value={fieldValues.now_table_count}
           onChange={handleFieldChange}
           placeholder="0"
+          min={0}
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
 
         <p className="text-left ml-56 mt-2">매장의 편의시설</p>
         <input
           type="checkbox"
-          // name="conv"
-          // checked={fieldValues.conv}
-          // onChange={handleFieldChange}
+          name="conv"
+          checked={fieldValues.conv}
+          onChange={handleFieldChange}
           className="mr-1"
         />
         <label className="mr-4">주차장 유무</label>
@@ -229,7 +267,7 @@ function ShopJoinForm({ shopId, handleDidSave }) {
         <p className="text-left ml-56 mt-2">매장 사진</p>
         <input
           type="file"
-          name="phote"
+          name="photo"
           onChange={handleFieldChange}
           accept=".png, .jpg, .jpeg"
           className="w-1/2 my-1 mx-2 p-2"
