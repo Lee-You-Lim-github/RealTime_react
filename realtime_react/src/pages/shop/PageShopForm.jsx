@@ -2,7 +2,7 @@ import "../../components//Header/TopNav.css";
 import ShopJoinForm from "components/accounts/ShopJoinForm";
 import { useNavigate, useParams } from "react-router-dom";
 
-function PageShopJoin() {
+function PageShopForm() {
   const { shopId } = useParams();
   const navigate = useNavigate();
 
@@ -16,4 +16,4 @@ function PageShopJoin() {
   );
 }
 
-export default PageShopJoin;
+export default PageShopForm;
