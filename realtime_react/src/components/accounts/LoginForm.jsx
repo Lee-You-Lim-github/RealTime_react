@@ -24,17 +24,22 @@ function LoginForm() {
     e.preventDefault();
 
     requestToken({ data: fieldValues }).then((response) => {
-      const { access, refresh, user_id, authority } = response.data;
+      const { access, refresh, id, user_id, nickname, authority } =
+        response.data;
       login({
         access,
         refresh,
+        id,
         user_id,
+        nickname,
         authority,
       });
 
       console.log("access :", access);
       console.log("refresh :", refresh);
+      console.log("id :", id);
       console.log("user_id :", user_id);
+      console.log("nickname :", nickname);
       console.log("authority :", authority);
 
       navigate("/");

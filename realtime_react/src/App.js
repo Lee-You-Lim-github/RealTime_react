@@ -18,6 +18,7 @@ function App() {
           <Route path="/accounts/login/" element={<PageLogin />} />
           <Route path="/account/shopjoin/" element={<PageShopJoin />} />
           <Route path="/account/userjoin/" element={<PageUserJoin />} />
+          <Route path="/mypage/" element={<PageShopJoin />} />
         </Routes>
       </div>
     </>
