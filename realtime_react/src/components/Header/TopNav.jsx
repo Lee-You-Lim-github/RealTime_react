@@ -1,8 +1,6 @@
 import { useAuth } from "contexts/AuthContext";
 import { NavLink } from "react-router-dom";
-import { useApiAxios } from "api/base";
 import "./TopNav.css";
-import { useEffect } from "react";
 
 function TopNav() {
   const [auth, , , logout] = useAuth();
@@ -28,7 +26,7 @@ function TopNav() {
             {auth.isLoggedIn && (
               <>
                 <MyLink to="/mypage/:userId/">{auth.nickname} 님</MyLink>
-                <MyLink to="/booking/">예약현황</MyLink>
+                <MyLink to="/booking/status/">예약현황</MyLink>
                 <button onClick={handleLogout} className={baseClassName}>
                   로그아웃
                 </button>

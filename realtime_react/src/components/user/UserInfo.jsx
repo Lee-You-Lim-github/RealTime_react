@@ -5,7 +5,8 @@ import { useEffect } from "react";
 
 function UserInfo({ userId }) {
   const [auth] = useAuth();
-  const [{ data, loading, error }] = useApiAxios(
+
+  const [{ data: userData, loading, error }, refetch] = useApiAxios(
     {
       url: `/accounts/api/users/${userId}/`,
       method: "GET",
@@ -16,19 +17,23 @@ function UserInfo({ userId }) {
     { manual: true }
   );
 
-  // useEffect(() => {
-  // refetch();
-  // }, []);
+  useEffect(() => {
+    refetch();
+  }, [userId]);
 
   return (
-    <>
-      <h3>마이페이지</h3>
-      <p>{data.user_id}</p>
-      <p>{data.username}</p>
-      <p>{data.nickname}</p>
-      <p>{data.telephone}</p>
+    <div>
+      {userData && (
+        <>
+          <h3>마이페이지</h3>
+          <p>{userData.user_id}</p>
+          <p>{userData.username}</p>
+          <p>{userData.nickname}</p>
+          <p>{userData.telephone}</p>
+        </>
+      )}
       <DebugStates loading={loading} error={error} />
-    </>
+    </div>
   );
 }
 
