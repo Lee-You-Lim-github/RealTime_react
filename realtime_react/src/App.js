@@ -5,6 +5,7 @@ import PageLogin from "pages/accounts/PageLogin";
 import PageUserJoin from "pages/accounts/PageUserJoin";
 import PageShopJoin from "pages/accounts/PageShopJoin";
 import PageIndex from "pages/PageIndex";
+import PageUserInfo from "pages/user/PageUserInfo";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
           <Route path="/accounts/login/" element={<PageLogin />} />
           <Route path="/account/shopjoin/" element={<PageShopJoin />} />
           <Route path="/account/userjoin/" element={<PageUserJoin />} />
-          <Route path="/mypage/" element={<PageShopJoin />} />
+          <Route path="/mypage/:userId/" element={<PageUserInfo />} />
         </Routes>
       </div>
     </>

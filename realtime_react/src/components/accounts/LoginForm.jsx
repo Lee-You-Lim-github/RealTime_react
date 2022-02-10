@@ -24,8 +24,15 @@ function LoginForm() {
     e.preventDefault();
 
     requestToken({ data: fieldValues }).then((response) => {
-      const { access, refresh, id, user_id, nickname, authority } =
-        response.data;
+      const {
+        access,
+        refresh,
+        id,
+        user_id,
+        nickname,
+        authority,
+        is_superuser,
+      } = response.data;
       login({
         access,
         refresh,
@@ -33,6 +40,7 @@ function LoginForm() {
         user_id,
         nickname,
         authority,
+        is_superuser,
       });
 
       console.log("access :", access);
@@ -41,6 +49,7 @@ function LoginForm() {
       console.log("user_id :", user_id);
       console.log("nickname :", nickname);
       console.log("authority :", authority);
+      console.log("is_superuser :", is_superuser);
 
       navigate("/");
     });
