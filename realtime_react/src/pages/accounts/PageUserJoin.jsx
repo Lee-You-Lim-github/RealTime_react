@@ -1,5 +1,5 @@
 import "../../components//Header/TopNav.css";
-import UserJoinForm from "components/accounts/ShopJoinForm";
+import UserJoinForm from "components/accounts/UserJoinForm";
 
 function PageUserJoin() {
   return (

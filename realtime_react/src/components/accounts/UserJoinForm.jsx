@@ -1,4 +1,5 @@
 import { useApiAxios } from "api/base";
+import DebugStates from "components/DebugStates";
 import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
 
@@ -57,6 +58,11 @@ function UserJoinForm() {
             placeholder="영문/숫자 혼합 3자 이상 입력해주세요."
             className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
           />
+          {errorMessages.user_id?.map((message, index) => (
+            <p key={index} className="text-xs text-red-400">
+              {message}
+            </p>
+          ))}
         </div>
 
         <p className="text-left ml-56">비밀번호</p>
@@ -69,6 +75,11 @@ function UserJoinForm() {
             placeholder="영문/숫자/특수문자 혼합 8자 이상 입력해주세요."
             className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
           />
+          {errorMessages.password?.map((message, index) => (
+            <p key={index} className="text-xs text-red-400">
+              {message}
+            </p>
+          ))}
         </div>
 
         <p className="text-left ml-56">비밀번호 확인</p>
@@ -81,6 +92,11 @@ function UserJoinForm() {
             placeholder="확인을 위해 동일한 비밀번호를 입력해주세요."
             className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
           />
+          {errorMessages.non_field_errors?.map((message, index) => (
+            <p key={index} className="text-xs text-red-400">
+              {message}
+            </p>
+          ))}
         </div>
 
         <p className="text-left ml-56">이름</p>
@@ -93,6 +109,11 @@ function UserJoinForm() {
             placeholder="이름을 입력해주세요."
             className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
           />
+          {errorMessages.username?.map((message, index) => (
+            <p key={index} className="text-xs text-red-400">
+              {message}
+            </p>
+          ))}
         </div>
 
         <p className="text-left ml-56">닉네임</p>
@@ -105,6 +126,11 @@ function UserJoinForm() {
             placeholder="한글 5자 이하로 입력해주세요."
             className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
           />
+          {errorMessages.nickname?.map((message, index) => (
+            <p key={index} className="text-xs text-red-400">
+              {message}
+            </p>
+          ))}
         </div>
 
         <p className="text-left ml-56">휴대폰 번호</p>
@@ -117,6 +143,11 @@ function UserJoinForm() {
             placeholder="숫자만 입력해주세요. 예)01022334567"
             className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
           />
+          {errorMessages.telephone?.map((message, index) => (
+            <p key={index} className="text-xs text-red-400">
+              {message}
+            </p>
+          ))}
         </div>
 
         <div>
@@ -130,6 +161,7 @@ function UserJoinForm() {
             취소
           </button>
         </div>
+        <DebugStates error={error} errorMessages={errorMessages} />
       </form>
     </div>
   );
