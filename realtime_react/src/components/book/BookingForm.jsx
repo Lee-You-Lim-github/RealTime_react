@@ -38,7 +38,7 @@ function BookingForm() {
       data: { ...fieldValues, user_id: auth.id, shop_id: shopId },
     }).then((response) => {
       const {} = response.data;
-      navigate("/book/");
+      navigate("/mybooking/");
     });
   };
 
