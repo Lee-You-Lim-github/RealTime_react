@@ -1,16 +1,21 @@
 import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
+import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const INIT_FIELD_VALUES = {
   day: "",
   time: "",
   book_table_count: "0",
+  visit_status: "0",
+  method: "0",
 };
 
 function BookingForm() {
   const navigate = useNavigate();
+  const [auth] = useAuth();
+  const { shopId } = useParams();
 
   const { fieldValues, handleFieldChange } = useFieldValues(INIT_FIELD_VALUES);
 
@@ -18,6 +23,9 @@ function BookingForm() {
     {
       url: "/booking/api/bookings/",
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
     },
     { manual: true }
   );
@@ -26,7 +34,9 @@ function BookingForm() {
     e.preventDefault();
     console.log("저장 성공");
 
-    requestBooking({ data: fieldValues }).then((response) => {
+    requestBooking({
+      data: { ...fieldValues, user_id: auth.id, shop_id: shopId },
+    }).then((response) => {
       const {} = response.data;
       navigate("/book/");
     });
