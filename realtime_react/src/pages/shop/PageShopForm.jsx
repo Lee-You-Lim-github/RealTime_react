@@ -1,5 +1,5 @@
 import "../../components//Header/TopNav.css";
-import ShopJoinForm from "components/accounts/ShopJoinForm";
+import ShopForm from "components/shop/ShopForm";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PageShopForm() {
@@ -8,10 +8,7 @@ function PageShopForm() {
 
   return (
     <div className="header">
-      <ShopJoinForm
-        shopId={shopId}
-        handleDidSave={(saveShop) => navigate(`#`)}
-      />
+      <ShopForm shopId={shopId} handleDidSave={(saveShop) => navigate(`#`)} />
     </div>
   );
 }

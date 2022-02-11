@@ -23,13 +23,13 @@ function App() {
         <Routes>
           <Route path="/accounts/login/" element={<PageLogin />} />
           <Route path="/account/userjoin/" element={<PageUserJoin />} />
+          <Route path="/shop/new/" element={<PageShopForm />} />
+          <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
           <Route path="/shop/:shopId/" element={<PageShopDetail />} />
+          <Route path="/shop/mystore/:shopId" element={<PageMyshop />} />
           <Route path="/shop/bookings/" element={<PageShopBooking />} />
           <Route path="/booking/" element={<PageBookingForm />} />
           <Route path="/mybooking/" element={<PageUserBooking />} />
-          <Route path="/mystore/:shopId" element={<PageMyshop />} />
-          <Route path="/mystore/new/" element={<PageShopForm />} />
-          <Route path="/mystore/:shopId/edit/" element={<PageShopForm />} />
           <Route path="/mypage/:userId" element={<PageUserInfo />} />
           <Route path="/mypage/:userId/edit/" element={<PageUserJoin />} />
         </Routes>

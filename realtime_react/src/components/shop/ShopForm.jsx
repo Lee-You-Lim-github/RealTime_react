@@ -2,7 +2,7 @@ import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const INIT_FIELD_VALUES = {
   shop_num: "",
@@ -13,17 +13,44 @@ const INIT_FIELD_VALUES = {
   long: 0,
   telephone: "",
   opening_hours: "",
-  now_table_count: 0,
   total_table_count: 0,
+  now_table_count: 0,
+  shop_convs: [
+    {
+      parking: false,
+      pet: false,
+      wifi: false,
+      pack: false,
+    },
+  ],
   notice: "",
   intro: "",
   photo: "",
   conv: "",
 };
 
-function ShopJoinForm({ shopId, handleDidSave }) {
+function ShopForm({ shopId, handleDidSave }) {
   const [auth] = useAuth();
 
+  // const [
+  //   {
+  //     data: shopData,
+  //     loading: shopLaoding,
+  //     error: shopError,
+  //     errorMessages: shopErrorMessages,
+  //   },
+  // ] = useApiAxios(
+  //   {
+  //     url: `/shop/api/shops/${shopId}/`,
+  //     method: "GET",
+  //     headers: {
+  //       Authorization: `Bearer ${auth.access}`,
+  //     },
+  //   },
+  //   { manual: !shopId }
+  // );
+
+  // 생성 및 수정 저장
   const [
     {
       laoding: shopFormLoading,
@@ -76,9 +103,32 @@ function ShopJoinForm({ shopId, handleDidSave }) {
     });
   };
 
+  // 체크박스 값 확인
+  const handleCheckd = (e) => {
+    console.log(e.target.checked);
+  };
+
+  // FK 값 확인
+  const [value, setValue] = useState({
+    test: [
+      {
+        test1: "",
+        test2: "",
+      },
+    ],
+  });
+
+  const hanleTest = (e) => {
+    const { name, value } = e.target;
+    console.log(name);
+    console.log(value);
+  };
+
   return (
     <div className="mt-2">
       <DebugStates
+        // shopData={shopData}
+        value={value}
         ShopSavedErrorMessages={ShopSavedErrorMessages}
         fieldValues={fieldValues}
         shopFormLoading={shopFormLoading}
@@ -86,6 +136,17 @@ function ShopJoinForm({ shopId, handleDidSave }) {
       />
       <form onSubmit={shopHandleSubmit}>
         <h2 className="text-2xl my-5"> 가맹점 가입</h2>
+        {/* {value.test.JSON.stringify()} */}
+
+        <p className="text-left ml-56">TEST</p>
+        <input
+          type="text"
+          name="test"
+          value={value}
+          onChange={(e) => hanleTest(e)}
+          placeholder="10자리 숫자로만 입력해주세요."
+          className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
+        />
 
         <p className="text-left ml-56">사업자등록번호</p>
         <input
@@ -228,21 +289,21 @@ function ShopJoinForm({ shopId, handleDidSave }) {
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
 
-        <p className="text-left ml-56 mt-2">매장의 편의시설</p>
+        <p className="text-left ml-56 mt-2">편의시설</p>
         <input
           type="checkbox"
-          name="conv"
-          checked={fieldValues.conv}
-          onChange={handleFieldChange}
+          name="parking"
+          checked={fieldValues.shop_convs.parking}
+          onChange={(e) => handleCheckd(e)}
           className="mr-1"
         />
         <label className="mr-4">주차장 유무</label>
-        <input type="checkbox" className="mr-1" />
+        {/* <input type="checkbox" className="mr-1" />
         <label className="mr-4">반려동물동반 가능</label>
         <input type="checkbox" className="mr-1" />
         <label className="mr-4">와이파이 유무</label>
         <input type="checkbox" className="mr-1" />
-        <label>포장 가능</label>
+        <label>포장 가능</label> */}
 
         <p className="text-left ml-56 mt-2">공지 사항</p>
         <textarea
@@ -288,4 +349,4 @@ function ShopJoinForm({ shopId, handleDidSave }) {
   );
 }
 
-export default ShopJoinForm;
+export default ShopForm;
