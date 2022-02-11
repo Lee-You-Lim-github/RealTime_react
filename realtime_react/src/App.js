@@ -29,9 +29,9 @@ function App() {
           <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
           <Route path="/shop/mystore/:shopId" element={<PageMyshop />} />
           <Route path="/shop/bookings/" element={<PageShopBooking />} />
-          <Route path="/mybooking/" element={<PageUserBooking />} />
-          <Route path="/mypage/:userId/" element={<PageUserInfo />} />
-          {/* <Route path="/mypage/:userId/edit/" element={<PageUserJoin />} /> */}
+          <Route path="/user/mypage/:userId/" element={<PageUserInfo />} />
+          <Route path="/user/mypage/:userId/edit/" element={<PageUserJoin />} />
+          <Route path="/user/bookings/" element={<PageUserBooking />} />
         </Routes>
       </div>
     </>
