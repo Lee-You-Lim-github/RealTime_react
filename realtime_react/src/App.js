@@ -30,8 +30,8 @@ function App() {
           <Route path="/shop/bookings/" element={<PageShopBooking />} />
           <Route path="/booking/" element={<PageBookingForm />} />
           <Route path="/mybooking/" element={<PageUserBooking />} />
-          <Route path="/mypage/:userId" element={<PageUserInfo />} />
-          <Route path="/mypage/:userId/edit/" element={<PageUserJoin />} />
+          <Route path="/mypage/:userId/" element={<PageUserInfo />} />
+          {/* <Route path="/mypage/:userId/edit/" element={<PageUserJoin />} /> */}
         </Routes>
       </div>
     </>

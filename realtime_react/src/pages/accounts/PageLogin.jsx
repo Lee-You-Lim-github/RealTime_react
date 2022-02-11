@@ -1,10 +1,9 @@
-import "../../components//Header/TopNav.css";
 import LoginForm from "components/accounts/LoginForm";
 import { Link } from "react-router-dom";
 
 function PageLogin() {
   return (
-    <div className="header">
+    <div>
       <LoginForm />
       <div>
         <Link

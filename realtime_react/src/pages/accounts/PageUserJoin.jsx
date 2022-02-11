@@ -1,10 +1,17 @@
-import "../../components//Header/TopNav.css";
 import UserJoinForm from "components/accounts/UserJoinForm";
+import { useNavigate, useParams } from "react-router-dom";
 
 function PageUserJoin() {
+  const navigate = useNavigate();
+
+  const { userId } = useParams();
+
   return (
-    <div className="header">
-      <UserJoinForm />
+    <div>
+      <UserJoinForm
+        userId={userId}
+        handleDidSave={(savedUser) => navigate(`/news/${savedUser.id}/`)}
+      />
     </div>
   );
 }
