@@ -25,8 +25,8 @@ function TopNav() {
             )}
             {auth.isLoggedIn && (
               <>
-                <MyLink to="/mypage/:userId/">{auth.nickname} 님</MyLink>
-                <MyLink to="/mybooking/">예약현황</MyLink>
+                <MyLink to="/user/mypage/:userId/">{auth.nickname} 님</MyLink>
+                <MyLink to="/user/bookings/">예약현황</MyLink>
                 <button onClick={handleLogout} className={baseClassName}>
                   로그아웃
                 </button>
