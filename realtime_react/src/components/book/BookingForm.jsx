@@ -16,7 +16,7 @@ function BookingForm() {
 
   const [{ loading, error, errorMessages }, requestBooking] = useApiAxios(
     {
-      url: "/book/api/booking/",
+      url: "/booking/api/bookings/",
       method: "POST",
     },
     { manual: true }
@@ -24,6 +24,7 @@ function BookingForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("저장 성공");
 
     requestBooking({ data: fieldValues }).then((response) => {
       const {} = response.data;
@@ -55,6 +56,7 @@ function BookingForm() {
           <input
             type="time"
             name="time"
+            step="3600"
             value={fieldValues.time}
             onChange={handleFieldChange}
           />
@@ -68,6 +70,7 @@ function BookingForm() {
           value={fieldValues.book_table_count}
           onChange={handleFieldChange}
           placeholder="0"
+          min="0"
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
 
