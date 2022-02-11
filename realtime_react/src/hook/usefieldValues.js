@@ -6,6 +6,8 @@ function useFieldValues(initialValues) {
   const handleFieldChange = useCallback((e) => {
     const { type, name, value, files, checked } = e.target;
 
+    console.log(checked);
+
     let newValue;
 
     if (type === "file") {

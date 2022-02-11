@@ -15,31 +15,34 @@ const INIT_FIELD_VALUES = {
   opening_hours: "",
   total_table_count: 0,
   now_table_count: 0,
-  shop_convs: [],
+  // conv_parking: false,
+  // conv_pet: false,
+  // conv_wifi: false,
+  // conv_pack: false,
   notice: "",
   intro: "",
   photo: "",
 };
 
-const INTI_TEST_VALUE = {
-  parking: false,
-  pet: false,
-  wifi: false,
-  pack: false,
+const INTI_CONV_VALUE = {
+  conv_parking: false,
+  conv_pet: false,
+  conv_wifi: false,
+  pacconv_packk: false,
 };
 
 function ShopForm({ shopId, handleDidSave }) {
   const [auth] = useAuth();
 
-  const [checkValue, setCheckValue] = useState(INTI_TEST_VALUE);
-
   const { fieldValues, handleFieldChange, setFieldValues } =
     useFieldValues(INIT_FIELD_VALUES);
+
+  const [checkValue, setCheckValue] = useState(INTI_CONV_VALUE);
 
   const handleCheckd = (e) => {
     // setCheckOn((prev) => !prev);
     console.log(e.target.checked);
-    const { type, name, value, files, checked } = e.target;
+    const { name, checked } = e.target;
     setCheckValue((prevCheckdValue) => {
       return {
         ...prevCheckdValue,
@@ -67,30 +70,10 @@ function ShopForm({ shopId, handleDidSave }) {
     { manual: true }
   );
 
-  // 테스트
-  const [{ data: convData }, convfetch] = useApiAxios(
-    {
-      url: `shop/api/convs/`,
-      method: "GET",
-    },
-    {
-      manual: true,
-    }
-  );
-
-  useEffect(() => {
-    convfetch();
-  }, []);
-
   // 값 저장 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   const shopHandleSubmit = (e) => {
     e.preventDefault();
-    console.log("저장 성공!!");
-
-    const shop_convs_array = JSON.stringify([checkValue]);
-
-    console.log(shop_convs_array);
 
     const formData = new FormData();
     Object.entries(fieldValues).forEach(([name, value]) => {
@@ -102,10 +85,14 @@ function ShopForm({ shopId, handleDidSave }) {
       }
     });
     formData.append("user_id", auth.id);
-    formData.append("shop_convs", shop_convs_array);
+    formData.append("conv_parking", checkValue.conv_parking);
+    formData.append("conv_pet", checkValue.conv_pet);
+    formData.append("conv_wifi", checkValue.conv_wifi);
+    formData.append("pacconv_packk", checkValue.pacconv_packk);
 
     console.log(formData);
 
+    console.log("저장 성공!!");
     saveShopRequest({
       data: formData,
     }).then((response) => {
@@ -121,7 +108,6 @@ function ShopForm({ shopId, handleDidSave }) {
       <DebugStates
         // shopData={shopData}
         // value={value}
-        convData={convData}
         checkdValue={checkValue}
         ShopSavedErrorMessages={ShopSavedErrorMessages}
         fieldValues={fieldValues}
@@ -131,23 +117,11 @@ function ShopForm({ shopId, handleDidSave }) {
       <form onSubmit={shopHandleSubmit}>
         <h2 className="text-2xl my-5"> 가맹점 가입</h2>
 
-        {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   */}
-        {/* {JSON.stringify(value.test)}
-
-        <p className="text-left ml-56">TEST</p>
-        <input
-          type="text"
-          name="test"
-          value={value}
-          onChange={(e) => handleTest(e)}
-          placeholder="10자리 숫자로만 입력해주세요."
-          className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-        /> */}
         {/* checkbox ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ checkbox  */}
         <input
           type="checkbox"
-          name="parking"
-          checked={checkValue["parking"] ? true : false}
+          name="conv_parking"
+          checked={checkValue.conv_parking ? true : false}
           onChange={handleCheckd}
           className="mr-1"
         />
@@ -155,24 +129,24 @@ function ShopForm({ shopId, handleDidSave }) {
 
         <input
           type="checkbox"
-          name="pet"
-          checked={checkValue["pet"] ? true : false}
+          name="conv_pet"
+          checked={checkValue.conv_pet ? true : false}
           onChange={handleCheckd}
           className="mr-1"
         />
         <label className="mr-4">반려동물동반 가능</label>
         <input
           type="checkbox"
-          name="wifi"
-          checked={checkValue["wifi"] ? true : false}
+          name="conv_wifi"
+          checked={checkValue.conv_wifi ? true : false}
           onChange={handleCheckd}
           className="mr-1"
         />
         <label className="mr-4">와이파이 유무</label>
         <input
           type="checkbox"
-          name="pack"
-          checked={checkValue["pack"] ? true : false}
+          name="conv_pack"
+          checked={checkValue.conv_pack ? true : false}
           onChange={handleCheckd}
           className="mr-1"
         />
