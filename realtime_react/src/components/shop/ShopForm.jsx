@@ -15,42 +15,40 @@ const INIT_FIELD_VALUES = {
   opening_hours: "",
   total_table_count: 0,
   now_table_count: 0,
-  shop_convs: [
-    {
-      parking: false,
-      pet: false,
-      wifi: false,
-      pack: false,
-    },
-  ],
+  shop_convs: [],
   notice: "",
   intro: "",
   photo: "",
-  conv: "",
+};
+
+const INTI_TEST_VALUE = {
+  parking: false,
+  pet: false,
+  wifi: false,
+  pack: false,
 };
 
 function ShopForm({ shopId, handleDidSave }) {
   const [auth] = useAuth();
 
-  // const [
-  //   {
-  //     data: shopData,
-  //     loading: shopLaoding,
-  //     error: shopError,
-  //     errorMessages: shopErrorMessages,
-  //   },
-  // ] = useApiAxios(
-  //   {
-  //     url: `/shop/api/shops/${shopId}/`,
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer ${auth.access}`,
-  //     },
-  //   },
-  //   { manual: !shopId }
-  // );
+  const [checkValue, setCheckValue] = useState(INTI_TEST_VALUE);
 
-  // 생성 및 수정 저장
+  const { fieldValues, handleFieldChange, setFieldValues } =
+    useFieldValues(INIT_FIELD_VALUES);
+
+  const handleCheckd = (e) => {
+    // setCheckOn((prev) => !prev);
+    console.log(e.target.checked);
+    const { type, name, value, files, checked } = e.target;
+    setCheckValue((prevCheckdValue) => {
+      return {
+        ...prevCheckdValue,
+        [name]: checked,
+      };
+    });
+  };
+
+  // 생성 및 수정 저장 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   const [
     {
       laoding: shopFormLoading,
@@ -69,20 +67,30 @@ function ShopForm({ shopId, handleDidSave }) {
     { manual: true }
   );
 
-  const { fieldValues, handleFieldChange, setFieldValues } =
-    useFieldValues(INIT_FIELD_VALUES);
+  // 테스트
+  const [{ data: convData }, convfetch] = useApiAxios(
+    {
+      url: `shop/api/convs/`,
+      method: "GET",
+    },
+    {
+      manual: true,
+    }
+  );
 
-  // useEffect(() => {
-  //   setFieldValues(
-  //     produce((draft) => {
-  //       draft.photo = "";
-  //     })
-  //   );
-  // }, []);
+  useEffect(() => {
+    convfetch();
+  }, []);
+
+  // 값 저장 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   const shopHandleSubmit = (e) => {
     e.preventDefault();
     console.log("저장 성공!!");
+
+    const shop_convs_array = JSON.stringify([checkValue]);
+
+    console.log(shop_convs_array);
 
     const formData = new FormData();
     Object.entries(fieldValues).forEach(([name, value]) => {
@@ -92,8 +100,11 @@ function ShopForm({ shopId, handleDidSave }) {
       } else {
         formData.append(name, value);
       }
-      formData.append("user_id", auth.id);
     });
+    formData.append("user_id", auth.id);
+    formData.append("shop_convs", shop_convs_array);
+
+    console.log(formData);
 
     saveShopRequest({
       data: formData,
@@ -103,32 +114,15 @@ function ShopForm({ shopId, handleDidSave }) {
     });
   };
 
-  // 체크박스 값 확인
-  const handleCheckd = (e) => {
-    console.log(e.target.checked);
-  };
-
-  // FK 값 확인
-  const [value, setValue] = useState({
-    test: [
-      {
-        test1: "",
-        test2: "",
-      },
-    ],
-  });
-
-  const hanleTest = (e) => {
-    const { name, value } = e.target;
-    console.log(name);
-    console.log(value);
-  };
+  // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   return (
     <div className="mt-2">
       <DebugStates
         // shopData={shopData}
-        value={value}
+        // value={value}
+        convData={convData}
+        checkdValue={checkValue}
         ShopSavedErrorMessages={ShopSavedErrorMessages}
         fieldValues={fieldValues}
         shopFormLoading={shopFormLoading}
@@ -136,17 +130,55 @@ function ShopForm({ shopId, handleDidSave }) {
       />
       <form onSubmit={shopHandleSubmit}>
         <h2 className="text-2xl my-5"> 가맹점 가입</h2>
-        {/* {value.test.JSON.stringify()} */}
+
+        {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ   */}
+        {/* {JSON.stringify(value.test)}
 
         <p className="text-left ml-56">TEST</p>
         <input
           type="text"
           name="test"
           value={value}
-          onChange={(e) => hanleTest(e)}
+          onChange={(e) => handleTest(e)}
           placeholder="10자리 숫자로만 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
+        /> */}
+        {/* checkbox ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ checkbox  */}
+        <input
+          type="checkbox"
+          name="parking"
+          checked={checkValue["parking"] ? true : false}
+          onChange={handleCheckd}
+          className="mr-1"
         />
+        <label className="mr-4">주차장 유무</label>
+
+        <input
+          type="checkbox"
+          name="pet"
+          checked={checkValue["pet"] ? true : false}
+          onChange={handleCheckd}
+          className="mr-1"
+        />
+        <label className="mr-4">반려동물동반 가능</label>
+        <input
+          type="checkbox"
+          name="wifi"
+          checked={checkValue["wifi"] ? true : false}
+          onChange={handleCheckd}
+          className="mr-1"
+        />
+        <label className="mr-4">와이파이 유무</label>
+        <input
+          type="checkbox"
+          name="pack"
+          checked={checkValue["pack"] ? true : false}
+          onChange={handleCheckd}
+          className="mr-1"
+        />
+        <label>포장 가능</label>
+        {/* checkbox ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ checkbox  */}
+        <hr />
 
         <p className="text-left ml-56">사업자등록번호</p>
         <input
@@ -290,13 +322,13 @@ function ShopForm({ shopId, handleDidSave }) {
         />
 
         <p className="text-left ml-56 mt-2">편의시설</p>
-        <input
+        {/* <input
           type="checkbox"
-          name="parking"
-          checked={fieldValues.shop_convs.parking}
-          onChange={(e) => handleCheckd(e)}
+          name="shop_convs.parking"
+          checked={fieldValues.shop_convs[0].parking}
+          onChange={handleFieldChange}
           className="mr-1"
-        />
+        /> */}
         <label className="mr-4">주차장 유무</label>
         {/* <input type="checkbox" className="mr-1" />
         <label className="mr-4">반려동물동반 가능</label>

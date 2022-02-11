@@ -4,11 +4,22 @@ function useFieldValues(initialValues) {
   const [fieldValues, setFieldValues] = useState(initialValues);
 
   const handleFieldChange = useCallback((e) => {
-    const { name, value, files } = e.target;
+    const { type, name, value, files, checked } = e.target;
+
+    let newValue;
+
+    if (type === "file") {
+      newValue = Array.from(files);
+    } else if (type === "ckeckbox") {
+      newValue = checked;
+    } else {
+      newValue = value;
+    }
+
     setFieldValues((prevFieldValues) => {
       return {
         ...prevFieldValues,
-        [name]: (files && Array.from(files)) || value,
+        [name]: newValue,
       };
     });
   }, []);
