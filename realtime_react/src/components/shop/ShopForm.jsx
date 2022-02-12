@@ -4,6 +4,8 @@ import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useEffect, useState } from "react";
 import produce from "immer";
+import { useNavigate } from "react-router-dom";
+// import NumericInput from "react-numeric-input";
 
 const INIT_FIELD_VALUES = {
   shop_num: "",
@@ -27,6 +29,7 @@ const INIT_FIELD_VALUES = {
 
 function ShopForm({ shopId, handleDidSave }) {
   const [auth] = useAuth();
+  const navigate = useNavigate();
 
   // shop/api/100 조회
   const [{ data: getShopData, laoding: getShopLaoding, error: getShopError }] =
@@ -104,9 +107,9 @@ function ShopForm({ shopId, handleDidSave }) {
   return (
     <div className="mt-2">
       <DebugStates
-        getShopData={getShopData}
-        ShopSavedErrorMessages={ShopSavedErrorMessages}
         fieldValues={fieldValues}
+        // getShopData={getShopData}
+        ShopSavedErrorMessages={ShopSavedErrorMessages}
         shopFormLoading={shopFormLoading}
         shopFormError={shopFormError}
       />
@@ -180,14 +183,24 @@ function ShopForm({ shopId, handleDidSave }) {
             {message}
           </p>
         ))}
-
+        {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
         <p className="text-left ml-56 mt-2">위도</p>
+        {/* <NumericInput
+          name="lat"
+          value={fieldValues.lat}
+          min={0}
+          step={0.1}
+          precision={5}
+          onChange={handleFieldChange}
+        /> */}
         <input
           type="number"
           name="lat"
           value={fieldValues.lat}
           onChange={handleFieldChange}
           placeholder="위도를 입력해주세요. 예) 127.00000"
+          step="0.00001"
+          min="0"
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
         {ShopSavedErrorMessages.lat?.map((message, index) => (
@@ -203,6 +216,8 @@ function ShopForm({ shopId, handleDidSave }) {
           value={fieldValues.long}
           onChange={handleFieldChange}
           placeholder="경도를 입력해주세요. 예) 36.00000"
+          step="0.00001"
+          min="0"
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
         {ShopSavedErrorMessages.long?.map((message, index) => (
@@ -210,6 +225,7 @@ function ShopForm({ shopId, handleDidSave }) {
             {message}
           </p>
         ))}
+        {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
 
         <p className="text-left ml-56 mt-2">매장 전화번호</p>
         <input
@@ -264,7 +280,7 @@ function ShopForm({ shopId, handleDidSave }) {
           name="conv_parking"
           checked={fieldValues.conv_parking ? true : false}
           onChange={handleFieldChange}
-          className="mr-1"
+          className="mr-1 accent-pink-500"
         />
         <label className="mr-4">주차장 유무</label>
 
@@ -273,7 +289,7 @@ function ShopForm({ shopId, handleDidSave }) {
           name="conv_pet"
           checked={fieldValues.conv_pet ? true : false}
           onChange={handleFieldChange}
-          className="mr-1"
+          className="mr-1 accent-pink-500"
         />
         <label className="mr-4">반려동물동반 가능</label>
         <input
@@ -281,7 +297,7 @@ function ShopForm({ shopId, handleDidSave }) {
           name="conv_wifi"
           checked={fieldValues.conv_wifi ? true : false}
           onChange={handleFieldChange}
-          className="mr-1"
+          className="mr-1 accent-pink-500"
         />
         <label className="mr-4">와이파이 유무</label>
         <input
@@ -289,7 +305,7 @@ function ShopForm({ shopId, handleDidSave }) {
           name="conv_pack"
           checked={fieldValues.conv_pack ? true : false}
           onChange={handleFieldChange}
-          className="mr-1"
+          className="mr-1 accent-pink-500"
         />
         <label>포장 가능</label>
 
@@ -323,15 +339,27 @@ function ShopForm({ shopId, handleDidSave }) {
         />
 
         <div>
-          <button className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2">
-            등록
-          </button>
+          {!shopId ? (
+            <button className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2">
+              등록
+            </button>
+          ) : (
+            <button className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2">
+              수정
+            </button>
+          )}
         </div>
       </form>
       <div>
-        <button className="bg-slate-300 w-1/2 rounded my-1 mx-2 mb-5 p-2">
-          취소
-        </button>
+        {!shopId ? (
+          <button className="bg-slate-300 w-1/2 rounded my-1 mx-2 mb-5 p-2">
+            취소
+          </button>
+        ) : (
+          <button className="bg-slate-300 w-1/2 rounded my-1 mx-2 mb-5 p-2">
+            취소
+          </button>
+        )}
       </div>
     </div>
   );
