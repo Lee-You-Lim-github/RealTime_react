@@ -10,7 +10,7 @@ function PageShopForm() {
     <div className="header">
       <ShopForm
         shopId={shopId}
-        handleDidSave={(saveShop) => navigate("/shop/:shopId/")}
+        handleDidSave={(saveShop) => navigate(`/shop/myshop/${saveShop.id}/`)}
       />
     </div>
   );

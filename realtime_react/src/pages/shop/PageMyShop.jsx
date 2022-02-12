@@ -1,9 +1,9 @@
-import Myshop from "components/shop/MyShop";
+import MyShop from "components/shop/MyShop";
 
 function PageMyshop() {
   return (
     <div>
-      <Myshop />
+      <MyShop />
     </div>
   );
 }

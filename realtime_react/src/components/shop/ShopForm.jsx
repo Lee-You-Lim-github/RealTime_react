@@ -3,11 +3,12 @@ import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useEffect, useState } from "react";
+import produce from "immer";
 
 const INIT_FIELD_VALUES = {
   shop_num: "",
   name: "",
-  category: "",
+  category: "한식",
   address: "",
   lat: 0,
   long: 0,
@@ -15,41 +16,42 @@ const INIT_FIELD_VALUES = {
   opening_hours: "",
   total_table_count: 0,
   now_table_count: 0,
-  // conv_parking: false,
-  // conv_pet: false,
-  // conv_wifi: false,
-  // conv_pack: false,
+  conv_parking: false,
+  conv_pet: false,
+  conv_wifi: false,
+  conv_pack: false,
   notice: "",
   intro: "",
   photo: "",
 };
 
-const INTI_CONV_VALUE = {
-  conv_parking: false,
-  conv_pet: false,
-  conv_wifi: false,
-  pacconv_packk: false,
-};
-
 function ShopForm({ shopId, handleDidSave }) {
   const [auth] = useAuth();
 
-  const { fieldValues, handleFieldChange, setFieldValues } =
-    useFieldValues(INIT_FIELD_VALUES);
+  // shop/api/100 조회
+  const [{ data: getShopData, laoding: getShopLaoding, error: getShopError }] =
+    useApiAxios(
+      {
+        url: `/shop/api/shops/${shopId}/`,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
+      },
+      { manual: !shopId }
+    );
 
-  const [checkValue, setCheckValue] = useState(INTI_CONV_VALUE);
+  const { fieldValues, handleFieldChange, setFieldValues } = useFieldValues(
+    getShopData || INIT_FIELD_VALUES
+  );
 
-  const handleCheckd = (e) => {
-    // setCheckOn((prev) => !prev);
-    console.log(e.target.checked);
-    const { name, checked } = e.target;
-    setCheckValue((prevCheckdValue) => {
-      return {
-        ...prevCheckdValue,
-        [name]: checked,
-      };
-    });
-  };
+  useEffect(() => {
+    setFieldValues(
+      produce((draft) => {
+        draft.photo = "";
+      })
+    );
+  }, [getShopData]);
 
   // 생성 및 수정 저장 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
   const [
@@ -61,8 +63,8 @@ function ShopForm({ shopId, handleDidSave }) {
     saveShopRequest,
   ] = useApiAxios(
     {
-      url: "/shop/api/shops/",
-      method: "POST",
+      url: !shopId ? "/shop/api/shops/" : `/shop/api/shops/${shopId}/`,
+      method: !shopId ? "POST" : "PUT",
       headers: {
         Authorization: `Bearer ${auth.access}`,
       },
@@ -85,10 +87,6 @@ function ShopForm({ shopId, handleDidSave }) {
       }
     });
     formData.append("user_id", auth.id);
-    formData.append("conv_parking", checkValue.conv_parking);
-    formData.append("conv_pet", checkValue.conv_pet);
-    formData.append("conv_wifi", checkValue.conv_wifi);
-    formData.append("pacconv_packk", checkValue.pacconv_packk);
 
     console.log(formData);
 
@@ -106,54 +104,19 @@ function ShopForm({ shopId, handleDidSave }) {
   return (
     <div className="mt-2">
       <DebugStates
-        // shopData={shopData}
-        // value={value}
-        checkdValue={checkValue}
+        getShopData={getShopData}
         ShopSavedErrorMessages={ShopSavedErrorMessages}
         fieldValues={fieldValues}
         shopFormLoading={shopFormLoading}
         shopFormError={shopFormError}
       />
-      <form onSubmit={shopHandleSubmit}>
+
+      {!shopId ? (
         <h2 className="text-2xl my-5"> 가맹점 가입</h2>
-
-        {/* checkbox ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ checkbox  */}
-        <input
-          type="checkbox"
-          name="conv_parking"
-          checked={checkValue.conv_parking ? true : false}
-          onChange={handleCheckd}
-          className="mr-1"
-        />
-        <label className="mr-4">주차장 유무</label>
-
-        <input
-          type="checkbox"
-          name="conv_pet"
-          checked={checkValue.conv_pet ? true : false}
-          onChange={handleCheckd}
-          className="mr-1"
-        />
-        <label className="mr-4">반려동물동반 가능</label>
-        <input
-          type="checkbox"
-          name="conv_wifi"
-          checked={checkValue.conv_wifi ? true : false}
-          onChange={handleCheckd}
-          className="mr-1"
-        />
-        <label className="mr-4">와이파이 유무</label>
-        <input
-          type="checkbox"
-          name="conv_pack"
-          checked={checkValue.conv_pack ? true : false}
-          onChange={handleCheckd}
-          className="mr-1"
-        />
-        <label>포장 가능</label>
-        {/* checkbox ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ checkbox  */}
-        <hr />
-
+      ) : (
+        <h2 className="text-2xl my-5"> 매장 정보 수정</h2>
+      )}
+      <form onSubmit={shopHandleSubmit}>
         <p className="text-left ml-56">사업자등록번호</p>
         <input
           type="text"
@@ -296,20 +259,39 @@ function ShopForm({ shopId, handleDidSave }) {
         />
 
         <p className="text-left ml-56 mt-2">편의시설</p>
-        {/* <input
+        <input
           type="checkbox"
-          name="shop_convs.parking"
-          checked={fieldValues.shop_convs[0].parking}
+          name="conv_parking"
+          checked={fieldValues.conv_parking ? true : false}
           onChange={handleFieldChange}
           className="mr-1"
-        /> */}
+        />
         <label className="mr-4">주차장 유무</label>
-        {/* <input type="checkbox" className="mr-1" />
+
+        <input
+          type="checkbox"
+          name="conv_pet"
+          checked={fieldValues.conv_pet ? true : false}
+          onChange={handleFieldChange}
+          className="mr-1"
+        />
         <label className="mr-4">반려동물동반 가능</label>
-        <input type="checkbox" className="mr-1" />
+        <input
+          type="checkbox"
+          name="conv_wifi"
+          checked={fieldValues.conv_wifi ? true : false}
+          onChange={handleFieldChange}
+          className="mr-1"
+        />
         <label className="mr-4">와이파이 유무</label>
-        <input type="checkbox" className="mr-1" />
-        <label>포장 가능</label> */}
+        <input
+          type="checkbox"
+          name="conv_pack"
+          checked={fieldValues.conv_pack ? true : false}
+          onChange={handleFieldChange}
+          className="mr-1"
+        />
+        <label>포장 가능</label>
 
         <p className="text-left ml-56 mt-2">공지 사항</p>
         <textarea

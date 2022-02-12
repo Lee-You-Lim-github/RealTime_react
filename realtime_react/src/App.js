@@ -7,7 +7,7 @@ import PageShopForm from "pages/shop/PageShopForm";
 import PageIndex from "pages/PageIndex";
 import PageUserInfo from "pages/user/PageUserInfo";
 import PageBookingForm from "pages/book/PageBookingForm";
-import PageMyshop from "pages/shop/PageMyShop";
+import PageMyShop from "pages/shop/PageMyShop";
 import PageShopDetail from "pages/shop/PageShopDetail";
 import PageShopBooking from "pages/shop/PageShopBooking";
 import PageUserBooking from "pages/user/PageUserBooking";
@@ -27,7 +27,7 @@ function App() {
           <Route path="/shop/new/" element={<PageShopForm />} />
           <Route path="/shop/:shopId/" element={<PageShopDetail />} />
           <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
-          <Route path="/shop/mystore/:shopId" element={<PageMyshop />} />
+          <Route path="/shop/myshop/:shopId" element={<PageMyShop />} />
           <Route path="/shop/bookings/" element={<PageShopBooking />} />
           <Route path="/user/mypage/:userId/" element={<PageUserInfo />} />
           <Route path="/user/mypage/:userId/edit/" element={<PageUserJoin />} />
