@@ -33,8 +33,8 @@ function Myshop({ shopId }) {
             <div className="max-w-md mx-auto">
               <div></div>
               <div className="divide-y divide-gray-200">
-                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                  <h2>마이스토어</h2>
+                <div className="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
+                  <h2 className="text-3xl my-5">마이스토어</h2>
                   {myShopData && (
                     <ul className="list-disc space-y-2">
                       <li className="flex items-start">
