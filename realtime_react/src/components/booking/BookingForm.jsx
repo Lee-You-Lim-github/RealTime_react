@@ -2,7 +2,7 @@ import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const INIT_FIELD_VALUES = {
   day: "",
@@ -12,10 +12,9 @@ const INIT_FIELD_VALUES = {
   method: "0",
 };
 
-function BookingForm() {
+function BookingForm({ shopId, handleDidSave }) {
   const navigate = useNavigate();
   const [auth] = useAuth();
-  const { shopId } = useParams();
 
   const { fieldValues, handleFieldChange } = useFieldValues(INIT_FIELD_VALUES);
 
@@ -35,10 +34,10 @@ function BookingForm() {
     console.log("저장 성공");
 
     requestBooking({
-      data: { ...fieldValues, user_id: auth.id, shop_id: shopId },
+      data: { ...fieldValues, user_id: auth.id, shop_id: 3 },
     }).then((response) => {
-      const {} = response.data;
-      navigate("/mybooking/");
+      const saveBooking = response.data;
+      if (handleDidSave) handleDidSave(saveBooking);
     });
   };
 
