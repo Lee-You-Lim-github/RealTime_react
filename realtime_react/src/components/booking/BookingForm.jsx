@@ -20,7 +20,7 @@ function BookingForm({ shopId, handleDidSave }) {
 
   const [{ loading, error, errorMessages }, requestBooking] = useApiAxios(
     {
-      url: "/booking/api/bookings/",
+      url: "/booking/api/newbooking/",
       method: "POST",
       headers: {
         Authorization: `Bearer ${auth.access}`,
