@@ -2,11 +2,12 @@ import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import "./TopNav.css";
 
 function TopNav() {
   const [auth, , , logout] = useAuth();
+  const navigate = useNavigate();
 
   const authority_topnavi = (a) => {
     if (auth.authority === "0") {
@@ -33,11 +34,11 @@ function TopNav() {
 
   const handleLogout = () => {
     logout();
+    navigate("/");
   };
 
   return (
     <div className="bg-red-200">
-      <DebugStates data={data} />
       <div className="header">
         <div className="flex place-content-between gap-3 border-b-4 border-red-300">
           <NavLink to="/" className="px-4 py-3 mt-2 text-4xl">
@@ -50,6 +51,7 @@ function TopNav() {
                 <MyLink to="/accounts/login/">로그인</MyLink>
               </>
             )}
+            {/* 유저만 보이는 TopNavi */}
             {auth.isLoggedIn && authority_topnavi(auth.authority) && (
               <>
                 <MyLink to={`/user/mypage/${data?.id}/`}>
@@ -61,14 +63,13 @@ function TopNav() {
                 </button>
               </>
             )}
+            {/* 매장만 보이는 TopNavi */}
             {auth.isLoggedIn && !authority_topnavi(auth.authority) && (
               <>
                 <MyLink to={`/user/mypage/${data?.id}/`}>
                   {auth.nickname} 님
                 </MyLink>
-                <MyLink to={`/shop/bookings/${data?.shop_set[0]}/`}>
-                  매장 예약현황
-                </MyLink>
+                <MyLink to={`/shop/bookings/`}>매장 예약현황</MyLink>
                 <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
                   마이스토어
                 </MyLink>
