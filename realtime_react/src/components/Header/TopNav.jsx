@@ -55,7 +55,7 @@ function TopNav() {
                 <MyLink to={`/user/mypage/${data?.id}/`}>
                   {auth.nickname} 님
                 </MyLink>
-                <MyLink to="/user/bookings/">예약현황</MyLink>
+                <MyLink to={`/user/bookings/${data?.id}`}>예약현황</MyLink>
                 <button onClick={handleLogout} className={baseClassName}>
                   로그아웃
                 </button>
@@ -66,7 +66,9 @@ function TopNav() {
                 <MyLink to={`/user/mypage/${data?.id}/`}>
                   {auth.nickname} 님
                 </MyLink>
-                <MyLink to="/shop/bookings/">매장 예약현황</MyLink>
+                <MyLink to={`/shop/bookings/${data?.shop_set[0]}/`}>
+                  매장 예약현황
+                </MyLink>
                 <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
                   마이스토어
                 </MyLink>
