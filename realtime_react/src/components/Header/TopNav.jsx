@@ -1,4 +1,7 @@
+import { useApiAxios } from "api/base";
+import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
+import { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./TopNav.css";
 
@@ -13,12 +16,28 @@ function TopNav() {
     }
   };
 
+  const [{ data, loading, error }, refetch] = useApiAxios(
+    {
+      url: `/accounts/api/users/${auth.id}/`,
+      method: "GET",
+      Headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  useEffect(() => {
+    refetch().then((response) => console.log(response.data));
+  }, [auth.id]);
+
   const handleLogout = () => {
     logout();
   };
 
   return (
     <div className="bg-red-200">
+      <DebugStates data={data} />
       <div className="header">
         <div className="flex place-content-between gap-3 border-b-4 border-red-300">
           <NavLink to="/" className="px-4 py-3 mt-2 text-4xl">
@@ -33,7 +52,9 @@ function TopNav() {
             )}
             {auth.isLoggedIn && authority_topnavi(auth.authority) && (
               <>
-                <MyLink to="/user/mypage/:userId/">{auth.nickname} 님</MyLink>
+                <MyLink to={`/user/mypage/${data?.id}/`}>
+                  {auth.nickname} 님
+                </MyLink>
                 <MyLink to="/user/bookings/">예약현황</MyLink>
                 <button onClick={handleLogout} className={baseClassName}>
                   로그아웃
@@ -42,9 +63,13 @@ function TopNav() {
             )}
             {auth.isLoggedIn && !authority_topnavi(auth.authority) && (
               <>
-                <MyLink to="/user/mypage/:userId/">{auth.nickname} 님</MyLink>
+                <MyLink to={`/user/mypage/${data?.id}/`}>
+                  {auth.nickname} 님
+                </MyLink>
                 <MyLink to="/shop/bookings/">매장 예약현황</MyLink>
-                <MyLink to="/shop/myshop/:shopId">마이스토어</MyLink>
+                <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
+                  마이스토어
+                </MyLink>
                 <button onClick={handleLogout} className={baseClassName}>
                   로그아웃
                 </button>
