@@ -18,10 +18,6 @@ function useFieldValues(initialValues) {
       newValue = value;
     }
 
-    if (name === "lat") {
-      newValue = value;
-    }
-
     setFieldValues((prevFieldValues) => {
       return {
         ...prevFieldValues,
