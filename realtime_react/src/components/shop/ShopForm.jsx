@@ -66,7 +66,7 @@ function ShopForm({ shopId, handleDidSave }) {
     saveShopRequest,
   ] = useApiAxios(
     {
-      url: !shopId ? "/shop/api/shops/" : `/shop/api/shops/${shopId}/`,
+      url: !shopId ? "/shop/api/newshop/" : `/shop/api/newshop/${shopId}/`,
       method: !shopId ? "POST" : "PUT",
       headers: {
         Authorization: `Bearer ${auth.access}`,
