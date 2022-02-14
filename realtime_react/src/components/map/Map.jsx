@@ -1,4 +1,6 @@
 /*global kakao */
+
+import "./Map.css";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
 import marker1 from "assets/img/marker1.png";
@@ -26,6 +28,7 @@ const Map = () => {
         add: "제주도 카카오시",
         table: 15,
         max_table: 15,
+        rating: 4,
       },
       {
         title: "생태연못",
@@ -33,6 +36,7 @@ const Map = () => {
         add: "제주특별자치도 연못군",
         table: 13,
         max_table: 15,
+        rating: 5,
       },
       {
         title: "텃밭",
@@ -40,6 +44,7 @@ const Map = () => {
         add: "제주특별자치도 연못 옆자리 텃밭읍",
         table: 7,
         max_table: 20,
+        rating: 3,
       },
       {
         title: "근린공원",
@@ -47,89 +52,92 @@ const Map = () => {
         add: "제주특별자치도 중앙시 근린공원",
         table: 2,
         max_table: 25,
+        rating: 5,
       },
     ];
 
     // 마커 이미지의 이미지 주소입니다
 
     for (var i = 0; i < positions.length; i++) {
+      var imageSize = new kakao.maps.Size(44, 55);
       if ((positions[i].table / positions[i].max_table) * 100 < 33) {
-        var imageSize = new kakao.maps.Size(44, 55);
         var markerImage = new kakao.maps.MarkerImage(marker1, imageSize);
       } else if ((positions[i].table / positions[i].max_table) * 100 < 66) {
-        var imageSize = new kakao.maps.Size(44, 55);
         var markerImage = new kakao.maps.MarkerImage(marker2, imageSize);
       } else if ((positions[i].table / positions[i].max_table) * 100 < 99) {
-        var imageSize = new kakao.maps.Size(44, 55);
         var markerImage = new kakao.maps.MarkerImage(marker3, imageSize);
       } else if ((positions[i].table / positions[i].max_table) * 100 == 100) {
-        var imageSize = new kakao.maps.Size(44, 55);
         var markerImage = new kakao.maps.MarkerImage(marker4, imageSize);
       }
 
       // 마커를 생성합니다
+
+      var infoContent =
+        '<div class="wrap">' +
+        '    <div class="info">' +
+        '        <div class="title">' +
+        `            ${positions[i].title}` +
+        "        </div>" +
+        '        <div class="body">' +
+        '            <div class="img">' +
+        '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+        "           </div>" +
+        '            <div class="desc">' +
+        `                <div class="ellipsis">${positions[i].add}</div>` +
+        `                <div class="jibun ellipsis">별점 : ${positions[i].rating}</div>` +
+        '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' +
+        "            </div>" +
+        "        </div>" +
+        "    </div>" +
+        "</div>";
+
       var marker = new kakao.maps.Marker({
         map: map, // 마커를 표시할 지도
         position: positions[i].latlng, // 마커를 표시할 위치
-        title: positions[i].title, // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+        // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
         image: markerImage, // 마커 이미지
       });
 
-      var infocContent = `<div style="padding:30px;"> 
-                            <div>${positions[i].title} </div> 
-                            ${positions[i].add}
-                            <button>
-                            </button>
-                          </div>`;
+      var overlay = new kakao.maps.CustomOverlay({
+        map: map,
+        position: positions[i].latlng,
+        content: infoContent,
 
-      var infowindow = new kakao.maps.InfoWindow({
-        content: infocContent,
         // 인포윈도우에 표시할 내용
       });
 
+      // eslint-disable-next-line no-loop-func
       kakao.maps.event.addListener(marker, "click", function () {
-        // 마커 위에 인포윈도우를 표시합니다
-        infowindow.open(map, marker);
         navigate("/shop/1/");
       });
 
       kakao.maps.event.addListener(
         marker,
         "mouseover",
-        makeOverListener(map, marker, infowindow)
+        makeOverListener(map, marker, overlay)
       );
-      kakao.maps.event.addListener(
-        marker,
-        "mouseout",
-        makeOutListener(infowindow)
-      );
+
+      kakao.maps.event.addListener(marker, "mouseout", makeOutListener());
 
       // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록합니다
       // 이벤트 리스너로는 클로저를 만들어 등록합니다
       // for문에서 클로저를 만들어 주지 않으면 마지막 마커에만 이벤트가 등록됩니다
-    }
-    function makeOverListener(map, marker, infowindow) {
-      return function () {
-        infowindow.open(map, marker);
-      };
-    }
 
-    // 인포윈도우를 닫는 클로저를 만드는 함수입니다
-    function makeOutListener(infowindow) {
-      return function () {
-        infowindow.close();
-      };
+      function makeOverListener(map, marker, overlay) {
+        return function () {
+          overlay.setMap(map, marker, overlay);
+        };
+      }
+      function makeOutListener() {
+        return function () {
+          overlay.setMap(null);
+        };
+      }
     }
+    // 인포윈도우를 닫는 클로저를 만드는 함수입니다
   }, []);
 
-  return (
-    <div>
-      <div id="map" style={{ width: "100vw", height: "100vh" }}></div>'
-      <div className="mr-5">
-        <infowindow />
-      </div>
-    </div>
-  );
+  return <div id="map" style={{ width: "100vw", height: "100vh" }}></div>;
 };
 
 export default Map;
