@@ -5,6 +5,14 @@ import "./TopNav.css";
 function TopNav() {
   const [auth, , , logout] = useAuth();
 
+  const authority_topnavi = (a) => {
+    if (auth.authority === "0") {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   const handleLogout = () => {
     logout();
   };
@@ -23,10 +31,20 @@ function TopNav() {
                 <MyLink to="/accounts/login/">로그인</MyLink>
               </>
             )}
-            {auth.isLoggedIn && (
+            {auth.isLoggedIn && authority_topnavi(auth.authority) && (
               <>
                 <MyLink to="/user/mypage/:userId/">{auth.nickname} 님</MyLink>
                 <MyLink to="/user/bookings/">예약현황</MyLink>
+                <button onClick={handleLogout} className={baseClassName}>
+                  로그아웃
+                </button>
+              </>
+            )}
+            {auth.isLoggedIn && !authority_topnavi(auth.authority) && (
+              <>
+                <MyLink to="/user/mypage/:userId/">{auth.nickname} 님</MyLink>
+                <MyLink to="/shop/bookings/">매장 예약현황</MyLink>
+                <MyLink to="/shop/myshop/:shopId">마이스토어</MyLink>
                 <button onClick={handleLogout} className={baseClassName}>
                   로그아웃
                 </button>
