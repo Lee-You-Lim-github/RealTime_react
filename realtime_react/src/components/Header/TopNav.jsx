@@ -69,7 +69,9 @@ function TopNav() {
                 <MyLink to={`/user/mypage/${data?.id}/`}>
                   {auth.nickname} 님
                 </MyLink>
-                <MyLink to={`/shop/bookings/`}>매장 예약현황</MyLink>
+                <MyLink to={`/shop/${data?.shop_set[0]}/bookings/`}>
+                  매장 예약현황
+                </MyLink>
                 <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
                   마이스토어
                 </MyLink>

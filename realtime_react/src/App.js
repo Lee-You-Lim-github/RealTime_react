@@ -66,15 +66,14 @@ function App() {
               <Route path="/shop/:shopId/" element={<PageShopDetail />} />
               <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
               <Route path="/shop/myshop/:shopId" element={<PageMyShop />} />
-              <Route path="/shop/bookings/" element={<PageShopBooking />} />
+              <Route
+                path="/shop/:shopId/bookings/"
+                element={<PageShopBooking />}
+              />
               <Route path="/user/mypage/:userId/" element={<PageUserInfo />} />
               <Route
                 path="/user/mypage/:userId/edit/"
                 element={<PageUserJoin />}
-              />
-              <Route
-                path="/user/bookings/:userId/"
-                element={<PageUserBooking />}
               />
             </Routes>
           </div>
@@ -115,7 +114,7 @@ function App() {
   //         <Route path="/shop/:shopId/" element={<PageShopDetail />} />
   //         <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
   //         <Route path="/shop/myshop/:shopId" element={<PageMyShop />} />
-  //         <Route path="/shop/bookings/" element={<PageShopBooking />} />
+  //         <Route path="/shop/:shopId/bookings/" element={<PageShopBooking />} />
   //         <Route path="/user/mypage/:userId/" element={<PageUserInfo />} />
   //         <Route path="/user/mypage/:userId/edit/" element={<PageUserJoin />} />
   //         <Route path="/user/bookings/:userId/" element={<PageUserBooking />} />
