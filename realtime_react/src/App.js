@@ -36,7 +36,10 @@ function App() {
           <div className="App">
             <Routes>
               <Route path="/account/userjoin/" element={<PageUserJoin />} />
-              <Route path="/booking/new/" element={<PageBookingForm />} />
+              <Route
+                path="/shop/:shopId/booking/new/"
+                element={<PageBookingForm />}
+              />
               <Route path="/shop/:shopId/" element={<PageShopDetail />} />
               <Route path="/user/mypage/:userId/" element={<PageUserInfo />} />
               <Route
