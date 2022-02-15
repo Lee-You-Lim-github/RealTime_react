@@ -2,10 +2,10 @@ import ShopBooking from "components/shop/ShopBooking";
 import { useParams } from "react-router-dom";
 
 function PageShopBooking() {
-  useParams();
+  const { shopId } = useParams();
   return (
     <div>
-      <ShopBooking />
+      <ShopBooking shopId={shopId} />
     </div>
   );
 }

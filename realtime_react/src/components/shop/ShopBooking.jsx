@@ -4,11 +4,17 @@ import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useCallback, useEffect, useState } from "react";
 
-function ShopBooking() {
+function ShopBooking({ shopId }) {
   const [auth] = useAuth();
 
   //disabled
   const [visited, setVisited] = useState(false);
+
+  // search
+  const [query, setQuery] = useState();
+
+  // reload
+  const [reload, setReload] = useState(false);
 
   // get_bookings
   const [
@@ -36,7 +42,7 @@ function ShopBooking() {
   // booking - visit_status만 수정
   const [{ loading, error }, saveBookingVisitState] = useApiAxios(
     {
-      url: `/booking/api/bookings/1/`,
+      url: `/booking/api/bookings/${shopId}/${query ? "?query=" + query : ""}/`,
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -71,6 +77,22 @@ function ShopBooking() {
       .catch((error) => console.log(error));
   }, []);
 
+  // 이름 / 휴대폰 뒤자리로 검색
+  const search = (e) => {
+    console.log(e.target.value);
+    if (e.key === "Enter") {
+      const { value } = e.target;
+      setQuery(value);
+      setReload((prevState) => !prevState);
+    }
+    refetch();
+  };
+
+  const getQuery = (e) => {
+    const { value } = e.target;
+    setQuery(value);
+  };
+
   return (
     <div>
       <DebugStates getBookingData={getBookingData} auth={auth} />
@@ -97,10 +119,10 @@ function ShopBooking() {
               </svg>
               <input
                 class="bg-gray-50 outline-none ml-1 block "
-                type="text"
-                name=""
-                id=""
-                placeholder="search..."
+                type="search"
+                placeholder="이름/휴대폰 번호 뒷자리"
+                onChange={getQuery}
+                onKeyPress={search}
               />
             </div>
           </div>
@@ -194,7 +216,7 @@ function ShopBooking() {
                       </td>
                     </tr>
                     {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
-                    <tr>
+                    {/* <tr>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="flex items-center">
                           <div class="flex-shrink-0 w-10 h-10">
@@ -307,7 +329,7 @@ function ShopBooking() {
                           <span class="relative">Inactive</span>
                         </span>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
                 <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
