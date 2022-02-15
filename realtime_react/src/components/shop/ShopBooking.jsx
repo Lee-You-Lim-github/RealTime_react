@@ -3,8 +3,9 @@ import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useCallback, useEffect, useState } from "react";
+import ShopBookingComponent from "./ShopBookingComponent";
 
-function ShopBooking({ shopId }) {
+function ShopBooking({ shopId, bookingId }) {
   const [auth] = useAuth();
 
   //disabled
@@ -72,7 +73,7 @@ function ShopBooking({ shopId }) {
     saveBookingVisitState,
   ] = useApiAxios(
     {
-      url: `/booking/api/bookings/`,
+      url: `/booking/api/bookings/${bookingId}/`,
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -82,8 +83,9 @@ function ShopBooking({ shopId }) {
   );
 
   // 회원이 방문한 경우
-  const clickedVisit = useCallback((e) => {
+  const clickedVisit = useCallback((booking_id) => {
     saveBookingVisitState({
+      url: `/booking/api/bookings/${booking_id}/`,
       data: { visit_status: "1" },
     })
       .then((response) => {
@@ -95,8 +97,10 @@ function ShopBooking({ shopId }) {
   }, []);
 
   // 회원이 미방문한 경우
-  const clickedUnvisited = useCallback((e) => {
+  const clickedUnvisited = useCallback((booking_id) => {
     saveBookingVisitState({
+      url: `/booking/api/bookings/${booking_id}/`,
+
       data: { visit_status: "2" },
     })
       .then((response) => {
@@ -126,10 +130,10 @@ function ShopBooking({ shopId }) {
   return (
     <div>
       <DebugStates
-        shop_array={shop_array}
+        // shop_array={shop_array}
         getBookingData={getBookingData}
-        getShopData={getShopData}
-        auth={auth}
+        // getShopData={getShopData}
+        // auth={auth}
       />
 
       <div class="bg-white p-8 rounded-md w-full">
@@ -182,6 +186,9 @@ function ShopBooking({ shopId }) {
                         예약날짜
                       </th>
                       <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                        예약시간
+                      </th>
+                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약 테이블 수
                       </th>
                       <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -191,180 +198,15 @@ function ShopBooking({ shopId }) {
                   </thead>
                   <tbody>
                     {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
-                    <tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="ml-3">
-                            {shop_array?.map((shop_bookings) => (
-                              <p class="text-gray-900 whitespace-no-wrap">
-                                {shop_bookings.id}
-                              </p>
-                            ))}
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {shop_array?.map((shop_bookings) => (
-                          <p class="text-gray-900 whitespace-no-wrap">
-                            {shop_bookings.user_id.username}
-                          </p>
-                        ))}
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {shop_array?.map((shop_bookings) => (
-                          <p class="text-gray-900 whitespace-no-wrap">
-                            {shop_bookings.user_id.telephone}
-                          </p>
-                        ))}
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {shop_array?.map((shop_bookings) => (
-                          <p class="text-gray-900 whitespace-no-wrap">
-                            {shop_bookings.day}
-                          </p>
-                        ))}
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {shop_array?.map((shop_bookings) => (
-                          <p class="text-gray-900 whitespace-no-wrap">
-                            {shop_bookings.time.slice(0, 5)}
-                          </p>
-                        ))}
-                      </td>
-                      <td class="p-3 px-5 flex justify-end">
-                        <button
-                          type="button"
-                          onClick={clickedVisit}
-                          disabled={false}
-                          class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                        >
-                          방문
-                        </button>
-                        <button
-                          type="button"
-                          onClick={clickedUnvisited}
-                          disabled={false}
-                          class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                        >
-                          미방문
-                        </button>
-                      </td>
-                    </tr>
-                    {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
-                    {/* <tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img
-                              class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                              alt=""
-                            />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                              Vera Carpenter
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">Admin</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Jan 21, 2020
-                        </p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">43</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                          <span
-                            aria-hidden
-                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                          ></span>
-                          <span class="relative">Activo</span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img
-                              class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80"
-                              alt=""
-                            />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                              Vera Carpenter
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">Admin</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Jan 21, 2020
-                        </p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">43</p>
-                      </td>
-                      <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
-                          <span
-                            aria-hidden
-                            class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                          ></span>
-                          <span class="relative">Activo</span>
-                        </span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <div class="flex items-center">
-                          <div class="flex-shrink-0 w-10 h-10">
-                            <img
-                              class="w-full h-full rounded-full"
-                              src="https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&h=160&w=160&q=80"
-                              alt=""
-                            />
-                          </div>
-                          <div class="ml-3">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                              Alonzo Cox
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">Admin</p>
-                      </td>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                          Jan 18, 2020
-                        </p>
-                      </td>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">70</p>
-                      </td>
-                      <td class="px-5 py-5 bg-white text-sm">
-                        <span class="relative inline-block px-3 py-1 font-semibold text-red-900 leading-tight">
-                          <span
-                            aria-hidden
-                            class="absolute inset-0 bg-red-200 opacity-50 rounded-full"
-                          ></span>
-                          <span class="relative">Inactive</span>
-                        </span>
-                      </td>
-                    </tr> */}
+                    {shop_array?.map((shop_booking) => {
+                      return (
+                        <ShopBookingComponent
+                          shop_booking={shop_booking}
+                          clickedVisit={clickedVisit}
+                          clickedUnvisited={clickedUnvisited}
+                        />
+                      );
+                    })}
                   </tbody>
                 </table>
                 <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">

@@ -3,9 +3,10 @@ import { useParams } from "react-router-dom";
 
 function PageShopBooking() {
   const { shopId } = useParams();
+  const { bookingId } = useParams();
   return (
     <div>
-      <ShopBooking shopId={shopId} />
+      <ShopBooking shopId={shopId} bookingId={bookingId} />
     </div>
   );
 }
