@@ -16,6 +16,24 @@ function ShopBooking({ shopId }) {
   // reload
   const [reload, setReload] = useState(false);
 
+  // 값 빼오기
+  const [shop_array, setShop_array] = useState([]);
+
+  // 데이터를 가져오는게 shopId === getBookingData.shop_id.id가 같은 것만 가져와야 함.
+
+  //get_shop
+  const [{ data: getShopData, loading, error }, shopRefetch] = useApiAxios(
+    {
+      url: `/shop/api/shops/${shopId}/`,
+      method: "GET",
+    },
+    { manual: true }
+  );
+
+  useEffect(() => {
+    shopRefetch();
+  }, []);
+
   // get_bookings
   const [
     {
@@ -39,10 +57,22 @@ function ShopBooking({ shopId }) {
     refetch();
   }, []);
 
+  // 해당 매장의 예약자만 보이기
+  useEffect(() => {
+    const abc = getBookingData?.filter(
+      (shop_booking) => parseInt(shopId) === shop_booking.shop_id.id
+    );
+
+    setShop_array(abc);
+  }, [getBookingData, shopId]);
+
   // booking - visit_status만 수정
-  const [{ loading, error }, saveBookingVisitState] = useApiAxios(
+  const [
+    { loading: shopBookingsLoading, error: shopBookingsError },
+    saveBookingVisitState,
+  ] = useApiAxios(
     {
-      url: `/booking/api/bookings/${shopId}/${query ? "?query=" + query : ""}/`,
+      url: `/booking/api/bookings/`,
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -95,7 +125,12 @@ function ShopBooking({ shopId }) {
 
   return (
     <div>
-      <DebugStates getBookingData={getBookingData} auth={auth} />
+      <DebugStates
+        shop_array={shop_array}
+        getBookingData={getBookingData}
+        getShopData={getShopData}
+        auth={auth}
+      />
 
       <div class="bg-white p-8 rounded-md w-full">
         <div class=" flex items-center justify-between pb-6">
@@ -160,7 +195,7 @@ function ShopBooking({ shopId }) {
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="flex items-center">
                           <div class="ml-3">
-                            {getBookingData.map((shop_bookings) => (
+                            {shop_array?.map((shop_bookings) => (
                               <p class="text-gray-900 whitespace-no-wrap">
                                 {shop_bookings.id}
                               </p>
@@ -169,28 +204,28 @@ function ShopBooking({ shopId }) {
                         </div>
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {getBookingData.map((shop_bookings) => (
+                        {shop_array?.map((shop_bookings) => (
                           <p class="text-gray-900 whitespace-no-wrap">
                             {shop_bookings.user_id.username}
                           </p>
                         ))}
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {getBookingData.map((shop_bookings) => (
+                        {shop_array?.map((shop_bookings) => (
                           <p class="text-gray-900 whitespace-no-wrap">
                             {shop_bookings.user_id.telephone}
                           </p>
                         ))}
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {getBookingData.map((shop_bookings) => (
+                        {shop_array?.map((shop_bookings) => (
                           <p class="text-gray-900 whitespace-no-wrap">
                             {shop_bookings.day}
                           </p>
                         ))}
                       </td>
                       <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {getBookingData.map((shop_bookings) => (
+                        {shop_array?.map((shop_bookings) => (
                           <p class="text-gray-900 whitespace-no-wrap">
                             {shop_bookings.time.slice(0, 5)}
                           </p>
