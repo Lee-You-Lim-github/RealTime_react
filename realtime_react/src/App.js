@@ -109,7 +109,7 @@ function App() {
   //       <Routes>
   //         <Route path="/accounts/login/" element={<PageLogin />} />
   //         <Route path="/account/userjoin/" element={<PageUserJoin />} />
-  //         <Route path="/booking/new/" element={<PageBookingForm />} />
+  //         <Route path="/booking/:shopId/new/" element={<PageBookingForm />} />
   //         <Route path="/shop/new/" element={<PageShopForm />} />
   //         <Route path="/shop/:shopId/" element={<PageShopDetail />} />
   //         <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
