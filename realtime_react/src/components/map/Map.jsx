@@ -8,15 +8,14 @@ import marker2 from "assets/img/marker2.png";
 import marker3 from "assets/img/marker3.png";
 import marker4 from "assets/img/marker4.png";
 import marker5 from "assets/img/marker5.png";
-import DebugStates from "components/DebugStates";
 
 function Map({ getData }) {
   const navigate = useNavigate();
   useEffect(() => {
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3, // 지도의 확대 레벨
+        center: new kakao.maps.LatLng(36.33293849894394, 127.4339577406385), // 지도의 중심좌표
+        level: 5, // 지도의 확대 레벨
       };
 
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성
