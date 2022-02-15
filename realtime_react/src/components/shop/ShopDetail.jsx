@@ -7,6 +7,11 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./ShopDetail.css";
 
+const INIT_REVIEW_FIELD_VALUES = {
+  content: "",
+  rating: "",
+};
+
 function ShopDetail({ shopId }) {
   const [auth] = useAuth();
   const navigate = useNavigate();
@@ -47,14 +52,16 @@ function ShopDetail({ shopId }) {
     ReviewRefetch();
   }, [shopId]);
 
-  const { fieldValues, handleFieldChange } = useFieldValues(ShopData);
+  const { fieldValues, handleFieldChange } = useFieldValues(
+    INIT_REVIEW_FIELD_VALUES
+  );
 
   const [{ loading, error, errorMessages }, requestReview] = useApiAxios(
     {
       url: `/shop/api/newreview/`,
       method: "POST",
       headers: {
-        Authoriztion: `Bearer ${auth.access}`,
+        Authorization: `Bearer ${auth.access}`,
       },
     },
     { manual: true }
@@ -67,8 +74,8 @@ function ShopDetail({ shopId }) {
     requestReview({
       data: {
         ...fieldValues,
-        content: fieldValues.content,
-        rating: fieldValues.rating,
+        user_id: auth.id,
+        shop_id: ShopData.id,
       },
     }).then((response) => {
       ReviewRefetch();
@@ -159,8 +166,8 @@ function ShopDetail({ shopId }) {
           </form>
         </>
       )}
-      <DebugStates data={ShopData} />
-      <DebugStates data={ReviewData} />
+      <DebugStates ShopData={ShopData} />
+      <DebugStates ReviewData={ReviewData} />
     </div>
   );
 }
