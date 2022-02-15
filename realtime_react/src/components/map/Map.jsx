@@ -8,8 +8,9 @@ import marker2 from "assets/img/marker2.png";
 import marker3 from "assets/img/marker3.png";
 import marker4 from "assets/img/marker4.png";
 import marker5 from "assets/img/marker5.png";
+import DebugStates from "components/DebugStates";
 
-const Map = () => {
+function Map({ getData }) {
   const navigate = useNavigate();
   useEffect(() => {
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
@@ -21,49 +22,42 @@ const Map = () => {
     var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성
 
     // 마커를 표시할 위치와 title 객체 배열
-    var positions = [
-      {
-        title: "카카오",
-        latlng: new kakao.maps.LatLng(33.4507, 126.57067),
-        add: "제주도 카카오시",
-        table: 15,
-        max_table: 15,
-        rating: 4,
-      },
-      {
-        title: "생태연못",
-        latlng: new kakao.maps.LatLng(33.45093, 126.56947),
-        add: "제주특별자치도 연못군",
-        table: 13,
-        max_table: 15,
-        rating: 5,
-      },
-      {
-        title: "텃밭",
-        latlng: new kakao.maps.LatLng(33.45087, 126.56994),
-        add: "제주특별자치도 연못 옆자리 텃밭읍",
-        table: 7,
-        max_table: 20,
-        rating: 3,
-      },
-      {
-        title: "근린공원",
-        latlng: new kakao.maps.LatLng(33.45139, 126.57073),
-        add: "제주특별자치도 중앙시 근린공원",
-        table: 2,
-        max_table: 25,
-        rating: 5,
-      },
-    ];
+    var positions = getData?.map((data) => {
+      console.log("data:", data);
+      return {
+        name: data.name,
+        latlng: new kakao.maps.LatLng(data.lat, data.long),
+        address: data.address,
+        now_table_count: data.now_table_count,
+        total_table_count: data.total_table_count,
+        photo: data.photo,
+        telephone: data.telephone,
+        // rating: data.rating,
+      };
+    });
+
     for (var i = 0; i < positions.length; i++) {
       var imageSize = new kakao.maps.Size(44, 55);
-      if ((positions[i].table / positions[i].max_table) * 100 < 33) {
+      if (
+        (positions[i].now_table_count / positions[i].total_table_count) * 100 <
+        33
+      ) {
         var markerImage = new kakao.maps.MarkerImage(marker1, imageSize);
-      } else if ((positions[i].table / positions[i].max_table) * 100 < 66) {
+      } else if (
+        (positions[i].now_table_count / positions[i].total_table_count) * 100 <
+        66
+      ) {
         var markerImage = new kakao.maps.MarkerImage(marker2, imageSize);
-      } else if ((positions[i].table / positions[i].max_table) * 100 < 99) {
+      } else if (
+        (positions[i].now_table_count / positions[i].total_table_count) * 100 <
+        99
+      ) {
         var markerImage = new kakao.maps.MarkerImage(marker3, imageSize);
-      } else if ((positions[i].table / positions[i].max_table) * 100 == 100) {
+      } else if (
+        (positions[i].now_table_count / positions[i].total_table_count) *
+          100 ===
+        100
+      ) {
         var markerImage = new kakao.maps.MarkerImage(marker4, imageSize);
       }
 
@@ -71,16 +65,16 @@ const Map = () => {
         '<div class="wrap">' +
         '    <div class="info">' +
         '        <div class="title">' +
-        `            ${positions[i].title}` +
+        `            ${positions[i].name}` +
         "        </div>" +
         '        <div class="body">' +
         '            <div class="img">' +
-        '                <img src="https://cfile181.uf.daum.net/image/250649365602043421936D" width="73" height="70">' +
+        `                <img src=${positions[i].photo} width="70" height="70">` +
         "           </div>" +
         '            <div class="desc">' +
-        `                <div class="ellipsis">${positions[i].add}</div>` +
-        `                <div class="jibun ellipsis">별점 : ${positions[i].rating}</div>` +
-        '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">홈페이지</a></div>' +
+        `                <div class="ellipsis">${positions[i].address}</div>` +
+        // `                <div class="jibun ellipsis">별점 : ${positions[i].rating}</div>` +
+        `                <div class="ellipsis">Tel : ${positions[i].telephone}</div>` +
         "            </div>" +
         "        </div>" +
         "    </div>" +
@@ -130,7 +124,11 @@ const Map = () => {
     }
   }, []);
 
-  return <div id="map" style={{ width: "100vw", height: "100vh" }}></div>;
-};
+  return (
+    <div>
+      <div id="map" style={{ width: "100vw", height: "100vh" }}></div>
+    </div>
+  );
+}
 
 export default Map;
