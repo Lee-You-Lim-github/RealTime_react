@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 function PageIndex() {
+  // const { shopId } = useParams();
   const [{ data: getData, loading, error }, refetch] = useApiAxios(
     {
       url: `/shop/api/shops/`,
@@ -19,7 +20,7 @@ function PageIndex() {
 
   return (
     <>
-      {getData && <Map getData={getData} />}
+      {getData && <Map getData={getData} shopId={getData.shop_id} />}
       <Sidebar width={200} />
     </>
   );

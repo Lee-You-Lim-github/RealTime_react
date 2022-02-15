@@ -24,6 +24,7 @@ function Map({ getData }) {
     var positions = getData?.map((data) => {
       console.log("data:", data);
       return {
+        id: data.id,
         name: data.name,
         latlng: new kakao.maps.LatLng(data.lat, data.long),
         address: data.address,
@@ -92,8 +93,10 @@ function Map({ getData }) {
         content: infoContent, // 인포윈도우에 표시할 내용
       });
 
+      console.log("shopId:", positions[i].id);
+
       kakao.maps.event.addListener(marker, "click", function () {
-        navigate("/shop/1/");
+        navigate(`/shop/${positions.id}/`);
       });
 
       // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록
