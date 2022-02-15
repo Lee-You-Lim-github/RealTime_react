@@ -10,7 +10,7 @@ function PageUserJoin() {
     <div>
       <UserJoinForm
         userId={userId}
-        handleDidSave={(savedUser) => navigate(`/news/${savedUser.id}/`)}
+        handleDidSave={(savedUser) => navigate(`/user/mypage/${savedUser.id}/`)}
       />
     </div>
   );
