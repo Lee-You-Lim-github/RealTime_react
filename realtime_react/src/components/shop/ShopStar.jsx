@@ -1,6 +1,6 @@
 function Star({ score }) {
   return (
-    <div>
+    <>
       <ul className="flex">
         {[0, 1, 2, 3, 4].map((index) => {
           return (
@@ -10,7 +10,7 @@ function Star({ score }) {
           );
         })}
       </ul>
-    </div>
+    </>
   );
 }
 
@@ -41,7 +41,7 @@ function EmptyStar() {
       focusable="false"
       data-prefix="far"
       data-icon="star"
-      className="w-4 text-yellow-500"
+      className="w-4 text-yellow-500 mr-1"
       role="img"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 576 512"

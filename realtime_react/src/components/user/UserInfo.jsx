@@ -3,6 +3,7 @@ import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Timestamp from "react-timestamp";
 import Star from "../shop/ShopStar";
 
 function UserInfo({ userId }) {
@@ -83,9 +84,17 @@ function UserInfo({ userId }) {
                 리뷰 내역
               </h3>
               <div className="border border-violet-300 w-3/5 rounded-sm p-3">
-                <p className="text-left">{review.shop_id.name}</p>
-                <Star score={review.rating} />
+                <span>{review.shop_id.name}</span>
+                <span>
+                  <Star score={review.rating} />
+                </span>
                 <span className="text-left">{review.content}</span>
+                <span className="text-right">
+                  <Timestamp relative date={review.created_at} autoUpdate />
+                  <p>
+                    <button>삭제</button>
+                  </p>
+                </span>
               </div>
             </>
           ))}

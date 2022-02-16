@@ -4,7 +4,7 @@ import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-function UserBooking({ userId }) {
+function UserBooking({ bookingId }) {
   const navigate = useNavigate();
 
   const [auth] = useAuth();
@@ -28,30 +28,39 @@ function UserBooking({ userId }) {
     refetch();
   }, []);
 
-  // const [{ loading: deleteLoading, error: deleteError }, deleteBooking] =
-  //   useApiAxios(
-  //     {
-  //       url: `/booking/api/bookings/${bookingId}/`,
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: `Bearer ${auth.access}`,
-  //       },
-  //     },
-  //     { manual: true }
-  //   );
-
-  // const handleDelete = () => {
-  //   if (window.confirm("Are you sure?")) {
-  //     deleteBooking().then(() => navigate(`/user/bookings/${auth.id}`));
-  //   }
-  // };
-
   useEffect(() => {
     const userBooking = bookingList?.filter(
       (booking) => parseInt(auth.id) === booking.user_id.id
     );
 
     setBookingArray(userBooking);
+  }, [bookingList]);
+
+  const [{ loading: deleteLoading, error: deleteError }, deleteBooking] =
+    useApiAxios(
+      {
+        url: `/booking/api/bookings/${bookingList?.id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
+      },
+      { manual: true }
+    );
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    const booking_id = e.target.value;
+    if (window.confirm("Are you sure?")) {
+      deleteBooking({
+        url: `/booking/api/bookings/${booking_id}`,
+        method: "DELETE",
+      }).then(() => navigate(`/user/bookings/${auth.id}`));
+    }
+  };
+
+  useEffect(() => {
+    refetch();
   }, [bookingList]);
 
   return (
@@ -68,22 +77,23 @@ function UserBooking({ userId }) {
               <p>예약시간</p>
               <p>예약 테이블 수</p>
             </div>
-            <div className="bg-violet-200 border border-violet-400 w-3/5 rounded-sm p-3">
+            <div className="border border-violet-400 w-3/5 rounded-sm p-3">
               <p className="text-left">{booking.day}</p>
               <p className="text-left">{booking.time}</p>
               <p className="text-left">{booking.book_table_count}</p>
-              {/* <button
-                  disabled={deleteLoading}
-                  onClick={handleDelete}
-                  className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1"
-                >
-                  예약취소
-                </button> */}
+              <button
+                disabled={deleteLoading}
+                onClick={handleDelete}
+                value={booking.id}
+                className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1"
+              >
+                예약취소
+              </button>
             </div>
           </div>
         </div>
       ))}
-      {!bookingList && "예약 내역이 없습니다."}
+      {!bookingArray && "예약 내역이 없습니다."}
 
       <DebugStates
         bookingList={bookingList}
