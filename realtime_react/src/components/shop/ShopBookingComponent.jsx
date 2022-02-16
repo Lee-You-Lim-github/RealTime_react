@@ -5,7 +5,6 @@ function ShopBookingComponent({
   clickedVisit,
   clickedUnvisited,
 }) {
-  console.log(shop_booking);
   return (
     <React.Fragment>
       <tr>

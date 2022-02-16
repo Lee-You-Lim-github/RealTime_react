@@ -20,9 +20,7 @@ function ShopBooking({ shopId, bookingId }) {
   // 값 빼오기
   const [shop_array, setShop_array] = useState([]);
 
-  // 데이터를 가져오는게 shopId === getBookingData.shop_id.id가 같은 것만 가져와야 함.
-
-  //get_shop
+  //get_shop_data
   const [{ data: getShopData, loading, error }, shopRefetch] = useApiAxios(
     {
       url: `/shop/api/shops/${shopId}/`,
@@ -45,7 +43,7 @@ function ShopBooking({ shopId, bookingId }) {
     refetch,
   ] = useApiAxios(
     {
-      url: "/booking/api/bookings/",
+      url: `/booking/api/bookings/${query ? "?query=" + query : ""}`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -54,6 +52,7 @@ function ShopBooking({ shopId, bookingId }) {
     { manual: true }
   );
 
+  // get_bookings_refetch()
   useEffect(() => {
     refetch();
   }, []);
@@ -73,7 +72,7 @@ function ShopBooking({ shopId, bookingId }) {
     saveBookingVisitState,
   ] = useApiAxios(
     {
-      url: `/booking/api/bookings/${bookingId}/`,
+      url: `/booking/api/bookings/`,
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -111,7 +110,7 @@ function ShopBooking({ shopId, bookingId }) {
       .catch((error) => console.log(error));
   }, []);
 
-  // 이름 / 휴대폰 뒤자리로 검색
+  // 이름 / 휴대폰 뒷자리로 검색
   const search = (e) => {
     console.log(e.target.value);
     if (e.key === "Enter") {
@@ -132,7 +131,7 @@ function ShopBooking({ shopId, bookingId }) {
       <DebugStates
         // shop_array={shop_array}
         getBookingData={getBookingData}
-        // getShopData={getShopData}
+        getShopData={getShopData}
         // auth={auth}
       />
 
