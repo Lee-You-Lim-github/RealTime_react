@@ -9,7 +9,7 @@ function TopNav() {
   const navigate = useNavigate();
 
   const authority_topnavi = (a) => {
-    if (auth.authority === "0") {
+    if (a === "0") {
       return true;
     } else {
       return false;
@@ -51,39 +51,51 @@ function TopNav() {
               </>
             )}
             {/* 유저만 보이는 TopNavi */}
-            {auth.isLoggedIn && authority_topnavi(auth.authority) && (
-              <>
-                <MyLink to={`/user/mypage/${data?.id}/`}>
-                  {auth.nickname} 님
-                </MyLink>
-                <MyLink to={`/user/bookings/${data?.id}`}>예약현황</MyLink>
-                <button onClick={handleLogout} className={baseClassName}>
-                  로그아웃
-                </button>
-              </>
-            )}
-            {/* 매장만 보이는 TopNavi */}
-            {auth.isLoggedIn && !authority_topnavi(auth.authority) && (
-              <>
-                <MyLink to={`/user/mypage/${data?.id}/`}>
-                  {auth.nickname} 님
-                </MyLink>
-
-                {data?.shop_set.length === 0 && (
-                  <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
-                )}
-                {data?.shop_set.length === 1 && (
-                  <MyLink to={`/shop/${data?.shop_set[0]}/bookings/`}>
-                    매장 예약현황
+            {auth.isLoggedIn &&
+              !auth.is_superuser &&
+              authority_topnavi(auth.authority) && (
+                <>
+                  <MyLink to={`/user/mypage/${data?.id}/`}>
+                    {auth.nickname} 님
                   </MyLink>
-                )}
+                  <MyLink to={`/user/bookings/${data?.id}/`}>예약현황</MyLink>
+                  <button onClick={handleLogout} className={baseClassName}>
+                    로그아웃
+                  </button>
+                </>
+              )}
+            {/* 매장만 보이는 TopNavi */}
+            {auth.isLoggedIn &&
+              !auth.is_superuser &&
+              !authority_topnavi(auth.authority) && (
+                <>
+                  <MyLink to={`/user/mypage/${data?.id}/`}>
+                    {auth.nickname} 님
+                  </MyLink>
 
-                <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
-                  마이스토어
-                </MyLink>
-                <button onClick={handleLogout} className={baseClassName}>
-                  로그아웃
-                </button>
+                  {data?.shop_set.length === 0 && (
+                    <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
+                  )}
+                  {data?.shop_set.length === 1 && (
+                    <MyLink to={`/shop/${data?.shop_set[0]}/bookings/`}>
+                      매장 예약현황
+                    </MyLink>
+                  )}
+
+                  <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
+                    마이스토어
+                  </MyLink>
+                  <button onClick={handleLogout} className={baseClassName}>
+                    로그아웃
+                  </button>
+                </>
+              )}
+            {auth.isLoggedIn && auth.is_superuser && (
+              <>
+                <MyLink to="/">관리자님</MyLink>
+                <MyLink to="/admin/user/">회원관리</MyLink>
+                <MyLink to="/admin/shop/">매장관리</MyLink>
+                <MyLink to="/admin/booking/">예약관리</MyLink>
               </>
             )}
           </div>
