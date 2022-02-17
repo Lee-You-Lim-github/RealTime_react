@@ -41,16 +41,46 @@ function UserInfo({ userId }) {
   );
 
   useEffect(() => {
-    reviewRefetch();
-  }, []);
-
-  useEffect(() => {
     const savedReview = reviewData?.filter(
       (user_review) => parseInt(userId) === user_review.user_id.id
     );
 
-    setReviewList(savedReview);
+    console.log("유즈이펙트", savedReview);
+
+    if (savedReview !== undefined) {
+      setReviewList(savedReview);
+    }
   }, [reviewData, userId]);
+
+  const [{ loading: deleteLoading, error: deleteError }, deleteBooking] =
+    useApiAxios(
+      {
+        url: `/shop/api/reviews/${reviewData?.id}/`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
+      },
+      { manual: true }
+    );
+
+  const handleDelete = (e) => {
+    e.preventDefault();
+    const review_id = e.target.value;
+    if (window.confirm("Are you sure?")) {
+      deleteBooking({
+        url: `/shop/api/reviews/${review_id}/`,
+        method: "DELETE",
+      });
+    }
+    window.location.replace(`/user/mypage/${userId}/`);
+  };
+
+  useEffect(() => {
+    reviewRefetch();
+  }, []);
+
+  console.log("리뷰리스트", reviewList);
 
   return (
     <div>
@@ -66,39 +96,58 @@ function UserInfo({ userId }) {
             <p className="text-left flex">
               휴대전화번호 : {userData.telephone}
             </p>
-            <Link
-              to={`/user/mypage/${auth.id}/edit/`}
-              className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1"
-            >
-              수정
-            </Link>
+            <p className="text-right">
+              <Link
+                to={`/user/mypage/${auth.id}/edit/`}
+                className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-2"
+              >
+                수정
+              </Link>
+            </p>
           </div>
         </div>
       )}
 
-      <div className="flex flex-wrap my-5">
-        {reviewData &&
-          reviewList?.map((review) => (
-            <>
+      {reviewList.length > 0 ? (
+        <>
+          {reviewList?.map((review) => (
+            <div key={review.id} className="flex flex-wrap my-5">
               <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
                 리뷰 내역
               </h3>
               <div className="border border-violet-300 w-3/5 rounded-sm p-3">
-                <span>{review.shop_id.name}</span>
+                <p className="text-left">{review.shop_id.name}</p>
                 <span>
                   <Star score={review.rating} />
                 </span>
-                <span className="text-left">{review.content}</span>
+                <span className="text-left mr-20">{review.content}</span>
                 <span className="text-right">
                   <Timestamp relative date={review.created_at} autoUpdate />
-                  <p>
-                    <button>삭제</button>
-                  </p>
                 </span>
+                <p className="text-right">
+                  <button
+                    disabled={deleteLoading}
+                    onClick={handleDelete}
+                    value={review.id}
+                    className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1 px-2"
+                  >
+                    삭제
+                  </button>
+                </p>
               </div>
-            </>
+            </div>
           ))}
-      </div>
+        </>
+      ) : (
+        <div className="flex flex-wrap my-5">
+          <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
+            리뷰 내역
+          </h3>
+          <div className="border border-violet-300 w-3/5 rounded-sm p-3">
+            <p className="text-left">등록된 리뷰가 없습니다.</p>
+          </div>
+        </div>
+      )}
 
       <DebugStates
         userData={userData}
