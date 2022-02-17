@@ -6,7 +6,7 @@ import useFieldValues from "hook/usefieldValues";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./ShopDetail.css";
-import ShopInfoComponent from "./ShopInfoComponent";
+import ShopDetailComponent from "./ShopDetailComponent";
 import ShopReviewComponent from "./ShopReviewComponent";
 
 const INIT_REVIEW_FIELD_VALUES = {
@@ -43,7 +43,7 @@ function ShopDetail({ shopId }) {
     ReviewRefetch,
   ] = useApiAxios(
     {
-      url: `/shop/api/reviews/${shopId}/`,
+      url: `/shop/api/reviews/`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -99,7 +99,7 @@ function ShopDetail({ shopId }) {
     getShopInfoRefetch,
   ] = useApiAxios(
     {
-      url: `/shop/api/shops/`,
+      url: `/shop/api/shops/${shopId}/`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -193,18 +193,20 @@ function ShopDetail({ shopId }) {
       {showInfo && getShopInfoData && (
         <div>
           <div>매장정보</div>
-          {getShopInfoData.map((shopinfo) => {
-            return <ShopInfoComponent shopinfo={shopinfo} />;
-          })}
+          <ShopDetailComponent shopinfo={getShopInfoData} />;
         </div>
       )}
 
       {showMenu && getReviewData && (
         <div>
           <div>리뷰내용</div>
-          {getReviewData.map((review) => {
-            return <ShopReviewComponent review={review} />;
-          })}
+          {getReviewData
+            ?.filter(
+              (review_shop) => review_shop.shop_id.id === parseInt(shopId)
+            )
+            .map((review) => {
+              return <ShopReviewComponent review={review} />;
+            })}
         </div>
       )}
 
@@ -239,9 +241,9 @@ function ShopDetail({ shopId }) {
           <br />
         </>
       )}
-      <DebugStates getShopInfoData={getShopInfoData} />
-      {/* <DebugStates ShopData={ShopData} />
-      <DebugStates ReviewData={ReviewData} /> */}
+      {/* <DebugStates getShopInfoData={getShopInfoData} /> */}
+      {/* <DebugStates ShopData={ShopData} /> */}
+      <DebugStates ReviewData={ReviewData} />
     </div>
   );
 }

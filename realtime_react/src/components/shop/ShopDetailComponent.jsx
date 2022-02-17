@@ -1,6 +1,6 @@
 import React from "react";
 
-function ShopInfoComponent({ shopinfo }) {
+function ShopDetailComponent({ shopinfo }) {
   const {
     intro,
     telephone,
@@ -32,4 +32,4 @@ function ShopInfoComponent({ shopinfo }) {
   );
 }
 
-export default ShopInfoComponent;
+export default ShopDetailComponent;
