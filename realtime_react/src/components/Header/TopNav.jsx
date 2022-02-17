@@ -44,13 +44,14 @@ function TopNav() {
             지금어때
           </NavLink>
           <div className="flex text-xl mr-2">
+            {/* 비회원이 로그인 시 */}
             {!auth.isLoggedIn && (
               <>
                 <MyLink to="/accounts/login/">예약현황</MyLink>
                 <MyLink to="/accounts/login/">로그인</MyLink>
               </>
             )}
-            {/* 유저만 보이는 TopNavi */}
+            {/* 회원이 로그인 시 */}
             {auth.isLoggedIn &&
               !auth.is_superuser &&
               authority_topnavi(auth.authority) && (
@@ -64,7 +65,7 @@ function TopNav() {
                   </button>
                 </>
               )}
-            {/* 매장만 보이는 TopNavi */}
+            {/* 사엽자가 로그인 시 */}
             {auth.isLoggedIn &&
               !auth.is_superuser &&
               !authority_topnavi(auth.authority) && (
@@ -73,23 +74,31 @@ function TopNav() {
                     {auth.nickname} 님
                   </MyLink>
 
+                  {/* 매장이 등록되지 않은 경우 */}
                   {data?.shop_set.length === 0 && (
-                    <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
+                    <>
+                      <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
+                      <MyLink to={`/shop/new/`}>마이스토어</MyLink>
+                    </>
                   )}
+                  {/* 매장이 등록된 경우 */}
                   {data?.shop_set.length === 1 && (
-                    <MyLink to={`/shop/${data?.shop_set[0]}/bookings/`}>
-                      매장 예약현황
-                    </MyLink>
+                    <>
+                      <MyLink to={`/shop/${data?.shop_set[0]}/bookings/`}>
+                        매장 예약현황
+                      </MyLink>
+                      <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
+                        마이스토어
+                      </MyLink>
+                    </>
                   )}
 
-                  <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
-                    마이스토어
-                  </MyLink>
                   <button onClick={handleLogout} className={baseClassName}>
                     로그아웃
                   </button>
                 </>
               )}
+            {/* 관리자로 로그인 */}
             {auth.isLoggedIn && auth.is_superuser && (
               <>
                 <MyLink to="/admin/user/">회원관리</MyLink>
