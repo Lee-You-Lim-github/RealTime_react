@@ -92,10 +92,12 @@ function TopNav() {
               )}
             {auth.isLoggedIn && auth.is_superuser && (
               <>
-                <MyLink to="/">관리자님</MyLink>
                 <MyLink to="/admin/user/">회원관리</MyLink>
                 <MyLink to="/admin/shop/">매장관리</MyLink>
                 <MyLink to="/admin/booking/">예약관리</MyLink>
+                <button onClick={handleLogout} className={baseClassName}>
+                  로그아웃
+                </button>
               </>
             )}
           </div>
