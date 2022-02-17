@@ -1,14 +1,15 @@
 import { useApiAxios } from "api/base";
 import Map from "components/map/Map";
 import Sidebar from "components/map/SideBar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function PageIndex() {
-  // const { shopId } = useParams();
+  const [query, setQuery] = useState();
+  const [reload, setReload] = useState(false);
   const [{ data: getData, loading, error }, refetch] = useApiAxios(
     {
-      url: `/shop/api/shops/`,
+      url: `/shop/api/shops/${query ? "?query=" + query : ""}`,
       method: "GET",
     },
     { manual: true }
@@ -18,9 +19,36 @@ function PageIndex() {
     refetch();
   }, []);
 
+  const getQuery = (e) => {
+    const { value } = e.target;
+    setQuery(value);
+  };
+
+  const searchShop = (e) => {
+    if (e.key === "Enter") {
+      const { value } = e.target;
+      setQuery(value);
+      setReload((prevState) => !prevState);
+    }
+    refetch();
+  };
+
+  useEffect(() => {
+    refetch().then((request) => console.log(request));
+  }, [reload]);
+
   return (
     <>
-      {getData && <Map getData={getData} shopId={getData.shop_id} />}
+      <div className="text-center mb-2">
+        <input
+          type="search"
+          onChange={getQuery}
+          placeholder="매장을 검색해주세요."
+          onKeyPress={searchShop}
+        />
+      </div>
+      {getData && <Map getData={getData} />}
+
       <Sidebar width={200} />
     </>
   );
