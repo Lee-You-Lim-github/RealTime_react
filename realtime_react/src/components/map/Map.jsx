@@ -1,16 +1,22 @@
 /*global kakao */
 
 import "./Map.css";
-import { useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import marker1 from "assets/img/marker1.png";
 import marker2 from "assets/img/marker2.png";
 import marker3 from "assets/img/marker3.png";
 import marker4 from "assets/img/marker4.png";
 import marker5 from "assets/img/marker5.png";
+import { useApiAxios } from "api/base";
+import DebugStates from "components/DebugStates";
 
 function Map({ getData }) {
   const navigate = useNavigate();
+
+  const shopObject = Object.assign({}, getData);
+  console.log("shopObject:", shopObject);
+
   useEffect(() => {
     var mapContainer = document.getElementById("map"), // 지도를 표시할 div
       mapOption = {
@@ -24,7 +30,7 @@ function Map({ getData }) {
     var positions = getData?.map((data) => {
       console.log("data:", data);
       return {
-        id: data.id,
+        shop_id: data.id,
         name: data.name,
         latlng: new kakao.maps.LatLng(data.lat, data.long),
         address: data.address,
@@ -75,6 +81,7 @@ function Map({ getData }) {
         `                <div class="ellipsis">${positions[i].address}</div>` +
         // `                <div class="jibun ellipsis">별점 : ${positions[i].rating}</div>` +
         `                <div class="ellipsis">Tel : ${positions[i].telephone}</div>` +
+        `                <div><a href="/shop/${positions[i].shop_id}/">매장 상세보기</a></div>` +
         "            </div>" +
         "        </div>" +
         "    </div>" +
@@ -93,25 +100,20 @@ function Map({ getData }) {
         content: infoContent, // 인포윈도우에 표시할 내용
       });
 
-      console.log("shopId:", positions[i].id);
-
-      kakao.maps.event.addListener(marker, "click", function () {
-        navigate(`/shop/${positions.id}/`);
-      });
-
       // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록
       // 이벤트 리스너로는 클로저를 만들어 등록
 
-      kakao.maps.event.addListener(
-        marker,
-        "mouseover",
-        makeOverListener(map, marker, overlay)
-      );
+      // kakao.maps.event.addListener(
+      //   marker,
+      //   "mouseover",
+      //   makeOverListener(map, marker, overlay)
+      // );
 
+      // kakao.maps.event.addListener(marker, "mouseout", closeOverlay(overlay));
       kakao.maps.event.addListener(
         marker,
-        "mouseout",
-        makeOutListener(overlay)
+        "click",
+        makeOverListener(map, marker, overlay)
       );
     }
     function makeOverListener(map, marker, overlay) {
@@ -119,9 +121,10 @@ function Map({ getData }) {
         overlay.setMap(map, marker, overlay);
       };
     }
-    function makeOutListener(overlay) {
+    function closeOverlay(overlay) {
       return function () {
         overlay.setMap(null);
+        // marker.setMap(null);
       };
     }
   }, []);
@@ -129,6 +132,7 @@ function Map({ getData }) {
   return (
     <div>
       <div id="map" style={{ width: "100vw", height: "100vh" }}></div>
+      <DebugStates getData={getData} />
     </div>
   );
 }
