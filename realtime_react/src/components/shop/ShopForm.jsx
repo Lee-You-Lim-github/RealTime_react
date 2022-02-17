@@ -17,7 +17,6 @@ const INIT_FIELD_VALUES = {
   telephone: "",
   opening_hours: "",
   total_table_count: 0,
-  now_table_count: 0,
   conv_parking: false,
   conv_pet: false,
   conv_wifi: false,
@@ -29,7 +28,22 @@ const INIT_FIELD_VALUES = {
 
 function ShopForm({ shopId, handleDidSave }) {
   const [auth] = useAuth();
-  const navigate = useNavigate();
+
+  // 사진 파일 업로드 시 사진이 보이게
+  const [imageSrc, setImageSrc] = useState("");
+
+  // 사진 파일 업로드 시 사진이 보이게
+  const preview_photo = (e, fileData) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileData);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc(reader.result);
+        resolve();
+        handleFieldChange(e);
+      };
+    });
+  };
 
   // shop/api/100 조회
   const [{ data: getShopData, laoding: getShopLaoding, error: getShopError }] =
@@ -56,7 +70,7 @@ function ShopForm({ shopId, handleDidSave }) {
     );
   }, [getShopData]);
 
-  // 생성 및 수정 저장 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+  // 생성 및 수정 저장
   const [
     {
       laoding: shopFormLoading,
@@ -75,8 +89,7 @@ function ShopForm({ shopId, handleDidSave }) {
     { manual: true }
   );
 
-  // 값 저장 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-
+  // 값 저장
   const shopHandleSubmit = (e) => {
     e.preventDefault();
 
@@ -93,27 +106,29 @@ function ShopForm({ shopId, handleDidSave }) {
 
     console.log(formData);
 
-    console.log("저장 성공!!");
-    saveShopRequest({
-      data: formData,
-    }).then((response) => {
-      const saveShop = response.data;
-      if (handleDidSave) handleDidSave(saveShop);
-    });
+    if (!shopId) {
+      if (window.confirm("등록하시겠습니까?")) {
+        saveShopRequest({
+          data: formData,
+        }).then((response) => {
+          alert("등록되었습니다.");
+          const saveShop = response.data;
+          if (handleDidSave) handleDidSave(saveShop);
+        });
+      }
+    } else {
+      saveShopRequest({
+        data: formData,
+      }).then((response) => {
+        alert("수정되었습니다.");
+        const saveShop = response.data;
+        if (handleDidSave) handleDidSave(saveShop);
+      });
+    }
   };
-
-  // ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
 
   return (
     <div className="mt-2">
-      <DebugStates
-        fieldValues={fieldValues}
-        // getShopData={getShopData}
-        ShopSavedErrorMessages={ShopSavedErrorMessages}
-        shopFormLoading={shopFormLoading}
-        shopFormError={shopFormError}
-      />
-
       {!shopId ? (
         <h2 className="text-2xl my-5"> 가맹점 가입</h2>
       ) : (
@@ -183,16 +198,7 @@ function ShopForm({ shopId, handleDidSave }) {
             {message}
           </p>
         ))}
-        {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
         <p className="text-left ml-56 mt-2">위도</p>
-        {/* <NumericInput
-          name="lat"
-          value={fieldValues.lat}
-          min={0}
-          step={0.1}
-          precision={5}
-          onChange={handleFieldChange}
-        /> */}
         <input
           type="number"
           name="lat"
@@ -263,17 +269,6 @@ function ShopForm({ shopId, handleDidSave }) {
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
 
-        <p className="text-left ml-56 mt-2">현재 테이블 수</p>
-        <input
-          type="number"
-          name="now_table_count"
-          value={fieldValues.now_table_count}
-          onChange={handleFieldChange}
-          placeholder="0"
-          min={0}
-          className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-        />
-
         <p className="text-left ml-56 mt-2">편의시설</p>
         <input
           type="checkbox"
@@ -333,10 +328,15 @@ function ShopForm({ shopId, handleDidSave }) {
         <input
           type="file"
           name="photo"
-          onChange={handleFieldChange}
+          onChange={(e) => {
+            preview_photo(e, e.target.files[0]);
+          }}
           accept=".png, .jpg, .jpeg"
           className="w-1/2 my-1 mx-2 p-2"
         />
+        <div className="ml-56 mt-2">
+          <img src={imageSrc || getShopData?.photo} alt="사진 미리보기" />
+        </div>
 
         <div>
           {!shopId ? (
