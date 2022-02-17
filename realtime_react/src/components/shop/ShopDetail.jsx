@@ -3,9 +3,11 @@ import { data } from "autoprefixer";
 import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./ShopDetail.css";
+import ShopInfoComponent from "./ShopInfoComponent";
+import ShopReviewComponent from "./ShopReviewComponent";
 
 const INIT_REVIEW_FIELD_VALUES = {
   content: "",
@@ -15,6 +17,8 @@ const INIT_REVIEW_FIELD_VALUES = {
 function ShopDetail({ shopId }) {
   const [auth] = useAuth();
   const navigate = useNavigate();
+  const [showMenu, setShowMenu] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const [
     { data: ShopData, loading: ShopLoading, error: ShopError },
@@ -85,11 +89,52 @@ function ShopDetail({ shopId }) {
     });
   };
 
+  // get_ShopInfo
+  const [
+    {
+      data: getShopInfoData,
+      loading: getShopInfoLoading,
+      error: getShopInfoError,
+    },
+    getShopInfoRefetch,
+  ] = useApiAxios(
+    {
+      url: `/shop/api/shops/`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  useEffect(() => {
+    getShopInfoRefetch();
+  }, []);
+
+  // get_review
+  const [
+    { data: getReviewData, loading: getReviewLoading, error: getReviewError },
+    getReviewRefetch,
+  ] = useApiAxios(
+    {
+      url: `/shop/api/reviews/`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  useEffect(() => {
+    getReviewRefetch();
+  }, []);
+
   return (
     <div>
       {ShopData && (
         <>
-          <br />
           <br />
           <p className="text-4xl">{ShopData.name}</p>
           <div>
@@ -97,7 +142,10 @@ function ShopDetail({ shopId }) {
             {ShopData.total_table_count}
           </div>
           <div>
-            <button className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2">
+            <button
+              onClick={() => {}}
+              className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2"
+            >
               지금예약
             </button>
             <Link
@@ -107,7 +155,6 @@ function ShopDetail({ shopId }) {
               지금말고 예약
             </Link>
           </div>
-          <br />
           <br />
 
           <div className="photo_align">
@@ -126,20 +173,44 @@ function ShopDetail({ shopId }) {
           </div>
         </>
       )}
+      <button
+        onClick={() => setShowInfo(true)}
+        onClickCapture={() => setShowMenu(false)}
+        className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2"
+      >
+        매장정보
+      </button>
+      <button
+        onClick={() => setShowMenu(true)}
+        onClickCapture={() => setShowInfo(false)}
+        className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2"
+      >
+        리뷰보기
+      </button>
+      <br />
+      <br />
+
+      {showInfo && getShopInfoData && (
+        <div>
+          <div>매장정보</div>
+          {getShopInfoData.map((shopinfo) => {
+            return <ShopInfoComponent shopinfo={shopinfo} />;
+          })}
+        </div>
+      )}
+
+      {showMenu && getReviewData && (
+        <div>
+          <div>리뷰내용</div>
+          {getReviewData.map((review) => {
+            return <ShopReviewComponent review={review} />;
+          })}
+        </div>
+      )}
+
       {ReviewData && (
         <>
-          <button className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2">
-            매장정보
-          </button>
-          <button className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2">
-            리뷰보기
-          </button>
           <br />
-          <br />
-          <div>리뷰내용</div>
-          <span>{ReviewData.rating}</span>
-          <span>{ReviewData.nickname}</span>
-          <span>{ReviewData.content}</span>
           <br />
           <form onSubmit={reviewHandleSubmit}>
             <div>리뷰작성</div>
@@ -164,10 +235,13 @@ function ShopDetail({ shopId }) {
               저장하기
             </button>
           </form>
+          <br />
+          <br />
         </>
       )}
-      <DebugStates ShopData={ShopData} />
-      <DebugStates ReviewData={ReviewData} />
+      <DebugStates getShopInfoData={getShopInfoData} />
+      {/* <DebugStates ShopData={ShopData} />
+      <DebugStates ReviewData={ReviewData} /> */}
     </div>
   );
 }
