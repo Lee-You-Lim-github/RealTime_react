@@ -1,11 +1,14 @@
 import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
+import useFieldValues from "hook/usefieldValues";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Myshop({ shopId }) {
   const [auth] = useAuth();
+
+  // const { fieldValues } = useFieldValues();
 
   // get_shop_data
   const [
@@ -41,6 +44,10 @@ function Myshop({ shopId }) {
     { manual: true }
   );
 
+  useEffect(() => {
+    setTableCount(myShopData?.now_table_count);
+  }, [myShopData]);
+
   // 휴일을 눌렀을 때
   const handleHolidaySubmit = () => {
     saveRuquest({
@@ -52,7 +59,7 @@ function Myshop({ shopId }) {
       .catch((error) => console.log(error));
   };
 
-  // No휴일을 눌렀을 때
+  // 영업중을 눌렀을 때
   const handleNotHolidaySubmit = () => {
     saveRuquest({
       data: { holiday: "0" },
@@ -65,30 +72,28 @@ function Myshop({ shopId }) {
 
   // Plus를 눌렀을 때
   const handlePlus = () => {
-    console.log(myShopData?.now_table_count);
-    setTableCount((prevTableCount) => prevTableCount + 1);
-    // console.log(tableCount);
-    saveRuquest({
-      data: { now_table_count: tableCount },
-    })
-      .then((response) => {
-        refetch();
-      })
-      .catch((error) => console.log(error));
+    setTableCount((prevTableCount) => {
+      console.log("prev", prevTableCount);
+      return prevTableCount + 1;
+    });
   };
 
   // Minus를 눌렀을 때
   const handleMinus = () => {
     setTableCount((prevTableCount) => prevTableCount - 1);
     console.log(tableCount);
+  };
+
+  useEffect(() => {
+    console.log(tableCount);
     saveRuquest({
       data: { now_table_count: tableCount },
     })
       .then((response) => {
-        refetch();
+        setTableCount(response.data.now_table_count);
       })
       .catch((error) => console.log(error));
-  };
+  }, [tableCount]);
 
   return (
     <div>
@@ -206,7 +211,7 @@ function Myshop({ shopId }) {
                           ></svg>
                         </span>
                         <p className="ml-2">
-                          <p>{myShopData.now_table_count}</p>
+                          <p>{tableCount}</p>
                           <button
                             type="button"
                             name="plus"
