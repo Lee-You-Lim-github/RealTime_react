@@ -1,11 +1,19 @@
 import { useApiAxios } from "api/base";
 import AdminBookingComponent from "components/admin/AdminBookingComponent";
+import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function AdminBooking() {
   const [auth] = useAuth();
 
+  // search
+  const [query, setQuery] = useState();
+
+  // reload
+  const [reload, setReload] = useState(false);
+
+  // get_bookings
   const [
     {
       data: getBookingData,
@@ -15,7 +23,7 @@ function AdminBooking() {
     refetch,
   ] = useApiAxios(
     {
-      url: `/booking/api/bookings/`,
+      url: `/booking/api/bookings/${query ? "?query=" + query : ""}`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -24,9 +32,26 @@ function AdminBooking() {
     { manual: true }
   );
 
+  // get_bookings_refetch()
   useEffect(() => {
     refetch();
   }, []);
+
+  // 매장명 / 유저명으로 검색
+  const search = (e) => {
+    console.log(e.target.value);
+    if (e.key === "Enter") {
+      const { value } = e.target;
+      setQuery(value);
+      setReload((prevState) => !prevState);
+    }
+    refetch();
+  };
+
+  const getQuery = (e) => {
+    const { value } = e.target;
+    setQuery(value);
+  };
 
   return (
     <div class="bg-white p-8 rounded-md w-full">
@@ -51,53 +76,56 @@ function AdminBooking() {
             <input
               class="bg-gray-50 outline-none ml-1 block "
               type="search"
+              onChange={getQuery}
+              onKeyPress={search}
               placeholder="매장명/예약자명"
             />
           </div>
         </div>
       </div>
       <div>
-        <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-          <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-            <table class="min-w-full leading-normal">
-              <thead>
-                <tr>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    No.
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    사업자등록번호
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    매장명
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    회원ID
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    예약자명
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    예약날짜
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    예약시간
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    예약 테이블 수
-                  </th>
-                  <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                    방문여부
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {getBookingData?.map((booking) => {
-                  return <AdminBookingComponent booking={booking} />;
-                })}
-              </tbody>
-            </table>
-            {/* <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+        {getBookingData && (
+          <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <table class="min-w-full leading-normal">
+                <thead>
+                  <tr>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      No.
+                    </th>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      사업자등록번호
+                    </th>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      매장명
+                    </th>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      예약자ID
+                    </th>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      예약자명
+                    </th>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      예약날짜
+                    </th>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      예약시간
+                    </th>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      예약 테이블 수
+                    </th>
+                    <th class="px-3 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      방문여부
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {getBookingData?.map((booking) => {
+                    return <AdminBookingComponent booking={booking} />;
+                  })}
+                </tbody>
+              </table>
+              {/* <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
               <span class="text-xs xs:text-sm text-gray-900">
                 Showing 1 to 4 of 50 Entries
               </span>
@@ -110,9 +138,11 @@ function AdminBooking() {
                 </button>
               </div>
             </div> */}
+            </div>
           </div>
-        </div>
+        )}
       </div>
+      <DebugStates getBookingData={getBookingData} />
     </div>
   );
 }
