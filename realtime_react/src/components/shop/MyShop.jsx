@@ -1,12 +1,13 @@
 import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function Myshop({ shopId }) {
   const [auth] = useAuth();
 
+  // get_shop_data
   const [
     { data: myShopData, laoding: myShopLaoding, error: myShopError },
     refetch,
@@ -25,6 +26,70 @@ function Myshop({ shopId }) {
     refetch();
   }, [shopId]);
 
+  // 현재 테이블 수 값 변경
+  const [tableCount, setTableCount] = useState(0);
+
+  // PATCH_shop: 현재 테이블 수, 휴일여부만 수정
+  const [{ loading, error }, saveRuquest] = useApiAxios(
+    {
+      url: `/shop/api/shops/${shopId}/`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  // 휴일을 눌렀을 때
+  const handleHolidaySubmit = () => {
+    saveRuquest({
+      data: { holiday: "1" },
+    })
+      .then((response) => {
+        refetch();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // No휴일을 눌렀을 때
+  const handleNotHolidaySubmit = () => {
+    saveRuquest({
+      data: { holiday: "0" },
+    })
+      .then((response) => {
+        refetch();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // Plus를 눌렀을 때
+  const handlePlus = () => {
+    console.log(myShopData?.now_table_count);
+    setTableCount((prevTableCount) => prevTableCount + 1);
+    // console.log(tableCount);
+    saveRuquest({
+      data: { now_table_count: tableCount },
+    })
+      .then((response) => {
+        refetch();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // Minus를 눌렀을 때
+  const handleMinus = () => {
+    setTableCount((prevTableCount) => prevTableCount - 1);
+    console.log(tableCount);
+    saveRuquest({
+      data: { now_table_count: tableCount },
+    })
+      .then((response) => {
+        refetch();
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <div>
       <div className="min-h-screen bg-violet-100 py-6 flex flex-col justify-center sm:py-12">
@@ -35,6 +100,22 @@ function Myshop({ shopId }) {
               <div className="divide-y divide-gray-200">
                 <div className="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                   <h2 className="text-3xl my-5">마이스토어</h2>
+                  <button
+                    type="button"
+                    name="holiday"
+                    onClick={handleHolidaySubmit}
+                    class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    휴일
+                  </button>
+                  <button
+                    type="button"
+                    name="not_holiday"
+                    onClick={handleNotHolidaySubmit}
+                    class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    영업
+                  </button>
                   {myShopData && (
                     <ul className="list-disc space-y-2">
                       <li className="flex items-start">
@@ -126,6 +207,22 @@ function Myshop({ shopId }) {
                         </span>
                         <p className="ml-2">
                           <p>{myShopData.now_table_count}</p>
+                          <button
+                            type="button"
+                            name="plus"
+                            onClick={handlePlus}
+                            class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                          >
+                            +
+                          </button>
+                          <button
+                            type="button"
+                            name="minus"
+                            onClick={handleMinus}
+                            class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                          >
+                            -
+                          </button>
                         </p>
                       </li>
                       <li className="flex items-start">
