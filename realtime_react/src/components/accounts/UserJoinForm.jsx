@@ -1,6 +1,5 @@
 import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
-import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
 
@@ -14,59 +13,39 @@ const INIT_FIELD_VALUES = {
   authority: "0",
 };
 
-function UserJoinForm({ userId, handleDidSave }) {
-  const [auth] = useAuth();
+function UserJoinForm() {
   const navigate = useNavigate();
 
-  const [{ data: userData, loading, error }] = useApiAxios(
-    {
-      url: `/accounts/api/users/${userId}/`,
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.access}`,
-      },
-    },
-    { manual: !userId }
-  );
+  const { fieldValues, handleFieldChange } = useFieldValues(INIT_FIELD_VALUES);
 
-  const [
+  const [{ loading, error, errorMessages }, requestMember] = useApiAxios(
     {
-      loading: saveLoading,
-      error: saveError,
-      errorMessages: saveErrorMessages,
-    },
-    saveRequest,
-  ] = useApiAxios(
-    {
-      url: !userId ? "/accounts/api/signup/" : `/accounts/api/users/${userId}/`,
-      method: !userId ? "POST" : "PUT",
-      headers: { Authorization: `Bearer ${auth.access}` },
+      url: "/accounts/api/signup/",
+      method: "POST",
     },
     { manual: true }
-  );
-
-  const { fieldValues, handleFieldChange, setFieldValues } = useFieldValues(
-    userData || INIT_FIELD_VALUES
   );
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    saveRequest({
-      data: fieldValues,
-    }).then((response) => {
-      const savedUser = response.data;
-      if (handleDidSave) handleDidSave(savedUser);
+    requestMember({ data: fieldValues }).then((response) => {
+      const {
+        user_id,
+        password,
+        password2,
+        username,
+        nickname,
+        telephone,
+        authority,
+      } = response.data;
+      navigate("/accounts/login/");
     });
   };
 
   return (
     <div className="mt-2">
-      {!userId ? (
-        <h2 className="text-2xl my-5">회원가입</h2>
-      ) : (
-        <h2 className="text-2xl my-5">회원정보수정</h2>
-      )}
+      <h2 className="text-2xl my-5">회원가입</h2>
 
       <form onSubmit={handleSubmit}>
         <div>
@@ -96,7 +75,7 @@ function UserJoinForm({ userId, handleDidSave }) {
           placeholder="영문/숫자 혼합 3자 이상 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
-        {saveErrorMessages.user_id?.map((message, index) => (
+        {errorMessages.user_id?.map((message, index) => (
           <p key={index} className="text-xs text-red-400">
             {message}
           </p>
@@ -111,7 +90,7 @@ function UserJoinForm({ userId, handleDidSave }) {
           placeholder="영문/숫자/특수문자 혼합 8자 이상 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
-        {saveErrorMessages.password?.map((message, index) => (
+        {errorMessages.password?.map((message, index) => (
           <p key={index} className="text-xs text-red-400">
             {message}
           </p>
@@ -126,7 +105,7 @@ function UserJoinForm({ userId, handleDidSave }) {
           placeholder="확인을 위해 동일한 비밀번호를 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
-        {saveErrorMessages.non_field_errors?.map((message, index) => (
+        {errorMessages.non_field_errors?.map((message, index) => (
           <p key={index} className="text-xs text-red-400">
             {message}
           </p>
@@ -141,7 +120,7 @@ function UserJoinForm({ userId, handleDidSave }) {
           placeholder="이름을 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
-        {saveErrorMessages.username?.map((message, index) => (
+        {errorMessages.username?.map((message, index) => (
           <p key={index} className="text-xs text-red-400">
             {message}
           </p>
@@ -156,7 +135,7 @@ function UserJoinForm({ userId, handleDidSave }) {
           placeholder="한글 5자 이하로 입력해주세요."
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
-        {saveErrorMessages.nickname?.map((message, index) => (
+        {errorMessages.nickname?.map((message, index) => (
           <p key={index} className="text-xs text-red-400">
             {message}
           </p>
@@ -171,22 +150,16 @@ function UserJoinForm({ userId, handleDidSave }) {
           placeholder="숫자만 입력해주세요. 예)01022334567"
           className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
         />
-        {saveErrorMessages.telephone?.map((message, index) => (
+        {errorMessages.telephone?.map((message, index) => (
           <p key={index} className="text-xs text-red-400">
             {message}
           </p>
         ))}
 
         <div>
-          {!userId ? (
-            <button className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2">
-              가입
-            </button>
-          ) : (
-            <button className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2">
-              수정
-            </button>
-          )}
+          <button className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2">
+            가입
+          </button>
         </div>
         <div>
           <button className="bg-slate-300 w-1/2 rounded my-1 mx-2 mb-5 p-2">
@@ -196,7 +169,7 @@ function UserJoinForm({ userId, handleDidSave }) {
         <DebugStates
           fieldValues={fieldValues}
           error={error}
-          errorMessages={saveErrorMessages}
+          errorMessages={errorMessages}
         />
       </form>
     </div>

@@ -45,8 +45,6 @@ function UserInfo({ userId }) {
       (user_review) => parseInt(userId) === user_review.user_id.id
     );
 
-    console.log("유즈이펙트", savedReview);
-
     if (savedReview !== undefined) {
       setReviewList(savedReview);
     }
@@ -79,8 +77,6 @@ function UserInfo({ userId }) {
   useEffect(() => {
     reviewRefetch();
   }, []);
-
-  console.log("리뷰리스트", reviewList);
 
   return (
     <div>
