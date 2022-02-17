@@ -12,6 +12,7 @@ import PageShopDetail from "pages/shop/PageShopDetail";
 import PageShopBooking from "pages/shop/PageShopBooking";
 import PageUserBooking from "pages/user/PageUserBooking";
 import { useAuth } from "contexts/AuthContext";
+import PageUserEdit from "pages/user/PageUserEdit";
 
 function App() {
   const [auth, , login, logout] = useAuth();
@@ -44,7 +45,7 @@ function App() {
               <Route path="/user/mypage/:userId/" element={<PageUserInfo />} />
               <Route
                 path="/user/mypage/:userId/edit/"
-                element={<PageUserJoin />}
+                element={<PageUserEdit />}
               />
               <Route
                 path="/user/bookings/:userId/"
