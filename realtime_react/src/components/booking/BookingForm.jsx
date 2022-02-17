@@ -34,9 +34,11 @@ function BookingForm({ shopId, handleDidSave }) {
     console.log("저장 성공");
 
     requestBooking({
-      data: { ...fieldValues, user_id: auth.id, shop_id: 3 },
+      data: { ...fieldValues, user_id: auth.id, shop_id: shopId },
     }).then((response) => {
+      alert("예약성공");
       const saveBooking = response.data;
+      console.log(saveBooking);
       if (handleDidSave) handleDidSave(saveBooking);
     });
   };

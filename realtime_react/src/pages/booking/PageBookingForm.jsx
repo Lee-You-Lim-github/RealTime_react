@@ -1,4 +1,5 @@
 import BookingForm from "components/booking/BookingForm";
+import DebugStates from "components/DebugStates";
 import { useNavigate, useParams } from "react-router-dom";
 
 function PageBookingForm() {
@@ -11,7 +12,7 @@ function PageBookingForm() {
       <BookingForm
         shopId={shopId}
         handleDidSave={(saveBooking) => {
-          navigate(`/user/bookings/${userId}`);
+          navigate(`/user/bookings/${saveBooking.user_id}}/`);
         }}
       />
     </div>
