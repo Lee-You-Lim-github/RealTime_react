@@ -23,10 +23,6 @@ function UserBooking() {
   );
 
   useEffect(() => {
-    refetch();
-  }, []);
-
-  useEffect(() => {
     const userBooking = bookingList?.filter(
       (booking) => parseInt(auth.id) === booking.user_id.id
     );
@@ -34,12 +30,12 @@ function UserBooking() {
     if (userBooking !== undefined) {
       setBookingArray(userBooking);
     }
-  }, []);
+  }, [bookingList, auth.id]);
 
   const [{ loading: deleteLoading, error: deleteError }, deleteBooking] =
     useApiAxios(
       {
-        url: `/booking/api/bookings/${bookingList?.id}`,
+        url: `/booking/api/bookings/${bookingList?.id}/`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${auth.access}`,
@@ -67,6 +63,7 @@ function UserBooking() {
   return (
     <div>
       <h2 className="my-3 text-left">예약현황</h2>
+
       {bookingArray.length > 0 ? (
         <>
           {bookingArray?.map((booking) => (
