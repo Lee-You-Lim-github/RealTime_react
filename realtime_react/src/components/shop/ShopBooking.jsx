@@ -9,7 +9,7 @@ function ShopBooking({ shopId, bookingId }) {
   const [auth] = useAuth();
 
   //disabled
-  const [visited, setVisited] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // search
   const [query, setQuery] = useState();
@@ -70,31 +70,37 @@ function ShopBooking({ shopId, bookingId }) {
 
   // 회원이 방문한 경우
   const clickedVisit = useCallback((booking_id) => {
-    saveBookingVisitState({
-      url: `/booking/api/bookings/${booking_id}/`,
-      data: { visit_status: "1" },
-    })
-      .then((response) => {
-        console.log(response.data.visit_status);
-        refetch();
-        setVisited(false);
+    if (window.confirm("방문 하셨습니까?")) {
+      saveBookingVisitState({
+        url: `/booking/api/bookings/${booking_id}/`,
+        data: { visit_status: "1" },
       })
-      .catch((error) => console.log(error));
+        .then((response) => {
+          alert("방문이 확인되었습니다.");
+          console.log(response.data.visit_status);
+          refetch();
+          setLoading(true);
+        })
+        .catch((error) => console.log(error));
+    }
   }, []);
 
   // 회원이 미방문한 경우
   const clickedUnvisited = useCallback((booking_id) => {
-    saveBookingVisitState({
-      url: `/booking/api/bookings/${booking_id}/`,
+    if (window.confirm("미방문으로 인해 사용자에게 패널티가 부여됩니다.")) {
+      saveBookingVisitState({
+        url: `/booking/api/bookings/${booking_id}/`,
 
-      data: { visit_status: "2" },
-    })
-      .then((response) => {
-        console.log(response.data.visit_status);
-        refetch();
-        setVisited(false);
+        data: { visit_status: "2" },
       })
-      .catch((error) => console.log(error));
+        .then((response) => {
+          alert("패널티가 부여되었습니다.");
+          console.log(response.data.visit_status);
+          refetch();
+          setLoading(true);
+        })
+        .catch((error) => console.log(error));
+    }
   }, []);
 
   // 이름 / 휴대폰 뒷자리로 검색
@@ -115,16 +121,14 @@ function ShopBooking({ shopId, bookingId }) {
 
   return (
     <div>
-      <DebugStates getBookingData={getBookingData} />
-
-      <div class="bg-white p-8 rounded-md w-full">
-        <div class=" flex items-center justify-between pb-6">
+      <div className="bg-white p-8 rounded-md w-full">
+        <div className=" flex items-center justify-between pb-6">
           <div>
-            <h2 class="text-gray-600 font-semibold">예약현황</h2>
-            <span class="text-xs">예약자명단</span>
+            <h2 className="text-gray-600 font-semibold">예약현황</h2>
+            <span className="text-xs">예약자명단</span>
           </div>
-          <div class="flex items-center justify-between">
-            <div class="flex bg-gray-50 items-center p-2 rounded-md">
+          <div className="flex items-center justify-between">
+            <div className="flex bg-gray-50 items-center p-2 rounded-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 class="h-5 w-5 text-gray-400"
@@ -138,7 +142,7 @@ function ShopBooking({ shopId, bookingId }) {
                 />
               </svg>
               <input
-                class="bg-gray-50 outline-none ml-1 block "
+                className="bg-gray-50 outline-none ml-1 block "
                 type="search"
                 placeholder="이름/휴대폰 번호 뒷자리"
                 onChange={getQuery}
@@ -149,30 +153,30 @@ function ShopBooking({ shopId, bookingId }) {
         </div>
         <div>
           {getBookingData && (
-            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-              <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                <table class="min-w-full leading-normal">
+            <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+              <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                <table className="min-w-full leading-normal">
                   <thead>
                     <tr>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         No.
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         이름
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         휴대폰 번호
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약날짜
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약시간
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약 테이블 수
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         방문여부
                       </th>
                     </tr>
@@ -185,6 +189,7 @@ function ShopBooking({ shopId, bookingId }) {
                           shop_booking={shop_booking}
                           clickedVisit={clickedVisit}
                           clickedUnvisited={clickedUnvisited}
+                          loading={loading}
                         />
                       );
                     })}

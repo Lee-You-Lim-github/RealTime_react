@@ -32,14 +32,16 @@ function AdminShop() {
       { manual: true }
     );
 
+  // 등록된 매장 삭제
   const handleDelete = (e) => {
     console.log(e);
-    // const shop_id = e.target.value;
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("해당 매장 정보를 삭제하시겠습니까?")) {
       deleteShop({
         url: `/shop/api/shops/${e}/`,
         method: "DELETE",
-      });
+      })
+        .then((Response) => alert("삭제되었습니다."))
+        .catch((error) => console.log(error));
     }
     window.location.replace(`/admin/shop/`);
   };
@@ -67,8 +69,6 @@ function AdminShop() {
 
   return (
     <div>
-      <DebugStates adminShopData={adminShopData} />
-
       <div class="bg-white p-8 rounded-md w-full">
         <div class=" flex items-center justify-between pb-6">
           <div>
