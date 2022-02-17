@@ -20,19 +20,6 @@ function ShopBooking({ shopId, bookingId }) {
   // 값 빼오기
   const [shop_array, setShop_array] = useState([]);
 
-  //get_shop_data
-  const [{ data: getShopData, loading, error }, shopRefetch] = useApiAxios(
-    {
-      url: `/shop/api/shops/${shopId}/`,
-      method: "GET",
-    },
-    { manual: true }
-  );
-
-  useEffect(() => {
-    shopRefetch();
-  }, []);
-
   // get_bookings
   const [
     {
@@ -128,12 +115,7 @@ function ShopBooking({ shopId, bookingId }) {
 
   return (
     <div>
-      <DebugStates
-        // shop_array={shop_array}
-        getBookingData={getBookingData}
-        getShopData={getShopData}
-        // auth={auth}
-      />
+      <DebugStates getBookingData={getBookingData} />
 
       <div class="bg-white p-8 rounded-md w-full">
         <div class=" flex items-center justify-between pb-6">
@@ -208,7 +190,7 @@ function ShopBooking({ shopId, bookingId }) {
                     })}
                   </tbody>
                 </table>
-                <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
+                {/* <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                   <span class="text-xs xs:text-sm text-gray-900">
                     Showing 1 to 4 of 50 Entries
                   </span>
@@ -221,7 +203,7 @@ function ShopBooking({ shopId, bookingId }) {
                       Next
                     </button>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           )}
