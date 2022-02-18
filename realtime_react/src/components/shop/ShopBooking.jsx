@@ -40,6 +40,7 @@ function ShopBooking({ shopId, bookingId }) {
   // get_bookings_refetch()
   useEffect(() => {
     refetch();
+    setLoading(false);
   }, []);
 
   // 해당 매장의 예약자만 보이기
@@ -184,6 +185,7 @@ function ShopBooking({ shopId, bookingId }) {
                     {shop_array?.map((shop_booking) => {
                       return (
                         <ShopBookingComponent
+                          key={shop_booking.id}
                           shop_booking={shop_booking}
                           clickedVisit={clickedVisit}
                           clickedUnvisited={clickedUnvisited}

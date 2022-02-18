@@ -94,7 +94,6 @@ function Myshop({ shopId }) {
 
   // 변경된 now_table_count 값 저장
   useEffect(() => {
-    console.log(tableCount);
     saveRuquest({
       data: { now_table_count: tableCount },
     })
@@ -118,7 +117,7 @@ function Myshop({ shopId }) {
                     type="button"
                     name="holiday"
                     onClick={handleHolidaySubmit}
-                    class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                    className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                   >
                     휴일
                   </button>
@@ -126,7 +125,7 @@ function Myshop({ shopId }) {
                     type="button"
                     name="not_holiday"
                     onClick={handleNotHolidaySubmit}
-                    class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                    className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                   >
                     영업
                   </button>
@@ -141,9 +140,9 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.name}</p>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">업종</p>
@@ -154,9 +153,9 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.category}</p>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">주소</p>
@@ -167,9 +166,9 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.address}</p>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">전화번호</p>
@@ -180,9 +179,9 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.telephone}</p>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">영업시간</p>
@@ -193,9 +192,9 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.opening_hours}</p>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">매장 테이블 수</p>
@@ -206,9 +205,9 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.total_table_count}</p>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">현재 테이블 수</p>
@@ -219,13 +218,13 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{tableCount}</p>
                           <button
                             type="button"
                             name="plus"
                             onClick={handlePlus}
-                            class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                           >
                             +
                           </button>
@@ -233,11 +232,11 @@ function Myshop({ shopId }) {
                             type="button"
                             name="minus"
                             onClick={handleMinus}
-                            class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                            className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                           >
                             -
                           </button>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">편의시설</p>
@@ -248,20 +247,20 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.conv_parking ? "주차장" : ""}</p>
-                        </p>
-                        <p className="ml-2">
+                        </div>
+                        <div className="ml-2">
                           <p>
                             {myShopData.conv_pet ? "애완동물 동반 가능" : ""}
                           </p>
-                        </p>
-                        <p className="ml-2">
+                        </div>
+                        <div className="ml-2">
                           <p>{myShopData.conv_wifi ? "WIFI" : ""}</p>
-                        </p>
-                        <p className="ml-2">
+                        </div>
+                        <div className="ml-2">
                           <p>{myShopData.conv_pack ? "포장 가능" : ""}</p>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">공지사항</p>
@@ -272,9 +271,9 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.notice}</p>
-                        </p>
+                        </div>
                       </li>
                       <li className="flex items-start">
                         <p className="flex items-start">매장 소개</p>
@@ -285,9 +284,9 @@ function Myshop({ shopId }) {
                             fill="currentColor"
                           ></svg>
                         </span>
-                        <p className="ml-2">
+                        <div className="ml-2">
                           <p>{myShopData.intro}</p>
-                        </p>
+                        </div>
                       </li>
 
                       <li className="flex items-start">

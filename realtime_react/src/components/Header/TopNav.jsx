@@ -28,7 +28,7 @@ function TopNav() {
   );
 
   useEffect(() => {
-    refetch().then((response) => console.log(response.data));
+    refetch().then();
   }, [auth.id]);
 
   const handleLogout = () => {

@@ -47,7 +47,7 @@ function ShopBookingComponent({
             type="button"
             disabled={loading}
             onClick={() => clickedVisit(shop_booking.id)}
-            class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
           >
             방문
           </button>
@@ -55,7 +55,7 @@ function ShopBookingComponent({
             type="button"
             onClick={() => clickedUnvisited(shop_booking.id)}
             disabled={loading}
-            class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
           >
             미방문
           </button>
