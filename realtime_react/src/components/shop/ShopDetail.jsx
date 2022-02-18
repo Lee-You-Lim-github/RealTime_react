@@ -74,7 +74,6 @@ function ShopDetail({ shopId }) {
   const reviewHandleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("저장 성공!!");
     requestReview({
       data: {
         ...fieldValues,
@@ -83,10 +82,8 @@ function ShopDetail({ shopId }) {
       },
     }).then((response) => {
       ReviewRefetch();
-      console.log("저장완료");
-      const { content, rating } = response.data;
-      console.log(content, rating);
     });
+    window.location.replace(`/shop/${shopId}/`);
   };
 
   // get_ShopInfo
