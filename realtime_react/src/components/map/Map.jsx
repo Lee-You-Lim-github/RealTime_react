@@ -129,7 +129,7 @@ function Map({ getData }) {
         makeOverListener(map, marker, overlay)
       );
 
-      kakao.maps.event.addListener(map, "click", closeOverlay(overlay));
+      // kakao.maps.event.addListener(map, "click", closeOverlay(overlay));
       // kakao.maps.event.addListener(map, "click", closeOverlay(marker));
     }
     function makeOverListener(map, marker, overlay) {
