@@ -176,7 +176,7 @@ function ShopForm({ shopId, handleDidSave }) {
           <option>일식</option>
           <option>양식</option>
           <option>중식</option>
-          <option>분식</option>
+          <option>카페</option>
         </select>
         {ShopSavedErrorMessages.category?.map((message, index) => (
           <p key={index} className="text-xs text-red-400">
