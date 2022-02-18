@@ -13,6 +13,7 @@ function Modal(props) {
   const [tableCount, setTableCount] = useState(0);
   const { shopId } = useParams();
 
+  // shop/api/100/ -- object
   const [
     { data: ShopModalData, laoding: myShopLaoding, error: myShopError },
     refetch,
@@ -31,6 +32,7 @@ function Modal(props) {
     refetch();
   }, [shopId]);
 
+  // 잔여 테이블 수 변경(수정)
   const [{ loading, error }, saveRuquest] = useApiAxios(
     {
       url: `/shop/api/shops/${shopId}/`,
@@ -45,6 +47,19 @@ function Modal(props) {
   useEffect(() => {
     setTableCount(ShopModalData?.now_table_count);
   }, [ShopModalData]);
+
+  // 지금예약 저장
+  const [{ loading: NowLoading, error: NowError }, saveNowBooking] =
+    useApiAxios(
+      {
+        url: `/booking/api/newbooking/`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
+      },
+      { manual: true }
+    );
 
   const handlePlus = () => {
     if (
@@ -69,8 +84,32 @@ function Modal(props) {
 
   const handleClickBook = () => {
     setTableCount(ShopModalData.now_table_count + value);
+    let today = new Date(); // today 객체에 Date()의 결과를 넣어줬다
+    let time = {
+      year: today.getFullYear(), //현재 년도
+      month: today.getMonth() + 1, // 현재 월
+      date: today.getDate(), // 현제 날짜
+      hours: today.getHours(), //현재 시간
+      minutes: today.getMinutes(), //현재 분
+      seconds: today.getSeconds(),
+    };
+    let timestring_day = `${time.year}-${time.month}-${time.date}`;
+    let timestring_time = `${time.hours}:${time.minutes}:${time.seconds}`;
+    saveNowBooking({
+      data: {
+        book_table_count: value,
+        visit_status: "0",
+        method: "0",
+        user_id: auth.id,
+        shop_id: parseInt(shopId),
+        day: timestring_day,
+        time: timestring_time,
+      },
+    }).then((response) => {
+      console.log(response.data);
+    });
     if (value >= 1) {
-      window.location.replace(`/shop/${shopId}/`);
+      window.location.replace(`/user/bookings/${auth.id}/`);
     }
   };
 
@@ -79,6 +118,7 @@ function Modal(props) {
       data: { now_table_count: tableCount },
     })
       .then((response) => {
+        console.log(response.data);
         setTableCount(response.data.now_table_count);
       })
       .catch((error) => console.log(error));
