@@ -89,7 +89,7 @@ function Modal(props) {
       year: today.getFullYear(), //현재 년도
       month: today.getMonth() + 1, // 현재 월
       date: today.getDate(), // 현제 날짜
-      hours: today.getHours(), //현재 시간
+      hours: today.getHours() + 1, //현재 시간
       minutes: today.getMinutes(), //현재 분
       seconds: today.getSeconds(),
     };
