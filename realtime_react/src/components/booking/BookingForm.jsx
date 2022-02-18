@@ -30,17 +30,19 @@ function BookingForm({ shopId, handleDidSave }) {
   );
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("저장 성공");
+    if (window.confirm("예약 하시겠습니까?")) {
+      e.preventDefault();
+      console.log("저장 성공");
 
-    requestBooking({
-      data: { ...fieldValues, user_id: auth.id, shop_id: shopId },
-    }).then((response) => {
-      alert("예약성공");
-      const saveBooking = response.data;
-      console.log(saveBooking);
-      if (handleDidSave) handleDidSave(saveBooking);
-    });
+      requestBooking({
+        data: { ...fieldValues, user_id: auth.id, shop_id: shopId },
+      }).then((response) => {
+        alert("예약성공");
+        const saveBooking = response.data;
+        console.log(saveBooking);
+        if (handleDidSave) handleDidSave(saveBooking);
+      });
+    }
   };
 
   return (
