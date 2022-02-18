@@ -205,7 +205,7 @@ function ShopDetail({ shopId }) {
       {showInfo && getShopInfoData && (
         <div>
           <div>매장정보</div>
-          <ShopDetailComponent shopinfo={getShopInfoData} />;
+          <ShopDetailComponent shopinfo={getShopInfoData} />
         </div>
       )}
 
