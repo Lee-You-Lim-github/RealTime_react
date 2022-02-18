@@ -99,7 +99,7 @@ function Modal(props) {
       data: {
         book_table_count: value,
         visit_status: "0",
-        method: "0",
+        method: "1",
         user_id: auth.id,
         shop_id: parseInt(shopId),
         day: timestring_day,
