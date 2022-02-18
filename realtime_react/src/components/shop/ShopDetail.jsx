@@ -1,9 +1,10 @@
 import { useApiAxios } from "api/base";
 import { data } from "autoprefixer";
 import DebugStates from "components/DebugStates";
+import Modal from "components/modal/Modal";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./ShopDetail.css";
 import ShopDetailComponent from "./ShopDetailComponent";
@@ -19,6 +20,7 @@ function ShopDetail({ shopId }) {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [
     { data: ShopData, loading: ShopLoading, error: ShopError },
@@ -128,6 +130,13 @@ function ShopDetail({ shopId }) {
     getReviewRefetch();
   }, []);
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div>
       {ShopData && (
@@ -139,12 +148,18 @@ function ShopDetail({ shopId }) {
             {ShopData.total_table_count}
           </div>
           <div>
-            <button
-              onClick={() => {}}
-              className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2"
-            >
-              지금예약
-            </button>
+            <React.Fragment>
+              <button
+                className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-3"
+                onClick={openModal}
+              >
+                지금 예약
+              </button>
+
+              <Modal open={modalOpen} close={closeModal} header="지금 예약">
+                <div className="flex justify-center">지금 예약하시겠어요?</div>
+              </Modal>
+            </React.Fragment>
             <Link
               to={`/shop/${shopId}/booking/new/`}
               className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-3"
