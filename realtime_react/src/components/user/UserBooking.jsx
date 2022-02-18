@@ -47,7 +47,11 @@ function UserBooking() {
   const handleDelete = (e) => {
     e.preventDefault();
     const booking_id = e.target.value;
-    if (window.confirm("Are you sure?")) {
+    if (
+      window.confirm(
+        "노쇼(No Show)방지 차원으로 1시간 전 예약 취소시 서비스 이용이 제한될 수 있습니다."
+      )
+    ) {
       deleteBooking({
         url: `/booking/api/bookings/${booking_id}/`,
         method: "DELETE",

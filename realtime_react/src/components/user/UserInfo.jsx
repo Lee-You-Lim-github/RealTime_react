@@ -65,7 +65,7 @@ function UserInfo({ userId }) {
   const handleDelete = (e) => {
     e.preventDefault();
     const review_id = e.target.value;
-    if (window.confirm("Are you sure?")) {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
       deleteBooking({
         url: `/shop/api/reviews/${review_id}/`,
         method: "DELETE",

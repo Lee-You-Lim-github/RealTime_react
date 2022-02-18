@@ -29,18 +29,21 @@ function UserJoinForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    requestMember({ data: fieldValues }).then((response) => {
-      const {
-        user_id,
-        password,
-        password2,
-        username,
-        nickname,
-        telephone,
-        authority,
-      } = response.data;
-      navigate("/accounts/login/");
-    });
+    if (window.confirm("가입 하시겠습니까?")) {
+      requestMember({ data: fieldValues }).then((response) => {
+        alert("회원 가입이 완료되었습니다. 환영합니다:)");
+        const {
+          user_id,
+          password,
+          password2,
+          username,
+          nickname,
+          telephone,
+          authority,
+        } = response.data;
+        navigate("/accounts/login/");
+      });
+    }
   };
 
   return (

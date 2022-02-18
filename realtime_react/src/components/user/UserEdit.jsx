@@ -48,13 +48,16 @@ function UserEdit({ userId, handleDidSave }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    saveRequest({
-      data: fieldValues,
-    }).then((response) => {
-      const savedUser = response.data;
-      if (handleDidSave) handleDidSave(savedUser);
-    });
-    navigate(`/user/mypage/${userId}/`);
+    if (window.confirm("수정 하시겠습니까?")) {
+      saveRequest({
+        data: fieldValues,
+      }).then((response) => {
+        alert("수정이 완료되었습니다.");
+        const savedUser = response.data;
+        if (handleDidSave) handleDidSave(savedUser);
+      });
+      navigate(`/user/mypage/${userId}/`);
+    }
   };
 
   return (

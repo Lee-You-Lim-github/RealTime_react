@@ -35,7 +35,6 @@ function AdminUser() {
 
   // 매장명 / 유저명으로 검색
   const search = (e) => {
-    console.log(e.target.value);
     if (e.key === "Enter") {
       const { value } = e.target;
       setQuery(value);
