@@ -1,14 +1,12 @@
 import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
-import useFieldValues from "hook/usefieldValues";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Myshop({ shopId }) {
   const [auth] = useAuth();
-
-  // const { fieldValues } = useFieldValues();
+  const navigate = useNavigate();
 
   // get_shop_data
   const [
@@ -53,7 +51,8 @@ function Myshop({ shopId }) {
     saveRuquest({
       data: { holiday: "1" },
     })
-      .then((response) => {
+      .then(() => {
+        alert("휴일로 변경되었습니다.");
         refetch();
       })
       .catch((error) => console.log(error));
@@ -64,26 +63,36 @@ function Myshop({ shopId }) {
     saveRuquest({
       data: { holiday: "0" },
     })
-      .then((response) => {
+      .then(() => {
+        alert("영업 중으로 변경되었습니다.");
         refetch();
       })
       .catch((error) => console.log(error));
   };
 
-  // Plus를 눌렀을 때
+  // Plus를 눌렀을 때(전체 테이블 수보다 추가할 수 없음.)
   const handlePlus = () => {
     setTableCount((prevTableCount) => {
-      console.log("prev", prevTableCount);
-      return prevTableCount + 1;
+      if (prevTableCount === myShopData.total_table_count) {
+        return prevTableCount;
+      } else {
+        return prevTableCount + 1;
+      }
     });
   };
 
-  // Minus를 눌렀을 때
+  // Minus를 눌렀을 때(현재 테이블 수가 0 or -1이상일 경우 감소시킬 수 없음.)
   const handleMinus = () => {
-    setTableCount((prevTableCount) => prevTableCount - 1);
-    console.log(tableCount);
+    setTableCount((prevTableCount) => {
+      if (prevTableCount > 0) {
+        return prevTableCount - 1;
+      } else {
+        return prevTableCount;
+      }
+    });
   };
 
+  // 변경된 now_table_count 값 저장
   useEffect(() => {
     console.log(tableCount);
     saveRuquest({
@@ -319,7 +328,6 @@ function Myshop({ shopId }) {
           </div>
         </div>
       </div>
-      <DebugStates myShopData={myShopData} />
     </div>
   );
 }
