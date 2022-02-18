@@ -139,6 +139,7 @@ function ShopDetail({ shopId }) {
 
   return (
     <div>
+      <DebugStates ShopData={ShopData} />
       {ShopData && (
         <>
           <br />
@@ -156,7 +157,13 @@ function ShopDetail({ shopId }) {
                 지금 예약
               </button>
 
-              <Modal open={modalOpen} close={closeModal} header="지금 예약">
+              <Modal
+                shopId={shopId}
+                ShopData={ShopData}
+                open={modalOpen}
+                close={closeModal}
+                header="지금 예약"
+              >
                 <div className="flex justify-center">지금 예약하시겠어요?</div>
               </Modal>
             </React.Fragment>
