@@ -46,7 +46,7 @@ function ShopForm({ shopId, handleDidSave }) {
   };
 
   // shop/api/100 조회
-  const [{ data: getShopData, laoding: getShopLaoding, error: getShopError }] =
+  const [{ data: getShopData, loading: getShopLoading, error: getShopError }] =
     useApiAxios(
       {
         url: `/shop/api/shops/${shopId}/`,
@@ -73,7 +73,7 @@ function ShopForm({ shopId, handleDidSave }) {
   // 생성 및 수정 저장
   const [
     {
-      laoding: shopFormLoading,
+      loading: shopFormLoading,
       error: shopFormError,
       errorMessages: ShopSavedErrorMessages,
     },
