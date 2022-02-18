@@ -128,6 +128,8 @@ function Map({ getData }) {
         "click",
         makeOverListener(map, marker, overlay)
       );
+
+      kakao.maps.event.addListener(map, "click", closeOverlay(overlay));
       // kakao.maps.event.addListener(map, "click", closeOverlay(marker));
     }
     function makeOverListener(map, marker, overlay) {
@@ -135,7 +137,7 @@ function Map({ getData }) {
         overlay.setMap(map, marker, overlay);
       };
     }
-    function closeOverlay() {
+    function closeOverlay(overlay) {
       overlay.setMap(null);
       // marker.setMap(null);
     }
