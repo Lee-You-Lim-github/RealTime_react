@@ -1,10 +1,17 @@
+import "../Paginations/Paginations.css";
 import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
 import { useCallback, useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import ShopBookingComponent from "./ShopBookingComponent";
 
-function ShopBooking({ shopId, bookingId }) {
+function ShopBooking({ shopId, itemsPerPage = 10 }) {
   const [auth] = useAuth();
+
+  // paging
+  const [, setItem] = useState(null);
+  const [pageCount, setPageCount] = useState(1);
+  const [, setPage] = useState(1);
 
   //disabled
   const [loading, setLoading] = useState(false);
@@ -37,15 +44,36 @@ function ShopBooking({ shopId, bookingId }) {
     { manual: true }
   );
 
+  const fetchApplication = useCallback(
+    async (newPage, newQuery = query) => {
+      const params = {
+        page: newPage,
+        query: newQuery,
+      };
+
+      const { data } = await refetch({ params });
+
+      setPage(newPage);
+      setPageCount(Math.ceil(data.count / itemsPerPage));
+      setItem(data?.results);
+    },
+    [query]
+  );
+
   // get_bookings_refetch()
   useEffect(() => {
     refetch();
+    fetchApplication(1);
     setLoading(false);
   }, []);
 
+  const handlePage = (event) => {
+    fetchApplication(event.selected + 1);
+  };
+
   // 해당 매장의 예약자만 보이기
   useEffect(() => {
-    const abc = getBookingData?.filter(
+    const abc = getBookingData?.results?.filter(
       (shop_booking) => parseInt(shopId) === shop_booking.shop_id.id
     );
 
@@ -195,20 +223,16 @@ function ShopBooking({ shopId, bookingId }) {
                     })}
                   </tbody>
                 </table>
-                {/* <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-                  <span class="text-xs xs:text-sm text-gray-900">
-                    Showing 1 to 4 of 50 Entries
-                  </span>
-                  <div class="inline-flex mt-2 xs:mt-0">
-                    <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
-                      Prev
-                    </button>
-                    &nbsp; &nbsp;
-                    <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
-                      Next
-                    </button>
-                  </div>
-                </div> */}
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel=">"
+                  onPageChange={handlePage}
+                  pageRangeDisplayed={itemsPerPage}
+                  pageCount={pageCount}
+                  previousLabel="<"
+                  renderOnZeroPageCount={null}
+                  className="pagination"
+                />
               </div>
             </div>
           )}

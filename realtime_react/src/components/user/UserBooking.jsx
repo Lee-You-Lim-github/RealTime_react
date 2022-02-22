@@ -23,7 +23,7 @@ function UserBooking() {
   );
 
   useEffect(() => {
-    const userBooking = bookingList?.filter(
+    const userBooking = bookingList?.results?.filter(
       (booking) => parseInt(auth.id) === booking.user_id.id
     );
 

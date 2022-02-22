@@ -42,7 +42,7 @@ function ShopBookingComponent({
             {shop_booking.book_table_count}
           </p>
         </td>
-        <td className="p-3 px-5 flex justify-end">
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <button
             type="button"
             disabled={loading}
