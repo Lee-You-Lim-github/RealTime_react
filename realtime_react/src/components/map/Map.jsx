@@ -1,154 +1,274 @@
-/*global kakao */
-
-import "./Map.css";
-import { Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import DebugStates from "components/DebugStates";
+import { useState } from "react";
+import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import marker1 from "assets/img/marker1.png";
 import marker2 from "assets/img/marker2.png";
 import marker3 from "assets/img/marker3.png";
 import marker4 from "assets/img/marker4.png";
 import marker5 from "assets/img/marker5.png";
-import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
-import { CustomOverlayMap } from "react-kakao-maps-sdk";
-import { data } from "autoprefixer";
+import { Link } from "react-router-dom";
+import "./Map.css";
 
-function Map({ getData }) {
-  const navigate = useNavigate();
-
+function TypeMap({ getData }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [overlay, setOverlay] = useState();
 
-  const shopObject = Object.assign({}, getData);
-  console.log("shopObject:", shopObject);
+  //   const markerPosition = {
+  //     lat: 33.450701,
+  //     lng: 126.570667,
+  //   };
 
-  useEffect(() => {
-    var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-      mapOption = {
-        center: new kakao.maps.LatLng(36.33293849894394, 127.4339577406385), // 지도의 중심좌표
-        level: 5, // 지도의 확대 레벨
-      };
+  const event = (name) => {
+    setIsOpen(true);
+    setOverlay(name);
+  };
 
-    var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성
+  console.log("getData :", getData);
 
-    // 마커를 표시할 위치와 title 객체 배열
-    var positions = getData?.map((data) => {
-      console.log("data:", data);
-      return {
-        shop_id: data.id,
-        name: data.name,
-        latlng: new kakao.maps.LatLng(data.lat, data.long),
-        address: data.address,
-        now_table_count: data.now_table_count,
-        total_table_count: data.total_table_count,
-        photo: data.photo,
-        telephone: data.telephone,
-        holiday: data.holiday,
-        // rating: data.rating,
-      };
-    });
+  var positions = getData?.map((data) => {
+    // console.log("data:", data);
+    return {
+      shop_id: data.id,
+      name: data.name,
+      lat: data.lat,
+      lng: data.long,
+      address: data.address,
+      now_table_count: data.now_table_count,
+      total_table_count: data.total_table_count,
+      photo: data.photo,
+      telephone: data.telephone,
+      holiday: data.holiday,
+      // rating: data.rating,
+      marker1: marker1,
+      marker2: marker2,
+      marker3: marker3,
+      marker4: marker4,
+      marker5: marker5,
+    };
+  });
 
-    for (var i = 0; i < positions.length; i++) {
-      var imageSize = new kakao.maps.Size(44, 55);
-      if (positions[i].holiday === "1") {
-        var markerImage = new kakao.maps.MarkerImage(marker5, imageSize);
-      } else if (positions[i].holiday === "0") {
-        if (
-          (positions[i].now_table_count / positions[i].total_table_count) *
-            100 <
-          33
-        ) {
-          var markerImage = new kakao.maps.MarkerImage(marker1, imageSize);
-        } else if (
-          (positions[i].now_table_count / positions[i].total_table_count) *
-            100 <
-          66
-        ) {
-          var markerImage = new kakao.maps.MarkerImage(marker2, imageSize);
-        } else if (
-          (positions[i].now_table_count / positions[i].total_table_count) *
-            100 <
-          99
-        ) {
-          var markerImage = new kakao.maps.MarkerImage(marker3, imageSize);
-        } else if (
-          (positions[i].now_table_count / positions[i].total_table_count) *
-            100 ===
-          100
-        ) {
-          var markerImage = new kakao.maps.MarkerImage(marker4, imageSize);
-        }
-      }
-
-      var infoContent =
-        '<div class="wrap">' +
-        '    <div class="info">' +
-        '        <div class="title">' +
-        `            ${positions[i].name}` +
-        `            <div class="close" onclick="" title="닫기"></div>` +
-        "        </div>" +
-        '        <div class="body">' +
-        '            <div class="img">' +
-        `                <img src=${positions[i].photo} width="70" height="70">` +
-        "           </div>" +
-        '            <div class="desc">' +
-        `                <div class="ellipsis">${positions[i].address}</div>` +
-        // `                <div class="jibun ellipsis">별점 : ${positions[i].rating}</div>` +
-        `                <div class="ellipsis">Tel : ${positions[i].telephone}</div>` +
-        `                <div><a href="/shop/${positions[i].shop_id}/" class="link">매장 상세보기</a></div>` +
-        "            </div>" +
-        "        </div>" +
-        "    </div>" +
-        "</div>";
-
-      // 마커를 생성
-
-      var marker = new kakao.maps.Marker({
-        map: map, // 마커를 표시할 지도
-        position: positions[i].latlng, // 마커를 표시할 위치
-        image: markerImage, // 마커 이미지
-      });
-
-      var overlay = new kakao.maps.CustomOverlay({
-        position: positions[i].latlng,
-        content: infoContent, // 인포윈도우에 표시할 내용
-      });
-
-      // 마커에 mouseover 이벤트와 mouseout 이벤트를 등록
-      // 이벤트 리스너로는 클로저를 만들어 등록
-
-      // kakao.maps.event.addListener(
-      //   marker,
-      //   "mouseover",
-      //   makeOverListener(map, marker, overlay)
-      // );
-
-      // kakao.maps.event.addListener(marker, "mouseout", closeOverlay(overlay));
-      kakao.maps.event.addListener(
-        marker,
-        "click",
-        makeOverListener(map, marker, overlay)
+  // 휴일 / 테이블 수에 따른 마커색 변경
+  const marker = positions?.map((marker_object) => {
+    if (marker_object.holiday === "1") {
+      return (
+        <MapMarker
+          //   key={marker_object.shop_id}
+          position={{
+            lat: marker_object.lat,
+            lng: marker_object.lng,
+          }}
+          onClick={() => event(marker_object.name)}
+          image={{
+            src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
+            size: {
+              width: 44,
+              height: 55,
+            }, // 마커이미지의 크기입니다
+            options: {
+              offset: {
+                x: 27,
+                y: 69,
+              }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+            },
+          }}
+        />
       );
+    } else if (marker_object.holiday === "0") {
+      if (
+        (marker_object.now_table_count / marker_object.total_table_count) *
+          100 <
+        33
+      ) {
+        return (
+          <MapMarker
+            // key={marker_object.shop_id}
+            position={{
+              lat: marker_object.lat,
+              lng: marker_object.lng,
+            }}
+            onClick={() => event(marker_object.name)}
+            image={{
+              src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
+              size: {
+                width: 44,
+                height: 55,
+              }, // 마커이미지의 크기입니다
+              options: {
+                offset: {
+                  x: 27,
+                  y: 69,
+                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+              },
+            }}
+          />
+        );
+      } else if (
+        (marker_object.now_table_count / marker_object.total_table_count) *
+          100 <
+        66
+      ) {
+        return (
+          <MapMarker
+            // key={marker_object.shop_id}
+            position={{
+              lat: marker_object.lat,
+              lng: marker_object.lng,
+            }}
+            onClick={() => event(marker_object.name)}
+            image={{
+              src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
+              size: {
+                width: 44,
+                height: 55,
+              }, // 마커이미지의 크기입니다
+              options: {
+                offset: {
+                  x: 27,
+                  y: 69,
+                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+              },
+            }}
+          />
+        );
+      } else if (
+        (marker_object.now_table_count / marker_object.total_table_count) *
+          100 <
+        99
+      ) {
+        return (
+          <MapMarker
+            // key={marker_object.shop_id}
+            position={{
+              lat: marker_object.lat,
+              lng: marker_object.lng,
+            }}
+            onClick={() => event(marker_object.name)}
+            image={{
+              src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
+              size: {
+                width: 44,
+                height: 55,
+              }, // 마커이미지의 크기입니다
+              options: {
+                offset: {
+                  x: 27,
+                  y: 69,
+                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+              },
+            }}
+          />
+        );
+      } else if (
+        (marker_object.now_table_count / marker_object.total_table_count) *
+          100 ===
+        100
+      ) {
+        return (
+          <MapMarker
+            // key={marker_object.shop_id}
+            position={{
+              lat: marker_object.lat,
+              lng: marker_object.lng,
+            }}
+            onClick={() => event(marker_object.name)}
+            image={{
+              src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
+              size: {
+                width: 44,
+                height: 55,
+              }, // 마커이미지의 크기입니다
+              options: {
+                offset: {
+                  x: 27,
+                  y: 69,
+                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+              },
+            }}
+          />
+        );
+      }
+    }
+  });
 
-      // kakao.maps.event.addListener(map, "click", closeOverlay(overlay));
-      // kakao.maps.event.addListener(map, "click", closeOverlay(marker));
-    }
-    function makeOverListener(map, marker, overlay) {
-      return function () {
-        overlay.setMap(map, marker, overlay);
-      };
-    }
-    function closeOverlay(overlay) {
-      overlay.setMap(null);
-      // marker.setMap(null);
-    }
-  }, []);
+  console.log("overlay :", overlay);
+  console.log("marker: ", positions);
 
   return (
-    <div>
-      <div id="map" style={{ width: "100vw", height: "100vh" }}></div>
-      <DebugStates getData={getData} />
-    </div>
+    <>
+      {/* <DebugStates positions={positions} getData={getData} /> */}
+      {/* <RemovableCustomOverlayStyle /> */}
+      <Map // 지도를 표시할 Container
+        id={`map`}
+        center={{
+          // 지도의 중심좌표
+          lat: 36.32965442153325,
+          lng: 127.44302364150629,
+        }}
+        style={{
+          // 지도의 크기
+          width: "100%",
+          height: "700px",
+        }}
+        level={5} // 지도의 확대 레벨
+      >
+        {/* 테이블 수 비율별 마커색 변경 */}
+        {getData && (
+          <>
+            {marker}
+            {/* <MapMarker
+              position={markerPosition}
+              onClick={() => setIsOpen(true)}
+            /> */}
+            {isOpen &&
+              positions
+                ?.filter((p) => p.name === overlay)
+                .map((data_object) => (
+                  <CustomOverlayMap
+                    position={{ lat: data_object.lat, lng: data_object.lng }}
+                    //   key={data_object.shop_id}
+                  >
+                    <div className="wrap">
+                      <div className="info">
+                        <div className="title">
+                          {data_object.name}
+                          <div
+                            className="close"
+                            onClick={() => setIsOpen(false)}
+                            title="닫기"
+                          ></div>
+                        </div>
+                        <div className="body">
+                          <div className="img">
+                            <img
+                              src={`${data_object.photo}`}
+                              width="73"
+                              height="70"
+                              alt="카카오 스페이스닷원"
+                            />
+                          </div>
+                          <div className="desc">
+                            <div className="ellipsis">
+                              {data_object.address}
+                            </div>
+                            <div className="jibun ellipsis">
+                              {data_object.telephone}
+                            </div>
+                            <div>
+                              <Link to={`/shop/${data_object.shop_id}/`}>
+                                매장으로
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CustomOverlayMap>
+                ))}
+          </>
+        )}
+      </Map>
+    </>
   );
 }
 
-export default Map;
+export default TypeMap;

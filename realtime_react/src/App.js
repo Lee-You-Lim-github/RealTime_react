@@ -16,6 +16,7 @@ import PageUserEdit from "pages/user/PageUserEdit";
 import PageAdminShop from "pages/admin/PageAdminShop";
 import PageAdminBooking from "pages/admin/PageAdminBooking";
 import PageAdminUser from "pages/admin/PageAdminUser";
+import PageShopNot from "pages/notfound/PageShopNot";
 
 function App() {
   const [auth, , login, logout] = useAuth();
@@ -92,7 +93,7 @@ function App() {
               <Routes>
                 <Route path="/account/userjoin/" element={<PageUserJoin />} />
                 <Route path="/shop/new/" element={<PageShopForm />} />
-                <Route path="/shop/:shopId/" element={<PageShopDetail />} />
+                <Route path="/shop/:shopId/" element={<PageShopNot />} />
                 <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
                 <Route path="/shop/myshop/:shopId/" element={<PageMyShop />} />
                 <Route
