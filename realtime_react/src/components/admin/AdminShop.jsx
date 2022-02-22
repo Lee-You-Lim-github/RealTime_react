@@ -1,17 +1,22 @@
+import "../Paginations/Paginations.css";
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
-import { useAuth } from "contexts/AuthContext";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import AdminShopComponent from "./AdminShopComponent";
 
-function AdminShop() {
+function AdminShop({ itemsPerPage = 10 }) {
+  // paging
+  const [, setItem] = useState(null);
+  const [pageCount, setPageCount] = useState(1);
+  const [, setPage] = useState(1);
+
   // search
   const [query, setQuery] = useState();
 
   // reload
-  const [reload, setReload] = useState(false);
+  const [, setReload] = useState(false);
 
-  const [{ data: adminShopData, loading, error }, adminRefetch] = useApiAxios(
+  const [{ data: adminShopData }, adminRefetch] = useApiAxios(
     {
       url: `shop/api/shops/${query ? "?query=" + query : ""}`,
       method: "GET",
@@ -19,22 +24,41 @@ function AdminShop() {
     { manual: true }
   );
 
+  const fetchApplication = useCallback(
+    async (newPage, newQuery = query) => {
+      const params = {
+        page: newPage,
+        query: newQuery,
+      };
+
+      const { data } = await adminRefetch({ params });
+
+      setPage(newPage);
+      setPageCount(Math.ceil(data.count / itemsPerPage));
+      setItem(data?.results);
+    },
+    [query]
+  );
+
+  // get_users_refetch()
   useEffect(() => {
-    adminRefetch();
+    fetchApplication(1);
   }, []);
 
-  const [{ loading: deleteLoading, error: deleteError }, deleteShop] =
-    useApiAxios(
-      {
-        url: `/shop/api/shops/`,
-        method: "DELETE",
-      },
-      { manual: true }
-    );
+  const handlePage = (event) => {
+    fetchApplication(event.selected + 1);
+  };
+
+  const [{ loading, error }, deleteShop] = useApiAxios(
+    {
+      url: `/shop/api/shops/`,
+      method: "DELETE",
+    },
+    { manual: true }
+  );
 
   // 등록된 매장 삭제
   const handleDelete = (e) => {
-    console.log(e);
     if (window.confirm("해당 매장 정보를 삭제하시겠습니까?")) {
       deleteShop({
         url: `/shop/api/shops/${e}/`,
@@ -52,7 +76,6 @@ function AdminShop() {
 
   // 사업자번호 / 매장명으로 검색
   const search = (e) => {
-    console.log(e.target.value);
     if (e.key === "Enter") {
       const { value } = e.target;
       setQuery(value);
@@ -63,22 +86,21 @@ function AdminShop() {
 
   const getQuery = (e) => {
     const { value } = e.target;
-    console.log(value);
     setQuery(value);
   };
 
   return (
     <div>
-      <div class="bg-white p-8 rounded-md w-full">
-        <div class=" flex items-center justify-between pb-6">
+      <div className="bg-white p-8 rounded-md w-full">
+        <div className=" flex items-center justify-between pb-6">
           <div>
-            <h1 class="text-gray-600 font-semibold">매장관리</h1>
+            <h1 className="text-gray-600 font-semibold">매장관리</h1>
           </div>
-          <div class="flex items-center justify-between">
-            <div class="flex bg-gray-50 items-center p-2 rounded-md">
+          <div className="flex items-center justify-between">
+            <div className="flex bg-gray-50 items-center p-2 rounded-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-gray-400"
+                className="h-5 w-5 text-gray-400"
                 viewBox="0 0 20 20"
                 fill="currentColor"
               >
@@ -89,7 +111,7 @@ function AdminShop() {
                 />
               </svg>
               <input
-                class="bg-gray-50 outline-none ml-1 block "
+                className="bg-gray-50 outline-none ml-1 block "
                 type="search"
                 placeholder="사업자등록번호/매장명"
                 onChange={getQuery}
@@ -100,30 +122,29 @@ function AdminShop() {
         </div>
         <div>
           {adminShopData && (
-            <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-              <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                <table class="min-w-full leading-normal">
+            <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+              <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+                <table className="min-w-full leading-normal">
                   <thead>
                     <tr>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         사업자등록번호
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장명
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장 전화번호
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         주소
                       </th>
-                      <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장 삭제
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
                     {adminShopData?.map((admin_shop) => (
                       <AdminShopComponent
                         admin_shop={admin_shop}
@@ -132,20 +153,16 @@ function AdminShop() {
                     ))}
                   </tbody>
                 </table>
-                {/* <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-                  <span class="text-xs xs:text-sm text-gray-900">
-                    Showing 1 to 4 of 50 Entries  
-                  </span>
-                  <div class="inline-flex mt-2 xs:mt-0">
-                    <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
-                      Prev
-                    </button>
-                    &nbsp; &nbsp;
-                    <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
-                      Next
-                    </button>
-                  </div>
-                </div> */}
+                <ReactPaginate
+                  breakLabel="..."
+                  nextLabel=">"
+                  onPageChange={handlePage}
+                  pageRangeDisplayed={itemsPerPage}
+                  pageCount={pageCount}
+                  previousLabel="<"
+                  renderOnZeroPageCount={null}
+                  className="pagination"
+                />
               </div>
             </div>
           )}

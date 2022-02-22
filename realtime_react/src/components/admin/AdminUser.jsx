@@ -1,23 +1,26 @@
+import "../Paginations/Paginations.css";
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 import AdminUserComponent from "./AdminUserComponent";
 
-function AdminUser() {
+function AdminUser({ itemsPerPage = 10 }) {
   const [auth] = useAuth();
+
+  // paging
+  const [, setItem] = useState(null);
+  const [pageCount, setPageCount] = useState(1);
+  const [, setPage] = useState(1);
 
   // search
   const [query, setQuery] = useState();
 
   // reload
-  const [reload, setReload] = useState(false);
+  const [, setReload] = useState(false);
 
-  // get_bookings
-  const [
-    { data: getUserData, loading: getUserLoading, error: getUserError },
-    refetch,
-  ] = useApiAxios(
+  // get_users
+  const [{ data: getUserData }, refetch] = useApiAxios(
     {
       url: `/accounts/api/users/${query ? "?query=" + query : ""}`,
       method: "GET",
@@ -28,12 +31,32 @@ function AdminUser() {
     { manual: true }
   );
 
-  // get_bookings_refetch()
+  const fetchApplication = useCallback(
+    async (newPage, newQuery = query) => {
+      const params = {
+        page: newPage,
+        query: newQuery,
+      };
+
+      const { data } = await refetch({ params });
+
+      setPage(newPage);
+      setPageCount(Math.ceil(data.count / itemsPerPage));
+      setItem(data?.results);
+    },
+    [query]
+  );
+
+  // get_users_refetch()
   useEffect(() => {
-    refetch();
+    fetchApplication(1);
   }, []);
 
-  // 매장명 / 유저명으로 검색
+  const handlePage = (event) => {
+    fetchApplication(event.selected + 1);
+  };
+
+  // 유저ID / 유저명으로 검색
   const search = (e) => {
     if (e.key === "Enter") {
       const { value } = e.target;
@@ -49,16 +72,16 @@ function AdminUser() {
   };
 
   return (
-    <div class="bg-white p-8 rounded-md w-full">
-      <div class=" flex items-center justify-between pb-6">
+    <div className="bg-white p-8 rounded-md w-full">
+      <div className=" flex items-center justify-between pb-6">
         <div>
-          <h2 class="text-gray-600 font-semibold">회원관리</h2>
+          <h2 className="text-gray-600 font-semibold">회원관리</h2>
         </div>
-        <div class="flex items-center justify-between">
-          <div class="flex bg-gray-50 items-center p-2 rounded-md">
+        <div className="flex items-center justify-between">
+          <div className="flex bg-gray-50 items-center p-2 rounded-md">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 text-gray-400"
+              className="h-5 w-5 text-gray-400"
               viewBox="0 0 20 20"
               fill="currentColor"
             >
@@ -69,7 +92,7 @@ function AdminUser() {
               />
             </svg>
             <input
-              class="bg-gray-50 outline-none ml-1 block "
+              className="bg-gray-50 outline-none ml-1 block "
               type="search"
               onChange={getQuery}
               onKeyPress={search}
@@ -80,49 +103,45 @@ function AdminUser() {
       </div>
       <div>
         {getUserData && (
-          <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-            <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-              <table class="min-w-full leading-normal">
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <table className="min-w-full leading-normal">
                 <thead>
                   <tr>
-                    <th class="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원ID
                     </th>
-                    <th class="pl-10 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="pl-10 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원명
                     </th>
-                    <th class="pl-14 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="pl-14 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       닉네임
                     </th>
-                    <th class="pl-20 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="pl-20 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       휴대폰번호
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {getUserData?.map((user) => {
+                  {getUserData?.results?.map((user) => {
                     return <AdminUserComponent user={user} />;
                   })}
                 </tbody>
               </table>
-              {/* <div class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
-              <span class="text-xs xs:text-sm text-gray-900">
-                Showing 1 to 4 of 50 Entries
-              </span>
-              <div class="inline-flex mt-2 xs:mt-0">
-                <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-l">
-                  Prev
-                </button>
-                <button class="text-sm text-indigo-50 transition duration-150 hover:bg-indigo-500 bg-indigo-600 font-semibold py-2 px-4 rounded-r">
-                  Next
-                </button>
-              </div>
-            </div> */}
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePage}
+                pageRangeDisplayed={itemsPerPage}
+                pageCount={pageCount}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+                className="pagination"
+              />
             </div>
           </div>
         )}
       </div>
-      <DebugStates getUserData={getUserData} />
     </div>
   );
 }

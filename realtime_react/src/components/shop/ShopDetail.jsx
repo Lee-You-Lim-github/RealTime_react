@@ -19,7 +19,7 @@ function ShopDetail({ shopId }) {
   const [auth] = useAuth();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const [showInfo, setShowInfo] = useState(false);
+  const [showInfo, setShowInfo] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
   const [
