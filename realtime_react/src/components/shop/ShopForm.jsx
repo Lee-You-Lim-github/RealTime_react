@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ShopFormConfirmModal from "components/modal/ShopFormConfirmModal";
 import { useNavigate } from "react-router-dom";
+import LoadingIndicator from "components/LoadingIndicator";
 
 const INIT_FIELD_VALUES = {
   shop_num: "",
@@ -167,6 +168,15 @@ function ShopForm({ shopId, handleDidSave }) {
       ) : (
         <h2 className="text-2xl my-5"> 매장 정보 수정</h2>
       )}
+      {shopFormLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
+
+      {!shopId
+        ? shopFormError?.response?.status >= 400 && (
+            <div className="text-red-400">등록에 실패했습니다.</div>
+          )
+        : shopFormError?.response?.status >= 400 && (
+            <div className="text-red-400">수정에 실패했습니다.</div>
+          )}
 
       <p className="text-left ml-56">사업자등록번호</p>
       <input
