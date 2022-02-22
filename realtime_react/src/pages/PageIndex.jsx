@@ -46,6 +46,13 @@ function PageIndex() {
           placeholder="매장을 검색해주세요."
           onKeyPress={searchShop}
         />
+        <select>
+          <option>한식</option>
+          <option>중식</option>
+          <option>일식</option>
+          <option>양식</option>
+          <option>카페</option>
+        </select>
       </div>
       {getData && <Map getData={getData} />}
 
