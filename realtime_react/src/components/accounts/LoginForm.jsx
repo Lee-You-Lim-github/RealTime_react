@@ -2,6 +2,8 @@ import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
+import LoadingIndicator from "components/LoadingIndicator";
+import { ToastContainer } from "react-toastify";
 
 const INIT_FIELD_VALUES = { user_id: "", password: "" };
 
@@ -57,9 +59,11 @@ function LoginForm() {
 
   return (
     <div className="mt-32">
+      <ToastContainer />
       <h2 className="text-2xl my-5">Login</h2>
 
-      {error?.response?.status === 401 && (
+      {loading && <LoadingIndicator>로그인 중...</LoadingIndicator>}
+      {error?.response?.status >= 400 && (
         <div className="text-red-400">아이디/비밀번호를 다시 확인해주세요.</div>
       )}
 

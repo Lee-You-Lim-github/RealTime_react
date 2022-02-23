@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 import produce from "immer";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ShopFormConfirmModal from "components/modal/ShopFormConfirmModal";
+import ConfirmModal from "components/modal/ConfirmModal";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
 
@@ -98,9 +98,7 @@ function ShopForm({ shopId, handleDidSave }) {
   );
 
   // 값 저장
-  const shopHandleSubmit = (e) => {
-    e.preventDefault();
-
+  const shopHandleSubmit = () => {
     const formData = new FormData();
     Object.entries(fieldValues).forEach(([name, value]) => {
       if (Array.isArray(value)) {
@@ -119,8 +117,8 @@ function ShopForm({ shopId, handleDidSave }) {
         data: formData,
       }).then((response) => {
         console.log("등록");
-        toast.info("🦄 등록이 완료되었습니다.", {
-          position: "top-right",
+        toast.info("🦄 등록되었습니다.", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -136,8 +134,8 @@ function ShopForm({ shopId, handleDidSave }) {
         data: formData,
       }).then((response) => {
         console.log("수정");
-        toast.info("🦄 수정이 완료되었습니다.", {
-          position: "top-right",
+        toast.info("🦄 수정되었습니다.", {
+          position: "top-center",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
@@ -390,30 +388,21 @@ function ShopForm({ shopId, handleDidSave }) {
             >
               등록
             </button>
-            <ShopFormConfirmModal
+            <ConfirmModal
               shopId={shopId}
               shopHandleSubmit={shopHandleSubmit}
               open={modalOpen}
               close={closeModal}
               header="등록하시겠습니까?"
-            ></ShopFormConfirmModal>
+            ></ConfirmModal>
           </React.Fragment>
         ) : (
-          <React.Fragment>
-            <button
-              className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2"
-              onClick={openModal}
-            >
-              수정
-            </button>
-            <ShopFormConfirmModal
-              shopId={shopId}
-              shopHandleSubmit={shopHandleSubmit}
-              open={modalOpen}
-              close={closeModal}
-              header="수정하시겠습니까?"
-            ></ShopFormConfirmModal>
-          </React.Fragment>
+          <button
+            className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2"
+            onClick={shopHandleSubmit}
+          >
+            수정
+          </button>
         )}
       </div>
 

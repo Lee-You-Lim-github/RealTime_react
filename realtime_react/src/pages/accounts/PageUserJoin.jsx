@@ -4,14 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 function PageUserJoin() {
   const navigate = useNavigate();
 
-  const { userId } = useParams();
-
   return (
     <div>
-      <UserJoinForm
-        userId={userId}
-        handleDidSave={(savedUser) => navigate(`/user/mypage/${savedUser.id}/`)}
-      />
+      <UserJoinForm handleDidSave={() => navigate(`/accounts/login/`)} />
     </div>
   );
 }

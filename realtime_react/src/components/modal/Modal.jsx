@@ -109,7 +109,7 @@ function Modal(props) {
       console.log(response.data);
     });
     if (value >= 1) {
-      window.location.replace(`/user/bookings/${auth.id}/`);
+      window.location.replace(`/user/${auth.id}/bookings/`);
     }
   };
 

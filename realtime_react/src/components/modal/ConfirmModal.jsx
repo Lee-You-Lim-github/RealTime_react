@@ -1,13 +1,18 @@
 import React from "react";
 import "./modal.css";
 
-function ShopFormConfirmModal(props) {
+function ConfirmModal(props) {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header, shopHandleSubmit } = props;
+  const { open, close, header, shopHandleSubmit, handleSubmit } = props;
 
-  const handleYes = (e) => {
-    shopHandleSubmit(e);
-    close();
+  const handleYes = () => {
+    if (header === "등록하시겠습니까?") {
+      shopHandleSubmit();
+      close();
+    } else if (header === "가입하시겠습니까?") {
+      handleSubmit();
+      close();
+    }
   };
 
   return (
@@ -47,4 +52,4 @@ function ShopFormConfirmModal(props) {
   );
 }
 
-export default ShopFormConfirmModal;
+export default ConfirmModal;
