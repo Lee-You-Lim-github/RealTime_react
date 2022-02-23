@@ -39,15 +39,16 @@ function PageIndex() {
 
   return (
     <>
-      <div className="text-center mb-2">
+      <div className="page">{getData && <Map getData={getData} />}</div>
+      <div className="paging text-center">
         <input
+          className="w-60 h-9"
           type="search"
           onChange={getQuery}
           placeholder="매장을 검색해주세요."
           onKeyPress={searchShop}
         />
       </div>
-      {getData && <Map getData={getData} />}
 
       <Sidebar width={200} />
     </>
