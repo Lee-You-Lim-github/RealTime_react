@@ -1,12 +1,12 @@
+import "./ShopDetail.css";
 import { useApiAxios } from "api/base";
-import { data } from "autoprefixer";
 import DebugStates from "components/DebugStates";
 import Modal from "components/modal/Modal";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "./ShopDetail.css";
+import React, { useCallback, useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
+import { Link } from "react-router-dom";
 import ShopDetailComponent from "./ShopDetailComponent";
 import ShopReviewComponent from "./ShopReviewComponent";
 
@@ -15,15 +15,20 @@ const INIT_REVIEW_FIELD_VALUES = {
   rating: "",
 };
 
-function ShopDetail({ shopId }) {
+function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [auth] = useAuth();
-  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const [showInfo, setShowInfo] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
+  // paging
+  const [, setItems] = useState(null);
+  const [pageCount, setPageCount] = useState(0);
+  const [page, setPage] = useState(1);
+
+  // getShopData
   const [
-    { data: ShopData, loading: ShopLoading, error: ShopError },
+    { data: shopData, loading: shopLoading, error: shopError },
     ShopRefetch,
   ] = useApiAxios(
     {
@@ -40,12 +45,10 @@ function ShopDetail({ shopId }) {
     ShopRefetch();
   }, [shopId]);
 
-  const [
-    { data: ReviewData, loading: ReviewLoading, error: ReviewError },
-    ReviewRefetch,
-  ] = useApiAxios(
+  // getReviewData
+  const [{ data: reviewData }, reviewRefetch] = useApiAxios(
     {
-      url: `/shop/api/reviews/`,
+      url: `/shop/api/reviews/?query=${shopId}`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -54,15 +57,31 @@ function ShopDetail({ shopId }) {
     { manual: true }
   );
 
+  // reviewList Paging
+  const fetchApplications = useCallback(async (newPage) => {
+    const params = {
+      page: newPage,
+    };
+    const { data } = await reviewRefetch({ params });
+    setPage(newPage);
+    setPageCount(Math.ceil(data.count / itemsPerPage));
+    setItems(data?.results);
+  }, []);
+
   useEffect(() => {
-    ReviewRefetch();
-  }, [shopId]);
+    fetchApplications(1);
+  }, [fetchApplications]);
+
+  const handlePage = (event) => {
+    fetchApplications(event.selected + 1);
+  };
 
   const { fieldValues, handleFieldChange } = useFieldValues(
     INIT_REVIEW_FIELD_VALUES
   );
 
-  const [{ loading, error, errorMessages }, requestReview] = useApiAxios(
+  // postReview
+  const [, requestReview] = useApiAxios(
     {
       url: `/shop/api/newreview/`,
       method: "POST",
@@ -80,55 +99,17 @@ function ShopDetail({ shopId }) {
       data: {
         ...fieldValues,
         user_id: auth.id,
-        shop_id: ShopData.id,
+        shop_id: shopData.id,
       },
     }).then((response) => {
-      ReviewRefetch();
+      const { rating, content } = response.data;
     });
     window.location.replace(`/shop/${shopId}/`);
   };
 
-  // get_ShopInfo
-  const [
-    {
-      data: getShopInfoData,
-      loading: getShopInfoLoading,
-      error: getShopInfoError,
-    },
-    getShopInfoRefetch,
-  ] = useApiAxios(
-    {
-      url: `/shop/api/shops/${shopId}/`,
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.access}`,
-      },
-    },
-    { manual: true }
-  );
-
-  useEffect(() => {
-    getShopInfoRefetch();
-  }, []);
-
-  // get_review
-  const [
-    { data: getReviewData, loading: getReviewLoading, error: getReviewError },
-    getReviewRefetch,
-  ] = useApiAxios(
-    {
-      url: `/shop/api/reviews/`,
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.access}`,
-      },
-    },
-    { manual: true }
-  );
-
-  useEffect(() => {
-    getReviewRefetch();
-  }, []);
+  // useEffect(() => {
+  //   reviewRefetch();
+  // }, []);
 
   const openModal = () => {
     setModalOpen(true);
@@ -139,15 +120,15 @@ function ShopDetail({ shopId }) {
 
   return (
     <div>
-      <DebugStates ShopData={ShopData} />
-      {ShopData && (
+      {shopData && (
         <>
           <br />
-          <p className="text-4xl">{ShopData.name}</p>
-          <div>
-            잔여 테이블수: {ShopData.now_table_count} /{" "}
-            {ShopData.total_table_count}
-          </div>
+          <span className="text-4xl">{shopData.name}</span>
+          <span className="mx-3">{shopData.category}</span>
+          <span>
+            잔여 테이블수: {shopData.now_table_count}/
+            {shopData.total_table_count}
+          </span>
           <div>
             <React.Fragment>
               <button
@@ -159,7 +140,7 @@ function ShopDetail({ shopId }) {
 
               <Modal
                 shopId={shopId}
-                ShopData={ShopData}
+                ShopData={shopData}
                 open={modalOpen}
                 close={closeModal}
                 header="지금 예약"
@@ -177,10 +158,9 @@ function ShopDetail({ shopId }) {
           <br />
 
           <div className="photo_align">
-            <span>매장사진</span>
             <img
-              src={ShopData.photo}
-              alt={ShopData.name}
+              src={shopData.photo}
+              alt={shopData.name}
               className="shopphoto rounded"
             />
           </div>
@@ -188,7 +168,7 @@ function ShopDetail({ shopId }) {
           <br />
           <div>
             <p>공지사항</p>
-            {ShopData.notice}
+            {shopData.notice}
           </div>
         </>
       )}
@@ -209,27 +189,37 @@ function ShopDetail({ shopId }) {
       <br />
       <br />
 
-      {showInfo && getShopInfoData && (
+      {showInfo && shopData && (
         <div>
           <div>매장정보</div>
-          <ShopDetailComponent shopinfo={getShopInfoData} />
+          <ShopDetailComponent shopinfo={shopData} />
         </div>
       )}
 
-      {showMenu && getReviewData && (
+      {showMenu && reviewData && (
         <div>
           <div>리뷰내용</div>
-          {getReviewData
+          {reviewData?.results
             ?.filter(
               (review_shop) => review_shop.shop_id.id === parseInt(shopId)
             )
             .map((review) => {
-              return <ShopReviewComponent review={review} />;
+              return <ShopReviewComponent key={review.id} review={review} />;
             })}
+          <ReactPaginate
+            breakLabel="..."
+            nextLabel=">"
+            onPageChange={handlePage}
+            pageRangeDisplayed={itemsPerPage}
+            pageCount={pageCount}
+            previousLabel="<"
+            renderOnZeroPageCount={null}
+            className="pagination"
+          />
         </div>
       )}
 
-      {ReviewData && (
+      {reviewData && (
         <>
           <br />
           <br />
@@ -244,7 +234,7 @@ function ShopDetail({ shopId }) {
               min="0"
               max="5"
             />
-            <span>{ReviewData.nickname}</span>
+            <span>{reviewData.nickname}</span>
             <input
               type="text"
               name="content"
@@ -260,9 +250,8 @@ function ShopDetail({ shopId }) {
           <br />
         </>
       )}
-      {/* <DebugStates getShopInfoData={getShopInfoData} /> */}
-      {/* <DebugStates ShopData={ShopData} /> */}
-      <DebugStates ReviewData={ReviewData} />
+
+      <DebugStates fieldValues={fieldValues} reviewData={reviewData} />
     </div>
   );
 }

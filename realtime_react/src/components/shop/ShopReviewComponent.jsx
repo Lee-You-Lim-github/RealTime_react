@@ -1,15 +1,9 @@
 import React from "react";
 import Star from "./ShopStar";
 import Timestamp from "react-timestamp";
-import DebugStates from "components/DebugStates";
-import { useParams } from "react-router-dom";
 
 function ShopReviewComponent({ review }) {
-  const { shopId } = useParams();
   const { rating, user_id, content } = review;
-  console.log(rating);
-  console.log(user_id);
-  console.log(content);
 
   return (
     <React.Fragment>

@@ -41,7 +41,7 @@ function UserInfo({ userId }) {
     reviewRefetch,
   ] = useApiAxios(
     {
-      url: `/shop/api/reviews/`,
+      url: `/shop/api/reviews/?all`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
