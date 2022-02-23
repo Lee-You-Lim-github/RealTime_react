@@ -1,19 +1,21 @@
 import React from "react";
 
-function DeleteConfirmModal(props) {
+function BookingConfirmModal(props) {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header, name, handleDelete } = props;
+  const { open, close, header, name, handleSubmit } = props;
 
-  const handleYes = (e) => {
-    if (name === "review_delete") {
-      handleDelete(e);
+  const handleYes = () => {
+    if (name === "not_now_booking") {
+      handleSubmit();
       close();
-    } else if (name === "user_booking_delete") {
-      handleDelete(e);
-      close();
-    } else if (name === "admin_shop_bookings") {
-      handleDelete(e);
-      close();
+      // }
+      // else if (header === "수정하시겠습니까?") {
+      //   handleSubmit();
+      //   close();
+      // } else if (header === "가입하시겠습니까?") {
+      //   handleSubmit();
+      //   close();
+      // }
     }
   };
 
@@ -36,10 +38,7 @@ function DeleteConfirmModal(props) {
               onClick={handleYes}
               className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
-              {header === "정말 삭제하시겠습니까?" ||
-              "해당 매장 정보를 삭제하시겠습니까?"
-                ? "삭제"
-                : "그래도 취소"}
+              예약
             </button>
 
             <button
@@ -48,10 +47,7 @@ function DeleteConfirmModal(props) {
               onClick={close}
               className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
-              {header === "정말 삭제하시겠습니까?" ||
-              "해당 매장 정보를 삭제하시겠습니까?"
-                ? "취소"
-                : "예약유지"}
+              취소
             </button>
           </div>
         </section>
@@ -60,4 +56,4 @@ function DeleteConfirmModal(props) {
   );
 }
 
-export default DeleteConfirmModal;
+export default BookingConfirmModal;

@@ -59,7 +59,7 @@ function TopNav() {
                   <MyLink to={`/user/mypage/${data?.id}/`}>
                     {auth.nickname} 님
                   </MyLink>
-                  <MyLink to={`/user/bookings/${data?.id}/`}>예약현황</MyLink>
+                  <MyLink to={`/user/${data?.id}/bookings/`}>예약현황</MyLink>
                   <button onClick={handleLogout} className={baseClassName}>
                     로그아웃
                   </button>
