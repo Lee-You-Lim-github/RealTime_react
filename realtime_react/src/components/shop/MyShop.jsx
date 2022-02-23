@@ -3,10 +3,10 @@ import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 function Myshop({ shopId }) {
   const [auth] = useAuth();
-  const navigate = useNavigate();
 
   // get_shop_data
   const [
@@ -105,6 +105,7 @@ function Myshop({ shopId }) {
 
   return (
     <div>
+      <ToastContainer />
       <div className="min-h-screen bg-violet-100 py-6 flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-16 bg-clip-padding bg-opacity-60 border border-gray-200">

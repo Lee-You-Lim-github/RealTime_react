@@ -17,18 +17,31 @@ import PageAdminShop from "pages/admin/PageAdminShop";
 import PageAdminBooking from "pages/admin/PageAdminBooking";
 import PageAdminUser from "pages/admin/PageAdminUser";
 import PageShopNot from "pages/notfound/PageShopNot";
+import PageNotAccess from "pages/notfound/PageNotAccess";
 
 function App() {
-  const [auth, , login, logout] = useAuth();
+  const [auth] = useAuth();
 
-  const authority_topnavi = (a) => {
-    if (a === "0") {
+  const authority_app = (authority) => {
+    if (authority === "0") {
       return true;
     } else {
       return false;
     }
   };
 
+  // 관리자 pagenotfound 컴포넌트
+  function NotAccess() {
+    return (
+      <Routes>
+        <Route path="/admin/user/" element={<PageNotAccess />} />
+        <Route path="/admin/shop/" element={<PageNotAccess />} />
+        <Route path="/admin/booking/" element={<PageNotAccess />} />
+      </Routes>
+    );
+  }
+
+  // 권한별 보여지는 페이지
   if (auth.isLoggedIn) {
     // 관리자로 로그인 시
     if (auth.is_superuser) {
@@ -49,7 +62,7 @@ function App() {
       );
     } else {
       // 유저가 로그인 시
-      if (authority_topnavi(auth.authority)) {
+      if (authority_app(auth.authority)) {
         return (
           <>
             <TopNav />
@@ -59,11 +72,21 @@ function App() {
             <div className="App">
               <Routes>
                 <Route path="/account/userjoin/" element={<PageUserJoin />} />
+                <Route path="/shop/new/" element={<PageNotAccess />} />
+                <Route path="/shop/:shopId/" element={<PageShopDetail />} />
+                <Route path="/shop/:shopId/edit/" element={<PageNotAccess />} />
                 <Route
                   path="/shop/:shopId/booking/new/"
                   element={<PageBookingForm />}
                 />
-                <Route path="/shop/:shopId/" element={<PageShopDetail />} />
+                <Route
+                  path="/shop/:shopId/bookings/"
+                  element={<PageNotAccess />}
+                />
+                <Route
+                  path="/shop/myshop/:shopId/"
+                  element={<PageNotAccess />}
+                />
                 <Route
                   path="/user/mypage/:userId/"
                   element={<PageUserInfo />}
@@ -77,6 +100,7 @@ function App() {
                   element={<PageUserBooking />}
                 />
               </Routes>
+              <NotAccess />
             </div>
           </>
         );
@@ -95,11 +119,15 @@ function App() {
                 <Route path="/shop/new/" element={<PageShopForm />} />
                 <Route path="/shop/:shopId/" element={<PageShopNot />} />
                 <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
-                <Route path="/shop/myshop/:shopId/" element={<PageMyShop />} />
+                <Route
+                  path="/shop/:shopId/booking/new/"
+                  element={<PageShopNot />}
+                />
                 <Route
                   path="/shop/:shopId/bookings/"
                   element={<PageShopBooking />}
                 />
+                <Route path="/shop/myshop/:shopId/" element={<PageMyShop />} />
                 <Route
                   path="/user/mypage/:userId/"
                   element={<PageUserInfo />}
@@ -108,17 +136,19 @@ function App() {
                   path="/user/mypage/:userId/edit/"
                   element={<PageUserJoin />}
                 />
+                <Route
+                  path="/user/bookings/:userId/"
+                  element={<PageShopNot />}
+                />
               </Routes>
+              <NotAccess />
             </div>
           </>
         );
       }
     }
-
     // 비회원인 경우
   } else {
-    console.log("===================================");
-    console.log(auth.isLoggedIn);
     return (
       <>
         <TopNav />
@@ -129,36 +159,23 @@ function App() {
           <Routes>
             <Route path="/accounts/login/" element={<PageLogin />} />
             <Route path="/account/userjoin/" element={<PageUserJoin />} />
+            <Route path="/shop/new/" element={<PageNotAccess />} />
             <Route path="/shop/:shopId/" element={<PageShopDetail />} />
+            <Route path="/shop/:shopId/edit/" element={<PageNotAccess />} />
+            <Route path="/shop/:shopId/bookings/" element={<PageNotAccess />} />
+            <Route path="/shop/myshop/:shopId/" element={<PageNotAccess />} />
+            <Route path="/user/mypage/:userId/" element={<PageNotAccess />} />
+            <Route
+              path="/user/mypage/:userId/edit/"
+              element={<PageNotAccess />}
+            />
+            <Route path="/user/bookings/:userId/" element={<PageNotAccess />} />
           </Routes>
+          <NotAccess />
         </div>
       </>
     );
   }
-
-  // return (
-  //   <>
-  //     <TopNav />
-  //     <Routes>
-  //       <Route path="/" element={<PageIndex />} />
-  //     </Routes>
-  //     <div className="App">
-  //       <Routes>
-  //         <Route path="/accounts/login/" element={<PageLogin />} />
-  //         <Route path="/account/userjoin/" element={<PageUserJoin />} />
-  //         <Route path="/booking/:shopId/new/" element={<PageBookingForm />} />
-  //         <Route path="/shop/new/" element={<PageShopForm />} />
-  //         <Route path="/shop/:shopId/" element={<PageShopDetail />} />
-  //         <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
-  //         <Route path="/shop/myshop/:shopId" element={<PageMyShop />} />
-  //         <Route path="/shop/:shopId/bookings/" element={<PageShopBooking />} />
-  //         <Route path="/user/mypage/:userId/" element={<PageUserInfo />} />
-  //         <Route path="/user/mypage/:userId/edit/" element={<PageUserJoin />} />
-  //         <Route path="/user/bookings/:userId/" element={<PageUserBooking />} />
-  //       </Routes>
-  //     </div>
-  //   </>
-  // );
 }
 
 export default App;
