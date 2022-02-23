@@ -191,14 +191,12 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
 
       {showInfo && shopData && (
         <div>
-          <div>매장정보</div>
           <ShopDetailComponent shopinfo={shopData} />
         </div>
       )}
 
       {showMenu && reviewData && (
         <div>
-          <div>리뷰내용</div>
           {reviewData?.results
             ?.filter(
               (review_shop) => review_shop.shop_id.id === parseInt(shopId)
