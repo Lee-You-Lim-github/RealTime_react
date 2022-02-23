@@ -96,7 +96,7 @@ function App() {
                   element={<PageUserEdit />}
                 />
                 <Route
-                  path="/user/bookings/:userId/"
+                  path="/user/:userId/bookings/"
                   element={<PageUserBooking />}
                 />
               </Routes>

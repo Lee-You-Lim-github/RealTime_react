@@ -3,6 +3,9 @@ import { useApiAxios } from "api/base";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import AdminShopComponent from "./AdminShopComponent";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import LoadingIndicator from "components/LoadingIndicator";
 
 function AdminShop({ itemsPerPage = 10 }) {
   // paging
@@ -14,9 +17,9 @@ function AdminShop({ itemsPerPage = 10 }) {
   const [query, setQuery] = useState();
 
   // reload
-  const [, setReload] = useState(false);
+  const [reload, setReload] = useState(false);
 
-  const [{ data: adminShopData }, adminRefetch] = useApiAxios(
+  const [{ data: adminShopData, loading, error }, adminRefetch] = useApiAxios(
     {
       url: `shop/api/shops/${query ? "?query=" + query : ""}`,
       method: "GET",
@@ -49,30 +52,40 @@ function AdminShop({ itemsPerPage = 10 }) {
     fetchApplication(event.selected + 1);
   };
 
-  const [{ loading, error }, deleteShop] = useApiAxios(
-    {
-      url: `/shop/api/shops/`,
-      method: "DELETE",
-    },
-    { manual: true }
-  );
+  const [{ loading: deleteLoading, error: deleteError }, deleteShop] =
+    useApiAxios(
+      {
+        url: `/shop/api/shops/`,
+        method: "DELETE",
+      },
+      { manual: true }
+    );
 
   // 등록된 매장 삭제
   const handleDelete = (e) => {
-    if (window.confirm("해당 매장 정보를 삭제하시겠습니까?")) {
-      deleteShop({
-        url: `/shop/api/shops/${e}/`,
-        method: "DELETE",
+    deleteShop({
+      url: `/shop/api/shops/${e}/`,
+      method: "DELETE",
+    })
+      .then((Response) => {
+        console.log("삭제 성공");
+        toast.info("🦄 삭제되었습니다.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        setReload(true);
       })
-        .then((Response) => alert("삭제되었습니다."))
-        .catch((error) => console.log(error));
-    }
-    window.location.replace(`/admin/shop/`);
+      .catch((error) => console.log(error));
   };
 
   useEffect(() => {
     adminRefetch();
-  }, []);
+  }, [reload]);
 
   // 사업자번호 / 매장명으로 검색
   const search = (e) => {
@@ -95,6 +108,11 @@ function AdminShop({ itemsPerPage = 10 }) {
         <div className=" flex items-center justify-between pb-6">
           <div>
             <h1 className="text-gray-600 font-semibold">매장관리</h1>
+            {loading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
+            {deleteLoading && <LoadingIndicator>삭제 중...</LoadingIndicator>}
+            {deleteError?.response?.status >= 400 && (
+              <div className="text-red-400">삭제에 실패했습니다.</div>
+            )}
           </div>
           <div className="flex items-center justify-between">
             <div className="flex bg-gray-50 items-center p-2 rounded-md">
