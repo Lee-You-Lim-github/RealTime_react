@@ -137,7 +137,7 @@ function App() {
                   element={<PageUserEdit />}
                 />
                 <Route
-                  path="/user/bookings/:userId/"
+                  path="/user/:userId/bookings/"
                   element={<PageShopNot />}
                 />
               </Routes>
@@ -169,7 +169,7 @@ function App() {
               path="/user/mypage/:userId/edit/"
               element={<PageNotAccess />}
             />
-            <Route path="/user/bookings/:userId/" element={<PageNotAccess />} />
+            <Route path="/user/:userId/bookings/" element={<PageNotAccess />} />
           </Routes>
           <NotAccess />
         </div>
