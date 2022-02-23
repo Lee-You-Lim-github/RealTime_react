@@ -12,24 +12,7 @@ import "./Map.css";
 function TypeMap({ getData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [overlay, setOverlay] = useState();
-  const [closeMarker, setCloseMarker] = useState(false);
-
-  //   const markerPosition = {
-  //     lat: 33.450701,
-  //     lng: 126.570667,
-  //   };
-
-  const markerImageSrc =
-    "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png";
-
-  const imageSize = { width: 27, height: 26 };
-  const spriteSize = { width: 72, height: 208 };
-
-  const koreaOrigin = { x: 10, y: 0 };
-  const chinaOrigin = { x: 10, y: 36 };
-  const japanOrigin = { x: 10, y: 72 };
-  const westernOrigin = { x: 10, y: 108 };
-  const cafeOrigin = { x: 10, y: 144 };
+  const [closeMarker, setCloseMarker] = useState();
 
   const event = (name) => {
     setIsOpen(true);
@@ -41,40 +24,53 @@ function TypeMap({ getData }) {
     setSelectedCategory(category);
   };
 
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedCategory, setSelectedCategory] = useState("whole");
 
   useEffect(() => {
+    const whole = document.getElementById("whole");
     const korea = document.getElementById("korea");
     const china = document.getElementById("china");
     const japan = document.getElementById("japan");
     const western = document.getElementById("western");
     const cafe = document.getElementById("cafe");
 
-    if (selectedCategory === "korea") {
+    if (selectedCategory === "whole") {
+      whole.className = "menu_selected";
+      korea.className = "";
+      china.className = "";
+      japan.className = "";
+      western.className = "";
+      cafe.className = "";
+    } else if (selectedCategory === "korea") {
+      whole.className = "";
       korea.className = "menu_selected";
       china.className = "";
       japan.className = "";
       western.className = "";
       cafe.className = "";
     } else if (selectedCategory === "china") {
+      whole.className = "";
       korea.className = "";
       china.className = "menu_selected";
       japan.className = "";
       western.className = "";
       cafe.className = "";
     } else if (selectedCategory === "japan") {
+      whole.className = "";
       korea.className = "";
       china.className = "";
       japan.className = "menu_selected";
       western.className = "";
       cafe.className = "";
     } else if (selectedCategory === "western") {
+      whole.className = "";
       korea.className = "";
       china.className = "";
       japan.className = "";
       western.className = "menu_selected";
       cafe.className = "";
     } else if (selectedCategory === "cafe") {
+      whole.className = "";
       korea.className = "";
       china.className = "";
       japan.className = "";
@@ -106,149 +102,6 @@ function TypeMap({ getData }) {
     };
   });
 
-  // 휴일 / 테이블 수에 따른 마커색 변경
-  const marker = positions?.map((marker_object) => {
-    if (marker_object.holiday === "1") {
-      return (
-        <MapMarker
-          //   key={marker_object.shop_id}
-          position={{
-            lat: marker_object.lat,
-            lng: marker_object.lng,
-          }}
-          onClick={() => event(marker_object.name)}
-          image={{
-            src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
-            size: {
-              width: 44,
-              height: 55,
-            }, // 마커이미지의 크기입니다
-            options: {
-              offset: {
-                x: 27,
-                y: 69,
-              }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-            },
-          }}
-        />
-      );
-    } else if (marker_object.holiday === "0") {
-      if (
-        (marker_object.now_table_count / marker_object.total_table_count) *
-          100 <
-        33
-      ) {
-        return (
-          <MapMarker
-            // key={marker_object.shop_id}
-            position={{
-              lat: marker_object.lat,
-              lng: marker_object.lng,
-            }}
-            onClick={() => event(marker_object.name)}
-            image={{
-              src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
-              size: {
-                width: 44,
-                height: 55,
-              }, // 마커이미지의 크기입니다
-              options: {
-                offset: {
-                  x: 27,
-                  y: 69,
-                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-              },
-            }}
-          />
-        );
-      } else if (
-        (marker_object.now_table_count / marker_object.total_table_count) *
-          100 <
-        66
-      ) {
-        return (
-          <MapMarker
-            // key={marker_object.shop_id}
-            position={{
-              lat: marker_object.lat,
-              lng: marker_object.lng,
-            }}
-            onClick={() => event(marker_object.name)}
-            image={{
-              src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
-              size: {
-                width: 44,
-                height: 55,
-              }, // 마커이미지의 크기입니다
-              options: {
-                offset: {
-                  x: 27,
-                  y: 69,
-                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-              },
-            }}
-          />
-        );
-      } else if (
-        (marker_object.now_table_count / marker_object.total_table_count) *
-          100 <
-        99
-      ) {
-        return (
-          <MapMarker
-            // key={marker_object.shop_id}
-            position={{
-              lat: marker_object.lat,
-              lng: marker_object.lng,
-            }}
-            onClick={() => event(marker_object.name)}
-            image={{
-              src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
-              size: {
-                width: 44,
-                height: 55,
-              }, // 마커이미지의 크기입니다
-              options: {
-                offset: {
-                  x: 27,
-                  y: 69,
-                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-              },
-            }}
-          />
-        );
-      } else if (
-        (marker_object.now_table_count / marker_object.total_table_count) *
-          100 ===
-        100
-      ) {
-        return (
-          <MapMarker
-            // key={marker_object.shop_id}
-            position={{
-              lat: marker_object.lat,
-              lng: marker_object.lng,
-            }}
-            onClick={() => event(marker_object.name)}
-            image={{
-              src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
-              size: {
-                width: 44,
-                height: 55,
-              }, // 마커이미지의 크기입니다
-              options: {
-                offset: {
-                  x: 27,
-                  y: 69,
-                }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-              },
-            }}
-          />
-        );
-      }
-    }
-  });
-
   return (
     <>
       {/* <DebugStates positions={positions} getData={getData} /> */}
@@ -269,96 +122,895 @@ function TypeMap({ getData }) {
           level={5} // 지도의 확대 레벨
         >
           {/* 테이블 수 비율별 마커색 변경 */}
-
+          {selectedCategory === "whole" &&
+            positions?.map((marker_object) => {
+              if (marker_object.holiday === "1") {
+                return (
+                  <MapMarker
+                    //   key={marker_object.shop_id}
+                    position={{
+                      lat: marker_object.lat,
+                      lng: marker_object.lng,
+                    }}
+                    onClick={() => event(marker_object.name)}
+                    image={{
+                      src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
+                      size: {
+                        width: 44,
+                        height: 55,
+                      }, // 마커이미지의 크기입니다
+                      options: {
+                        offset: {
+                          x: 27,
+                          y: 69,
+                        }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                      },
+                    }}
+                  />
+                );
+              } else if (marker_object.holiday === "0") {
+                if (
+                  (marker_object.now_table_count /
+                    marker_object.total_table_count) *
+                    100 <
+                  33
+                ) {
+                  return (
+                    <MapMarker
+                      // key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                } else if (
+                  (marker_object.now_table_count /
+                    marker_object.total_table_count) *
+                    100 <
+                  66
+                ) {
+                  return (
+                    <MapMarker
+                      // key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                } else if (
+                  (marker_object.now_table_count /
+                    marker_object.total_table_count) *
+                    100 <
+                  99
+                ) {
+                  return (
+                    <MapMarker
+                      // key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                } else if (
+                  (marker_object.now_table_count /
+                    marker_object.total_table_count) *
+                    100 ===
+                  100
+                ) {
+                  return (
+                    <MapMarker
+                      // key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                }
+              }
+            })}
           {selectedCategory === "korea" &&
             positions
               ?.filter((p) => p.category === "한식")
-              .map((position) => (
-                <MapMarker
-                  key={`korea-${position.lat},${position.lng}`}
-                  position={position}
-                  image={{
-                    src: markerImageSrc,
-                    size: imageSize,
-                    options: {
-                      spriteSize: spriteSize,
-                      spriteOrigin: koreaOrigin,
-                    },
-                  }}
-                />
-              ))}
+              .map((marker_object) => {
+                if (marker_object.holiday === "1") {
+                  return (
+                    <MapMarker
+                      //   key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                } else if (marker_object.holiday === "0") {
+                  if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    33
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    66
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    99
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 ===
+                    100
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  }
+                }
+              })}
           {selectedCategory === "china" &&
             positions
               ?.filter((p) => p.category === "중식")
-              .map((position) => (
-                <MapMarker
-                  key={`china-${position.lat},${position.lng}`}
-                  position={position}
-                  image={{
-                    src: markerImageSrc,
-                    size: imageSize,
-                    options: {
-                      spriteSize: spriteSize,
-                      spriteOrigin: chinaOrigin,
-                    },
-                  }}
-                />
-              ))}
+              .map((marker_object) => {
+                if (marker_object.holiday === "1") {
+                  return (
+                    <MapMarker
+                      //   key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                } else if (marker_object.holiday === "0") {
+                  if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    33
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    66
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    99
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 ===
+                    100
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  }
+                }
+              })}
           {selectedCategory === "japan" &&
             positions
               ?.filter((p) => p.category === "일식")
-              .map((position) => (
-                <MapMarker
-                  key={`japan-${position.lat},${position.lng}`}
-                  position={position}
-                  image={{
-                    src: markerImageSrc,
-                    size: imageSize,
-                    options: {
-                      spriteSize: spriteSize,
-                      spriteOrigin: japanOrigin,
-                    },
-                  }}
-                />
-              ))}
+              .map((marker_object) => {
+                if (marker_object.holiday === "1") {
+                  return (
+                    <MapMarker
+                      //   key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                } else if (marker_object.holiday === "0") {
+                  if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    33
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    66
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    99
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 ===
+                    100
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  }
+                }
+              })}
           {selectedCategory === "western" &&
             positions
               ?.filter((p) => p.category === "양식")
-              .map((position) => (
-                <MapMarker
-                  key={`western-${position.lat},${position.lng}`}
-                  position={position}
-                  image={{
-                    src: markerImageSrc,
-                    size: imageSize,
-                    options: {
-                      spriteSize: spriteSize,
-                      spriteOrigin: westernOrigin,
-                    },
-                  }}
-                />
-              ))}
+              .map((marker_object) => {
+                if (marker_object.holiday === "1") {
+                  return (
+                    <MapMarker
+                      //   key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                } else if (marker_object.holiday === "0") {
+                  if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    33
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    66
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    99
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 ===
+                    100
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  }
+                }
+              })}
           {selectedCategory === "cafe" &&
             positions
               ?.filter((p) => p.category === "카페")
-              .map((position) => (
-                <MapMarker
-                  key={`cafe-${position.lat},${position.lng}`}
-                  position={position}
-                  image={{
-                    src: markerImageSrc,
-                    size: imageSize,
-                    options: {
-                      spriteSize: spriteSize,
-                      spriteOrigin: cafeOrigin,
-                    },
-                  }}
-                />
-              ))}
+              .map((marker_object) => {
+                if (marker_object.holiday === "1") {
+                  return (
+                    <MapMarker
+                      //   key={marker_object.shop_id}
+                      position={{
+                        lat: marker_object.lat,
+                        lng: marker_object.lng,
+                      }}
+                      onClick={() => event(marker_object.name)}
+                      image={{
+                        src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
+                        size: {
+                          width: 44,
+                          height: 55,
+                        }, // 마커이미지의 크기입니다
+                        options: {
+                          offset: {
+                            x: 27,
+                            y: 69,
+                          }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                        },
+                      }}
+                    />
+                  );
+                } else if (marker_object.holiday === "0") {
+                  if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    33
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    66
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 <
+                    99
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  } else if (
+                    (marker_object.now_table_count /
+                      marker_object.total_table_count) *
+                      100 ===
+                    100
+                  ) {
+                    return (
+                      <MapMarker
+                        // key={marker_object.shop_id}
+                        position={{
+                          lat: marker_object.lat,
+                          lng: marker_object.lng,
+                        }}
+                        onClick={() => event(marker_object.name)}
+                        image={{
+                          src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
+                          size: {
+                            width: 44,
+                            height: 55,
+                          }, // 마커이미지의 크기입니다
+                          options: {
+                            offset: {
+                              x: 27,
+                              y: 69,
+                            }, // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
+                          },
+                        }}
+                      />
+                    );
+                  }
+                }
+              })}
 
           {getData && (
             <>
-              {marker}
               {isOpen &&
                 positions
                   ?.filter((p) => p.name === overlay)
@@ -410,6 +1062,9 @@ function TypeMap({ getData }) {
         {/* 카테고리 부분 */}
         <div className="category">
           <ul>
+            <li id="whole" onClick={() => closeEvent("whole")}>
+              전체
+            </li>
             <li id="korea" onClick={() => closeEvent("korea")}>
               한식
             </li>
