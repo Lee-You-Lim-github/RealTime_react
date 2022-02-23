@@ -15,18 +15,14 @@ function ShopDetailComponent({ shopinfo }) {
   return (
     <React.Fragment>
       <div>{intro}</div>
-      <div>{telephone}</div>
-      <div>{address}</div>
-      <div>{opening_hours}</div>
+      <div>전화번호: {telephone}</div>
+      <div>매장주소: {address}</div>
+      <div>영업시간: {opening_hours}</div>
       <div>
-        <label>주차장</label>
-        <input type="checkbox" checked={conv_parking} />
-        <label>애견동반</label>
-        <input type="checkbox" checked={conv_pet} />
-        <label>와이파이</label>
-        <input type="checkbox" checked={conv_wifi} />
-        <label>포장</label>
-        <input type="checkbox" checked={conv_pack} />
+        <span className="mx-1">주차장{conv_parking ? "O" : "X"}</span>
+        <span className="mx-1">반려동물동반{conv_pet ? "O" : "X"}</span>
+        <span className="mx-1">와이파이{conv_wifi ? "O" : "X"}</span>
+        <span className="mx-1">포장{conv_pack ? "O" : "X"}</span>
       </div>
     </React.Fragment>
   );
