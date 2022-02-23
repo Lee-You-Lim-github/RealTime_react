@@ -11,11 +11,10 @@ function DeleteConfirmModal(props) {
     } else if (name === "user_booking_delete") {
       handleDelete(e);
       close();
+    } else if (name === "admin_shop_bookings") {
+      handleDelete(e);
+      close();
     }
-    //   } else if (header === "가입하시겠습니까?") {
-    //     handleSubmit();
-    //     close();
-    //   }
   };
 
   return (
@@ -37,7 +36,10 @@ function DeleteConfirmModal(props) {
               onClick={handleYes}
               className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
-              {header === "정말 삭제하시겠습니까?" ? "삭제" : "그래도 취소"}
+              {header === "정말 삭제하시겠습니까?" ||
+              "해당 매장 정보를 삭제하시겠습니까?"
+                ? "삭제"
+                : "그래도 취소"}
             </button>
 
             <button
@@ -46,7 +48,10 @@ function DeleteConfirmModal(props) {
               onClick={close}
               className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
-              취소
+              {header === "정말 삭제하시겠습니까?" ||
+              "해당 매장 정보를 삭제하시겠습니까?"
+                ? "취소"
+                : "예약유지"}
             </button>
           </div>
         </section>
