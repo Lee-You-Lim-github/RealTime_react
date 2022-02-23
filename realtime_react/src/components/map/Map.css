@@ -92,7 +92,20 @@
   color: #5085bb;
 }
 
-.category,
+.map_wrap,
+.map_wrap * {
+  margin: 0;
+  padding: 0;
+  font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
+  font-size: 12px;
+}
+.map_wrap {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+
+/* .category,
 .category * {
   margin: 0;
   padding: 0;
@@ -111,6 +124,7 @@
   text-align: center;
   background-color: #fff;
 }
+*/
 .category .menu_selected {
   background: #ff5f4a;
   color: #fff;
@@ -118,28 +132,88 @@
   border-right: 1px solid #915b2f;
   margin: 0 -1px;
 }
-.category li {
-  list-style: none;
-  float: left;
-  width: 50px;
-  height: 45px;
-  padding-top: 5px;
-  cursor: pointer;
+
+.map_wrap,
+.map_wrap * {
+  margin: 0;
+  padding: 0;
+  font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
+  font-size: 12px;
 }
+.map_wrap {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+
 .category .ico_comm {
   display: block;
   margin: 0 auto 2px;
   width: 22px;
   height: 26px;
-  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png")
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png")
     no-repeat;
 }
-.category .ico_coffee {
+
+/* .category li .ico_store {
   background-position: -10px 0;
 }
-.category .ico_store {
+.category li .ico_store {
   background-position: -10px -36px;
 }
-.category .ico_carpark {
+.category li .ico_store {
   background-position: -10px -72px;
+}
+.category li .ico_store {
+  background-position: -10px -108px;
+}
+.category li .ico_store {
+  background-position: -10px -144px;
+} */
+
+.category {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  border-radius: 5px;
+  border: 1px solid #909090;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+  background: #fff;
+  overflow: hidden;
+  z-index: 2;
+}
+.category li {
+  float: left;
+  list-style: none;
+  width: 50px;
+  border-right: 1px solid #acacac;
+  padding: 6px 0;
+  text-align: center;
+  cursor: pointer;
+}
+.category li.on {
+  background: #eee;
+}
+.category li:hover {
+  background: #ffe6e6;
+  border-left: 1px solid #acacac;
+  margin-left: -1px;
+}
+.category li:last-child {
+  margin-right: 0;
+  border-right: 0;
+}
+.category li span {
+  display: block;
+  margin: 0 auto 3px;
+  width: 27px;
+  height: 28px;
+}
+.category li .category_bg {
+  background: url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png)
+    no-repeat;
+}
+
+.category li.on .ico_comm {
+  background-position-x: -46px;
 }

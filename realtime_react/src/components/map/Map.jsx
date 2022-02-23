@@ -12,6 +12,7 @@ import "./Map.css";
 function TypeMap({ getData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [overlay, setOverlay] = useState();
+  const [closeMarker, setCloseMarker] = useState(false);
 
   //   const markerPosition = {
   //     lat: 33.450701,
@@ -19,18 +20,25 @@ function TypeMap({ getData }) {
   //   };
 
   const markerImageSrc =
-    "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png";
+    "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_category.png";
 
-  const imageSize = { width: 22, height: 26 };
-  const spriteSize = { width: 36, height: 98 };
+  const imageSize = { width: 27, height: 26 };
+  const spriteSize = { width: 72, height: 208 };
 
   const koreaOrigin = { x: 10, y: 0 };
   const chinaOrigin = { x: 10, y: 36 };
   const japanOrigin = { x: 10, y: 72 };
+  const westernOrigin = { x: 10, y: 108 };
+  const cafeOrigin = { x: 10, y: 144 };
 
   const event = (name) => {
     setIsOpen(true);
     setOverlay(name);
+  };
+
+  const closeEvent = (category) => {
+    setCloseMarker(false);
+    setSelectedCategory(category);
   };
 
   const [selectedCategory, setSelectedCategory] = useState();
@@ -39,27 +47,39 @@ function TypeMap({ getData }) {
     const korea = document.getElementById("korea");
     const china = document.getElementById("china");
     const japan = document.getElementById("japan");
-    // const western = document.getElementById("양식");
-    // const cafe = document.getElementById("카페");
+    const western = document.getElementById("western");
+    const cafe = document.getElementById("cafe");
 
     if (selectedCategory === "korea") {
       korea.className = "menu_selected";
       china.className = "";
       japan.className = "";
-      // western.className = "";
-      // cafe.className = "";
+      western.className = "";
+      cafe.className = "";
     } else if (selectedCategory === "china") {
       korea.className = "";
       china.className = "menu_selected";
       japan.className = "";
-      // western.className = "";
-      // cafe.className = "";
+      western.className = "";
+      cafe.className = "";
     } else if (selectedCategory === "japan") {
       korea.className = "";
       china.className = "";
       japan.className = "menu_selected";
-      // western.className = "";
-      // cafe.className = "";
+      western.className = "";
+      cafe.className = "";
+    } else if (selectedCategory === "western") {
+      korea.className = "";
+      china.className = "";
+      japan.className = "";
+      western.className = "menu_selected";
+      cafe.className = "";
+    } else if (selectedCategory === "cafe") {
+      korea.className = "";
+      china.className = "";
+      japan.className = "";
+      western.className = "";
+      cafe.className = "menu_selected";
     }
   }, [selectedCategory]);
 
@@ -233,7 +253,7 @@ function TypeMap({ getData }) {
     <>
       {/* <DebugStates positions={positions} getData={getData} /> */}
       {/* <RemovableCustomOverlayStyle /> */}
-      <div id="mapwrap">
+      <div id="map_wrap">
         <Map // 지도를 표시할 Container
           id={`map`}
           center={{
@@ -251,55 +271,94 @@ function TypeMap({ getData }) {
           {/* 테이블 수 비율별 마커색 변경 */}
 
           {selectedCategory === "korea" &&
-            positions?.map((position) => (
-              <MapMarker
-                key={`korea-${position.lat},${position.lng}`}
-                position={position}
-                image={{
-                  src: markerImageSrc,
-                  size: imageSize,
-                  options: {
-                    spriteSize: spriteSize,
-                    spriteOrigin: koreaOrigin,
-                  },
-                }}
-              />
-            ))}
+            positions
+              ?.filter((p) => p.category === "한식")
+              .map((position) => (
+                <MapMarker
+                  key={`korea-${position.lat},${position.lng}`}
+                  position={position}
+                  image={{
+                    src: markerImageSrc,
+                    size: imageSize,
+                    options: {
+                      spriteSize: spriteSize,
+                      spriteOrigin: koreaOrigin,
+                    },
+                  }}
+                />
+              ))}
           {selectedCategory === "china" &&
-            positions?.map((position) => (
-              <MapMarker
-                key={`china-${position.lat},${position.lng}`}
-                position={position}
-                image={{
-                  src: markerImageSrc,
-                  size: imageSize,
-                  options: {
-                    spriteSize: spriteSize,
-                    spriteOrigin: chinaOrigin,
-                  },
-                }}
-              />
-            ))}
+            positions
+              ?.filter((p) => p.category === "중식")
+              .map((position) => (
+                <MapMarker
+                  key={`china-${position.lat},${position.lng}`}
+                  position={position}
+                  image={{
+                    src: markerImageSrc,
+                    size: imageSize,
+                    options: {
+                      spriteSize: spriteSize,
+                      spriteOrigin: chinaOrigin,
+                    },
+                  }}
+                />
+              ))}
           {selectedCategory === "japan" &&
-            positions?.map((position) => (
-              <MapMarker
-                key={`japan-${position.lat},${position.lng}`}
-                position={position}
-                image={{
-                  src: markerImageSrc,
-                  size: imageSize,
-                  options: {
-                    spriteSize: spriteSize,
-                    spriteOrigin: japanOrigin,
-                  },
-                }}
-              />
-            ))}
+            positions
+              ?.filter((p) => p.category === "일식")
+              .map((position) => (
+                <MapMarker
+                  key={`japan-${position.lat},${position.lng}`}
+                  position={position}
+                  image={{
+                    src: markerImageSrc,
+                    size: imageSize,
+                    options: {
+                      spriteSize: spriteSize,
+                      spriteOrigin: japanOrigin,
+                    },
+                  }}
+                />
+              ))}
+          {selectedCategory === "western" &&
+            positions
+              ?.filter((p) => p.category === "양식")
+              .map((position) => (
+                <MapMarker
+                  key={`western-${position.lat},${position.lng}`}
+                  position={position}
+                  image={{
+                    src: markerImageSrc,
+                    size: imageSize,
+                    options: {
+                      spriteSize: spriteSize,
+                      spriteOrigin: westernOrigin,
+                    },
+                  }}
+                />
+              ))}
+          {selectedCategory === "cafe" &&
+            positions
+              ?.filter((p) => p.category === "카페")
+              .map((position) => (
+                <MapMarker
+                  key={`cafe-${position.lat},${position.lng}`}
+                  position={position}
+                  image={{
+                    src: markerImageSrc,
+                    size: imageSize,
+                    options: {
+                      spriteSize: spriteSize,
+                      spriteOrigin: cafeOrigin,
+                    },
+                  }}
+                />
+              ))}
 
           {getData && (
             <>
               {marker}
-
               {isOpen &&
                 positions
                   ?.filter((p) => p.name === overlay)
@@ -348,19 +407,23 @@ function TypeMap({ getData }) {
             </>
           )}
         </Map>
+        {/* 카테고리 부분 */}
         <div className="category">
           <ul>
-            <li id="korea" onClick={() => setSelectedCategory("korea")}>
-              <span className="ico_comm ico_coffee"></span>
+            <li id="korea" onClick={() => closeEvent("korea")}>
               한식
             </li>
-            <li id="china" onClick={() => setSelectedCategory("china")}>
-              <span className="ico_comm ico_store"></span>
+            <li id="china" onClick={() => closeEvent("china")}>
               중식
             </li>
-            <li id="japan" onClick={() => setSelectedCategory("japan")}>
-              <span className="ico_comm ico_carpark"></span>
+            <li id="japan" onClick={() => closeEvent("japan")}>
               일식
+            </li>
+            <li id="western" onClick={() => closeEvent("western")}>
+              양식
+            </li>
+            <li id="cafe" onClick={() => closeEvent("cafe")}>
+              카페
             </li>
           </ul>
         </div>
