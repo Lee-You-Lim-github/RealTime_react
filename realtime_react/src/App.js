@@ -71,7 +71,7 @@ function App() {
             </Routes>
             <div className="App">
               <Routes>
-                <Route path="/account/userjoin/" element={<PageUserJoin />} />
+                <Route path="/accounts/userjoin/" element={<PageUserJoin />} />
                 <Route path="/shop/new/" element={<PageNotAccess />} />
                 <Route path="/shop/:shopId/" element={<PageShopDetail />} />
                 <Route path="/shop/:shopId/edit/" element={<PageNotAccess />} />
@@ -115,7 +115,7 @@ function App() {
             </Routes>
             <div className="App">
               <Routes>
-                <Route path="/account/userjoin/" element={<PageUserJoin />} />
+                <Route path="/accounts/userjoin/" element={<PageUserJoin />} />
                 <Route path="/shop/new/" element={<PageShopForm />} />
                 <Route path="/shop/:shopId/" element={<PageShopNot />} />
                 <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
@@ -134,7 +134,7 @@ function App() {
                 />
                 <Route
                   path="/user/mypage/:userId/edit/"
-                  element={<PageUserJoin />}
+                  element={<PageUserEdit />}
                 />
                 <Route
                   path="/user/bookings/:userId/"
@@ -158,7 +158,7 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/accounts/login/" element={<PageLogin />} />
-            <Route path="/account/userjoin/" element={<PageUserJoin />} />
+            <Route path="/accounts/userjoin/" element={<PageUserJoin />} />
             <Route path="/shop/new/" element={<PageNotAccess />} />
             <Route path="/shop/:shopId/" element={<PageShopDetail />} />
             <Route path="/shop/:shopId/edit/" element={<PageNotAccess />} />
