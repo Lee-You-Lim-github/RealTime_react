@@ -1,15 +1,25 @@
 import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
+import DeleteConfirmModal from "components/modal/DeleteConfirmModal";
 import { useAuth } from "contexts/AuthContext";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Timestamp from "react-timestamp";
 import Star from "../shop/ShopStar";
+import { toast } from "react-toastify";
+import LoadingIndicator from "components/LoadingIndicator";
 
 function UserInfo({ userId }) {
   const [auth] = useAuth();
 
   const [reviewList, setReviewList] = useState([]);
+
+  const navigate = useNavigate();
+
+  const [reviewId, setReviewId] = useState(0);
+
+  // confirm 모달창
+  const [modalOpen, setModalOpen] = useState(false);
 
   const [{ data: userData, loading, error }, refetch] = useApiAxios(
     {
@@ -63,14 +73,21 @@ function UserInfo({ userId }) {
     );
 
   const handleDelete = (e) => {
-    e.preventDefault();
-    const review_id = e.target.value;
-    if (window.confirm("정말 삭제하시겠습니까?")) {
-      deleteBooking({
-        url: `/shop/api/reviews/${review_id}/`,
-        method: "DELETE",
-      });
-    }
+    deleteBooking({
+      url: `/shop/api/reviews/${reviewId}/`,
+      method: "DELETE",
+    });
+    console.log("삭제 성공");
+    toast.info("🦄 되었습니다.", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
     window.location.replace(`/user/mypage/${userId}/`);
   };
 
@@ -78,8 +95,26 @@ function UserInfo({ userId }) {
     reviewRefetch();
   }, []);
 
+  // confirm 모달 열기
+  const openModal = (e) => {
+    setModalOpen(true);
+    setReviewId(e.target.value);
+  };
+
+  // confirm 모달 닫기
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <div>
+      {(loading || reviewLoading) && (
+        <LoadingIndicator>로딩 중...</LoadingIndicator>
+      )}
+      {deleteLoading && <LoadingIndicator>삭제 중...</LoadingIndicator>}
+      {deleteError?.response?.status >= 400 && (
+        <div className="text-red-400">삭제에 실패했습니다.</div>
+      )}
       {userData && (
         <div className="flex flex-wrap my-3">
           <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
@@ -120,16 +155,25 @@ function UserInfo({ userId }) {
                 <span className="text-right">
                   <Timestamp relative date={review.created_at} autoUpdate />
                 </span>
-                <p className="text-right">
-                  <button
-                    disabled={deleteLoading}
-                    onClick={handleDelete}
-                    value={review.id}
-                    className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1 px-2"
-                  >
-                    삭제
-                  </button>
-                </p>
+                <React.Fragment>
+                  <p className="text-right">
+                    <button
+                      // disabled={deleteLoading}
+                      onClick={openModal}
+                      value={review.id}
+                      className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1 px-2"
+                    >
+                      삭제
+                    </button>
+                  </p>
+                  <DeleteConfirmModal
+                    handleDelete={handleDelete}
+                    open={modalOpen}
+                    close={closeModal}
+                    name="review_delete"
+                    header="정말 삭제하시겠습니까?"
+                  />
+                </React.Fragment>
               </div>
             </div>
           ))}
@@ -145,14 +189,7 @@ function UserInfo({ userId }) {
         </div>
       )}
 
-      <DebugStates
-        userData={userData}
-        loading={loading}
-        error={error}
-        reviewData={reviewData}
-        reviewLoading={reviewLoading}
-        reviewError={reviewError}
-      />
+      <DebugStates reviewData={reviewData} />
     </div>
   );
 }
