@@ -4,6 +4,8 @@ import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./modal.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Modal(props) {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -106,11 +108,20 @@ function Modal(props) {
         time: timestring_time,
       },
     }).then((response) => {
-      console.log(response.data);
+      toast.info("예약되었습니다. 🚀 ", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        containerId: "L",
+      });
+      if (value >= 1) {
+        window.location.replace(`/user/${auth.id}/bookings/`);
+      }
     });
-    if (value >= 1) {
-      window.location.replace(`/user/${auth.id}/bookings/`);
-    }
   };
 
   useEffect(() => {

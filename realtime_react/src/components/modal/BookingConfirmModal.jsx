@@ -8,14 +8,6 @@ function BookingConfirmModal(props) {
     if (name === "not_now_booking") {
       handleSubmit();
       close();
-      // }
-      // else if (header === "수정하시겠습니까?") {
-      //   handleSubmit();
-      //   close();
-      // } else if (header === "가입하시겠습니까?") {
-      //   handleSubmit();
-      //   close();
-      // }
     }
   };
 
