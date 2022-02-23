@@ -4,6 +4,8 @@ import { useAuth } from "contexts/AuthContext";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import ShopBookingComponent from "./ShopBookingComponent";
+import { toast } from "react-toastify";
+import LoadingIndicator from "components/LoadingIndicator";
 
 function ShopBooking({ shopId, itemsPerPage = 10 }) {
   const [auth] = useAuth();
@@ -97,37 +99,51 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
 
   // 회원이 방문한 경우
   const clickedVisit = useCallback((booking_id) => {
-    if (window.confirm("방문 하셨습니까?")) {
-      saveBookingVisitState({
-        url: `/booking/api/bookings/${booking_id}/`,
-        data: { visit_status: "1" },
+    saveBookingVisitState({
+      url: `/booking/api/bookings/${booking_id}/`,
+      data: { visit_status: "1" },
+    })
+      .then((response) => {
+        toast.info("🦄 방문이 확인되었습니다.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          containerId: "visit",
+        });
+        console.log(response.data.visit_status);
+        refetch();
+        setLoading(true);
       })
-        .then((response) => {
-          alert("방문이 확인되었습니다.");
-          console.log(response.data.visit_status);
-          refetch();
-          setLoading(true);
-        })
-        .catch((error) => console.log(error));
-    }
+      .catch((error) => console.log(error));
   }, []);
 
   // 회원이 미방문한 경우
   const clickedUnvisited = useCallback((booking_id) => {
-    if (window.confirm("미방문으로 인해 사용자에게 패널티가 부여됩니다.")) {
-      saveBookingVisitState({
-        url: `/booking/api/bookings/${booking_id}/`,
+    saveBookingVisitState({
+      url: `/booking/api/bookings/${booking_id}/`,
 
-        data: { visit_status: "2" },
+      data: { visit_status: "2" },
+    })
+      .then((response) => {
+        toast.info("🦄 패널티가 부여되었습니다.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          containerId: "not_visit",
+        });
+        console.log(response.data.visit_status);
+        refetch();
+        setLoading(true);
       })
-        .then((response) => {
-          alert("패널티가 부여되었습니다.");
-          console.log(response.data.visit_status);
-          refetch();
-          setLoading(true);
-        })
-        .catch((error) => console.log(error));
-    }
+      .catch((error) => console.log(error));
   }, []);
 
   // 이름 / 휴대폰 뒷자리로 검색
@@ -153,6 +169,19 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
           <div>
             <h2 className="text-gray-600 font-semibold">예약현황</h2>
             <span className="text-xs">예약자명단</span>
+            {(getBookingLoading || shopBookingsLoading) && (
+              <LoadingIndicator>로딩 중...</LoadingIndicator>
+            )}
+            {getBookingError?.response?.status >= 400 && (
+              <div className="text-red-400">
+                데이터를 가져오는데 실패했습니다.
+              </div>
+            )}
+            {shopBookingsError?.response?.status >= 400 && (
+              <div className="text-red-400">
+                데이터를 저장하는데 실패했습니다.
+              </div>
+            )}
           </div>
           <div className="flex items-center justify-between">
             <div className="flex bg-gray-50 items-center p-2 rounded-md">

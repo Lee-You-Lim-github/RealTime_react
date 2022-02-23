@@ -1,4 +1,6 @@
-import React from "react";
+import NotVisitConfirmModal from "components/modal/NotVisitConfirmModal";
+import VisitConfirmModal from "components/modal/VisitConfirmModal";
+import React, { useState } from "react";
 
 function ShopBookingComponent({
   shop_booking,
@@ -6,6 +8,32 @@ function ShopBookingComponent({
   clickedUnvisited,
   loading,
 }) {
+  // visit_confirm 모달창
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // visit_confirm 모달 열기
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  // visit_confirm 모달 닫기
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  // not_visit_confirm 모달창
+  const [modalOpenNotVisit, setModalOpenNotVisit] = useState(false);
+
+  // not_visit_confirm 모달 열기
+  const openModalNotVisit = () => {
+    setModalOpenNotVisit(true);
+  };
+
+  // not_visit_confirm 모달 닫기
+  const closeModalNotVisit = () => {
+    setModalOpenNotVisit(false);
+  };
+
   return (
     <React.Fragment>
       <tr>
@@ -42,23 +70,44 @@ function ShopBookingComponent({
             {shop_booking.book_table_count}
           </p>
         </td>
+
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <button
-            type="button"
-            disabled={loading}
-            onClick={() => clickedVisit(shop_booking.id)}
-            className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-          >
-            방문
-          </button>
-          <button
-            type="button"
-            onClick={() => clickedUnvisited(shop_booking.id)}
-            disabled={loading}
-            className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-          >
-            미방문
-          </button>
+          <React.Fragment>
+            <button
+              type="button"
+              // disabled={loading}
+              onClick={openModal}
+              value={shop_booking.id}
+              className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            >
+              방문
+            </button>
+            <VisitConfirmModal
+              clickedVisit={(e) => clickedVisit(shop_booking.id)}
+              open={modalOpen}
+              close={closeModal}
+              name="visit"
+              header="방문하셨습니까?"
+            />
+          </React.Fragment>
+          <React.Fragment>
+            <button
+              type="button"
+              // disabled={loading}
+              onClick={openModalNotVisit}
+              value={shop_booking.id}
+              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            >
+              미방문
+            </button>
+            <NotVisitConfirmModal
+              clickedUnvisited={(e) => clickedUnvisited(shop_booking.id)}
+              open={modalOpenNotVisit}
+              close={closeModalNotVisit}
+              name="not_visit"
+              header="미방문으로 인해 사용자에게 패널티가 부여됩니다."
+            />
+          </React.Fragment>
         </td>
       </tr>
     </React.Fragment>
