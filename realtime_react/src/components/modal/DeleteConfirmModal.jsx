@@ -8,10 +8,10 @@ function DeleteConfirmModal(props) {
     if (name === "review_delete") {
       handleDelete(e);
       close();
+    } else if (name === "user_booking_delete") {
+      handleDelete(e);
+      close();
     }
-    //   else if (name === "review_delete") {
-    //     handleSubmit();
-    //     close();
     //   } else if (header === "가입하시겠습니까?") {
     //     handleSubmit();
     //     close();
