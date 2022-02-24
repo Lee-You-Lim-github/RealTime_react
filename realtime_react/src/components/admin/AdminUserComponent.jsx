@@ -42,13 +42,13 @@ function AdminUserComponent(props) {
         <td className="px-5  py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">{user.telephone}</p>
         </td>
-        <td className="pl-6 py-5 border-b border-gray-200 bg-white text-sm">
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
             {admin_users_authority(user.authority)}
           </p>
         </td>
-        <td className="pr-6 border-b border-gray-200 bg-white text-sm">
-          <p className=" ml-20 whitespace-no-wrap">
+        <td className="px-5 border-b border-gray-200 bg-white text-sm">
+          <p className="ml-10 whitespace-no-wrap">
             {user.booking_set
               ?.filter(
                 (booking_filter) => userId === booking_filter.user_id.user_id

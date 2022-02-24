@@ -19,7 +19,7 @@ function AdminUser({ itemsPerPage = 10 }) {
   const [query, setQuery] = useState();
 
   // reload
-  const [, setReload] = useState(false);
+  const [reload, setReload] = useState(false);
 
   // get_users
   const [{ data: getUserData, loading, error }, refetch] = useApiAxios(
@@ -64,6 +64,10 @@ function AdminUser({ itemsPerPage = 10 }) {
       const { value } = e.target;
       setQuery(value);
       setReload((prevState) => !prevState);
+    } else {
+      const { value } = e.target;
+      setQuery(value);
+      setReload((prevState) => !prevState);
     }
     refetch();
   };
@@ -77,8 +81,11 @@ function AdminUser({ itemsPerPage = 10 }) {
     <div className="bg-white p-8 rounded-md w-full">
       <div className=" flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
-          <img className="w-10 h-10" src={admin_user} />
-          <h2 className="text-gray-600 px-3 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-3xl">
+          <img className="w-10 h-10" src={admin_user} alt="" />
+          <h2
+            className="text-gray-600 px-3 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-3xl cursor-pointer"
+            onClick={() => window.location.replace("/admin/user/")}
+          >
             회원관리
           </h2>
         </div>
@@ -87,26 +94,34 @@ function AdminUser({ itemsPerPage = 10 }) {
           <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
         )}
         <div className="flex items-center justify-between">
-          <div className="flex bg-gray-50 items-center p-2 rounded-md">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-400"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                clip-rule="evenodd"
-              />
-            </svg>
+          <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
             <input
-              className="bg-gray-50 outline-none ml-1 block sm:flex-1 text-2xl md:text-xl lg:text-base"
               type="search"
+              name="serch"
               onChange={getQuery}
               onKeyPress={search}
-              placeholder="회원ID/회원이름"
+              placeholder="회원ID/회원명"
+              class="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
             />
+            <button
+              type="button"
+              onClick={search}
+              value={getQuery}
+              class="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
+            >
+              <svg
+                className="bg-white h-4 w-4 fill-current"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                viewBox="0 0 56.966 56.966"
+                width="512px"
+                height="512px"
+              >
+                <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -129,7 +144,7 @@ function AdminUser({ itemsPerPage = 10 }) {
                     <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       휴대폰번호
                     </th>
-                    <th className="pl-6 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       구분
                     </th>
                     <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
