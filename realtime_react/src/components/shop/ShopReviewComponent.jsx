@@ -7,13 +7,13 @@ function ShopReviewComponent({ review }) {
 
   return (
     <React.Fragment>
-      <div className="flex justify-center items-center">
-        <div className="grid grid-cols-4 gap-2">
-          <div className="">
+      <div className="justify-items-start">
+        <div className="grid grid-cols-4 gap-4 w-3/5 content-center m-auto">
+          <div>
             <Star score={rating} />
           </div>
-          <div className="">{user_id.nickname}</div>
-          <div className="">{content}</div>
+          <div>{user_id.nickname}</div>
+          <div className="text-left">{content}</div>
           <div>
             <Timestamp relative date={review.created_at} autoUpdate />
           </div>
