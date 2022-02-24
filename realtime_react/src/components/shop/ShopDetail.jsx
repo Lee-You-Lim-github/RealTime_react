@@ -18,7 +18,7 @@ const INIT_REVIEW_FIELD_VALUES = {
 
 function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [auth] = useAuth();
-  const [showMenu, setShowMenu] = useState(false);
+  const [showReview, setShowReview] = useState(false);
   const [showInfo, setShowInfo] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -76,7 +76,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
 
   useEffect(() => {
     fetchApplications(1);
-  }, [fetchApplications]);
+  }, [fetchApplications, showReview]);
 
   const handlePage = (event) => {
     fetchApplications(event.selected + 1);
@@ -133,7 +133,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
           {(shopLoading || reviewLoading) && (
             <LoadingIndicator>로딩 중...</LoadingIndicator>
           )}
-
           {(shopError || reviewError)?.response?.status >= 400 && (
             <div className="text-red-400 my-5">
               데이터를 불러오는데 실패했습니다.
@@ -148,21 +147,20 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
           {savedError?.response?.status >= 400 && (
             <div className="text-red-400 my-5">저장에 실패했습니다.</div>
           )}
-
           <br />
           <span className="text-4xl">{shopData.name}</span>
           <span className="mx-3">{shopData.category}</span>
-          <span>
+          <span className="mx-3">
             잔여 테이블수: {shopData.now_table_count}/
             {shopData.total_table_count}
           </span>
-          <div>
+          <span>
             <React.Fragment>
               <button
-                className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-3"
+                className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-1 p-2"
                 onClick={openModal}
               >
-                지금 예약
+                지금예약
               </button>
 
               <Modal
@@ -179,37 +177,37 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
               to={`/shop/${shopId}/booking/new/`}
               className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-3"
             >
-              지금말고 예약
+              지금말고예약
             </Link>
-          </div>
+          </span>
           <br />
-
-          <div className="photo_align">
+          <div className="photo_align my-8">
             <img
               src={shopData.photo}
               alt={shopData.name}
-              className="shopphoto rounded"
+              className="shop_photo rounded"
             />
           </div>
-          <br />
-          <br />
+
           <div>
-            <p>공지사항</p>
-            {shopData.notice}
+            <p className="content-center text-xl w-4/5 border border-violet-300 rounded my-1 m-auto p-2">
+              {shopData.notice && <>공지사항: {shopData.notice}</>}
+              {!shopData.notice && "등록된 공지가 없습니다."}
+            </p>
           </div>
         </>
       )}
       <button
         onClick={() => setShowInfo(true)}
-        onClickCapture={() => setShowMenu(false)}
-        className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2"
+        onClickCapture={() => setShowReview(false)}
+        className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2 focus:bg-white focus:text-violet-500"
       >
         매장정보
       </button>
       <button
-        onClick={() => setShowMenu(true)}
+        onClick={() => setShowReview(true)}
         onClickCapture={() => setShowInfo(false)}
-        className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2"
+        className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2 focus:bg-white focus:text-violet-500"
       >
         리뷰보기
       </button>
@@ -222,7 +220,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
         </div>
       )}
 
-      {showMenu && reviewData && (
+      {showReview && reviewData && (
         <div>
           {reviewData?.results
             ?.filter(
@@ -258,6 +256,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
               placeholder="0"
               min="0"
               max="5"
+              className="border border-violet-300 rounded my-1 mx-2 p-2"
             />
             <span>{reviewData.nickname}</span>
             <input
@@ -266,6 +265,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
               value={fieldValues.content}
               onChange={handleFieldChange}
               placeholder="리뷰를 작성해주세요"
+              className="border border-violet-300 rounded my-1 mx-2 p-2"
             />
             <button className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2">
               저장하기

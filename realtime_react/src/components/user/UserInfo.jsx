@@ -3,7 +3,7 @@ import DebugStates from "components/DebugStates";
 import DeleteConfirmModal from "components/modal/DeleteConfirmModal";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Timestamp from "react-timestamp";
 import Star from "../shop/ShopStar";
 import { toast } from "react-toastify";
