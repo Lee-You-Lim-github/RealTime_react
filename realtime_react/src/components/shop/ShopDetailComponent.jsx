@@ -1,6 +1,4 @@
 import React from "react";
-import empty from "assets/img/empty.png";
-import full from "assets/img/full.png";
 
 function ShopDetailComponent({ shopinfo }) {
   const {
