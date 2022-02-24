@@ -8,6 +8,7 @@ import Timestamp from "react-timestamp";
 import Star from "../shop/ShopStar";
 import { toast } from "react-toastify";
 import LoadingIndicator from "components/LoadingIndicator";
+import UserInfoComponent from "./UserInfoComponent";
 
 function UserInfo({ userId }) {
   const [auth] = useAuth();
@@ -115,37 +116,15 @@ function UserInfo({ userId }) {
       {deleteError?.response?.status >= 400 && (
         <div className="text-red-400">삭제에 실패했습니다.</div>
       )}
-      {userData && (
-        <div className="flex flex-wrap my-3">
-          <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
-            마이페이지
-          </h3>
-          <div className="border border-violet-300 w-3/5 rounded-sm p-3">
-            <p className="text-left">ID : {userData.user_id}</p>
-            <p className="text-left">이름 : {userData.username}</p>
-            <p className="text-left">닉네임 : {userData.nickname}</p>
-            <p className="text-left flex">
-              휴대전화번호 : {userData.telephone}
-            </p>
-            <p className="text-right">
-              <Link
-                to={`/user/mypage/${auth.id}/edit/`}
-                className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-2"
-              >
-                수정
-              </Link>
-            </p>
-          </div>
-        </div>
-      )}
+      {userData && <UserInfoComponent userData={userData} auth={auth} />}
 
       {reviewList.length > 0 ? (
         <>
           {reviewList?.map((review) => (
-            <div key={review.id} className="flex flex-wrap my-5">
-              <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
+            <div key={review.id} className="flex flex-wrap">
+              <div className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
                 리뷰 내역
-              </h3>
+              </div>
               <div className="border border-violet-300 w-3/5 rounded-sm p-3">
                 <p className="text-left">{review.shop_id.name}</p>
                 <span>
