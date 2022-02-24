@@ -109,6 +109,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
         shop_id: shopData.id,
       },
     }).then((response) => {
+      alert("리뷰가 등록되었습니다.");
       const { rating, content } = response.data;
     });
     window.location.replace(`/shop/${shopId}/`);

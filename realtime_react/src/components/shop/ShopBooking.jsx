@@ -104,15 +104,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
       data: { visit_status: "1" },
     })
       .then((response) => {
-        toast.info("🦄 방문이 확인되었습니다.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        alert("방문이 확인되었습니다.");
         console.log(response.data.visit_status);
         refetch();
         setLoading(true);
@@ -128,15 +120,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
       data: { visit_status: "2" },
     })
       .then((response) => {
-        toast.info("🦄 패널티가 부여되었습니다.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        alert("패널티가 부여되었습니다.");
         console.log(response.data.visit_status);
         refetch();
         setLoading(true);

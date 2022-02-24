@@ -30,7 +30,7 @@ const INIT_FIELD_VALUES = {
 };
 
 function ShopForm({ shopId, handleDidSave }) {
-  const [auth] = useAuth();
+  const [auth, , , logout] = useAuth();
 
   // 사진 파일 업로드 시 사진이 보이게
   const [imageSrc, setImageSrc] = useState("");
@@ -116,34 +116,15 @@ function ShopForm({ shopId, handleDidSave }) {
       saveShopRequest({
         data: formData,
       }).then((response) => {
-        console.log("등록");
-        toast.info("🦄 등록되었습니다.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        const saveShop = response.data;
-        // if (handleDidSave) handleDidSave(saveShop);
-        window.location.replace(`/shop/myshop/${saveShop.id}/`);
+        alert("등록되었습니다! 재로그인 해주세요.");
+        logout();
+        navigate("/accounts/login/");
       });
     } else {
       saveShopRequest({
         data: formData,
       }).then((response) => {
-        console.log("수정");
-        toast.info("🦄 수정되었습니다.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        alert("수정되었습니다.");
         const saveShop = response.data;
         if (handleDidSave) handleDidSave(saveShop);
       });

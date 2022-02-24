@@ -54,15 +54,7 @@ function Myshop({ shopId }) {
       data: { holiday: "1" },
     })
       .then(() => {
-        toast.info("🦄 휴일로 변경되었습니다.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        alert("휴일로 변경되었습니다.");
         refetch();
       })
       .catch((error) => console.log(error));
@@ -74,15 +66,7 @@ function Myshop({ shopId }) {
       data: { holiday: "0" },
     })
       .then(() => {
-        toast.info("🦄 영업 중으로 변경되었습니다.", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        alert("영업 중으로 변경되었습니다.");
         refetch();
       })
       .catch((error) => console.log(error));

@@ -3,7 +3,6 @@ import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
-import { ToastContainer } from "react-toastify";
 
 const INIT_FIELD_VALUES = { user_id: "", password: "" };
 
@@ -59,7 +58,6 @@ function LoginForm() {
 
   return (
     <div className="mt-32">
-      <ToastContainer />
       <h2 className="text-2xl my-5">Login</h2>
 
       {loading && <LoadingIndicator>로그인 중...</LoadingIndicator>}

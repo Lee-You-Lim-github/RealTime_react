@@ -47,15 +47,7 @@ function UserJoinForm({ handleDidSave }) {
         authority,
       } = response.data;
 
-      toast.info("🦄 가입이 완료되었습니다.", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      alert("가입이 완료되었습니다.");
       if (handleDidSave) handleDidSave();
     });
   };
