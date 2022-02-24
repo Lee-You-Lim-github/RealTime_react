@@ -16,7 +16,7 @@ function UserBooking() {
     refetch,
   ] = useApiAxios(
     {
-      url: "/booking/api/bookings/",
+      url: "/booking/api/bookings/?all",
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -26,7 +26,7 @@ function UserBooking() {
   );
 
   useEffect(() => {
-    const userBooking = bookingList?.results?.filter(
+    const userBooking = bookingList?.filter(
       (booking) => parseInt(auth.id) === booking.user_id.id
     );
 
@@ -36,7 +36,7 @@ function UserBooking() {
   }, [bookingList, auth.id]);
 
   useEffect(() => {
-    refetch();
+    refetch().then((response) => console.log(response.data));
   }, []);
 
   return (

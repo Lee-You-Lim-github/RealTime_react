@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import AdminUserComponent from "./AdminUserComponent";
 import LoadingIndicator from "components/LoadingIndicator";
+import admin_user from "assets/img/admin_user.png";
 
 function AdminUser({ itemsPerPage = 10 }) {
   const [auth] = useAuth();
@@ -74,9 +75,12 @@ function AdminUser({ itemsPerPage = 10 }) {
 
   return (
     <div className="bg-white p-8 rounded-md w-full">
-      <div className=" flex items-center justify-between pb-6">
-        <div>
-          <h2 className="text-gray-600 font-semibold">회원관리</h2>
+      <div className=" flex items-center justify-between pb-4 md:flex">
+        <div className="flex flex-row">
+          <img className="w-10 h-10" src={admin_user} />
+          <h2 className="text-gray-600 px-3 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-3xl">
+            회원관리
+          </h2>
         </div>
         {loading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
         {error?.response?.status >= 400 && (
@@ -97,7 +101,7 @@ function AdminUser({ itemsPerPage = 10 }) {
               />
             </svg>
             <input
-              className="bg-gray-50 outline-none ml-1 block "
+              className="bg-gray-50 outline-none ml-1 block sm:flex-1 text-2xl md:text-xl lg:text-base"
               type="search"
               onChange={getQuery}
               onKeyPress={search}
@@ -108,29 +112,39 @@ function AdminUser({ itemsPerPage = 10 }) {
       </div>
       <div>
         {getUserData && (
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+          <div className="-mx-4 sm:-mx-8 md:flex-1 px-24 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-              <table className="min-w-full leading-normal">
+              <table class="table-auto min-w-full whitespace-no-wrap">
                 <thead>
                   <tr>
-                    <th className="px-6 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원ID
                     </th>
-                    <th className="pl-10 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원명
                     </th>
-                    <th className="pl-14 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       닉네임
                     </th>
-                    <th className="pl-20 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       휴대폰번호
+                    </th>
+                    <th className="pl-6 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      구분
+                    </th>
+                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      패널티 여부
                     </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {getUserData?.results?.map((user) => {
-                    return <AdminUserComponent user={user} />;
-                  })}
+                  {getUserData?.results
+                    ?.filter(
+                      (not_superuser) => not_superuser.is_superuser === false
+                    )
+                    .map((user) => {
+                      return <AdminUserComponent user={user} />;
+                    })}
                 </tbody>
               </table>
               <ReactPaginate
