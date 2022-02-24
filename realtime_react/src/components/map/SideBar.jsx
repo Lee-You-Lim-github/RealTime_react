@@ -6,7 +6,7 @@ import "../Header/TopNav.css";
 
 const Sidebar = ({ width = 280, children }) => {
   const [isOpen, setOpen] = useState(false);
-  const [xPosition, setX] = useState(-width);
+  const [xPosition, setX] = useState(-217);
   const side = useRef();
 
   // button 클릭 시 토글
@@ -15,7 +15,7 @@ const Sidebar = ({ width = 280, children }) => {
       setX(0);
       setOpen(true);
     } else {
-      setX(-width);
+      setX(-217);
       setOpen(false);
     }
   };
@@ -25,7 +25,7 @@ const Sidebar = ({ width = 280, children }) => {
     let sideArea = side.current;
     let sideCildren = side.current.contains(e.target);
     if (isOpen && (!sideArea || !sideCildren)) {
-      await setX(-width);
+      await setX(-217);
       await setOpen(false);
     }
   };
@@ -44,7 +44,7 @@ const Sidebar = ({ width = 280, children }) => {
         className={styles.sidebar}
         style={{
           width: `${width}px`,
-          height: "100%",
+          height: "500px",
           transform: `translatex(${-xPosition}px)`,
         }}
       >
@@ -66,7 +66,7 @@ const Sidebar = ({ width = 280, children }) => {
             </div>
           )}
         </button>
-        <div className="px-4 py-30">
+        <div className="px-4">
           <h2 className="ml-5 mb-5 text-2xl">혼잡도 상태</h2>
           <ul>
             <li className="mb-5">
