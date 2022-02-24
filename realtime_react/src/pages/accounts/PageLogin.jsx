@@ -1,11 +1,9 @@
 import LoginForm from "components/accounts/LoginForm";
 import { Link } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 function PageLogin() {
   return (
     <div>
-      <ToastContainer />
       <LoginForm />
       <div>
         <Link
