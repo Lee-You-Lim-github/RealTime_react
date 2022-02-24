@@ -47,7 +47,7 @@ function AdminShopComponent({ admin_shop, handleDelete }) {
               onClick={openModal}
               // disabled={false}
               value={admin_shop.id}
-              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="text-sm bg-violet-400 hover:bg-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               삭제
             </button>

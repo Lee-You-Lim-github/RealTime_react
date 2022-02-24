@@ -1,4 +1,5 @@
 import "../Paginations/Paginations.css";
+import "./AdminBooking.css";
 import { useApiAxios } from "api/base";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
@@ -98,7 +99,9 @@ function AdminShop({ itemsPerPage = 10 }) {
       <div className="bg-white p-8 rounded-md w-full">
         <div className=" flex items-center justify-between pb-6">
           <div>
-            <h1 className="text-gray-600 font-semibold">매장관리</h1>
+            <h1 className="text-gray-600 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-xl">
+              매장관리
+            </h1>
           </div>
           {loading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
           {error?.response?.status >= 400 && (
@@ -125,7 +128,7 @@ function AdminShop({ itemsPerPage = 10 }) {
                 />
               </svg>
               <input
-                className="bg-gray-50 outline-none ml-1 block "
+                className="search bg-gray-50 outline-none ml-1 block sm:flex-1 text-2xl md:text-xl lg:text-base"
                 type="search"
                 placeholder="사업자등록번호/매장명"
                 onChange={getQuery}
@@ -136,24 +139,24 @@ function AdminShop({ itemsPerPage = 10 }) {
         </div>
         <div>
           {adminShopData && (
-            <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div className="-mx-4 sm:-mx-8 px-4 md:flex-1 px-24 py-10 lg:px-2 py-4 overflow-x-auto">
               <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
                 <table className="min-w-full leading-normal">
                   <thead>
                     <tr>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         사업자등록번호
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장명
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장 전화번호
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         주소
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장 삭제
                       </th>
                     </tr>
