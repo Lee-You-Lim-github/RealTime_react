@@ -2,6 +2,7 @@ import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import LoadingIndicator from "components/LoadingIndicator";
+import DebugStates from "components/DebugStates";
 import UserBookingComponent from "./UserBookingComponent";
 
 function UserBooking() {
@@ -15,7 +16,7 @@ function UserBooking() {
     refetch,
   ] = useApiAxios(
     {
-      url: "/booking/api/bookings/?all",
+      url: "/booking/api/bookings/",
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -25,7 +26,7 @@ function UserBooking() {
   );
 
   useEffect(() => {
-    const userBooking = bookingList?.filter(
+    const userBooking = bookingList?.results?.filter(
       (booking) => parseInt(auth.id) === booking.user_id.id
     );
 
