@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./sidebar.module.css";
+import question from "assets/img/question.png";
+import remove from "assets/img/remove.png";
+import "../Header/TopNav.css";
 
 const Sidebar = ({ width = 280, children }) => {
   const [isOpen, setOpen] = useState(false);
@@ -47,7 +50,9 @@ const Sidebar = ({ width = 280, children }) => {
       >
         <button onClick={() => toggleMenu()} className={styles.button}>
           {isOpen ? (
-            <span>X</span>
+            <span>
+              <img className="bg-auto" src={remove} />
+            </span>
           ) : (
             <div
               style={{
@@ -57,12 +62,12 @@ const Sidebar = ({ width = 280, children }) => {
               }}
               className="text-4xl"
             >
-              ≡
+              <img className="w-30 h-30" src={question} />
             </div>
           )}
         </button>
         <div className="px-4 py-30">
-          <h2 className="mb-5 text-2xl">혼잡도 상태</h2>
+          <h2 className="ml-5 mb-5 text-2xl">혼잡도 상태</h2>
           <ul>
             <li className="mb-5">
               <div
@@ -78,7 +83,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="font-bold">여유</span>
+                <span className="text-white font-bold">여유</span>
               </div>
               <span
                 style={{
@@ -102,7 +107,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="font-bold">보통</span>
+                <span className="text-white font-bold">보통</span>
               </div>
               <span
                 style={{
@@ -126,7 +131,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="font-bold">혼잡</span>
+                <span className="text-white font-bold">혼잡</span>
               </div>
               <span
                 style={{
@@ -150,7 +155,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="font-bold">만석</span>
+                <span className="text-white font-bold">만석</span>
               </div>
               <span
                 style={{
@@ -174,7 +179,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="font-bold">휴일</span>
+                <span className="text-white font-bold">휴일</span>
               </div>
               <span
                 style={{
