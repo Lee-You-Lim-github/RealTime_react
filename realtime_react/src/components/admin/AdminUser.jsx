@@ -4,6 +4,7 @@ import { useAuth } from "contexts/AuthContext";
 import React, { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import AdminUserComponent from "./AdminUserComponent";
+import LoadingIndicator from "components/LoadingIndicator";
 
 function AdminUser({ itemsPerPage = 10 }) {
   const [auth] = useAuth();
@@ -20,7 +21,7 @@ function AdminUser({ itemsPerPage = 10 }) {
   const [, setReload] = useState(false);
 
   // get_users
-  const [{ data: getUserData }, refetch] = useApiAxios(
+  const [{ data: getUserData, loading, error }, refetch] = useApiAxios(
     {
       url: `/accounts/api/users/${query ? "?query=" + query : ""}`,
       method: "GET",
@@ -77,6 +78,10 @@ function AdminUser({ itemsPerPage = 10 }) {
         <div>
           <h2 className="text-gray-600 font-semibold">회원관리</h2>
         </div>
+        {loading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
+        {error?.response?.status >= 400 && (
+          <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
+        )}
         <div className="flex items-center justify-between">
           <div className="flex bg-gray-50 items-center p-2 rounded-md">
             <svg

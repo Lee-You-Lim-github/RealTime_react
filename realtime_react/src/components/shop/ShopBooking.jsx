@@ -112,7 +112,6 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          containerId: "visit",
         });
         console.log(response.data.visit_status);
         refetch();
@@ -137,7 +136,6 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-          containerId: "not_visit",
         });
         console.log(response.data.visit_status);
         refetch();
@@ -169,20 +167,20 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
           <div>
             <h2 className="text-gray-600 font-semibold">예약현황</h2>
             <span className="text-xs">예약자명단</span>
-            {(getBookingLoading || shopBookingsLoading) && (
-              <LoadingIndicator>로딩 중...</LoadingIndicator>
-            )}
-            {getBookingError?.response?.status >= 400 && (
-              <div className="text-red-400">
-                데이터를 가져오는데 실패했습니다.
-              </div>
-            )}
-            {shopBookingsError?.response?.status >= 400 && (
-              <div className="text-red-400">
-                데이터를 저장하는데 실패했습니다.
-              </div>
-            )}
           </div>
+          {(getBookingLoading || shopBookingsLoading) && (
+            <LoadingIndicator>로딩 중...</LoadingIndicator>
+          )}
+          {getBookingError?.response?.status >= 400 && (
+            <div className="text-red-400">
+              데이터를 가져오는데 실패했습니다.
+            </div>
+          )}
+          {shopBookingsError?.response?.status >= 400 && (
+            <div className="text-red-400">
+              데이터를 저장하는데 실패했습니다.
+            </div>
+          )}
           <div className="flex items-center justify-between">
             <div className="flex bg-gray-50 items-center p-2 rounded-md">
               <svg

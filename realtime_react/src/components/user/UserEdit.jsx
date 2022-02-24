@@ -1,14 +1,17 @@
 import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
+import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function UserEdit({ userId, handleDidSave }) {
   const [auth] = useAuth();
 
-  const navigate = useNavigate();
+  const [reload, setReload] = useState(false);
 
   const [{ data: userData, loading: getLoading, error: getError }] =
     useApiAxios(
@@ -43,26 +46,39 @@ function UserEdit({ userId, handleDidSave }) {
 
   useEffect(() => {
     saveRequest();
-  }, []);
+  }, [reload]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (window.confirm("수정 하시겠습니까?")) {
-      saveRequest({
-        data: fieldValues,
-      }).then((response) => {
-        alert("수정이 완료되었습니다.");
-        const savedUser = response.data;
-        if (handleDidSave) handleDidSave(savedUser);
+    saveRequest({
+      data: fieldValues,
+    }).then((response) => {
+      toast.info("🦄 수정되었습니다. 재로그인 해주세요.", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
-      navigate(`/user/mypage/${userId}/`);
-    }
+      setReload(true);
+      if (handleDidSave) handleDidSave();
+    });
   };
 
   return (
     <div className="mt-2">
       <h2 className="text-2xl my-5">정보수정</h2>
+      {(getLoading || saveLoading) && (
+        <LoadingIndicator>로딩 중...</LoadingIndicator>
+      )}
+      {getError?.response?.status >= 400 && (
+        <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
+      )}
+      {saveError?.response?.status >= 400 && (
+        <div className="text-red-400">데이터를 저장하는데 실패했습니다.</div>
+      )}
 
       <form onSubmit={handleSubmit}>
         <p className="text-left ml-56">이름</p>
@@ -120,13 +136,6 @@ function UserEdit({ userId, handleDidSave }) {
             취소
           </button>
         </div>
-        <DebugStates
-          userData={userData}
-          fieldValues={fieldValues}
-          getLoading={getLoading}
-          getError={getError}
-          saveErrorMessages={saveErrorMessages}
-        />
       </form>
     </div>
   );

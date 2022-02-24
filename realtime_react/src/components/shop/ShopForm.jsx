@@ -127,7 +127,8 @@ function ShopForm({ shopId, handleDidSave }) {
           progress: undefined,
         });
         const saveShop = response.data;
-        if (handleDidSave) handleDidSave(saveShop);
+        // if (handleDidSave) handleDidSave(saveShop);
+        window.location.replace(`/shop/myshop/${saveShop.id}/`);
       });
     } else {
       saveShopRequest({
@@ -166,8 +167,11 @@ function ShopForm({ shopId, handleDidSave }) {
       ) : (
         <h2 className="text-2xl my-5"> 매장 정보 수정</h2>
       )}
+      {getShopLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
       {shopFormLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
-
+      {getShopError?.response?.status >= 400 && (
+        <div className="text-red-400">데이터를 불러오는데 실패했습니다.</div>
+      )}
       {!shopId
         ? shopFormError?.response?.status >= 400 && (
             <div className="text-red-400">등록에 실패했습니다.</div>

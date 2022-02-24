@@ -55,9 +55,7 @@ function UserJoinForm({ handleDidSave }) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        containerId: "L",
       });
-
       if (handleDidSave) handleDidSave();
     });
   };

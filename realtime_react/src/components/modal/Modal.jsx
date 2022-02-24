@@ -116,7 +116,6 @@ function Modal(props) {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        containerId: "L",
       });
       if (value >= 1) {
         window.location.replace(`/user/${auth.id}/bookings/`);

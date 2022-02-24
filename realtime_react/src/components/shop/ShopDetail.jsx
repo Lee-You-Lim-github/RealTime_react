@@ -9,6 +9,7 @@ import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import ShopDetailComponent from "./ShopDetailComponent";
 import ShopReviewComponent from "./ShopReviewComponent";
+import LoadingIndicator from "components/LoadingIndicator";
 
 const INIT_REVIEW_FIELD_VALUES = {
   content: "",
@@ -25,6 +26,8 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [, setItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(1);
+
+  //reload
 
   // getShopData
   const [
@@ -46,7 +49,10 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   }, [shopId]);
 
   // getReviewData
-  const [{ data: reviewData }, reviewRefetch] = useApiAxios(
+  const [
+    { data: reviewData, loading: reviewLoading, error: reviewError },
+    reviewRefetch,
+  ] = useApiAxios(
     {
       url: `/shop/api/reviews/?query=${shopId}`,
       method: "GET",
@@ -81,16 +87,17 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   );
 
   // postReview
-  const [, requestReview] = useApiAxios(
-    {
-      url: `/shop/api/newreview/`,
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${auth.access}`,
+  const [{ loading: savedLoading, error: savedError }, requestReview] =
+    useApiAxios(
+      {
+        url: `/shop/api/newreview/`,
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
       },
-    },
-    { manual: true }
-  );
+      { manual: true }
+    );
 
   const reviewHandleSubmit = (e) => {
     e.preventDefault();
@@ -107,9 +114,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     window.location.replace(`/shop/${shopId}/`);
   };
 
-  // useEffect(() => {
-  //   reviewRefetch();
-  // }, []);
+  useEffect(() => {
+    reviewRefetch();
+  }, []);
 
   const openModal = () => {
     setModalOpen(true);
@@ -122,6 +129,25 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     <div>
       {shopData && (
         <>
+          {(shopLoading || reviewLoading) && (
+            <LoadingIndicator>로딩 중...</LoadingIndicator>
+          )}
+
+          {(shopError || reviewError)?.response?.status >= 400 && (
+            <div className="text-red-400 my-5">
+              데이터를 불러오는데 실패했습니다.
+            </div>
+          )}
+          {(shopError || reviewError)?.response?.status >= 400 && (
+            <div className="text-red-400 my-5">
+              데이터를 불러오는데 실패했습니다.
+            </div>
+          )}
+          {savedLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
+          {savedError?.response?.status >= 400 && (
+            <div className="text-red-400 my-5">저장에 실패했습니다.</div>
+          )}
+
           <br />
           <span className="text-4xl">{shopData.name}</span>
           <span className="mx-3">{shopData.category}</span>

@@ -108,12 +108,17 @@ function AdminShop({ itemsPerPage = 10 }) {
         <div className=" flex items-center justify-between pb-6">
           <div>
             <h1 className="text-gray-600 font-semibold">매장관리</h1>
-            {loading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
-            {deleteLoading && <LoadingIndicator>삭제 중...</LoadingIndicator>}
-            {deleteError?.response?.status >= 400 && (
-              <div className="text-red-400">삭제에 실패했습니다.</div>
-            )}
           </div>
+          {loading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
+          {error?.response?.status >= 400 && (
+            <div className="text-red-400">
+              데이터를 가져오는데 실패했습니다.
+            </div>
+          )}
+          {deleteLoading && <LoadingIndicator>삭제 중...</LoadingIndicator>}
+          {deleteError?.response?.status >= 400 && (
+            <div className="text-red-400">삭제에 실패했습니다.</div>
+          )}
           <div className="flex items-center justify-between">
             <div className="flex bg-gray-50 items-center p-2 rounded-md">
               <svg

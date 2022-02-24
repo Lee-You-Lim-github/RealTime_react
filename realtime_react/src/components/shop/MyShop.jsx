@@ -1,9 +1,11 @@
 import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
+import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Myshop({ shopId }) {
   const [auth] = useAuth();
@@ -52,7 +54,15 @@ function Myshop({ shopId }) {
       data: { holiday: "1" },
     })
       .then(() => {
-        alert("휴일로 변경되었습니다.");
+        toast.info("🦄 휴일로 변경되었습니다.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         refetch();
       })
       .catch((error) => console.log(error));
@@ -64,7 +74,15 @@ function Myshop({ shopId }) {
       data: { holiday: "0" },
     })
       .then(() => {
-        alert("영업 중으로 변경되었습니다.");
+        toast.info("🦄 영업 중으로 변경되었습니다.", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
         refetch();
       })
       .catch((error) => console.log(error));
@@ -105,7 +123,6 @@ function Myshop({ shopId }) {
 
   return (
     <div>
-      <ToastContainer />
       <div className="min-h-screen bg-violet-100 py-6 flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-16 bg-clip-padding bg-opacity-60 border border-gray-200">
@@ -114,6 +131,19 @@ function Myshop({ shopId }) {
               <div className="divide-y divide-gray-200">
                 <div className="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                   <h2 className="text-3xl my-5">마이스토어</h2>
+                  <div>
+                    {(myShopLaoding || loading) && (
+                      <LoadingIndicator>로딩 중...</LoadingIndicator>
+                    )}
+                    {myShopError?.response?.status >= 400 && (
+                      <div className="text-red-400">
+                        데이터를 가져오는데 실패했습니다.
+                      </div>
+                    )}
+                    {error?.response?.status >= 400 && (
+                      <div className="text-red-400">변경에 실패하였습니다.</div>
+                    )}
+                  </div>
                   <button
                     type="button"
                     name="holiday"

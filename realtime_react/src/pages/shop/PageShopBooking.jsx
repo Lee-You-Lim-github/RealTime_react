@@ -7,8 +7,7 @@ function PageShopBooking() {
   const { bookingId } = useParams();
   return (
     <div>
-      <ToastContainer containerId={"not_visit"} />
-      <ToastContainer containerId={"visit"} />
+      <ToastContainer />
       <ShopBooking shopId={shopId} bookingId={bookingId} />
     </div>
   );
