@@ -139,7 +139,7 @@ function AdminShop({ itemsPerPage = 10 }) {
         </div>
         <div>
           {adminShopData && (
-            <div className="-mx-4 sm:-mx-8 px-4 md:flex-1 px-24 py-10 lg:px-2 py-4 overflow-x-auto">
+            <div className="-mx-4 sm:-mx-8 md:flex-1 px-24 py-10 lg:px-2 py-4 overflow-x-auto">
               <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
                 <table className="min-w-full leading-normal">
                   <thead>
