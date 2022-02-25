@@ -7,6 +7,7 @@ function ShopBookingComponent({
   clickedVisit,
   clickedUnvisited,
   loading,
+  index,
 }) {
   // visit_confirm 모달창
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,13 +39,7 @@ function ShopBookingComponent({
     <React.Fragment>
       <tr>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <div className="flex items-center">
-            <div className="ml-3">
-              <p className="text-gray-900 whitespace-no-wrap">
-                {shop_booking.id}
-              </p>
-            </div>
-          </div>
+          <p className="text-gray-900 whitespace-no-wrap">{index}</p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
@@ -78,7 +73,7 @@ function ShopBookingComponent({
               // disabled={loading}
               onClick={openModal}
               value={shop_booking.id}
-              className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="mr-3 text-sm bg-violet-400 hover:bg-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               방문
             </button>
@@ -96,7 +91,7 @@ function ShopBookingComponent({
               // disabled={loading}
               onClick={openModalNotVisit}
               value={shop_booking.id}
-              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="text-sm bg-wihte border-2 border-violet-400 hover:bg-violet-300 text-gray py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               미방문
             </button>

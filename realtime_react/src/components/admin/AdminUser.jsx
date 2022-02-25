@@ -81,9 +81,9 @@ function AdminUser({ itemsPerPage = 10 }) {
     <div className="bg-white p-8 rounded-md w-full">
       <div className=" flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
-          <img className="w-10 h-10" src={admin_user} alt="" />
+          <img className="w-9 h-9 ml-2" src={admin_user} alt="admin_user" />
           <h2
-            className="text-gray-600 px-3 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-3xl cursor-pointer"
+            className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
             onClick={() => window.location.replace("/admin/user/")}
           >
             회원관리

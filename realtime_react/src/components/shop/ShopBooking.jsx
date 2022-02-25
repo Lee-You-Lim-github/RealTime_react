@@ -4,8 +4,8 @@ import { useAuth } from "contexts/AuthContext";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import ShopBookingComponent from "./ShopBookingComponent";
-import { toast } from "react-toastify";
 import LoadingIndicator from "components/LoadingIndicator";
+import shop_booking from "assets/img/shop_booking.png";
 
 function ShopBooking({ shopId, itemsPerPage = 10 }) {
   const [auth] = useAuth();
@@ -148,10 +148,22 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     <div>
       <div className="bg-white p-8 rounded-md w-full">
         <div className=" flex items-center justify-between pb-6">
-          <div>
-            <h2 className="text-gray-600 font-semibold">예약현황</h2>
-            <span className="text-xs">예약자명단</span>
+          <div className="flex flex-row">
+            <img
+              className="w-8 h-8 ml-2"
+              src={shop_booking}
+              alt="shop_booking"
+            />
+            <h2
+              className="text-gray-600 px-3 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
+              onClick={() =>
+                window.location.replace(`/shop/${shopId}/bookings/`)
+              }
+            >
+              예약현황
+            </h2>
           </div>
+
           {(getBookingLoading || shopBookingsLoading) && (
             <LoadingIndicator>로딩 중...</LoadingIndicator>
           )}
@@ -166,64 +178,74 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
             </div>
           )}
           <div className="flex items-center justify-between">
-            <div className="flex bg-gray-50 items-center p-2 rounded-md">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5 text-gray-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  clipRule="evenodd"
-                />
-              </svg>
+            <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
               <input
-                className="bg-gray-50 outline-none ml-1 block "
                 type="search"
-                placeholder="이름/휴대폰 번호 뒷자리"
+                name="serch"
                 onChange={getQuery}
                 onKeyPress={search}
+                placeholder="이름/휴대폰 번호 뒷자리"
+                class="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
               />
+              <button
+                type="button"
+                onClick={search}
+                value={getQuery}
+                class="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
+              >
+                <svg
+                  className="bg-white h-4 w-4 fill-current"
+                  version="1.1"
+                  id="Capa_1"
+                  x="0px"
+                  y="0px"
+                  viewBox="0 0 56.966 56.966"
+                  width="512px"
+                  height="512px"
+                >
+                  <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
+        <div className="text-md text-left">예약자명단</div>
         <div>
           {getBookingData && (
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
               <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-                <table className="min-w-full leading-normal">
+                <table class="table-auto min-w-full whitespace-no-wrap">
                   <thead>
                     <tr>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         No.
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         이름
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         휴대폰 번호
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약날짜
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약시간
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약 테이블 수
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         방문여부
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
-                    {shop_array?.map((shop_booking) => {
+                    {shop_array?.map((shop_booking, index) => {
                       return (
                         <ShopBookingComponent
+                          index={index + 1}
                           key={shop_booking.id}
                           shop_booking={shop_booking}
                           clickedVisit={clickedVisit}
