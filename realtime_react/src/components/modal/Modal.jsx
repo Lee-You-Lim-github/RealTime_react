@@ -149,28 +149,31 @@ function Modal(props) {
           </header>
           <main>{props.children}</main>
           <div className="flex justify-center mr-3 my-1">
-            <span className="mr-5">예약 테이블 수 : {value}</span>
-            <button
-              type="button"
-              name="plus"
-              onClick={handlePlus}
-              className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-            >
-              +
-            </button>
+            <div className="py-1">
+              <span className="mr-3">예약 테이블 수 :</span>
+              <button
+                type="button"
+                name="minus"
+                onClick={handleMinus}
+                className="text-sm h-6 mr-2 bg-violet-400 hover:bg-red-300 text-white px-2 rounded focus:outline-none focus:shadow-outline"
+              >
+                -
+              </button>
+              <span>{value}</span>
 
-            <button
-              type="button"
-              name="minus"
-              onClick={handleMinus}
-              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-            >
-              -
-            </button>
+              <button
+                type="button"
+                name="plus"
+                onClick={handlePlus}
+                className="mr-3 ml-2 h-6 text-sm bg-violet-400 hover:bg-red-300 text-white px-2 rounded focus:outline-none focus:shadow-outline"
+              >
+                +
+              </button>
+            </div>
             <footer>
               <button
                 onClick={handleClickBook}
-                className="ml-5 text-sm bg-gray-500 hover:bg-gray-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                className="ml-5 text-sm border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
               >
                 예약하기
               </button>

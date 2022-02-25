@@ -26,7 +26,7 @@ function NotVisitConfirmModal(props) {
               type="button"
               onClick={handleYes}
               name="yes"
-              className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="mr-3 text-sm bg-violet-400 hover:bg-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               확인
             </button>
@@ -35,7 +35,7 @@ function NotVisitConfirmModal(props) {
               type="button"
               onClick={close}
               name="no"
-              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="text-sm border-2 border-violet-300 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               취소
             </button>
