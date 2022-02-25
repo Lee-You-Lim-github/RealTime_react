@@ -1,11 +1,10 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import myshop from "assets/img/myshop.png";
 
 function Myshop({ shopId }) {
   const [auth] = useAuth();
@@ -106,44 +105,238 @@ function Myshop({ shopId }) {
   }, [tableCount]);
 
   return (
-    <div>
-      <div className="min-h-screen bg-violet-100 py-6 flex flex-col justify-center sm:py-12">
+    <div className="box">
+      {myShopData && (
+        <section class="text-gray-600 body-font">
+          <div className="flex">
+            <img
+              className="w-8 h-8 ml-6 mt-10"
+              src={myshop}
+              alt="shop_booking"
+            />
+            <h1 class="title-font px-5 pt-10 text-3xl mb-4 mr-8 font-medium text-gray-900 sm:text-4xl">
+              마이스토어
+            </h1>
+            <button
+              type="button"
+              name="not_holiday"
+              onClick={handleNotHolidaySubmit}
+              className="h-8 text-sm mr-3 bg-wihte border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-gray py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            >
+              영업
+            </button>
+            <button
+              type="button"
+              name="holiday"
+              onClick={handleHolidaySubmit}
+              className="h-8 mr-3 text-sm bg-violet-400 hover:bg-red-300 border-2 border-violet-400 hover:border-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            >
+              휴일
+            </button>
+            <div>
+              {(myShopLaoding || loading) && (
+                <LoadingIndicator>로딩 중...</LoadingIndicator>
+              )}
+              {myShopError?.response?.status >= 400 && (
+                <div className="text-red-400">
+                  데이터를 가져오는데 실패했습니다.
+                </div>
+              )}
+              {error?.response?.status >= 400 && (
+                <div className="text-red-400">변경에 실패하였습니다.</div>
+              )}
+            </div>
+          </div>
+          <div class="container mx-auto flex px-6 pt-15 md:flex-row flex-col items-center">
+            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+              {myShopData.photo && (
+                <img
+                  src={myShopData.photo}
+                  alt={myShopData.name}
+                  className="rounded h-96"
+                />
+              )}
+            </div>
+
+            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
+              <ul className="list-disc space-y-2">
+                <li className="flex items-start">
+                  <p className="flex items-start">매장명</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.name}</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">업종</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.category}</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">주소</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.address}</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">전화번호</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.telephone}</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">영업시간</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.opening_hours}</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">매장 테이블 수</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.total_table_count}</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">현재 테이블 수</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{tableCount}</p>
+                    <button
+                      type="button"
+                      name="plus"
+                      onClick={handlePlus}
+                      className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                    >
+                      +
+                    </button>
+                    <button
+                      type="button"
+                      name="minus"
+                      onClick={handleMinus}
+                      className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                    >
+                      -
+                    </button>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">편의시설</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.conv_parking ? "주차장" : ""}</p>
+                  </div>
+                  <div className="ml-2">
+                    <p>{myShopData.conv_pet ? "애완동물 동반 가능" : ""}</p>
+                  </div>
+                  <div className="ml-2">
+                    <p>{myShopData.conv_wifi ? "WIFI" : ""}</p>
+                  </div>
+                  <div className="ml-2">
+                    <p>{myShopData.conv_pack ? "포장 가능" : ""}</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">공지사항</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.notice}</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <p className="flex items-start">매장 소개</p>
+                  <span className="h-6 flex items-center sm:h-7">
+                    <svg
+                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    ></svg>
+                  </span>
+                  <div className="ml-2">
+                    <p>{myShopData.intro}</p>
+                  </div>
+                </li>
+
+                {/* <div class="flex justify-center">
+                  <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                    Button
+                  </button>
+                  <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
+                    Button
+                  </button>
+                </div> */}
+              </ul>
+            </div>
+          </div>
+        </section>
+      )}
+      {/* <div className="min-h-screen bg-violet-100 py-6 flex flex-col justify-center sm:py-12">
         <div className="relative py-3 sm:max-w-xl sm:mx-auto">
           <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-16 bg-clip-padding bg-opacity-60 border border-gray-200">
             <div className="max-w-md mx-auto">
-              <div></div>
               <div className="divide-y divide-gray-200">
                 <div className="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                   <h2 className="text-3xl my-5">마이스토어</h2>
-                  <div>
-                    {(myShopLaoding || loading) && (
-                      <LoadingIndicator>로딩 중...</LoadingIndicator>
-                    )}
-                    {myShopError?.response?.status >= 400 && (
-                      <div className="text-red-400">
-                        데이터를 가져오는데 실패했습니다.
-                      </div>
-                    )}
-                    {error?.response?.status >= 400 && (
-                      <div className="text-red-400">변경에 실패하였습니다.</div>
-                    )}
-                  </div>
-                  <button
-                    type="button"
-                    name="holiday"
-                    onClick={handleHolidaySubmit}
-                    className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    휴일
-                  </button>
-                  <button
-                    type="button"
-                    name="not_holiday"
-                    onClick={handleNotHolidaySubmit}
-                    className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                  >
-                    영업
-                  </button>
+
                   {myShopData && (
                     <ul className="list-disc space-y-2">
                       <li className="flex items-start">
@@ -325,24 +518,24 @@ function Myshop({ shopId }) {
                       </li>
                     </ul>
                   )}
-                </div>
-                <div className="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
-                  <p>
-                    <Link
-                      to={`/shop/${shopId}/edit`}
-                      className="text-violet-600 hover:text-red-300"
-                    >
-                      {" "}
-                      수정 &rarr;{" "}
-                    </Link>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+                </div> */}
+      <div className="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
+        <p>
+          <Link
+            to={`/shop/${shopId}/edit`}
+            className="text-violet-600 hover:text-red-300"
+          >
+            {" "}
+            수정 &rarr;{" "}
+          </Link>
+        </p>
       </div>
     </div>
+    //         </div>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
   );
 }
 
