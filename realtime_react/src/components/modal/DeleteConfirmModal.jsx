@@ -29,12 +29,12 @@ function DeleteConfirmModal(props) {
               &times;{" "}
             </button>
           </header>
-          <div className="flex justify-center mr-3 my-1">
+          <div className="flex justify-center mr-5 my-1">
             <button
               type="button"
               name="yes"
               onClick={handleYes}
-              className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="mr-3 text-sm bg-violet-400 hover:bg-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               {header === "정말 삭제하시겠습니까?" ||
               "해당 매장 정보를 삭제하시겠습니까?"
@@ -46,7 +46,7 @@ function DeleteConfirmModal(props) {
               type="button"
               name="no"
               onClick={close}
-              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="text-sm border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               {header === "정말 삭제하시겠습니까?" ||
               "해당 매장 정보를 삭제하시겠습니까?"

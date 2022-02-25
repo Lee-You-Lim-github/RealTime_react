@@ -32,7 +32,7 @@ function ConfirmModal(props) {
               type="button"
               name="plus"
               onClick={handleYes}
-              className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="w-14 mr-3 text-sm bg-violet-400 hover:bg-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               예
             </button>
@@ -41,7 +41,7 @@ function ConfirmModal(props) {
               type="button"
               name="minus"
               onClick={close}
-              className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="text-sm border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               아니오
             </button>
