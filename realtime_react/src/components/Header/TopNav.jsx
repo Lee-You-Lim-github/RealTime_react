@@ -36,6 +36,14 @@ function TopNav() {
     navigate("/");
   };
 
+  const handleLogin = () => {
+    navigate("/accounts/login/");
+  };
+
+  const handleJoin = () => {
+    navigate("/shop/new/");
+  };
+
   return (
     <div className="bg-red-200">
       <div className="header">
@@ -47,7 +55,11 @@ function TopNav() {
             {/* 비회원이 로그인 시 */}
             {!auth.isLoggedIn && (
               <>
-                <MyLink to="/accounts/login/">예약현황</MyLink>
+                <span>
+                  <button onClick={handleLogin} className={baseClassName}>
+                    예약현황
+                  </button>
+                </span>
                 <MyLink to="/accounts/login/">로그인</MyLink>
               </>
             )}
@@ -60,9 +72,11 @@ function TopNav() {
                     {auth.nickname} 님
                   </MyLink>
                   <MyLink to={`/user/${data?.id}/bookings/`}>예약현황</MyLink>
-                  <button onClick={handleLogout} className={baseClassName}>
-                    로그아웃
-                  </button>
+                  <span>
+                    <button onClick={handleLogout} className={baseClassName}>
+                      로그아웃
+                    </button>
+                  </span>
                 </>
               )}
             {/* 사엽자가 로그인 시 */}
@@ -78,7 +92,11 @@ function TopNav() {
                   {data?.shop_set.length === 0 && (
                     <>
                       <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
-                      <MyLink to={`/shop/new/`}>마이스토어</MyLink>
+                      <span>
+                        <button onClick={handleJoin} className={baseClassName}>
+                          마이스토어
+                        </button>
+                      </span>
                     </>
                   )}
                   {/* 매장이 등록된 경우 */}
@@ -92,10 +110,11 @@ function TopNav() {
                       </MyLink>
                     </>
                   )}
-
-                  <button onClick={handleLogout} className={baseClassName}>
-                    로그아웃
-                  </button>
+                  <span>
+                    <button onClick={handleLogout} className={baseClassName}>
+                      로그아웃
+                    </button>
+                  </span>
                 </>
               )}
             {/* 관리자로 로그인 */}
@@ -104,9 +123,11 @@ function TopNav() {
                 <MyLink to="/admin/user/">회원관리</MyLink>
                 <MyLink to="/admin/shop/">매장관리</MyLink>
                 <MyLink to="/admin/booking/">예약관리</MyLink>
-                <button onClick={handleLogout} className={baseClassName}>
-                  로그아웃
-                </button>
+                <span>
+                  <button onClick={handleLogout} className={baseClassName}>
+                    로그아웃
+                  </button>
+                </span>
               </>
             )}
           </div>
