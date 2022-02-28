@@ -18,6 +18,7 @@ import PageAdminBooking from "pages/admin/PageAdminBooking";
 import PageAdminUser from "pages/admin/PageAdminUser";
 import PageShopNot from "pages/notfound/PageShopNot";
 import PageNotAccess from "pages/notfound/PageNotAccess";
+import PageNotLogin from "pages/notfound/PageNotLogin";
 
 function App() {
   const [auth] = useAuth();
@@ -160,7 +161,7 @@ function App() {
             <Route path="/accounts/login/" element={<PageLogin />} />
             <Route path="/accounts/userjoin/" element={<PageUserJoin />} />
             <Route path="/shop/new/" element={<PageNotAccess />} />
-            <Route path="/shop/:shopId/" element={<PageShopDetail />} />
+            <Route path="/shop/:shopId/" element={<PageNotLogin />} />
             <Route path="/shop/:shopId/edit/" element={<PageNotAccess />} />
             <Route path="/shop/:shopId/bookings/" element={<PageNotAccess />} />
             <Route path="/shop/myshop/:shopId/" element={<PageNotAccess />} />
