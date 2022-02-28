@@ -69,8 +69,8 @@ function BookingForm({ shopId, handleDidSave }) {
   };
 
   return (
-    <div className="layout md:mx-auto lg:mx-auto">
-      <div className="sm:flex-1 text-xl lg:text-lg mx-auto w-full mt-10 lg:py-6 mb-6 lg:mb-0">
+    <div className="layout border-2 border-slate-300 rounded shadow-xl">
+      <div className="mx-auto headingBox mt-2 mb-6">
         <h2 className="mb-10 headings">지금말고 예약</h2>
         {loading && <LoadingIndicator>예약 중...</LoadingIndicator>}
         {error?.response?.status >= 400 && (
@@ -84,7 +84,7 @@ function BookingForm({ shopId, handleDidSave }) {
             name="day"
             value={fieldValues.day}
             onChange={handleFieldChange}
-            className="inputBox border-2 rounded border-violet-400 hover:border-red-300 mb-10"
+            className="inputBox border-2 rounded border-violet-400 mb-10"
           />
         </div>
 
@@ -96,7 +96,7 @@ function BookingForm({ shopId, handleDidSave }) {
             step="3600"
             value={fieldValues.time}
             onChange={handleFieldChange}
-            className="inputBox border-2 rounded border-violet-400 hover:border-red-300 mb-10"
+            className="inputBox border-2 rounded border-violet-400 mb-10"
           />
         </div>
 
@@ -109,14 +109,14 @@ function BookingForm({ shopId, handleDidSave }) {
             onChange={handleFieldChange}
             placeholder="1"
             min="1"
-            className="inputBox border-2 rounded border-violet-400  placeholder:text-slate-300 hover:border-red-300 rounded my-1 p-2 text-center w-1/2 mb-10"
+            className="inputBox border-2 rounded border-violet-400  placeholder:text-slate-300 rounded my-1 p-2 text-center w-1/2 mb-10"
           />
         </div>
 
         <React.Fragment>
-          <div className="btnBox lg:flex-1 mx-auto w-3/5 xl:w-1/2">
+          <div className="btnBox flex-auto mt-10 mb-20">
             <button
-              className="bg-violet-400 hover:bg-red-300 text-white w-1/2 rounded my-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
+              className="bg-violet-400 hover:bg-red-300 text-white w-4/5 rounded m-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
               onClick={openModal}
             >
               예약
@@ -130,7 +130,7 @@ function BookingForm({ shopId, handleDidSave }) {
               header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
             ></BookingConfirmModal>
             <button
-              className="border-violet-400 border-2 hover:border-red-300 hover:text-red-300 text-violet-400 w-1/2 rounded my-1 mx-2 mx-2 p-2 focus:outline-none focus:shadow-outline"
+              className="border-violet-400 border-2 hover:border-red-300 hover:text-red-300 text-violet-400 w-4/5 rounded m-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
               onClick={() => navigate(`/shop/${shopId}/`)}
             >
               취소
