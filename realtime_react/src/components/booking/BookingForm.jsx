@@ -8,6 +8,8 @@ import LoadingIndicator from "components/LoadingIndicator";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingConfirmModal from "components/modal/BookingConfirmModal";
+import "./BookingForm.css";
+import booking_reserved from "assets/img/booking_reserved.png";
 
 const INIT_FIELD_VALUES = {
   day: "",
@@ -68,69 +70,80 @@ function BookingForm({ shopId, handleDidSave }) {
   };
 
   return (
-    <div>
-      <h2>지금말고 예약</h2>
-      {loading && <LoadingIndicator>예약 중...</LoadingIndicator>}
-      {error?.response?.status >= 400 && (
-        <div className="text-red-400 my-5">예약에 실패했습니다.</div>
-      )}
+    <div className="layout md:mx-auto lg:mx-auto">
+      <div className="sm:flex-1 text-xl lg:text-lg mx-auto w-full mt-10 lg:py-6 mb-6 lg:mb-0">
+        <h2 className="mb-10 headings">지금말고 예약</h2>
+        {loading && <LoadingIndicator>예약 중...</LoadingIndicator>}
+        {error?.response?.status >= 400 && (
+          <div className="text-red-400 my-5">예약에 실패했습니다.</div>
+        )}
 
-      <p className="text-left ml-56 mt-2">예약 날짜</p>
-      <div>
-        <input
-          type="date"
-          name="day"
-          value={fieldValues.day}
-          onChange={handleFieldChange}
-        />
-      </div>
-
-      <p className="text-left ml-56 mt-2">예약 시간</p>
-      <div>
-        <input
-          type="time"
-          name="time"
-          step="3600"
-          value={fieldValues.time}
-          onChange={handleFieldChange}
-        />
-      </div>
-
-      <p className="text-left ml-56 mt-2">테이블 수</p>
-      <div>4인 테이블 기준</div>
-      <input
-        type="number"
-        name="book_table_count"
-        value={fieldValues.book_table_count}
-        onChange={handleFieldChange}
-        placeholder="0"
-        min="0"
-        className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-      />
-      <React.Fragment>
-        <div>
-          <button
-            className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2"
-            onClick={openModal}
-          >
-            예약
-          </button>
+        <div className="subName lg:flex-1 ml-16 mb-5 w-3/5 xl:ml-40">
+          예약 날짜
         </div>
-        <BookingConfirmModal
-          handleSubmit={handleSubmit}
-          open={modalOpen}
-          close={closeModal}
-          name="not_now_booking"
-          header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
-        ></BookingConfirmModal>
-      </React.Fragment>
-      <div>
-        <button
-          className="bg-slate-300 w-1/2 rounded my-1 mx-2 mb-5 p-2"
-          onClick={() => navigate(`/shop/${shopId}/`)}
-        >
-          취소
-        </button>
+        <div>
+          <input
+            type="date"
+            name="day"
+            value={fieldValues.day}
+            onChange={handleFieldChange}
+            className="mb-10"
+          />
+        </div>
+
+        <div className="subName lg:flex-1 ml-16 mb-5 w-3/5 xl:ml-40">
+          예약 시간
+        </div>
+        <div>
+          <input
+            type="time"
+            name="time"
+            step="3600"
+            value={fieldValues.time}
+            onChange={handleFieldChange}
+            className="mb-10"
+          />
+        </div>
+
+        <div className="subName lg:flex-1 ml-32 mb-5 w-3/5 xl:ml-56">
+          테이블 수(4인 테이블 기준)
+        </div>
+        <div className="lg:flex-1 mx-auto w-3/5 xl:w-1/2">
+          <input
+            type="number"
+            name="book_table_count"
+            value={fieldValues.book_table_count}
+            onChange={handleFieldChange}
+            placeholder="0"
+            min="0"
+            className="placeholder:text-slate-300 border border-pink-300 rounded my-1 mx-2 p-2 text-center w-1/2 mb-10"
+          />
+        </div>
+
+        <React.Fragment>
+          <div className="btnBox lg:flex-1 mx-auto w-3/5 xl:w-1/2">
+            <button
+              className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2"
+              onClick={openModal}
+            >
+              예약
+            </button>
+
+            <BookingConfirmModal
+              handleSubmit={handleSubmit}
+              open={modalOpen}
+              close={closeModal}
+              name="not_now_booking"
+              header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
+            ></BookingConfirmModal>
+            <button
+              className="bg-slate-300 w-1/2 rounded my-1 mx-2 mx-2 p-2"
+              onClick={() => navigate(`/shop/${shopId}/`)}
+            >
+              취소
+            </button>
+          </div>
+        </React.Fragment>
       </div>
     </div>
   );
