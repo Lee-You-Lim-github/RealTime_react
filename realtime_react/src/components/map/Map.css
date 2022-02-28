@@ -146,19 +146,127 @@
   border-right: 0;
 }
 
-.page {
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* 세로모드 모바일 디바이스 (가로 해상도가 400px 보다 작은 화면에 적용)*/
+@media (max-width: 400px) {
+  .page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .paging {
+    position: absolute;
+    top: 190px;
+    left: 19px;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    z-index: 2;
+  }
 }
 
-.paging {
-  position: absolute;
-  top: 97px;
-  left: 340px;
+@media (min-width: 400px) and (max-width: 500px) {
+  .page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .paging {
+    position: absolute;
+    top: 190px;
+    left: 19px;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    z-index: 2;
+  }
+}
 
-  border-radius: 5px;
-  background: #fff;
-  overflow: hidden;
-  z-index: 2;
+/* 가로모드 모바일 디바이스 (가로 해상도가 400px보다 크고 640px 보다 작은 화면에 적용) -- xs */
+@media (min-width: 500px) and (max-width: 640px) {
+  .page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .paging {
+    position: absolute;
+    top: 150px;
+    left: 19px;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    z-index: 2;
+  }
+}
+
+/*태블릿 디바이스 (가로 해상도가 640px보다 크고 768px 보다 작은 화면에 적용) -- sm */
+@media (min-width: 640px) and (max-width: 768px) {
+  .page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .paging {
+    position: absolute;
+    top: 97px;
+    left: 340px;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    z-index: 2;
+  }
+}
+
+/* 데스크탑 (가로 해상도가 768px보다 크고 1024px 보다 작은 화면에 적용) -- md */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .paging {
+    position: absolute;
+    top: 97px;
+    left: 340px;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    z-index: 2;
+  }
+}
+
+/* 큰화면 데스크탑 (가로 해상도가 1024px 보다 크고 1280px 보다 작은 화면에 적용) -- lg */
+@media (min-width: 1024px) and (max-width: 1280px) {
+  .page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .paging {
+    position: absolute;
+    top: 97px;
+    left: 340px;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    z-index: 2;
+  }
+}
+
+/* 큰화면 데스크탑 (가로 해상도가 1280px 보다 큰 화면에 적용) --xl */
+@media (min-width: 1280px) {
+  .page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .paging {
+    position: absolute;
+    top: 97px;
+    left: 340px;
+    border-radius: 5px;
+    background: #fff;
+    overflow: hidden;
+    z-index: 2;
+  }
 }

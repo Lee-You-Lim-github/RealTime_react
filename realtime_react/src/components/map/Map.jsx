@@ -8,6 +8,7 @@ import marker4 from "assets/img/marker4.png";
 import marker5 from "assets/img/marker5.png";
 import { Link } from "react-router-dom";
 import "./Map.css";
+import styled from "styled-components";
 
 function TypeMap({ getData }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -251,17 +252,18 @@ function TypeMap({ getData }) {
       <div id="map_wrap">
         <Map // 지도를 표시할 Container
           id={`map`}
+          className=""
           center={{
             // 지도의 중심좌표
-            lat: 36.32965442153325,
-            lng: 127.44302364150629,
+            lat: 36.337490378182764,
+            lng: 127.44915430991462,
           }}
           style={{
             // 지도의 크기
             width: "100%",
             height: "700px",
           }}
-          level={5} // 지도의 확대 레벨
+          level={6} // 지도의 확대 레벨
         >
           {/* 테이블 수 비율별 마커색 변경 */}
           {selectedCategory === "whole" &&
@@ -352,16 +354,32 @@ function TypeMap({ getData }) {
         {/* 카테고리 부분 */}
         <div className="category">
           <ul>
-            <li id="whole" onClick={() => closeEvent("whole")}>
+            <li
+              className="xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10"
+              id="whole"
+              onClick={() => closeEvent("whole")}
+            >
               전체
             </li>
-            <li id="korea" onClick={() => closeEvent("korea")}>
+            <li
+              className="xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10"
+              id="korea"
+              onClick={() => closeEvent("korea")}
+            >
               한식
             </li>
-            <li id="china" onClick={() => closeEvent("china")}>
+            <li
+              className="xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10"
+              id="china"
+              onClick={() => closeEvent("china")}
+            >
               중식
             </li>
-            <li id="japan" onClick={() => closeEvent("japan")}>
+            <li
+              className="xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10"
+              id="japan"
+              onClick={() => closeEvent("japan")}
+            >
               일식
             </li>
             <li id="western" onClick={() => closeEvent("western")}>
