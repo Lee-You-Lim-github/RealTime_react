@@ -79,7 +79,7 @@ function AdminUser({ itemsPerPage = 10 }) {
 
   return (
     <div className="bg-white p-8 rounded-md w-full">
-      <div className=" flex items-center justify-between pb-4 md:flex">
+      <div className="flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
           <img className="w-9 h-9 ml-2" src={admin_user} alt="admin_user" />
           <h2
