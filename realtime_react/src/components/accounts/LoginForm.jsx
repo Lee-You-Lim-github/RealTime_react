@@ -58,14 +58,14 @@ function LoginForm() {
 
   return (
     <div className="mt-32">
-      <h2 className="text-2xl my-5">Login</h2>
+      <h2 className="text-3xl my-5">Login</h2>
 
       {loading && <LoadingIndicator>로그인 중...</LoadingIndicator>}
       {error?.response?.status >= 400 && (
         <div className="text-red-400">아이디/비밀번호를 다시 확인해주세요.</div>
       )}
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="px-56">
         <div>
           <input
             type="text"
@@ -89,7 +89,7 @@ function LoginForm() {
         </div>
 
         <div>
-          <button className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2">
+          <button className="text-white text-lg bg-violet-400 hover:bg-red-300 w-1/2 rounded my-1 mx-2 p-2 focus:outline-none focus:shadow-outline">
             로그인
           </button>
         </div>

@@ -8,7 +8,7 @@ function PageLogin() {
       <div>
         <Link
           to="/accounts/userjoin/"
-          className="border-b-2 border-violet-300 w-1/2 my-1 mx-2 p-2"
+          className="border-b-2 border-violet-300 hover:border-red-400 hover:text-red-400 w-1/2 my-1 mx-2 p-2"
         >
           회원가입
         </Link>
