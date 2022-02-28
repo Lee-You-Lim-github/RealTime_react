@@ -164,7 +164,7 @@ function Myshop({ shopId }) {
             </div>
             <hr />
             {/* 매장상세 정보 */}
-            <div class="items-center text-left flex px-12 mt-5 xl:w-2/3 xl:ml-10 xl:justify-center lg:w-3/5 lg:pl-14 md:w-3/5 md:pl-14 flex-col md:justify-center sm:px-20">
+            <div class="items-center text-left flex px-12 mt-5 xl:w-2/3 xl:ml-10 xl:justify-center xl:mt-0 lg:w-3/5 lg:pl-14 lg:mt-0 md:w-3/5 md:pl-14 md:mt-0 flex-col md:justify-center sm:px-20">
               <ul className="list-disc space-y-4">
                 <li className="flex items-start">
                   <p className="flex items-start xl:text-xl">매장명</p>
