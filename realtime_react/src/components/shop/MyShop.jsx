@@ -2,12 +2,14 @@ import { useApiAxios } from "api/base";
 import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import myshop from "assets/img/myshop.png";
+import "./myshop.css";
 
 function Myshop({ shopId }) {
   const [auth] = useAuth();
+  const navigate = useNavigate();
 
   // get_shop_data
   const [
@@ -105,23 +107,24 @@ function Myshop({ shopId }) {
   }, [tableCount]);
 
   return (
-    <div className="box">
+    <div>
       {myShopData && (
         <section class="text-gray-600 body-font">
-          <div className="flex">
+          <div className="flex flex-grow justify-center xl:justify-start lg:justify-start md:justify-start sm:justify-center">
+            {/* 타이틀 */}
             <img
-              className="w-8 h-8 ml-6 mt-10"
+              className="mt-10 mb-8 w-8 h-8 lg:ml-14 md:ml-8 "
               src={myshop}
               alt="shop_booking"
             />
-            <h1 class="title-font px-5 pt-10 text-3xl mb-4 mr-8 font-medium text-gray-900 sm:text-4xl">
+            <h1 class="text-3xl mt-10 ml-4 mb-4 title-font font-medium text-gray-900">
               마이스토어
             </h1>
             <button
               type="button"
               name="not_holiday"
               onClick={handleNotHolidaySubmit}
-              className="h-8 text-sm mr-3 bg-wihte border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-gray py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="text-sm h-8 px-2 mt-10 ml-8 mr-4 rounded focus:outline-none focus:shadow-outline text-gray bg-wihte hover:border-red-300 hover:text-red-300 border-2 border-violet-400"
             >
               영업
             </button>
@@ -129,7 +132,7 @@ function Myshop({ shopId }) {
               type="button"
               name="holiday"
               onClick={handleHolidaySubmit}
-              className="h-8 mr-3 text-sm bg-violet-400 hover:bg-red-300 border-2 border-violet-400 hover:border-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="text-sm h-8 mt-10 px-2 rounded focus:outline-none focus:shadow-outline text-white bg-violet-400 hover:bg-red-300 hover:border-red-300 border-2 border-violet-400"
             >
               휴일
             </button>
@@ -138,7 +141,7 @@ function Myshop({ shopId }) {
                 <LoadingIndicator>로딩 중...</LoadingIndicator>
               )}
               {myShopError?.response?.status >= 400 && (
-                <div className="text-red-400">
+                <div className="text-red-400 mt-10 ml-10">
                   데이터를 가져오는데 실패했습니다.
                 </div>
               )}
@@ -147,395 +150,195 @@ function Myshop({ shopId }) {
               )}
             </div>
           </div>
-          <div class="container mx-auto flex px-6 pt-15 md:flex-row flex-col items-center">
-            <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6 mb-10 md:mb-0">
+
+          {/* 매장 사진 */}
+          <div class=" relativ flex flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-row">
+            <div class="mb-5 mx-auto xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
               {myShopData.photo && (
                 <img
                   src={myShopData.photo}
                   alt={myShopData.name}
-                  className="rounded h-96"
+                  className="shopimage relative object-center rounded mx-auto"
                 />
               )}
             </div>
-
-            <div class="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-              <ul className="list-disc space-y-2">
+            <hr />
+            {/* 매장상세 정보 */}
+            <div class="items-center text-left flex px-12 mt-5 xl:w-2/3 xl:ml-10 xl:justify-center lg:w-3/5 lg:pl-14 md:w-3/5 md:pl-14 flex-col md:justify-center sm:px-20">
+              <ul className="list-disc space-y-4">
                 <li className="flex items-start">
-                  <p className="flex items-start">매장명</p>
+                  <p className="flex items-start xl:text-xl">매장명</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-14 xl:w-16 lg:w-14 md:w-14 sm:w-14 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-4 xl:text-xl">
                     <p>{myShopData.name}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start">업종</p>
+                  <p className="flex items-start xl:text-xl">업종</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-16 xl:w-20 lg:w-16 md:w-16 sm:w-16 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-5 xl:text-xl">
                     <p>{myShopData.category}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start">주소</p>
+                  <p className="flex items-start xl:text-xl">주소</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-16 xl:w-20 lg:w-16 md:w-16 sm:w-16 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-5 xl:text-xl">
                     <p>{myShopData.address}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start">전화번호</p>
+                  <p className="flex items-start xl:text-xl">전화번호</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-12 xl:w-14 lg:w-12 md:w-12 sm:w-12 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.telephone}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start">영업시간</p>
+                  <p className="flex items-start xl:text-xl">영업시간</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-12 xl:w-14 lg:w-12 md:w-12 sm:w-12 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.opening_hours}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start">매장 테이블 수</p>
+                  <p className="flex items-start xl:text-xl">매장 테이블 수</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-3 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.total_table_count}</p>
                   </div>
                 </li>
-                <li className="flex items-start">
-                  <p className="flex items-start">현재 테이블 수</p>
+                <li className="flex items-center">
+                  <p className="flex items-start xl:text-xl">현재 테이블 수</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-3 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
-                    <p>{tableCount}</p>
-                    <button
-                      type="button"
-                      name="plus"
-                      onClick={handlePlus}
-                      className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                    >
-                      +
-                    </button>
-                    <button
-                      type="button"
-                      name="minus"
-                      onClick={handleMinus}
-                      className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                    >
-                      -
-                    </button>
+                  <div className="ml-2 xl:text-xl mr-7">
+                    <p>
+                      {tableCount}/{myShopData.total_table_count}
+                    </p>
                   </div>
+                  <button
+                    type="button"
+                    name="plus"
+                    onClick={handlePlus}
+                    className="mr-3 text-xl w-6 h-7 text-gray rounded focus:outline-none focus:shadow-outline bg-wihte hover:border-red-300 hover:text-red-300 border-2 border-violet-400"
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    name="minus"
+                    onClick={handleMinus}
+                    className="text-xl w-6 h-7 rounded focus:outline-none focus:shadow-outline text-white bg-violet-400 hover:bg-red-300 hover:border-red-300 border-2 border-violet-400"
+                  >
+                    -
+                  </button>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start">편의시설</p>
+                  <p className="flex items-start xl:text-xl">편의시설</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-8 xl:w-11 lg:w-8 md:w-9 sm:w-9 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.conv_parking ? "주차장" : ""}</p>
                   </div>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.conv_pet ? "애완동물 동반 가능" : ""}</p>
                   </div>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.conv_wifi ? "WIFI" : ""}</p>
                   </div>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.conv_pack ? "포장 가능" : ""}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start">공지사항</p>
-                  <span className="h-6 flex items-center sm:h-7">
+                  <p className="flex-container xl:text-xl">공지사항</p>
+                  <span className="h-6 sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-12 xl:w-14 lg:w-12 md:w-12 sm:w-12 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.notice}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start">매장 소개</p>
+                  <p className="flex-container flex items-start xl:text-xl">
+                    매장소개
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-5 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-11 xl:w-14 lg:w-11 md:w-12 sm:w-12 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2">
+                  <div className="ml-2 xl:text-xl">
                     <p>{myShopData.intro}</p>
                   </div>
                 </li>
-
-                {/* <div class="flex justify-center">
-                  <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                    Button
-                  </button>
-                  <button class="ml-4 inline-flex text-gray-700 bg-gray-100 border-0 py-2 px-6 focus:outline-none hover:bg-gray-200 rounded text-lg">
-                    Button
-                  </button>
-                </div> */}
               </ul>
             </div>
           </div>
         </section>
       )}
-      {/* <div className="min-h-screen bg-violet-100 py-6 flex flex-col justify-center sm:py-12">
-        <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-          <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-16 bg-clip-padding bg-opacity-60 border border-gray-200">
-            <div className="max-w-md mx-auto">
-              <div className="divide-y divide-gray-200">
-                <div className="pb-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                  <h2 className="text-3xl my-5">마이스토어</h2>
-
-                  {myShopData && (
-                    <ul className="list-disc space-y-2">
-                      <li className="flex items-start">
-                        <p className="flex items-start">매장명</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.name}</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">업종</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.category}</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">주소</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.address}</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">전화번호</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.telephone}</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">영업시간</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.opening_hours}</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">매장 테이블 수</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.total_table_count}</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">현재 테이블 수</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{tableCount}</p>
-                          <button
-                            type="button"
-                            name="plus"
-                            onClick={handlePlus}
-                            className="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                          >
-                            +
-                          </button>
-                          <button
-                            type="button"
-                            name="minus"
-                            onClick={handleMinus}
-                            className="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-                          >
-                            -
-                          </button>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">편의시설</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.conv_parking ? "주차장" : ""}</p>
-                        </div>
-                        <div className="ml-2">
-                          <p>
-                            {myShopData.conv_pet ? "애완동물 동반 가능" : ""}
-                          </p>
-                        </div>
-                        <div className="ml-2">
-                          <p>{myShopData.conv_wifi ? "WIFI" : ""}</p>
-                        </div>
-                        <div className="ml-2">
-                          <p>{myShopData.conv_pack ? "포장 가능" : ""}</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">공지사항</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.notice}</p>
-                        </div>
-                      </li>
-                      <li className="flex items-start">
-                        <p className="flex items-start">매장 소개</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <div className="ml-2">
-                          <p>{myShopData.intro}</p>
-                        </div>
-                      </li>
-
-                      <li className="flex items-start">
-                        <p className="flex items-start">사진</p>
-                        <span className="h-6 flex items-center sm:h-7">
-                          <svg
-                            className="flex-shrink-0 h-5 w-5 text-cyan-500"
-                            viewBox="0 0 20 20"
-                            fill="currentColor"
-                          ></svg>
-                        </span>
-                        <p className="ml-2">
-                          {myShopData.photo && (
-                            <img
-                              src={myShopData.photo}
-                              alt={myShopData.name}
-                              className="rounded"
-                            />
-                          )}
-                        </p>
-                      </li>
-                    </ul>
-                  )}
-                </div> */}
-      <div className="pt-6 text-base leading-6 font-bold sm:text-lg sm:leading-7">
-        <p>
-          <Link
-            to={`/shop/${shopId}/edit`}
-            className="text-violet-600 hover:text-red-300"
-          >
-            {" "}
-            수정 &rarr;{" "}
-          </Link>
-        </p>
+      <div className="flex justify-center pt-10 text-base leading-6 font-bold sm:text-lg sm:leading-7">
+        <button
+          class="inline-flex text-white bg-violet-400 py-1 px-4 focus:outline-none hover:bg-red-300 hover:border-red-300 border-2 border-violet-400 rounded 2xl:text-xl xl:text-xl lg:text-xl md:text-xl sm:text-sm"
+          onClick={() => navigate(`/shop/${shopId}/edit/`)}
+        >
+          수정
+        </button>
       </div>
     </div>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }
 
