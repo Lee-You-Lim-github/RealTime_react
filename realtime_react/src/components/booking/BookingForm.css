@@ -4,20 +4,65 @@
   /* border: 5px dotted red; */
 }
 
-@media screen and (min-width: 380px) and (max-width: 768px) {
+@media screen and (min-width: 380px) and (max-width: 767px) {
   .headings {
     font-weight: bold;
+    margin-top: 0.5vh;
     font-size: 2rem;
   }
 
   .subName {
-    display: block;
+    display: flex;
+    width: 95%;
+    margin-bottom: 3vh;
     text-align: left;
-    margin-left: 5vw;
+    padding-left: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  .inputBox {
+    display: flex;
+    padding: 1.05rem 1.3rem;
+    width: 90%;
+    margin: 3vh auto;
+    font-size: 1.1rem;
+    text-align: center;
   }
 
   .btnBox {
     display: flex;
     justify-content: space-around;
+    margin-top: 3rem;
   }
+}
+
+@media screen and (min-width: 768px) {
+  .headings {
+    font-size: 2.5vw;
+    margin-top: -2.5vh;
+    margin-bottom: 2.5vh;
+  }
+
+  .subName {
+    display: flex;
+    width: 30%;
+    margin: 0 auto;
+    margin-bottom: 3vh;
+    text-align: left;
+    padding-left: 1.5rem;
+    font-size: 1.3rem;
+  }
+
+  .inputBox {
+    display: flex;
+    padding: 1.2rem 1.5rem;
+    width: 26%;
+    margin: 1.2rem auto;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}
+
+div {
+  /* border: 1px dashed blue; */
 }

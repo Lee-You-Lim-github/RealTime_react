@@ -77,22 +77,18 @@ function BookingForm({ shopId, handleDidSave }) {
           <div className="text-red-400 my-5">예약에 실패했습니다.</div>
         )}
 
-        <div className="subName lg:flex-1 ml-16 mb-5 w-3/5 xl:ml-40">
-          예약 날짜
-        </div>
+        <div className="subName mb-5">예약 날짜</div>
         <div>
           <input
             type="date"
             name="day"
             value={fieldValues.day}
             onChange={handleFieldChange}
-            className="mb-10"
+            className="inputBox border-2 rounded border-violet-400 hover:border-red-300 mb-10"
           />
         </div>
 
-        <div className="subName lg:flex-1 ml-16 mb-5 w-3/5 xl:ml-40">
-          예약 시간
-        </div>
+        <div className="subName mb-5">예약 시간</div>
         <div>
           <input
             type="time"
@@ -100,29 +96,27 @@ function BookingForm({ shopId, handleDidSave }) {
             step="3600"
             value={fieldValues.time}
             onChange={handleFieldChange}
-            className="mb-10"
+            className="inputBox border-2 rounded border-violet-400 hover:border-red-300 mb-10"
           />
         </div>
 
-        <div className="subName lg:flex-1 ml-32 mb-5 w-3/5 xl:ml-56">
-          테이블 수(4인 테이블 기준)
-        </div>
-        <div className="lg:flex-1 mx-auto w-3/5 xl:w-1/2">
+        <div className="subName mb-5">테이블 수(4인 테이블 기준)</div>
+        <div>
           <input
             type="number"
             name="book_table_count"
             value={fieldValues.book_table_count}
             onChange={handleFieldChange}
-            placeholder="0"
-            min="0"
-            className="placeholder:text-slate-300 border border-pink-300 rounded my-1 mx-2 p-2 text-center w-1/2 mb-10"
+            placeholder="1"
+            min="1"
+            className="inputBox border-2 rounded border-violet-400  placeholder:text-slate-300 hover:border-red-300 rounded my-1 p-2 text-center w-1/2 mb-10"
           />
         </div>
 
         <React.Fragment>
           <div className="btnBox lg:flex-1 mx-auto w-3/5 xl:w-1/2">
             <button
-              className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2"
+              className="bg-violet-400 hover:bg-red-300 text-white w-1/2 rounded my-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
               onClick={openModal}
             >
               예약
@@ -136,7 +130,7 @@ function BookingForm({ shopId, handleDidSave }) {
               header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
             ></BookingConfirmModal>
             <button
-              className="bg-slate-300 w-1/2 rounded my-1 mx-2 mx-2 p-2"
+              className="border-violet-400 border-2 hover:border-red-300 hover:text-red-300 text-violet-400 w-1/2 rounded my-1 mx-2 mx-2 p-2 focus:outline-none focus:shadow-outline"
               onClick={() => navigate(`/shop/${shopId}/`)}
             >
               취소
