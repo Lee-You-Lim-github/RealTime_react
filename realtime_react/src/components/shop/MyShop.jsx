@@ -153,7 +153,7 @@ function Myshop({ shopId }) {
 
           {/* 매장 사진 */}
           <div class=" relativ flex flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-row">
-            <div class="mb-5 mx-auto xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
+            <div class="mb-5 xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
               {myShopData.photo && (
                 <img
                   src={myShopData.photo}
@@ -164,8 +164,8 @@ function Myshop({ shopId }) {
             </div>
             <hr />
             {/* 매장상세 정보 */}
-            <div class="items-center text-left flex px-12 mt-5 xl:w-2/3 xl:ml-10 xl:justify-center xl:mt-0 lg:w-3/5 lg:pl-14 lg:mt-0 md:w-3/5 md:pl-14 md:mt-0 flex-col md:justify-center sm:px-20">
-              <ul className="list-disc space-y-4">
+            <div class="items-center text-left flex px-12 xl:w-2/3 xl:justify-center lg:w-3/5 lg:pl-14 lg:mt-0 md:w-3/5 md:pl-14 md:mt-0 flex-col md:justify-center sm:px-20">
+              <ul className="list-disc space-y-5">
                 <li className="flex items-start">
                   <p className="flex items-start xl:text-xl">매장명</p>
                   <span className="h-6 flex items-center sm:h-7">
@@ -279,21 +279,21 @@ function Myshop({ shopId }) {
                   <p className="flex items-start xl:text-xl">편의시설</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-8 xl:w-11 lg:w-8 md:w-9 sm:w-9 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-8 xl:w-12 lg:w-8 md:w-9 sm:w-9 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="ml-2 xl:text-xl">
+                  <div className="mr-2 xl:text-xl">
                     <p>{myShopData.conv_parking ? "주차장" : ""}</p>
                   </div>
-                  <div className="ml-2 xl:text-xl">
+                  <div className="mr-2 xl:text-xl">
                     <p>{myShopData.conv_pet ? "애완동물 동반 가능" : ""}</p>
                   </div>
-                  <div className="ml-2 xl:text-xl">
+                  <div className="mr-2 xl:text-xl">
                     <p>{myShopData.conv_wifi ? "WIFI" : ""}</p>
                   </div>
-                  <div className="ml-2 xl:text-xl">
+                  <div className="mr-2 xl:text-xl">
                     <p>{myShopData.conv_pack ? "포장 가능" : ""}</p>
                   </div>
                 </li>
@@ -330,7 +330,7 @@ function Myshop({ shopId }) {
           </div>
         </section>
       )}
-      <div className="flex justify-center pt-10 text-base leading-6 font-bold sm:text-lg sm:leading-7">
+      <div className="flex justify-center pt-5 text-base leading-6 font-bold mb-10 sm:text-lg sm:leading-7">
         <button
           class="inline-flex text-white bg-violet-400 py-1 px-4 focus:outline-none hover:bg-red-300 hover:border-red-300 border-2 border-violet-400 rounded 2xl:text-xl xl:text-xl lg:text-xl md:text-xl sm:text-sm"
           onClick={() => navigate(`/shop/${shopId}/edit/`)}
