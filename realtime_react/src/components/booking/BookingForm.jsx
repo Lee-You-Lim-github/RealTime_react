@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingConfirmModal from "components/modal/BookingConfirmModal";
 import "./BookingForm.css";
-import booking_reserved from "assets/img/booking_reserved.png";
 
 const INIT_FIELD_VALUES = {
   day: "",
