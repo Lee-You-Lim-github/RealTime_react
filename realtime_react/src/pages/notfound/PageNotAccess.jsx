@@ -5,7 +5,7 @@ function PageShopNot() {
   return (
     <div className="flex flex-col">
       <div className="">
-        <img className="w-250 h-50" alt="warn" src={warning} />
+        <img className="ml-10 w-250 h-50" alt="warn" src={warning} />
       </div>
       <div className="text-4xl pt-11">We Are Sorry...</div>
       <div className="text-xl pt-3">
