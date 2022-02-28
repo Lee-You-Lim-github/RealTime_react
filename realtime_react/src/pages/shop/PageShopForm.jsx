@@ -16,7 +16,7 @@ function PageShopForm() {
       <ShopForm
         shopId={shopId}
         handleDidSave={(saveShop) => {
-          setReload(true);
+          // setReload(true);
           navigate(`/shop/myshop/${saveShop.id}/`);
           // window.location.replace(`/shop/myshop/${saveShop.id}/`);
         }}
