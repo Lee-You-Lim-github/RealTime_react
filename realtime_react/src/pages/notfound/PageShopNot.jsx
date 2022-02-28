@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 function PageShopNot() {
   return (
     <div className="flex flex-col">
-      <div className="">
-        <img className="w-250 h-50" alt="warn" src={warning} />
+      <div className="ml-8">
+        <img className="ml-72 px-7 max-w-4xl h-50" alt="warn" src={warning} />
       </div>
       <div className="text-4xl pt-11">We Are Sorry...</div>
       <div className="text-xl pt-3">Please login as an individual member</div>
