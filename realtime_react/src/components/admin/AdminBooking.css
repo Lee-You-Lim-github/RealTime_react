@@ -1,7 +1,0 @@
-/* 검색창 css */
-.search {
-  border-radius: 20px;
-  background: #ffffff;
-  box-shadow: 2px 2px 6px #f2f2f2, -20px -20px 60px #ffffff;
-  caret-color: #800080;
-}

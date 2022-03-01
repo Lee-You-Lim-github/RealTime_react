@@ -56,7 +56,7 @@ function AdminShopComponent({ admin_shop, handleDelete }) {
               open={modalOpen}
               close={closeModal}
               name="admin_shop_bookings"
-              header="해당 매장 정보를 삭제하시겠습니까?"
+              header="해당 매장의 정보를 삭제하시겠습니까?"
             />
           </td>
         </React.Fragment>

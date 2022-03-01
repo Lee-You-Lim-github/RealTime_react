@@ -1,4 +1,3 @@
-import "./AdminBooking.css";
 import "../Paginations/Paginations.css";
 import { useApiAxios } from "api/base";
 import AdminBookingComponent from "components/admin/AdminBookingComponent";
@@ -75,7 +74,7 @@ function AdminBooking({ itemsPerPage = 10 }) {
   };
 
   return (
-    <div className="bg-white p-8 rounded-md w-full">
+    <div className="bg-white p-8 rounded-md w-[900px] m-auto">
       <div className="flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
           <img className="w-9 h-9 ml-2" src={shop_booking} alt="shop_booking" />
@@ -159,8 +158,10 @@ function AdminBooking({ itemsPerPage = 10 }) {
                   </tr>
                 </thead>
                 <tbody>
-                  {getBookingData?.results?.map((booking) => {
-                    return <AdminBookingComponent booking={booking} />;
+                  {getBookingData?.results?.map((booking, index) => {
+                    return (
+                      <AdminBookingComponent booking={booking} index={index} />
+                    );
                   })}
                 </tbody>
               </table>

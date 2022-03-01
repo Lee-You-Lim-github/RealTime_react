@@ -1,13 +1,13 @@
 import React from "react";
 
-function AdminBookingComponent({ booking }) {
+function AdminBookingComponent({ booking, index }) {
   return (
     <React.Fragment>
       <tr>
         <td className="px-3 py-5 border-b border-gray-200 bg-white text-sm">
           <div className="flex items-center">
             <div className="ml-3">
-              <p className="text-gray-900 whitespace-no-wrap">{booking.id}</p>
+              <p className="text-gray-900 whitespace-no-wrap">{index + 1}</p>
             </div>
           </div>
         </td>

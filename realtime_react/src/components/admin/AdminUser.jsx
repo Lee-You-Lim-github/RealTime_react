@@ -78,7 +78,7 @@ function AdminUser({ itemsPerPage = 10 }) {
   };
 
   return (
-    <div className="bg-white p-8 rounded-md w-full">
+    <div className="bg-white p-8 rounded-md w-[900px] m-auto">
       <div className="flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
           <img className="w-9 h-9 ml-2" src={admin_user} alt="admin_user" />
@@ -101,13 +101,13 @@ function AdminUser({ itemsPerPage = 10 }) {
               onChange={getQuery}
               onKeyPress={search}
               placeholder="회원ID/회원명"
-              class="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+              className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
             />
             <button
               type="button"
               onClick={search}
               value={getQuery}
-              class="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
+              className="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
             >
               <svg
                 className="bg-white h-4 w-4 fill-current"
@@ -129,7 +129,7 @@ function AdminUser({ itemsPerPage = 10 }) {
         {getUserData && (
           <div className="-mx-4 sm:-mx-8 md:flex-1 px-24 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
-              <table class="table-auto min-w-full whitespace-no-wrap">
+              <table className="table-auto min-w-full whitespace-no-wrap">
                 <thead>
                   <tr>
                     <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -157,22 +157,22 @@ function AdminUser({ itemsPerPage = 10 }) {
                     ?.filter(
                       (not_superuser) => not_superuser.is_superuser === false
                     )
-                    .map((user) => {
-                      return <AdminUserComponent user={user} />;
+                    .map((user, index) => {
+                      return <AdminUserComponent key={user.id} user={user} />;
                     })}
                 </tbody>
               </table>
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePage}
-                pageRangeDisplayed={itemsPerPage}
-                pageCount={pageCount}
-                previousLabel="<"
-                renderOnZeroPageCount={null}
-                className="pagination"
-              />
             </div>
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePage}
+              pageRangeDisplayed={itemsPerPage}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              className="pagination"
+            />
           </div>
         )}
       </div>

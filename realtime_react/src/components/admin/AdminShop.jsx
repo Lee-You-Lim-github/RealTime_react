@@ -1,11 +1,8 @@
 import "../Paginations/Paginations.css";
-import "./AdminBooking.css";
 import { useApiAxios } from "api/base";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import AdminShopComponent from "./AdminShopComponent";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import LoadingIndicator from "components/LoadingIndicator";
 import myshop from "assets/img/myshop.png";
 
@@ -97,7 +94,7 @@ function AdminShop({ itemsPerPage = 10 }) {
 
   return (
     <div>
-      <div className="bg-white p-8 rounded-md w-full">
+      <div className="bg-white p-8 rounded-md w-[900px] m-auto">
         <div className="flex items-center justify-between pb-4 md:flex">
           <div className="flex flex-row">
             <img className="w-9 h-9 ml-2" src={myshop} alt="myshop" />

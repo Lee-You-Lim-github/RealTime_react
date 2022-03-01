@@ -3,7 +3,7 @@ import LoadingIndicator from "components/LoadingIndicator";
 import DeleteConfirmModal from "components/modal/DeleteConfirmModal";
 import { toast } from "react-toastify";
 import { useAuth } from "contexts/AuthContext";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 function UserBookingComponent({ bookingList, booking_object }) {
@@ -92,6 +92,21 @@ function UserBookingComponent({ bookingList, booking_object }) {
     setModalOpen(false);
   };
 
+  // 화면을 눌렀을 때 닫기 가능
+  const el = useRef();
+
+  const handleClose = (e) => {
+    if (modalOpen && (!el.current || !el.current.contains(e.target)))
+      setModalOpen(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClose);
+    return () => {
+      window.removeEventListener("click", handleClose);
+    };
+  }, []);
+
   return (
     <div className="mb-3">
       {deleteLoading && <LoadingIndicator>취소 중...</LoadingIndicator>}
@@ -126,7 +141,9 @@ function UserBookingComponent({ bookingList, booking_object }) {
               open={modalOpen}
               close={closeModal}
               name="user_booking_delete"
-              header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
+              header="예약을 취소 하시겠습니까?"
+              miniheader="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
+              ref={el}
             />
           </React.Fragment>
         </div>

@@ -6,6 +6,10 @@ function AdminUserComponent(props) {
 
   const [userId, setUserId] = useState();
 
+  console.log(user.id);
+  console.log(user);
+  console.log(user.booking_set);
+
   useEffect(() => {
     setUserId(user.user_id);
   }, []);
@@ -21,7 +25,7 @@ function AdminUserComponent(props) {
 
   const penalty = (visit) => {
     if (visit === "2") {
-      return <img className="w-6 h-6" src={penalty_check} />;
+      return <img className="w-6 h-6" src={penalty_check} alt="" />;
     } else {
       return null;
     }
