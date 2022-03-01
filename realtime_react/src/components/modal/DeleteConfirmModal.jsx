@@ -1,8 +1,9 @@
 import React from "react";
+import noshow_warning from "assets/img/noshow_warning.png";
 
 function DeleteConfirmModal(props) {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header, name, handleDelete } = props;
+  const { open, close, header, name, handleDelete, miniheader } = props;
 
   const handleYes = (e) => {
     if (name === "review_delete") {
@@ -23,7 +24,13 @@ function DeleteConfirmModal(props) {
       {open ? (
         <section>
           <header>
-            {header}
+            <div className="text-lg text-gray-700">{header}</div>
+            {miniheader && (
+              <div className="flex flex-row justify-center text-xs text-red-600 mt-1">
+                <img src={noshow_warning} alt="" className="w-8 h-8 mr-1" />
+                <div className="mt-1">{miniheader}</div>
+              </div>
+            )}
             <button className="close" onClick={close}>
               {" "}
               &times;{" "}
@@ -36,10 +43,7 @@ function DeleteConfirmModal(props) {
               onClick={handleYes}
               className="mr-3 text-sm bg-violet-400 hover:bg-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
-              {header === "정말 삭제하시겠습니까?" ||
-              "해당 매장 정보를 삭제하시겠습니까?"
-                ? "삭제"
-                : "그래도 취소"}
+              예
             </button>
 
             <button
@@ -48,10 +52,7 @@ function DeleteConfirmModal(props) {
               onClick={close}
               className="text-sm border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
-              {header === "정말 삭제하시겠습니까?" ||
-              "해당 매장 정보를 삭제하시겠습니까?"
-                ? "취소"
-                : "예약유지"}
+              아니오
             </button>
           </div>
         </section>

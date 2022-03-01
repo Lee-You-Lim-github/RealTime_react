@@ -1,4 +1,5 @@
 import React from "react";
+import noshow_warning from "assets/img/noshow_warning.png";
 
 function NotVisitConfirmModal(props) {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -14,8 +15,9 @@ function NotVisitConfirmModal(props) {
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>
-          <header>
-            {header}
+          <header className="flex flex-row justify-center">
+            <img src={noshow_warning} alt="" className="w-8 h-8 mr-2" />
+            <div className="mt-1.5">{header}</div>
             <button className="close" onClick={close}>
               {" "}
               &times;{" "}
