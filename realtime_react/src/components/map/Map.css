@@ -32,10 +32,11 @@
 .info .title {
   padding: 5px 0 0 10px;
   height: 30px;
-  background: #eee;
+  background: #f5c3c3;
   border-bottom: 1px solid #ddd;
   font-size: 18px;
   font-weight: bold;
+  line-height: 20px;
 }
 .info .close {
   position: absolute;
@@ -62,11 +63,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding-top: 1px;
 }
 .desc .jibun {
   font-size: 11px;
   color: #888;
   margin-top: -2px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 .info .img {
   position: absolute;

@@ -21,6 +21,10 @@ function LoginForm() {
 
   const { fieldValues, handleFieldChange } = useFieldValues(INIT_FIELD_VALUES);
 
+  const handleJoin = () => {
+    navigate("/accounts/userjoin/");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -57,8 +61,11 @@ function LoginForm() {
   };
 
   return (
-    <div className="mt-32">
-      <h2 className="text-3xl my-5">Login</h2>
+    <div className="mt-20">
+      <h2 className="text-3xl">Sign in to your account</h2>
+      <h3 className="text-sm mt-3 mb-5">
+        Or Please proceed with membership registration
+      </h3>
 
       {loading && <LoadingIndicator>로그인 중...</LoadingIndicator>}
       {error?.response?.status >= 400 && (
@@ -66,32 +73,43 @@ function LoginForm() {
       )}
 
       <form onSubmit={handleSubmit} className="px-56">
-        <div>
-          <input
-            type="text"
-            name="user_id"
-            value={fieldValues.user_id}
-            onChange={handleFieldChange}
-            placeholder="ID"
-            className="placeholder:italic placeholder:text-slate-400 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-          />
-        </div>
-
-        <div>
-          <input
-            type="password"
-            name="password"
-            value={fieldValues.password}
-            onChange={handleFieldChange}
-            placeholder="PASSWORD"
-            className="placeholder:italic placeholder:text-slate-400 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-          />
-        </div>
-
-        <div>
-          <button className="text-white text-lg bg-violet-400 hover:bg-red-300 w-1/2 rounded my-1 mx-2 p-2 focus:outline-none focus:shadow-outline">
-            로그인
-          </button>
+        <div className="mt-12 rounded border-2 h-96 shadow-xl">
+          <div className="text-left ml-64 px-28 pt-5">ID</div>
+          <div>
+            <input
+              type="text"
+              name="user_id"
+              value={fieldValues.user_id}
+              onChange={handleFieldChange}
+              placeholder="ID"
+              className="placeholder:italic placeholder:text-slate-400 border border-gray-300 rounded w-1/3 my-1 mx-2 p-2"
+            />
+          </div>
+          <div className="text-left ml-64 px-28 pt-5">PASSWORD</div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              value={fieldValues.password}
+              onChange={handleFieldChange}
+              placeholder="PASSWORD"
+              className="placeholder:italic placeholder:text-slate-400 border border-gray-300 rounded w-1/3 my-1 mx-2 p-2"
+            />
+          </div>
+          <div className="mt-6">
+            <button className="text-white text-lg bg-violet-400 hover:bg-red-300 w-1/3 rounded my-1 mx-2 p-2 focus:outline-none focus:shadow-outline">
+              로그인
+            </button>
+          </div>
+          <div className="mt-6">
+            <button
+              className="text-white text-lg bg-violet-400 hover:bg-red-300 w-1/3 rounded my-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
+              onClick={handleJoin}
+            >
+              회원가입
+            </button>
+          </div>
+          <div></div>
         </div>
       </form>
     </div>
