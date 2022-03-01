@@ -8,7 +8,6 @@ import marker4 from "assets/img/marker4.png";
 import marker5 from "assets/img/marker5.png";
 import { Link } from "react-router-dom";
 import "./Map.css";
-import styled from "styled-components";
 
 function TypeMap({ getData }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -338,7 +337,10 @@ function TypeMap({ getData }) {
                                 {data_object.telephone}
                               </div>
                               <div>
-                                <Link to={`/shop/${data_object.shop_id}/`}>
+                                <Link
+                                  className="text-blue-600"
+                                  to={`/shop/${data_object.shop_id}/`}
+                                >
                                   매장으로
                                 </Link>
                               </div>
