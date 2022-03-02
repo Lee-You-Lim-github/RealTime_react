@@ -1,11 +1,9 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import LoadingIndicator from "components/LoadingIndicator";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BookingConfirmModal from "components/modal/BookingConfirmModal";
 import "./BookingForm.css";
@@ -39,25 +37,19 @@ function BookingForm({ shopId, handleDidSave }) {
   );
 
   const handleSubmit = () => {
-    requestBooking({
-      data: { ...fieldValues, user_id: auth.id, shop_id: shopId },
-    }).then((response) => {
-      console.log("저장 성공");
-      toast.info("🦄 예약되었습니다.", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+    if (fieldValues.book_table_count !== "0") {
+      requestBooking({
+        data: { ...fieldValues, user_id: auth.id, shop_id: shopId },
+      }).then((response) => {
+        alert("예약되었습니다.");
+        const saveBooking = response.data;
+        console.log(saveBooking);
+        if (handleDidSave) handleDidSave(saveBooking);
       });
-      const saveBooking = response.data;
-      console.log(saveBooking);
-      if (handleDidSave) handleDidSave(saveBooking);
-    });
+    } else {
+      alert("테이블 수를 확인해주세요.");
+    }
   };
-
   // confirm 모달 열기
   const openModal = () => {
     setModalOpen(true);
@@ -109,7 +101,7 @@ function BookingForm({ shopId, handleDidSave }) {
             onChange={handleFieldChange}
             placeholder="1"
             min="1"
-            className="inputBox border-2 rounded border-violet-400  placeholder:text-slate-300 rounded my-1 p-2 text-center w-1/2 mb-10"
+            className="inputBox border-2 border-violet-400  placeholder:text-slate-300 rounded my-1 p-2 text-center w-1/2 mb-10"
           />
         </div>
 
