@@ -1,10 +1,10 @@
-.layout {
+/* .layout {
   width: 60%;
   margin: 1.5rem auto 0;
-  /* border: 5px dotted red; */
-}
+  border: 5px dotted red;
+} */
 
-@media screen and (min-width: 380px) and (max-width: 767px) {
+/* @media screen and (min-width: 380px) and (max-width: 767px) {
   .headings {
     font-size: 1.7rem;
   }
@@ -60,7 +60,7 @@
     font-size: 1.1rem;
     text-align: auto;
   }
-}
+} */
 
 div {
   /* border: 1px dashed blue; */
