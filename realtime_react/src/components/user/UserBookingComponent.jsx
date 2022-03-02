@@ -108,6 +108,8 @@ function UserBookingComponent({ bookingList, booking_object }) {
     };
   }, []);
 
+  let today = new Date();
+
   return (
     <div className="mb-3">
       {deleteLoading && <LoadingIndicator>취소 중...</LoadingIndicator>}
@@ -129,14 +131,21 @@ function UserBookingComponent({ bookingList, booking_object }) {
           <p className="text-left">{booking_object.book_table_count}</p>
 
           <React.Fragment>
-            <button
-              disabled={deleteLoading}
-              onClick={openModal}
-              value={booking_object.id}
-              className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1"
-            >
-              예약취소
-            </button>
+            {new Date(booking_object.day) - today > 0 && (
+              <div className="flex justify-end">
+                <button
+                  disabled={deleteLoading}
+                  onClick={openModal}
+                  value={booking_object.id}
+                  className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1"
+                >
+                  예약취소
+                </button>
+              </div>
+            )}
+            {new Date(booking_object.day) - today < 0 && (
+              <div className="flex justify-end">방문완료 ✅</div>
+            )}
             <DeleteConfirmModal
               handleDelete={handleDelete}
               open={modalOpen}

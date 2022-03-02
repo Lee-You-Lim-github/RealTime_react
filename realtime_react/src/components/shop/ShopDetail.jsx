@@ -129,11 +129,19 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     setModalOpen(false);
   };
 
+  const notice_null = (a) => {
+    if (a === "NULL" || !shopData.notice) {
+      return "등록된 공지가 없습니다.";
+    } else {
+      return `${shopData.notice}`;
+    }
+  };
+
   return (
     <div>
       {shopData && (
         <section className="text-gray-800 body-font flex">
-          <div className="flex flex-grow justify-center w-1/2">
+          <div className="flex flex-grow justify-center w-2/5">
             <div>
               {(shopLoading || reviewLoading) && (
                 <LoadingIndicator>로딩 중...</LoadingIndicator>
@@ -158,12 +166,28 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                 <span className="mx-3">{shopData.category}</span>
                 <span>
                   <React.Fragment>
-                    <button
-                      className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 my-1 mx-1 p-2"
-                      onClick={openModal}
-                    >
-                      지금예약‼
-                    </button>
+                    {shopData.holiday == 0 && (
+                      <button
+                        className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                        onClick={openModal}
+                      >
+                        지금예약‼
+                      </button>
+                    )}
+
+                    {shopData.holiday == 1 && (
+                      <button
+                        disabled=""
+                        className="bg-gray-400 border border-gray-400 hover:border-gray-300 hover:bg-gray-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.alert("휴일입니다!");
+                          e.currentTarget.disabled = true;
+                        }}
+                      >
+                        휴일
+                      </button>
+                    )}
 
                     <Modal
                       shopId={shopId}
@@ -181,7 +205,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                 <span className="mx-2 mt-3">
                   <Link
                     to={`/shop/${shopId}/booking/new/`}
-                    className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 p-3"
+                    className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 p-3"
                   >
                     지금말고예약
                   </Link>
@@ -191,35 +215,45 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                   {shopData.total_table_count}
                 </p>
                 <div class="mb-5">
-                  {shopData?.photo && (
+                  {shopData?.photo === null ? (
                     <img
                       className="rounded"
                       src={shopData.photo}
                       alt={shopData.name}
                     />
-                  )}
-                  {!shopData?.photo && (
+                  ) : (
                     <img
                       className="rounded h-80"
                       src={noimages}
                       alt="no_images"
                     />
                   )}
+                  {/* {!shopData?.photo ||
+                    ("NULL" && (
+                      
+                    ))}
+                  {!shopData.photo && (
+                    <img
+                      className="rounded h-80"
+                      src={noimages}
+                      alt="no_images"
+                    />
+                  )} */}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="relativ flex flex-col w-1/2">
+          <div className="relativ flex flex-col w-3/5">
             <div class="">
               <ul className="">
                 <li className="flex justify-center">
                   <div className="text-xl border border-violet-400 p-2 mx-2 mt-10 w-5/6">
-                    {shopData.notice && `공지사항: ${shopData.notice}`}
-                    {!shopData.notice && "등록된 공지가 없습니다."}
+                    <div className="text-left pl-3">공지사항 :</div>
+                    <div>{notice_null(shopData?.notice)}</div>
                   </div>
                 </li>
-                <div>
+                <div className="my-2">
                   <button
                     onClick={() => setShowInfo(true)}
                     onClickCapture={() => setShowReview(false)}
@@ -237,39 +271,41 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                 </div>
 
                 {showInfo && shopData && (
-                  <div>
+                  <div className="flex justify-center">
                     <ShopDetailComponent shopinfo={shopData} />
                   </div>
                 )}
 
                 {showReview && reviewData && (
                   <>
-                    <div>
-                      <hr />
-                      {reviewData?.results
-                        ?.filter(
-                          (review_shop) =>
-                            review_shop.shop_id.id === parseInt(shopId)
-                        )
-                        .map((review) => {
-                          return (
-                            <ShopReviewComponent
-                              key={review.id}
-                              review={review}
-                            />
-                          );
-                        })}
+                    <div className="flex justify-center mb-3">
+                      <div className="w-5/6">
+                        <hr />
+                        {reviewData?.results
+                          ?.filter(
+                            (review_shop) =>
+                              review_shop.shop_id.id === parseInt(shopId)
+                          )
+                          .map((review) => {
+                            return (
+                              <ShopReviewComponent
+                                key={review.id}
+                                review={review}
+                              />
+                            );
+                          })}
 
-                      <ReactPaginate
-                        breakLabel="..."
-                        nextLabel=">"
-                        onPageChange={handlePage}
-                        pageRangeDisplayed={itemsPerPage}
-                        pageCount={pageCount}
-                        previousLabel="<"
-                        renderOnZeroPageCount={null}
-                        className="pagination"
-                      />
+                        <ReactPaginate
+                          breakLabel="..."
+                          nextLabel=">"
+                          onPageChange={handlePage}
+                          pageRangeDisplayed={itemsPerPage}
+                          pageCount={pageCount}
+                          previousLabel="<"
+                          renderOnZeroPageCount={null}
+                          className="pagination"
+                        />
+                      </div>
                     </div>
 
                     <div>
@@ -282,7 +318,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                           placeholder="0"
                           min="0"
                           max="5"
-                          className="border border-violet-300 rounded my-1 mx-1 p-1"
+                          className="border border-violet-400 rounded my-1 mx-1 p-1"
                         />
                         <span>{reviewData.nickname}</span>
                         <input
@@ -291,7 +327,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                           value={fieldValues.content}
                           onChange={handleFieldChange}
                           placeholder="리뷰를 작성해주세요"
-                          className="border border-violet-300 rounded my-1 mx-1 p-1"
+                          className="border border-violet-400 rounded my-1 mx-1 p-1"
                         />
                         <button className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 my-1 mx-1 p-1">
                           저장하기

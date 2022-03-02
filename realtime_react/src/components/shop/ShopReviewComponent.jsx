@@ -5,7 +5,7 @@ import Timestamp from "react-timestamp";
 function ShopReviewComponent({ review }) {
   return (
     <React.Fragment>
-      <ul className="list-disc space-y-2">
+      <ul className="list-disc">
         <li className="flex items-start">
           <p className="flex items-start mt-2 xl:text-lg">
             <Star score={review.rating} />
@@ -25,14 +25,9 @@ function ShopReviewComponent({ review }) {
           </div>
         </li>
         <li className="flex items-start">
-          <span className="h-6 flex items-center sm:h-7">
-            <svg
-              className="flex-shrink-0 h-5 w-5 text-cyan-500"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            ></svg>
-          </span>
-          <p className="flex items-start xl:text-xl">{review.content}</p>
+          <p className="flex items-start xl:text-xl text-left">
+            {review.content}
+          </p>
         </li>
         <hr />
       </ul>

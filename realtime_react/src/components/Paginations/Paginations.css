@@ -11,7 +11,7 @@ ul.pagination li {
   display: inline-block;
   width: 30px;
   height: 30px;
-  border: 1px solid #e2e2e2;
+  border: 1px solid #ede9fe;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +32,7 @@ ul.pagination li.selected a {
   color: white;
 }
 ul.pagination li.selected {
-  background-color: #ccb3ff;
+  background-color: rgb(196, 181, 254);
 }
 ul.pagination li a:hover,
 ul.pagination li a.selected {
