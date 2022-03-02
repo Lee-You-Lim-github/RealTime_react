@@ -63,7 +63,7 @@ function UserJoinForm({ handleDidSave }) {
 
   return (
     <div className="bg-scroll bg-[url('assets/img/KakaoMap.png')] bg-cover">
-      <div className="w-screen flex justify-center items-center">
+      <div className="flex justify-center items-center">
         <div class="lg:w-2/5 md:w-1/2 w-2/3 ">
           <div class="bg-white border-2 border-violet-300 rounded-lg shadow-xl mx-auto p-10 mt-10 mb-20">
             <h1 class="text-center text-3xl mb-10">회원가입</h1>

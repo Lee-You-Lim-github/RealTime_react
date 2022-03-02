@@ -140,17 +140,14 @@ function ShopForm({ shopId, handleDidSave }) {
   };
 
   return (
-    <div className="">
-      <div className="h-5/6 bg-white flex justify-center items-center mt-10 mb-20">
+    <div className="bg-scroll bg-[url('assets/img/KakaoMap.png')] bg-cover">
+      <div className="flex justify-center items-center">
         <div className="lg:w-2/5 md:w-1/2 w-2/3">
-          <div className="bg-white p-10 rounded-lg shadow-xl min-w-full border-2">
+          <div className="bg-white border-2 border-violet-300 rounded-lg shadow-xl mx-auto p-10 mt-10 mb-20">
             {!shopId ? (
-              <h2 className="text-center text-3xl mt-3 mb-10">가맹점 가입</h2>
+              <h2 className="text-center text-3xl mb-10">가맹점 가입</h2>
             ) : (
-              <h2 className="text-center text-3xl mt-3 mb-10">
-                {" "}
-                매장정보 수정
-              </h2>
+              <h2 className="text-center text-3xl mb-10">매장정보 수정</h2>
             )}
             {getShopLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
             {shopFormLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
