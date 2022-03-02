@@ -1,15 +1,12 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import DeleteConfirmModal from "components/modal/DeleteConfirmModal";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Timestamp from "react-timestamp";
-import Star from "../shop/ShopStar";
-import { toast } from "react-toastify";
 import LoadingIndicator from "components/LoadingIndicator";
 import UserInfoComponent from "./UserInfoComponent";
 import "./UserInfo.css";
+import UserReviewList from "./UserReviewList";
 
 function UserInfo({ userId }) {
   const [auth] = useAuth();
@@ -79,16 +76,7 @@ function UserInfo({ userId }) {
       url: `/shop/api/reviews/${reviewId}/`,
       method: "DELETE",
     });
-    console.log("삭제 성공");
-    toast.info("🦄 되었습니다.", {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
+    alert("삭제되었습니다.");
 
     window.location.replace(`/user/mypage/${userId}/`);
   };
@@ -109,7 +97,7 @@ function UserInfo({ userId }) {
   };
 
   return (
-    <div className="layout ">
+    <div className="w-[900px] ">
       {(loading || reviewLoading) && (
         <LoadingIndicator>로딩 중...</LoadingIndicator>
       )}
@@ -120,57 +108,13 @@ function UserInfo({ userId }) {
       <h1 className="text-left text-2xl">마이페이지</h1>
       {userData && <UserInfoComponent userData={userData} auth={auth} />}
 
-      {reviewList.length > 0 ? (
-        <>
-          {reviewList?.map((review) => (
-            <div key={review.id} className="flex flex-wrap p-2">
-              <div className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
-                리뷰 내역
-              </div>
-              <div className="border border-violet-300 w-3/4 rounded-sm p-3">
-                <p className="text-left">{review.shop_id.name}</p>
-                <span>
-                  <Star score={review.rating} />
-                </span>
-                <span className="text-left mr-20">{review.content}</span>
-                <span className="text-right">
-                  <Timestamp relative date={review.created_at} autoUpdate />
-                </span>
-                <React.Fragment>
-                  <p className="text-right">
-                    <button
-                      // disabled={deleteLoading}
-                      onClick={openModal}
-                      value={review.id}
-                      className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1 px-2"
-                    >
-                      삭제
-                    </button>
-                  </p>
-                  <DeleteConfirmModal
-                    handleDelete={handleDelete}
-                    open={modalOpen}
-                    close={closeModal}
-                    name="review_delete"
-                    header="정말 삭제하시겠습니까?"
-                  />
-                </React.Fragment>
-              </div>
-            </div>
-          ))}
-        </>
-      ) : (
-        <div className="flex flex-wrap my-5">
-          <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
-            리뷰 내역
-          </h3>
-          <div className="border border-violet-300 w-3/4 rounded-sm p-3">
-            <p className="text-left">등록된 리뷰가 없습니다.</p>
-          </div>
-        </div>
-      )}
-
-      <DebugStates reviewData={reviewData} />
+      <UserReviewList
+        reviewList={reviewList}
+        openModal={openModal}
+        closeModal={closeModal}
+        handleDelete={handleDelete}
+        modalOpen={modalOpen}
+      />
     </div>
   );
 }
