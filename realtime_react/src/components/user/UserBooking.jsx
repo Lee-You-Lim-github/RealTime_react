@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import LoadingIndicator from "components/LoadingIndicator";
 import DebugStates from "components/DebugStates";
 import UserBookingComponent from "./UserBookingComponent";
+import user_booking from "assets/img/shop_booking.png";
 
 function UserBooking() {
   const [auth] = useAuth();
@@ -40,8 +41,12 @@ function UserBooking() {
   }, []);
 
   return (
-    <div className="layout">
-      <h2 className="my-5 text-left text-2xl">예약현황</h2>
+    <div className="w-[900px] mx-auto mt-14">
+      <div className="flex flex-row mt-14 mb-5">
+        <img src={user_booking} alt="" className="w-8 h-8 ml-2" />
+        <h2 className="text-left text-2xl ml-2">예약현황</h2>
+      </div>
+
       {bookingLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
 
       {bookingArray.length > 0 ? (
