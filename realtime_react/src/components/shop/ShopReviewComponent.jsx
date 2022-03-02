@@ -3,22 +3,39 @@ import Star from "./ShopStar";
 import Timestamp from "react-timestamp";
 
 function ShopReviewComponent({ review }) {
-  const { rating, user_id, content } = review;
-
   return (
     <React.Fragment>
-      <div className="justify-items-start">
-        <div className="grid grid-cols-4 gap-4 w-3/5 content-center m-auto">
-          <div>
-            <Star score={rating} />
+      <ul className="list-disc space-y-2">
+        <li className="flex items-start">
+          <p className="flex items-start mt-2 xl:text-lg">
+            <Star score={review.rating} />
+            <span className="ml-2">{review.user_id.nickname}</span>
+          </p>
+          <span className="h-6 flex items-center sm:h-7">
+            <svg
+              className="flex-shrink-0 h-5 w-5 text-cyan-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            ></svg>
+          </span>
+          <div className="ml-5 mt-2 xl:text-xl">
+            <span>
+              <Timestamp relative date={review.created_at} autoUpdate />
+            </span>
           </div>
-          <div>{user_id.nickname}</div>
-          <div className="text-left">{content}</div>
-          <div>
-            <Timestamp relative date={review.created_at} autoUpdate />
-          </div>
-        </div>
-      </div>
+        </li>
+        <li className="flex items-start">
+          <span className="h-6 flex items-center sm:h-7">
+            <svg
+              className="flex-shrink-0 h-5 w-5 text-cyan-500"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            ></svg>
+          </span>
+          <p className="flex items-start xl:text-xl">{review.content}</p>
+        </li>
+        <hr />
+      </ul>
     </React.Fragment>
   );
 }

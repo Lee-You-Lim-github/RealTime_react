@@ -1,6 +1,5 @@
 import "./ShopDetail.css";
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import Modal from "components/modal/Modal";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
@@ -10,6 +9,7 @@ import { Link } from "react-router-dom";
 import ShopDetailComponent from "./ShopDetailComponent";
 import ShopReviewComponent from "./ShopReviewComponent";
 import LoadingIndicator from "components/LoadingIndicator";
+import noimages from "assets/img/noimages.png";
 
 const INIT_REVIEW_FIELD_VALUES = {
   content: "",
@@ -54,7 +54,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     reviewRefetch,
   ] = useApiAxios(
     {
-      url: `/shop/api/reviews/?query=${shopId}`,
+      url: `/shop/api/reviews/`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -129,154 +129,180 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   return (
     <div>
       {shopData && (
-        <>
-          {(shopLoading || reviewLoading) && (
-            <LoadingIndicator>로딩 중...</LoadingIndicator>
-          )}
-          {(shopError || reviewError)?.response?.status >= 400 && (
-            <div className="text-red-400 my-5">
-              데이터를 불러오는데 실패했습니다.
-            </div>
-          )}
-          {(shopError || reviewError)?.response?.status >= 400 && (
-            <div className="text-red-400 my-5">
-              데이터를 불러오는데 실패했습니다.
-            </div>
-          )}
-          {savedLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
-          {savedError?.response?.status >= 400 && (
-            <div className="text-red-400 my-5">저장에 실패했습니다.</div>
-          )}
-          <br />
-          <span className="text-4xl">{shopData.name}</span>
-          <span className="mx-3">{shopData.category}</span>
-          <span className="mx-3">
-            잔여 테이블수: {shopData.now_table_count}/
-            {shopData.total_table_count}
-          </span>
-          <span>
-            <React.Fragment>
-              <button
-                className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-1 p-2"
-                onClick={openModal}
-              >
-                지금예약
-              </button>
+        <section className="text-gray-800 body-font">
+          <div className="flex flex-grow justify-center xl:justify-center lg:justify-start md:justify-start sm:justify-center xl:w-1/2">
+            <div>
+              {(shopLoading || reviewLoading) && (
+                <LoadingIndicator>로딩 중...</LoadingIndicator>
+              )}
+              {(shopError || reviewError)?.response?.status >= 400 && (
+                <div className="text-red-400 my-5">
+                  데이터를 불러오는데 실패했습니다.
+                </div>
+              )}
+              {(shopError || reviewError)?.response?.status >= 400 && (
+                <div className="text-red-400 my-5">
+                  데이터를 불러오는데 실패했습니다.
+                </div>
+              )}
+              {savedLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
+              {savedError?.response?.status >= 400 && (
+                <div className="text-red-400 my-5">저장에 실패했습니다.</div>
+              )}
 
-              <Modal
-                shopId={shopId}
-                ShopData={shopData}
-                open={modalOpen}
-                close={closeModal}
-                header="지금 예약"
-              >
-                <div className="flex justify-center">지금 예약하시겠어요?</div>
-              </Modal>
-            </React.Fragment>
-            <Link
-              to={`/shop/${shopId}/booking/new/`}
-              className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-3"
-            >
-              지금말고예약
-            </Link>
-          </span>
-          <br />
-          <div className="photo_align my-8">
-            <img
-              src={shopData.photo}
-              alt={shopData.name}
-              className="shop_photo rounded"
-            />
+              <div className="mt-10 ml-4 mb-4 title-font font-medium">
+                <span className="text-4xl">{shopData.name}</span>
+                <span className="mx-3">{shopData.category}</span>
+                <span>
+                  <React.Fragment>
+                    <button
+                      className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 my-1 mx-1 p-2"
+                      onClick={openModal}
+                    >
+                      지금예약‼
+                    </button>
+
+                    <Modal
+                      shopId={shopId}
+                      ShopData={shopData}
+                      open={modalOpen}
+                      close={closeModal}
+                      header="지금 예약"
+                    >
+                      <div className="flex justify-center">
+                        지금 예약하시겠어요?
+                      </div>
+                    </Modal>
+                  </React.Fragment>
+                </span>
+                <span className="mx-2 mt-3">
+                  <Link
+                    to={`/shop/${shopId}/booking/new/`}
+                    className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 p-3"
+                  >
+                    지금말고예약
+                  </Link>
+                </span>
+                <p className="flex justify-start mb-3">
+                  잔여 테이블수: {shopData.now_table_count}/
+                  {shopData.total_table_count}
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div>
-            <p className="content-center text-xl w-4/5 border border-violet-300 rounded my-1 m-auto p-2">
-              {shopData.notice && <>공지사항: {shopData.notice}</>}
-              {!shopData.notice && "등록된 공지가 없습니다."}
-            </p>
+          <div className="relativ flex flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-row">
+            <div class="mb-5 xl:w-1/3 xl:ml-40 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
+              {shopData?.photo && (
+                <img
+                  className="object-cover object-center rounded"
+                  src={shopData.photo}
+                  alt={shopData.name}
+                />
+              )}
+              {!shopData?.photo && (
+                <img
+                  className="object-cover object-center rounded h-80"
+                  src={noimages}
+                  alt="no_images"
+                />
+              )}
+            </div>
+            <hr />
+            <div class="items-center text-left flex px-12 xl:w-2/3 xl:justify-center lg:w-3/5 lg:pl-14 lg:mt-0 md:w-3/5 md:pl-14 md:mt-0 flex-col md:justify-center sm:px-20">
+              <ul className="list-disc space-y-2">
+                <li className="flex items-start">
+                  <div className="xl:text-xl border border-violet-400 p-2">
+                    {shopData.notice && `공지사항: ${shopData.notice}`}
+                    {!shopData.notice && "등록된 공지가 없습니다."}
+                  </div>
+                </li>
+                <div>
+                  <button
+                    onClick={() => setShowInfo(true)}
+                    onClickCapture={() => setShowReview(false)}
+                    className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 my-1 mx-2 p-2 focus:bg-white focus:text-violet-400"
+                  >
+                    매장정보
+                  </button>
+                  <button
+                    onClick={() => setShowReview(true)}
+                    onClickCapture={() => setShowInfo(false)}
+                    className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 my-1 mx-2 p-2 focus:bg-white focus:text-violet-400"
+                  >
+                    리뷰보기
+                  </button>
+                </div>
+
+                {showInfo && shopData && (
+                  <div>
+                    <ShopDetailComponent shopinfo={shopData} />
+                  </div>
+                )}
+
+                {showReview && reviewData && (
+                  <>
+                    <div>
+                      <hr />
+                      {reviewData?.results
+                        ?.filter(
+                          (review_shop) =>
+                            review_shop.shop_id.id === parseInt(shopId)
+                        )
+                        .map((review) => {
+                          return (
+                            <ShopReviewComponent
+                              key={review.id}
+                              review={review}
+                            />
+                          );
+                        })}
+
+                      <ReactPaginate
+                        breakLabel="..."
+                        nextLabel=">"
+                        onPageChange={handlePage}
+                        pageRangeDisplayed={itemsPerPage}
+                        pageCount={pageCount}
+                        previousLabel="<"
+                        renderOnZeroPageCount={null}
+                        className="pagination"
+                      />
+                    </div>
+
+                    <div>
+                      <form onSubmit={reviewHandleSubmit}>
+                        <input
+                          type="number"
+                          name="rating"
+                          value={fieldValues.rating}
+                          onChange={handleFieldChange}
+                          placeholder="0"
+                          min="0"
+                          max="5"
+                          className="border border-violet-300 rounded my-1 mx-1 p-1"
+                        />
+                        <span>{reviewData.nickname}</span>
+                        <input
+                          type="text"
+                          name="content"
+                          value={fieldValues.content}
+                          onChange={handleFieldChange}
+                          placeholder="리뷰를 작성해주세요"
+                          className="border border-violet-300 rounded my-1 mx-1 p-1"
+                        />
+                        <button className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 my-1 mx-1 p-1">
+                          저장하기
+                        </button>
+                      </form>
+                    </div>
+                  </>
+                )}
+              </ul>
+            </div>
           </div>
-        </>
+        </section>
       )}
-      <button
-        onClick={() => setShowInfo(true)}
-        onClickCapture={() => setShowReview(false)}
-        className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2 focus:bg-white focus:text-violet-500"
-      >
-        매장정보
-      </button>
-      <button
-        onClick={() => setShowReview(true)}
-        onClickCapture={() => setShowInfo(false)}
-        className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2 focus:bg-white focus:text-violet-500"
-      >
-        리뷰보기
-      </button>
-      <br />
-      <br />
-
-      {showInfo && shopData && (
-        <div>
-          <ShopDetailComponent shopinfo={shopData} />
-        </div>
-      )}
-
-      {showReview && reviewData && (
-        <div>
-          {reviewData?.results
-            ?.filter(
-              (review_shop) => review_shop.shop_id.id === parseInt(shopId)
-            )
-            .map((review) => {
-              return <ShopReviewComponent key={review.id} review={review} />;
-            })}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={handlePage}
-            pageRangeDisplayed={itemsPerPage}
-            pageCount={pageCount}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            className="pagination"
-          />
-        </div>
-      )}
-
-      {reviewData && (
-        <>
-          <br />
-          <br />
-          <form onSubmit={reviewHandleSubmit}>
-            <div>리뷰작성</div>
-            <input
-              type="number"
-              name="rating"
-              value={fieldValues.rating}
-              onChange={handleFieldChange}
-              placeholder="0"
-              min="0"
-              max="5"
-              className="border border-violet-300 rounded my-1 mx-2 p-2"
-            />
-            <span>{reviewData.nickname}</span>
-            <input
-              type="text"
-              name="content"
-              value={fieldValues.content}
-              onChange={handleFieldChange}
-              placeholder="리뷰를 작성해주세요"
-              className="border border-violet-300 rounded my-1 mx-2 p-2"
-            />
-            <button className="bg-violet-300 border border-violet-300 rounded w-2/2 my-1 mx-2 p-2">
-              저장하기
-            </button>
-          </form>
-          <br />
-          <br />
-        </>
-      )}
-
-      <DebugStates fieldValues={fieldValues} reviewData={reviewData} />
     </div>
   );
 }
