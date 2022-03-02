@@ -1,17 +1,17 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function UserEdit({ userId, handleDidSave }) {
-  const [auth] = useAuth();
+function UserEdit({ userId }) {
+  const [auth, , , logout] = useAuth();
 
   const [reload, setReload] = useState(false);
+
+  const navigate = useNavigate();
 
   const [{ data: userData, loading: getLoading, error: getError }] =
     useApiAxios(
@@ -41,8 +41,7 @@ function UserEdit({ userId, handleDidSave }) {
     { manual: true }
   );
 
-  const { fieldValues, handleFieldChange, setFieldValues } =
-    useFieldValues(userData);
+  const { fieldValues, handleFieldChange } = useFieldValues(userData);
 
   useEffect(() => {
     saveRequest();
@@ -53,90 +52,109 @@ function UserEdit({ userId, handleDidSave }) {
     saveRequest({
       data: fieldValues,
     }).then((response) => {
-      toast.info("🦄 수정되었습니다. 재로그인 해주세요.", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
       setReload(true);
-      if (handleDidSave) handleDidSave();
+      console.log("response.data:", response.data);
+      if (userData !== fieldValues) {
+        logout();
+        navigate("/accounts/login/");
+      } else navigate(`/user/mypage/${userId}/`);
     });
   };
 
   return (
-    <div className="mt-2">
-      <h2 className="text-2xl my-5">정보수정</h2>
-      {(getLoading || saveLoading) && (
-        <LoadingIndicator>로딩 중...</LoadingIndicator>
-      )}
-      {getError?.response?.status >= 400 && (
-        <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
-      )}
-      {saveError?.response?.status >= 400 && (
-        <div className="text-red-400">데이터를 저장하는데 실패했습니다.</div>
-      )}
+    <div>
+      <div className="h-[650px] bg-gradient-to-br from-white flex justify-center items-center w-full">
+        <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm border-2">
+          <form onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <h1 className="text-center text-2xl font-semibold text-gray-600">
+                회원 정보 수정
+              </h1>
+              {(getLoading || saveLoading) && (
+                <LoadingIndicator>로딩 중...</LoadingIndicator>
+              )}
+              {getError?.response?.status >= 400 && (
+                <div className="text-red-400">
+                  데이터를 가져오는데 실패했습니다.
+                </div>
+              )}
+              {saveError?.response?.status >= 400 && (
+                <div className="text-red-400">
+                  데이터를 저장하는데 실패했습니다.
+                </div>
+              )}
 
-      <form onSubmit={handleSubmit}>
-        <p className="text-left ml-56">이름</p>
-        <input
-          type="text"
-          name="username"
-          value={fieldValues.username}
-          onChange={handleFieldChange}
-          placeholder="이름을 입력해주세요."
-          className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-        />
-        {saveErrorMessages.username?.map((message, index) => (
-          <p key={index} className="text-xs text-red-400">
-            {message}
-          </p>
-        ))}
-
-        <p className="text-left ml-56">닉네임</p>
-        <input
-          type="text"
-          name="nickname"
-          value={fieldValues.nickname}
-          onChange={handleFieldChange}
-          placeholder="한글 5자 이하로 입력해주세요."
-          className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-        />
-        {saveErrorMessages.nickname?.map((message, index) => (
-          <p key={index} className="text-xs text-red-400">
-            {message}
-          </p>
-        ))}
-
-        <p className="text-left ml-56">휴대폰 번호</p>
-        <input
-          type="text"
-          name="telephone"
-          value={fieldValues.telephone}
-          onChange={handleFieldChange}
-          placeholder="숫자만 입력해주세요. 예)01022334567"
-          className="placeholder:italic placeholder:text-slate-300 border border-gray-300 rounded w-1/2 my-1 mx-2 p-2"
-        />
-        {saveErrorMessages.telephone?.map((message, index) => (
-          <p key={index} className="text-xs text-red-400">
-            {message}
-          </p>
-        ))}
-
-        <div>
-          <button className="bg-violet-300 w-1/2 rounded my-1 mx-2 p-2">
-            수정
-          </button>
-        </div>
-        <div>
-          <button className="bg-slate-300 w-1/2 rounded my-1 mx-2 mb-5 p-2">
+              <div>
+                <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
+                  이름
+                </label>
+                <input
+                  type="text"
+                  name="username"
+                  value={fieldValues.username}
+                  onChange={handleFieldChange}
+                  placeholder="이름을 입력해주세요."
+                  className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                />
+                {saveErrorMessages.username?.map((message, index) => (
+                  <p key={index} className="text-xs text-red-400">
+                    {message}
+                  </p>
+                ))}
+              </div>
+              <div>
+                <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
+                  닉네임
+                </label>
+                <input
+                  type="text"
+                  name="nickname"
+                  value={fieldValues.nickname}
+                  onChange={handleFieldChange}
+                  placeholder="한글 5자 이하로 입력해주세요."
+                  className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                />
+                {saveErrorMessages.nickname?.map((message, index) => (
+                  <p key={index} className="text-xs text-red-400">
+                    {message}
+                  </p>
+                ))}
+              </div>
+              <div>
+                <label class="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
+                  휴대폰 번호
+                </label>
+                <input
+                  type="text"
+                  name="telephone"
+                  value={fieldValues.telephone}
+                  onChange={handleFieldChange}
+                  placeholder="숫자만 입력해주세요. 예)01022334567"
+                  className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+                />
+                {saveErrorMessages.telephone?.map((message, index) => (
+                  <p key={index} className="text-xs text-red-400">
+                    {message}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div>
+              <button className="mt-4 w-full border-2 border-violet-400 bg-violet-400 text-white py-2 rounded-md text-lg tracking-wide hover:bg-red-300 hover:border-red-300">
+                수정
+              </button>
+            </div>
+          </form>
+          <button
+            className="mt-4 w-full bg-white text-violet-400 border-2 border-violet-300 py-2 rounded-md text-lg tracking-wide hover:text-red-300 hover:border-red-300"
+            onClick={() => navigate(`/user/mypage/${userId}/`)}
+          >
             취소
           </button>
         </div>
-      </form>
+
+        <div></div>
+      </div>
     </div>
   );
 }
