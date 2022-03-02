@@ -116,7 +116,7 @@ function BookingForm({ shopId, handleDidSave }) {
         <React.Fragment>
           <div className="btnBox flex-auto mt-10 mb-20">
             <button
-              className="bg-violet-400 hover:bg-red-300 text-white w-4/5 rounded m-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
+              className="bg-violet-400 hover:bg-red-300 text-white w-1/2 rounded m-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
               onClick={openModal}
             >
               예약
@@ -130,7 +130,7 @@ function BookingForm({ shopId, handleDidSave }) {
               header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
             ></BookingConfirmModal>
             <button
-              className="border-violet-400 border-2 hover:border-red-300 hover:text-red-300 text-violet-400 w-4/5 rounded m-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
+              className="border-violet-400 border-2 hover:border-red-300 hover:text-red-300 text-violet-400 w-1/2 rounded m-1 mx-2 p-2 focus:outline-none focus:shadow-outline"
               onClick={() => navigate(`/shop/${shopId}/`)}
             >
               취소
