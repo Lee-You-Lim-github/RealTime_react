@@ -60,6 +60,12 @@ function BookingForm({ shopId, handleDidSave }) {
     setModalOpen(false);
   };
 
+  let today = new Date();
+
+  const alertDate = () => {
+    alert("날짜를 확인해주세요");
+  };
+
   return (
     <div className="layout border-2 border-slate-300 rounded shadow-xl">
       <div className="mx-auto headingBox mt-2 mb-6">
@@ -68,7 +74,6 @@ function BookingForm({ shopId, handleDidSave }) {
         {error?.response?.status >= 400 && (
           <div className="text-red-400 my-5">예약에 실패했습니다.</div>
         )}
-
         <div className="subName mb-5">예약 날짜</div>
         <div>
           <input
@@ -79,8 +84,7 @@ function BookingForm({ shopId, handleDidSave }) {
             className="inputBox border-2 rounded border-violet-400 mb-10"
           />
         </div>
-
-        <div className="subName mb-5">예약 시간</div>
+        )<div className="subName mb-5">예약 시간</div>
         <div>
           <input
             type="time"
@@ -91,7 +95,6 @@ function BookingForm({ shopId, handleDidSave }) {
             className="inputBox border-2 rounded border-violet-400 mb-10"
           />
         </div>
-
         <div className="subName mb-5">테이블 수(4인 테이블 기준)</div>
         <div>
           <input
@@ -104,7 +107,6 @@ function BookingForm({ shopId, handleDidSave }) {
             className="inputBox border-2 border-violet-400  placeholder:text-slate-300 rounded my-1 p-2 text-center w-1/2 mb-10"
           />
         </div>
-
         <React.Fragment>
           <div className="btnBox flex-auto mt-10 mb-20">
             <button
