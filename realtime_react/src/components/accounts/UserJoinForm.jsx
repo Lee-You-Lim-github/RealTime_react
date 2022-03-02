@@ -3,7 +3,6 @@ import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ConfirmModal from "components/modal/ConfirmModal";
 
@@ -63,11 +62,11 @@ function UserJoinForm({ handleDidSave }) {
   };
 
   return (
-    <div>
-      <div class="bg-white flex justify-center items-center">
-        <div class="lg:w-2/5 md:w-1/2 w-2/3 mt-14 mb-20">
-          <div class="bg-white p-10 rounded-lg shadow-xl mx-auto border-2 ml-14 mr-14">
-            <h1 class="text-center text-2xl mb-10 text-gray-600 ">회원가입</h1>
+    <div className="bg-scroll bg-[url('assets/img/KakaoMap.png')] bg-cover">
+      <div className="w-screen flex justify-center items-center">
+        <div class="lg:w-2/5 md:w-1/2 w-2/3 ">
+          <div class="bg-white border-2 border-violet-300 rounded-lg shadow-xl mx-auto p-10 mt-10 mb-20">
+            <h1 class="text-center text-3xl mb-10">회원가입</h1>
             {loading && <LoadingIndicator>가입 중...</LoadingIndicator>}
             {error?.response?.status >= 400 && (
               <div className="text-red-400 my-5">가입에 실패했습니다.</div>
@@ -203,7 +202,7 @@ function UserJoinForm({ handleDidSave }) {
             <React.Fragment>
               <div>
                 <button
-                  className="text-white text-lg bg-violet-300 border-2 border-violet-300 hover:border-red-300 hover:bg-red-300 w-full rounded p-1 mb-1 mt-6"
+                  className="text-white text-lg bg-violet-400 border-2 border-violet-400 hover:border-red-300 hover:bg-red-300 w-full rounded p-1 mb-1 mt-6"
                   onClick={openModal}
                 >
                   가입
@@ -218,7 +217,7 @@ function UserJoinForm({ handleDidSave }) {
             </React.Fragment>
             <div>
               <button
-                className="text-violet-300 text-lg bg-white border-2 border-violet-300 w-full hover:border-red-300 hover:text-red-300 rounded my-1 mb-5 p-1"
+                className="text-violet-400 text-lg bg-white border-2 border-violet-400 w-full hover:border-red-300 hover:text-red-300 rounded my-1 mb-5 p-1"
                 onClick={() => navigate("/")}
               >
                 취소
