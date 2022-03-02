@@ -1,4 +1,3 @@
-import "./ShopDetail.css";
 import { useApiAxios } from "api/base";
 import Modal from "components/modal/Modal";
 import { useAuth } from "contexts/AuthContext";
@@ -64,15 +63,19 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   );
 
   // reviewList Paging
-  const fetchApplications = useCallback(async (newPage) => {
-    const params = {
-      page: newPage,
-    };
-    const { data } = await reviewRefetch({ params });
-    setPage(newPage);
-    setPageCount(Math.ceil(data.count / itemsPerPage));
-    setItems(data?.results);
-  }, []);
+  const fetchApplications = useCallback(
+    async (newPage) => {
+      const params = {
+        page: newPage,
+        query: shopData.name,
+      };
+      const { data } = await reviewRefetch({ params });
+      setPage(newPage);
+      setPageCount(Math.ceil(data.count / itemsPerPage));
+      setItems(data?.results);
+    },
+    [shopData]
+  );
 
   useEffect(() => {
     fetchApplications(1);
@@ -129,8 +132,8 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   return (
     <div>
       {shopData && (
-        <section className="text-gray-800 body-font">
-          <div className="flex flex-grow justify-center xl:justify-center lg:justify-start md:justify-start sm:justify-center xl:w-1/2">
+        <section className="text-gray-800 body-font flex">
+          <div className="flex flex-grow justify-center w-1/2">
             <div>
               {(shopLoading || reviewLoading) && (
                 <LoadingIndicator>로딩 중...</LoadingIndicator>
@@ -187,32 +190,31 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                   잔여 테이블수: {shopData.now_table_count}/
                   {shopData.total_table_count}
                 </p>
+                <div class="mb-5">
+                  {shopData?.photo && (
+                    <img
+                      className="rounded"
+                      src={shopData.photo}
+                      alt={shopData.name}
+                    />
+                  )}
+                  {!shopData?.photo && (
+                    <img
+                      className="rounded h-80"
+                      src={noimages}
+                      alt="no_images"
+                    />
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="relativ flex flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-row">
-            <div class="mb-5 xl:w-1/3 xl:ml-40 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
-              {shopData?.photo && (
-                <img
-                  className="object-cover object-center rounded"
-                  src={shopData.photo}
-                  alt={shopData.name}
-                />
-              )}
-              {!shopData?.photo && (
-                <img
-                  className="object-cover object-center rounded h-80"
-                  src={noimages}
-                  alt="no_images"
-                />
-              )}
-            </div>
-            <hr />
-            <div class="items-center text-left flex px-12 xl:w-2/3 xl:justify-center lg:w-3/5 lg:pl-14 lg:mt-0 md:w-3/5 md:pl-14 md:mt-0 flex-col md:justify-center sm:px-20">
-              <ul className="list-disc space-y-2">
-                <li className="flex items-start">
-                  <div className="xl:text-xl border border-violet-400 p-2">
+          <div className="relativ flex flex-col w-1/2">
+            <div class="">
+              <ul className="">
+                <li className="flex justify-center">
+                  <div className="text-xl border border-violet-400 p-2 mx-2 mt-10 w-5/6">
                     {shopData.notice && `공지사항: ${shopData.notice}`}
                     {!shopData.notice && "등록된 공지가 없습니다."}
                   </div>
