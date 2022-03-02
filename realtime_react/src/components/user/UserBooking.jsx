@@ -40,8 +40,8 @@ function UserBooking() {
   }, []);
 
   return (
-    <div>
-      <h2 className="my-3 text-left">예약현황</h2>
+    <div className="layout">
+      <h2 className="my-5 text-left text-2xl">예약현황</h2>
       {bookingLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
 
       {bookingArray.length > 0 ? (

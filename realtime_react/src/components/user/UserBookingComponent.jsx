@@ -126,7 +126,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
           <p>예약시간</p>
           <p>예약 테이블 수</p>
         </div>
-        <div className="border border-violet-400 w-3/5 rounded-sm p-3">
+        <div className="border border-violet-400 w-4/5 rounded-sm p-3">
           <p className="text-left">{booking_object.day}</p>
           <p className="text-left">{booking_object.time}</p>
           <p className="text-left">{booking_object.book_table_count}</p>

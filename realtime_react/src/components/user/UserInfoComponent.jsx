@@ -2,11 +2,11 @@ import { Link } from "react-router-dom";
 
 function UserInfoComponent({ userData, auth }) {
   return (
-    <div className="flex flex-wrap my-7">
-      <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
-        마이페이지
+    <div className="flex my-7 p-2">
+      <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3 leading-loose">
+        회원정보
       </h3>
-      <div className="border border-violet-300 w-3/5 rounded-sm p-3">
+      <div className="border border-violet-300 w-3/4 rounded-sm p-3">
         <p className="text-left">ID : {userData.user_id}</p>
         <p className="text-left">이름 : {userData.username}</p>
         <p className="text-left">닉네임 : {userData.nickname}</p>

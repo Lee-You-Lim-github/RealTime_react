@@ -78,10 +78,7 @@ function AdminBooking({ itemsPerPage = 10 }) {
       <div className="flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
           <img className="w-9 h-9 ml-2" src={shop_booking} alt="shop_booking" />
-          <h2
-            className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
-            onClick={() => window.location.replace("/admin/booking/")}
-          >
+          <h2 className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer">
             예약현황
           </h2>
         </div>

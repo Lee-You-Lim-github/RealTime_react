@@ -9,6 +9,7 @@ import Star from "../shop/ShopStar";
 import { toast } from "react-toastify";
 import LoadingIndicator from "components/LoadingIndicator";
 import UserInfoComponent from "./UserInfoComponent";
+import "./UserInfo.css";
 
 function UserInfo({ userId }) {
   const [auth] = useAuth();
@@ -108,7 +109,7 @@ function UserInfo({ userId }) {
   };
 
   return (
-    <div>
+    <div className="layout ">
       {(loading || reviewLoading) && (
         <LoadingIndicator>로딩 중...</LoadingIndicator>
       )}
@@ -116,16 +117,17 @@ function UserInfo({ userId }) {
       {deleteError?.response?.status >= 400 && (
         <div className="text-red-400">삭제에 실패했습니다.</div>
       )}
+      <h1 className="text-left text-2xl">마이페이지</h1>
       {userData && <UserInfoComponent userData={userData} auth={auth} />}
 
       {reviewList.length > 0 ? (
         <>
           {reviewList?.map((review) => (
-            <div key={review.id} className="flex flex-wrap">
+            <div key={review.id} className="flex flex-wrap p-2">
               <div className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
                 리뷰 내역
               </div>
-              <div className="border border-violet-300 w-3/5 rounded-sm p-3">
+              <div className="border border-violet-300 w-3/4 rounded-sm p-3">
                 <p className="text-left">{review.shop_id.name}</p>
                 <span>
                   <Star score={review.rating} />
@@ -162,7 +164,7 @@ function UserInfo({ userId }) {
           <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
             리뷰 내역
           </h3>
-          <div className="border border-violet-300 w-3/5 rounded-sm p-3">
+          <div className="border border-violet-300 w-3/4 rounded-sm p-3">
             <p className="text-left">등록된 리뷰가 없습니다.</p>
           </div>
         </div>
