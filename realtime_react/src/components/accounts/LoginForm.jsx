@@ -50,14 +50,6 @@ function LoginForm() {
         is_superuser,
       });
 
-      console.log("access :", access);
-      console.log("refresh :", refresh);
-      console.log("id :", id);
-      console.log("user_id :", user_id);
-      console.log("nickname :", nickname);
-      console.log("authority :", authority);
-      console.log("is_superuser :", is_superuser);
-
       navigate("/");
     });
   };
