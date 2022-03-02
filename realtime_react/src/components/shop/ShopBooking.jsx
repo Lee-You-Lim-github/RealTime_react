@@ -46,6 +46,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     { manual: true }
   );
 
+  // paging
   const fetchApplication = useCallback(
     async (newPage, newQuery = query) => {
       const params = {
@@ -61,6 +62,8 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     },
     [query]
   );
+
+  console.log(query);
 
   // get_bookings_refetch()
   useEffect(() => {
@@ -158,7 +161,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
               className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
               onClick={() => window.location.replace("/admin/user/")}
             >
-              회원관리
+              예약자 명단
             </h2>
           </div>
           {(getBookingLoading || shopBookingsLoading) && (
@@ -238,18 +241,20 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
                   </thead>
                   <tbody>
                     {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
-                    {shop_array?.map((shop_booking, index) => {
-                      return (
-                        <ShopBookingComponent
-                          index={index + 1}
-                          key={shop_booking.id}
-                          shop_booking={shop_booking}
-                          clickedVisit={clickedVisit}
-                          clickedUnvisited={clickedUnvisited}
-                          loading={loading}
-                        />
-                      );
-                    })}
+                    {shop_array
+                      ?.sort((a, b) => new Date(a.day) - new Date(b.day))
+                      .map((shop_booking, index) => {
+                        return (
+                          <ShopBookingComponent
+                            index={index + 1}
+                            key={shop_booking.id}
+                            shop_booking={shop_booking}
+                            clickedVisit={clickedVisit}
+                            clickedUnvisited={clickedUnvisited}
+                            loading={loading}
+                          />
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>

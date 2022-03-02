@@ -1,9 +1,8 @@
 import React from "react";
-import noshow_warning from "assets/img/noshow_warning.png";
 
 function DeleteConfirmModal(props) {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-  const { open, close, header, name, handleDelete, miniheader } = props;
+  const { open, close, header, name, handleDelete } = props;
 
   const handleYes = (e) => {
     if (name === "review_delete") {
@@ -25,17 +24,12 @@ function DeleteConfirmModal(props) {
         <section>
           <header>
             <div className="text-lg text-gray-700">{header}</div>
-            {miniheader && (
-              <div className="flex flex-row justify-center text-xs text-red-600 mt-1">
-                <img src={noshow_warning} alt="" className="w-8 h-8 mr-1" />
-                <div className="mt-1">{miniheader}</div>
-              </div>
-            )}
             <button className="close" onClick={close}>
               {" "}
               &times;{" "}
             </button>
           </header>
+          <main>{props.children}</main>
           <div className="flex justify-center mr-5 my-1">
             <button
               type="button"

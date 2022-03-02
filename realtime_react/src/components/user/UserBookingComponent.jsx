@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import noshow_warning from "assets/img/noshow_warning.png";
 
 function UserBookingComponent({ bookingList, booking_object }) {
   const [auth] = useAuth();
@@ -107,6 +108,8 @@ function UserBookingComponent({ bookingList, booking_object }) {
     };
   }, []);
 
+  let today = new Date();
+
   return (
     <div className="mb-3">
       {deleteLoading && <LoadingIndicator>취소 중...</LoadingIndicator>}
@@ -128,23 +131,41 @@ function UserBookingComponent({ bookingList, booking_object }) {
           <p className="text-left">{booking_object.book_table_count}</p>
 
           <React.Fragment>
-            <button
-              disabled={deleteLoading}
-              onClick={openModal}
-              value={booking_object.id}
-              className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1"
-            >
-              예약취소
-            </button>
+            {new Date(booking_object.day) - today > 0 && (
+              <div className="flex justify-end">
+                <button
+                  disabled={deleteLoading}
+                  onClick={openModal}
+                  value={booking_object.id}
+                  className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1"
+                >
+                  예약취소
+                </button>
+              </div>
+            )}
+            {new Date(booking_object.day) - today < 0 && (
+              <div className="flex justify-end">방문완료 ✅</div>
+            )}
             <DeleteConfirmModal
               handleDelete={handleDelete}
               open={modalOpen}
               close={closeModal}
               name="user_booking_delete"
               header="예약을 취소 하시겠습니까?"
-              miniheader="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
               ref={el}
-            />
+            >
+              <div>
+                <div className="flex flex-col justify-center text-xs text-red-600 -mt-3">
+                  <div className="flex justify-center">
+                    <img src={noshow_warning} alt="" className="w-8 h-8" />
+                  </div>
+                  <div className="mt-1">
+                    1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스
+                    이용이 제한될 수 있습니다.
+                  </div>
+                </div>
+              </div>
+            </DeleteConfirmModal>
           </React.Fragment>
         </div>
       </div>
