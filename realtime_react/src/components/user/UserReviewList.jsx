@@ -15,7 +15,7 @@ function UserReviewList(props) {
         {reviewList.length > 0 ? (
           <>
             {reviewList?.map((review) => (
-              <div key={review.id} className="flex flex-wrap p-2">
+              <div key={review.id} className="flex flex-wrap">
                 <div className="bg-violet-300 w-1/4 text-left rounded-sm p-3">
                   리뷰 내역
                 </div>

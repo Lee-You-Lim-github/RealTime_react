@@ -1,19 +1,16 @@
 import { useApiAxios } from "api/base";
-import DeleteConfirmModal from "components/modal/DeleteConfirmModal";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
 import UserInfoComponent from "./UserInfoComponent";
 import "./UserInfo.css";
 import UserReviewList from "./UserReviewList";
+import mypage_icon from "assets/img/mypage_icon.png";
 
 function UserInfo({ userId }) {
   const [auth] = useAuth();
 
   const [reviewList, setReviewList] = useState([]);
-
-  const navigate = useNavigate();
 
   const [reviewId, setReviewId] = useState(0);
 
@@ -97,24 +94,30 @@ function UserInfo({ userId }) {
   };
 
   return (
-    <div className="w-[900px] ">
-      {(loading || reviewLoading) && (
-        <LoadingIndicator>로딩 중...</LoadingIndicator>
-      )}
-      {deleteLoading && <LoadingIndicator>삭제 중...</LoadingIndicator>}
-      {deleteError?.response?.status >= 400 && (
-        <div className="text-red-400">삭제에 실패했습니다.</div>
-      )}
-      <h1 className="text-left text-2xl">마이페이지</h1>
-      {userData && <UserInfoComponent userData={userData} auth={auth} />}
+    <div className="w-[900px] mx-auto">
+      <div className="flex flex-row mt-14">
+        <img src={mypage_icon} alt="" className="w-8 h-8" />
+        <h1 className="text-left text-2xl ml-2">마이페이지</h1>
+        {(loading || reviewLoading) && (
+          <LoadingIndicator>로딩 중...</LoadingIndicator>
+        )}
+        {deleteLoading && <LoadingIndicator>삭제 중...</LoadingIndicator>}
+        {deleteError?.response?.status >= 400 && (
+          <div className="text-red-400">삭제에 실패했습니다.</div>
+        )}
+      </div>
 
-      <UserReviewList
-        reviewList={reviewList}
-        openModal={openModal}
-        closeModal={closeModal}
-        handleDelete={handleDelete}
-        modalOpen={modalOpen}
-      />
+      <div className="mb-20">
+        {userData && <UserInfoComponent userData={userData} auth={auth} />}
+
+        <UserReviewList
+          reviewList={reviewList}
+          openModal={openModal}
+          closeModal={closeModal}
+          handleDelete={handleDelete}
+          modalOpen={modalOpen}
+        />
+      </div>
     </div>
   );
 }

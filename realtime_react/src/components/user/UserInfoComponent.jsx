@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function UserInfoComponent({ userData, auth }) {
   return (
-    <div className="flex my-7 p-2">
+    <div className="flex my-7">
       <h3 className="bg-violet-300 w-1/4 text-left rounded-sm p-3 leading-loose">
         회원정보
       </h3>
