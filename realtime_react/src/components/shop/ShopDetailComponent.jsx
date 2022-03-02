@@ -12,6 +12,14 @@ function ShopDetailComponent({ shopinfo }) {
     conv_wifi,
   } = shopinfo;
 
+  const intro_null = (a) => {
+    if (a === "NULL" || !intro) {
+      return "등록된 공지가 없습니다.";
+    } else {
+      return `${intro}`;
+    }
+  };
+
   return (
     <React.Fragment>
       <ul className="list-disc space-y-2">
@@ -24,12 +32,11 @@ function ShopDetailComponent({ shopinfo }) {
               fill="currentColor"
             ></svg>
           </span>
-          <div className="ml-4 xl:text-xl">
-            <p>
-              {intro && intro} {!intro && "등록된 소개글이 없습니다."}
-            </p>
+          <div className="ml-4 text-left xl:text-xl">
+            <p>{intro_null(intro)}</p>
           </div>
         </li>
+
         <li className="flex items-start">
           <p className="flex items-start xl:text-xl">전화번호</p>
           <span className="h-6 flex items-center sm:h-7">
