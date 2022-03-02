@@ -97,30 +97,32 @@ function Modal(props) {
     };
     let timestring_day = `${time.year}-${time.month}-${time.date}`;
     let timestring_time = `${time.hours}:${time.minutes}:${time.seconds}`;
-    saveNowBooking({
-      data: {
-        book_table_count: value,
-        visit_status: "0",
-        method: "1",
-        user_id: auth.id,
-        shop_id: parseInt(shopId),
-        day: timestring_day,
-        time: timestring_time,
-      },
-    }).then((response) => {
-      toast.info("예약되었습니다. 🚀 ", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+    if (value !== 0) {
+      saveNowBooking({
+        data: {
+          book_table_count: value,
+          visit_status: "0",
+          method: "1",
+          user_id: auth.id,
+          shop_id: parseInt(shopId),
+          day: timestring_day,
+          time: timestring_time,
+        },
+      }).then((response) => {
+        toast.info("예약되었습니다. 🚀 ", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        if (value >= 1) {
+          window.location.replace(`/user/${auth.id}/bookings/`);
+        }
       });
-      if (value >= 1) {
-        window.location.replace(`/user/${auth.id}/bookings/`);
-      }
-    });
+    } else alert("테이블 수를 확인해주세요");
   };
 
   useEffect(() => {

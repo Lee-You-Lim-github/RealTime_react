@@ -129,6 +129,10 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     setModalOpen(false);
   };
 
+  const alertFull = () => {
+    alert("만석입니다.");
+  };
+
   const notice_null = (a) => {
     if (a === "NULL" || !shopData.notice) {
       return "등록된 공지가 없습니다.";
@@ -166,12 +170,38 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                 <span className="mx-3">{shopData.category}</span>
                 <span>
                   <React.Fragment>
-                    <button
-                      className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
-                      onClick={openModal}
-                    >
-                      지금예약‼
-                    </button>
+                    {shopData.now_table_count !== shopData.total_table_count &&
+                      shopData.holiday == 0 && (
+                        <button
+                          className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                          onClick={openModal}
+                        >
+                          지금예약‼
+                        </button>
+                      )}
+
+                    {shopData.now_table_count === shopData.total_table_count &&
+                      shopData.holiday == 0 && (
+                        <button
+                          className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                          onClick={alertFull}
+                        >
+                          지금예약‼
+                        </button>
+                      )}
+
+                    {shopData.holiday == 1 && (
+                      <button
+                        disabled=""
+                        className="bg-gray-400 border border-gray-400 hover:border-gray-300 hover:bg-gray-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.currentTarget.disabled = true;
+                        }}
+                      >
+                        휴일
+                      </button>
+                    )}
 
                     <Modal
                       shopId={shopId}
@@ -199,21 +229,19 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                   {shopData.total_table_count}
                 </p>
                 <div class="mb-5">
-                  {shopData?.photo && (
+                  {!shopData?.photo ? (
+                    <img
+                      className="rounded h-80"
+                      src={noimages}
+                      alt="no_images"
+                    />
+                  ) : (
                     <img
                       className="rounded"
                       src={shopData.photo}
                       alt={shopData.name}
                     />
                   )}
-                  {!shopData?.photo ||
-                    ("NULL" && (
-                      <img
-                        className="rounded h-80"
-                        src={noimages}
-                        alt="no_images"
-                      />
-                    ))}
                 </div>
               </div>
             </div>
