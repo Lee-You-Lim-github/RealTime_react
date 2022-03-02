@@ -109,6 +109,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
   }, []);
 
   let today = new Date();
+  console.log(today);
 
   return (
     <div className="mb-3">
@@ -131,7 +132,8 @@ function UserBookingComponent({ bookingList, booking_object }) {
           <p className="text-left">{booking_object.book_table_count}</p>
 
           <React.Fragment>
-            {new Date(booking_object.day) - today > 0 && (
+            {new Date(`${booking_object.day} ${booking_object.time}`) - today >
+              0 && (
               <div className="flex justify-end">
                 <button
                   disabled={deleteLoading}
@@ -143,9 +145,8 @@ function UserBookingComponent({ bookingList, booking_object }) {
                 </button>
               </div>
             )}
-            {new Date(booking_object.day) - today < 0 && (
-              <div className="flex justify-end">방문완료 ✅</div>
-            )}
+            {new Date(`${booking_object.day} ${booking_object.time}`) - today <
+              0 && <div className="flex justify-end">방문완료 ✅</div>}
             <DeleteConfirmModal
               handleDelete={handleDelete}
               open={modalOpen}
