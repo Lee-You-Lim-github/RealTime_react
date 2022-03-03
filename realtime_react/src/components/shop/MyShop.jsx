@@ -283,7 +283,7 @@ function Myshop({ shopId }) {
                   </button>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start xl:text-xl">편의시설</p>
+                  <p className="flex items-start mr-5 xl:text-xl">편의시설</p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-8 xl:w-12 lg:w-8 md:w-9 sm:w-9 text-cyan-500"
