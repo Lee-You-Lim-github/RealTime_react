@@ -45,7 +45,6 @@ function AdminShopComponent({ admin_shop, handleDelete }) {
             <button
               type="button"
               onClick={openModal}
-              // disabled={false}
               value={admin_shop.id}
               className="text-sm bg-violet-400 hover:bg-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
