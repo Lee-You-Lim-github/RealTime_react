@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 function PageNotLogin() {
   return (
     <div className="flex flex-col">
-      <div className="ml-96 px-10">
-        <img className="mt-28 ml-64 w-44 h-44" alt="warn" src={warn} />
+      <div className="flex mx-auto px-10">
+        <img className="shrink mt-28 w-44 h-44" alt="warn" src={warn} />
       </div>
       <div className="text-4xl pt-11">지금어때에 방문하신 것을 환영합니다.</div>
       <div className="text-l mt-1 pt-3">
