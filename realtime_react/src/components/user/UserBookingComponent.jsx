@@ -1,7 +1,6 @@
 import { useApiAxios } from "api/base";
 import LoadingIndicator from "components/LoadingIndicator";
 import DeleteConfirmModal from "components/modal/DeleteConfirmModal";
-import { toast } from "react-toastify";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -52,10 +51,6 @@ function UserBookingComponent({ bookingList, booking_object }) {
     );
 
   console.log(booking_object.book_table_count);
-
-  // const minus = () => {
-  //   setValue((value - booking_object.book_table_count))
-  // }
 
   const handleDelete = () => {
     if (booking_object.method === "1") {
@@ -108,8 +103,19 @@ function UserBookingComponent({ bookingList, booking_object }) {
     };
   }, []);
 
+  // 오늘 날짜
   let today = new Date();
-  console.log(today);
+
+  // 0: 방문예정 1:방문완료
+  const visit_state = (visit) => {
+    if (visit === "0") {
+      return <div className="flex justify-end">방문예정!</div>;
+    } else if (visit === "1") {
+      return <div className="flex justify-end">방문완료 ✅</div>;
+    } else {
+      <div></div>;
+    }
+  };
 
   return (
     <div className="mb-3">
@@ -145,8 +151,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
                 </button>
               </div>
             )}
-            {new Date(`${booking_object.day} ${booking_object.time}`) - today <
-              0 && <div className="flex justify-end">방문완료 ✅</div>}
+            {visit_state(booking_object.visit_status)}
             <DeleteConfirmModal
               handleDelete={handleDelete}
               open={modalOpen}
