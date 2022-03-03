@@ -4,7 +4,6 @@ import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
 import log_in from "assets/img/login.png";
-import login_marker from "assets/img/login_marker.png";
 
 const INIT_FIELD_VALUES = { user_id: "", password: "" };
 
@@ -65,9 +64,6 @@ function LoginForm() {
         <div className="w-2/3">
           <div className="flex justify-center">
             <span className="text-3xl mr-2">로그인</span>
-            <span className="-mt-1">
-              <img src={login_marker} alt="login_marker" className="w-8 h-8" />
-            </span>
           </div>
 
           <div className="text-sm mt-3 mb-3">
