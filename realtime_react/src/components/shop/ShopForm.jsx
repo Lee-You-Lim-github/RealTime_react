@@ -140,10 +140,10 @@ function ShopForm({ shopId, handleDidSave }) {
   };
 
   return (
-    <div className="bg-scroll bg-[url('assets/img/KakaoMap.png')] bg-cover">
+    <div className="bg-scroll bg-[url('assets/img/koreafood.png')] bg-cover">
       <div className="flex justify-center items-center">
         <div className="lg:w-2/5 md:w-1/2 w-2/3">
-          <div className="bg-white border-2 border-violet-300 rounded-lg shadow-xl mx-auto p-10 mt-10 mb-20">
+          <div className="bg-white border-2 border-violet-300 rounded-lg shadow-xl mx-auto p-10 my-20">
             {!shopId ? (
               <h2 className="text-center text-3xl mb-10">가맹점 가입</h2>
             ) : (
