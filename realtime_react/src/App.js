@@ -58,6 +58,28 @@ function App() {
               <Route path="/admin/user/" element={<PageAdminUser />} />
               <Route path="/admin/shop/" element={<PageAdminShop />} />
               <Route path="/admin/booking/" element={<PageAdminBooking />} />
+              <Route path="/accounts/login/" element={<PageNotAccess />} />
+              <Route path="/accounts/userjoin/" element={<PageNotAccess />} />
+              <Route path="/shop/new/" element={<PageNotAccess />} />
+              <Route path="/shop/:shopId/" element={<PageNotAccess />} />
+              <Route path="/shop/:shopId/edit/" element={<PageNotAccess />} />
+              <Route
+                path="/shop/:shopId/booking/new/"
+                element={<PageNotAccess />}
+              />
+              <Route
+                path="/shop/:shopId/bookings/"
+                element={<PageNotAccess />}
+              />
+              <Route path="/user/mypage/:userId/" element={<PageNotAccess />} />
+              <Route
+                path="/user/mypage/:userId/edit/"
+                element={<PageNotAccess />}
+              />
+              <Route
+                path="/user/:userId/bookings/"
+                element={<PageNotAccess />}
+              />
             </Routes>
           </div>
           <Footer />
