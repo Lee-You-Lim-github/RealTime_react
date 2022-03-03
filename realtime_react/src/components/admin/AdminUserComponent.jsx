@@ -23,11 +23,13 @@ function AdminUserComponent(props) {
     }
   };
 
-  const penalty = (visit) => {
-    if (visit === "2") {
-      return <img className="w-6 h-6" src={penalty_check} alt="" />;
-    } else {
-      return null;
+  const penalty = (visit, index) => {
+    if (index === 0) {
+      if (visit === "2") {
+        return <img className="w-6 h-6" src={penalty_check} alt="" />;
+      } else {
+        return null;
+      }
     }
   };
 
@@ -53,11 +55,12 @@ function AdminUserComponent(props) {
         </td>
         <td className="px-5 border-b border-gray-200 bg-white text-sm">
           <p className="ml-10 whitespace-no-wrap">
-            {user.booking_set
-              ?.filter(
-                (booking_filter) => userId === booking_filter.user_id.user_id
-              )
-              .map((booking) => penalty(booking.visit_status))}
+            {user.booking_set &&
+              user.booking_set
+                ?.filter(
+                  (booking_filter) => userId === booking_filter.user_id.user_id
+                )
+                .map((booking, index) => penalty(booking.visit_status, index))}
           </p>
         </td>
       </tr>
