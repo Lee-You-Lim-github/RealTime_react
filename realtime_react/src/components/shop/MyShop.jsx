@@ -3,9 +3,9 @@ import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 import myshop from "assets/img/myshop.png";
 import "./myshop.css";
+import noimages from "assets/img/noimages.png";
 
 function Myshop({ shopId }) {
   const [auth] = useAuth();
@@ -109,7 +109,7 @@ function Myshop({ shopId }) {
   return (
     <div>
       {myShopData && (
-        <section class="text-gray-600 body-font">
+        <section className="text-gray-600 body-font">
           <div className="flex flex-grow justify-center xl:justify-start lg:justify-start md:justify-start sm:justify-center">
             {/* 타이틀 */}
             <img
@@ -117,7 +117,7 @@ function Myshop({ shopId }) {
               src={myshop}
               alt="shop_booking"
             />
-            <h1 class="text-3xl mt-10 ml-4 mb-4 title-font font-medium text-gray-900">
+            <h1 className="text-3xl mt-10 ml-4 mb-4 title-font font-medium text-gray-900">
               마이스토어
             </h1>
             <button
@@ -134,7 +134,7 @@ function Myshop({ shopId }) {
               onClick={handleHolidaySubmit}
               className="text-sm h-8 mt-10 px-2 rounded focus:outline-none focus:shadow-outline text-white bg-violet-400 hover:bg-red-300 hover:border-red-300 border-2 border-violet-400"
             >
-              휴일
+              휴업
             </button>
             <div>
               {(myShopLaoding || loading) && (
@@ -152,19 +152,26 @@ function Myshop({ shopId }) {
           </div>
 
           {/* 매장 사진 */}
-          <div class=" relativ flex flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-row">
-            <div class="mb-5 xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
-              {myShopData.photo && (
+          <div className=" relative flex flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-row">
+            <div className="mb-5 mt-5 2xl:w-1/3 xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
+              {myShopData?.photo ? (
                 <img
                   src={myShopData.photo}
                   alt={myShopData.name}
+                  className="shopimage relative object-center rounded mx-auto my-auto"
+                />
+              ) : (
+                <img
                   className="shopimage relative object-center rounded mx-auto"
+                  src={noimages}
+                  alt="no_images"
                 />
               )}
             </div>
+
             <hr />
             {/* 매장상세 정보 */}
-            <div class="items-center text-left flex px-12 xl:w-2/3 xl:justify-center lg:w-3/5 lg:pl-14 lg:mt-0 md:w-3/5 md:pl-14 md:mt-0 flex-col md:justify-center sm:px-20">
+            <div className="items-left text-left flex px-12 xl:w-2/3 lg:w-3/5 lg:pl-14 lg:mt-0 md:w-3/5 md:pl-14 md:mt-0 flex-col md:justify-center sm:px-20">
               <ul className="list-disc space-y-5">
                 <li className="flex items-start">
                   <p className="flex items-start xl:text-xl">매장명</p>
@@ -332,7 +339,7 @@ function Myshop({ shopId }) {
       )}
       <div className="flex justify-center pt-5 text-base leading-6 font-bold mb-10 sm:text-lg sm:leading-7">
         <button
-          class="inline-flex text-white bg-violet-400 py-1 px-4 focus:outline-none hover:bg-red-300 hover:border-red-300 border-2 border-violet-400 rounded 2xl:text-xl xl:text-xl lg:text-xl md:text-xl sm:text-sm"
+          className="inline-flex text-white bg-violet-400 py-1 px-4 focus:outline-none hover:bg-red-300 hover:border-red-300 border-2 border-violet-400 rounded 2xl:text-xl xl:text-xl lg:text-xl md:text-xl sm:text-sm"
           onClick={() => navigate(`/shop/${shopId}/edit/`)}
         >
           수정
