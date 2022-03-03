@@ -41,7 +41,7 @@ function UserBooking() {
   }, []);
 
   return (
-    <div className="w-[900px] mx-auto mt-14">
+    <div className="w-[900px] mx-auto mt-14 mb-20">
       <div className="flex flex-row mt-14 mb-5">
         <img src={user_booking} alt="" className="w-8 h-8 ml-2" />
         <h2 className="text-left text-2xl ml-2">예약현황</h2>
