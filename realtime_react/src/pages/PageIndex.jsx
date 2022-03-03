@@ -2,14 +2,13 @@ import { useApiAxios } from "api/base";
 import Map from "components/map/Map";
 import Sidebar from "components/map/SideBar";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 function PageIndex() {
   const [query, setQuery] = useState();
   const [reload, setReload] = useState(false);
   const [{ data: getData, loading, error }, refetch] = useApiAxios(
     {
-      url: `/shop/api/shops/${query ? "?query=" + query : ""}`,
+      url: `/shop/api/shops/?all${query ? "&query=" + query : ""}`,
       method: "GET",
     },
     { manual: true }
@@ -41,8 +40,8 @@ function PageIndex() {
     <>
       <div className="page">{getData && <Map getData={getData} />}</div>
       <div className="paging shadow-lg shadow-gray-500/80">
-        <div class="xl:w-90">
-          <div class="input-group relative flex flex-wrap items-stretch w-full rounded">
+        <div className="xl:w-90">
+          <div className="input-group relative flex flex-wrap items-stretch w-full rounded">
             <input
               className="w-60 h-9"
               type="search"
@@ -51,7 +50,7 @@ function PageIndex() {
               onKeyPress={searchShop}
             />
             <span
-              class="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 text-center whitespace-nowrap rounded"
+              className="input-group-text flex items-center px-3 py-1.5 text-base font-normal text-gray-700 text-center whitespace-nowrap rounded"
               id="basic-addon2"
             >
               <svg
@@ -59,7 +58,7 @@ function PageIndex() {
                 focusable="false"
                 data-prefix="fas"
                 data-icon="search"
-                class="w-4"
+                className="w-4"
                 role="img"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 512 512"
