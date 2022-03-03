@@ -44,7 +44,7 @@ const Sidebar = ({ width = 280, children }) => {
         className={styles.sidebar}
         style={{
           width: `${width}px`,
-          height: "500px",
+
           transform: `translatex(${-xPosition}px)`,
         }}
       >
