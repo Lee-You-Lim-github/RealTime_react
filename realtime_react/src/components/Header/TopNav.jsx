@@ -3,6 +3,7 @@ import { useAuth } from "contexts/AuthContext";
 import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./TopNav.css";
+import Logo from "assets/img//LogoSample.png";
 
 function TopNav() {
   const [auth, , , logout] = useAuth();
@@ -49,7 +50,7 @@ function TopNav() {
       <div className="header">
         <div className="flex place-content-between gap-3 border-b-4 border-red-300">
           <NavLink to="/" className="px-4 py-3 mt-2 text-4xl">
-            지금어때
+            <img src={Logo} alt="LOGO" className="w-28 h-10" />
           </NavLink>
           <div className="flex text-xl mr-2">
             {/* 비회원이 로그인 시 */}
