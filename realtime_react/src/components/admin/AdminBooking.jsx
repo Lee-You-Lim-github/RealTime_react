@@ -169,19 +169,19 @@ function AdminBooking({ itemsPerPage = 10 }) {
                   })}
                 </tbody>
               </table>
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePage}
-                pageRangeDisplayed={itemsPerPage}
-                pageCount={pageCount}
-                previousLabel="<"
-                renderOnZeroPageCount={null}
-                className="pagination"
-              />
             </div>
           </div>
         )}
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePage}
+          pageRangeDisplayed={itemsPerPage}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+          className="pagination"
+        />
       </div>
     </div>
   );
