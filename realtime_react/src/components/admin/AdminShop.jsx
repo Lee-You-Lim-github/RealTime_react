@@ -10,17 +10,14 @@ function AdminShop({ itemsPerPage = 10 }) {
   // paging
   const [, setItem] = useState(null);
   const [pageCount, setPageCount] = useState(1);
-  const [, setPage] = useState(1);
+  const [page, setPage] = useState(1);
 
   // search
   const [query, setQuery] = useState();
 
-  // reload
-  const [reload, setReload] = useState(false);
-
   const [{ data: adminShopData, loading, error }, adminRefetch] = useApiAxios(
     {
-      url: `shop/api/shops/${query ? "?query=" + query : ""}`,
+      url: `/shop/api/shops/`,
       method: "GET",
     },
     { manual: true }
@@ -28,18 +25,23 @@ function AdminShop({ itemsPerPage = 10 }) {
 
   const fetchApplication = useCallback(
     async (newPage, newQuery = query) => {
+      console.log(newPage);
       const params = {
         page: newPage,
         query: newQuery,
       };
 
       const { data } = await adminRefetch({ params });
+      console.log(data);
 
       setPage(newPage);
+
+      console.log(data.count);
       setPageCount(Math.ceil(data.count / itemsPerPage));
+      console.log(pageCount);
       setItem(data?.results);
     },
-    [query]
+    [query, adminRefetch]
   );
 
   // get_users_refetch()
@@ -68,23 +70,18 @@ function AdminShop({ itemsPerPage = 10 }) {
     })
       .then((Response) => {
         alert("삭제되었습니다.");
-        setReload(true);
+        fetchApplication(page);
       })
       .catch((error) => console.log(error));
   };
-
-  useEffect(() => {
-    adminRefetch();
-  }, [reload]);
 
   // 사업자번호 / 매장명으로 검색
   const search = (e) => {
     if (e.key === "Enter") {
       const { value } = e.target;
       setQuery(value);
-      setReload((prevState) => !prevState);
+      fetchApplication(1, query);
     }
-    adminRefetch();
   };
 
   const getQuery = (e) => {
@@ -123,13 +120,13 @@ function AdminShop({ itemsPerPage = 10 }) {
                 onChange={getQuery}
                 onKeyPress={search}
                 placeholder="사업자등록번호/매장명"
-                class="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+                className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
               />
               <button
                 type="button"
                 onClick={search}
                 value={getQuery}
-                class="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
+                className="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
               >
                 <svg
                   className="bg-white h-4 w-4 fill-current"
@@ -167,30 +164,31 @@ function AdminShop({ itemsPerPage = 10 }) {
                         주소
                       </th>
                       <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        매장 삭제
+                        매장 정보 삭제
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {adminShopData?.map((admin_shop) => (
+                    {adminShopData?.results?.map((admin_shop) => (
                       <AdminShopComponent
+                        key={admin_shop.id}
                         admin_shop={admin_shop}
                         handleDelete={handleDelete}
                       />
                     ))}
                   </tbody>
                 </table>
-                <ReactPaginate
-                  breakLabel="..."
-                  nextLabel=">"
-                  onPageChange={handlePage}
-                  pageRangeDisplayed={itemsPerPage}
-                  pageCount={pageCount}
-                  previousLabel="<"
-                  renderOnZeroPageCount={null}
-                  className="pagination"
-                />
               </div>
+              <ReactPaginate
+                breakLabel="..."
+                nextLabel=">"
+                onPageChange={handlePage}
+                pageRangeDisplayed={itemsPerPage}
+                pageCount={pageCount}
+                previousLabel="<"
+                renderOnZeroPageCount={null}
+                className="pagination"
+              />
             </div>
           )}
         </div>
