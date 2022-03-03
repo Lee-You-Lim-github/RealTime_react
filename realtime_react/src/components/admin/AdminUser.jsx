@@ -106,7 +106,7 @@ function AdminUser({ itemsPerPage = 10 }) {
             <button
               type="button"
               onClick={search}
-              value={getQuery}
+              onChange={getQuery}
               className="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
             >
               <svg

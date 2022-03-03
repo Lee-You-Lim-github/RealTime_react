@@ -164,7 +164,7 @@ function UserJoinForm({ handleDidSave }) {
               ))}
             </div>
             <div>
-              <label class="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
+              <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
                 닉네임
               </label>
               <input
