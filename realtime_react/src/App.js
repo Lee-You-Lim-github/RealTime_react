@@ -19,6 +19,7 @@ import PageAdminUser from "pages/admin/PageAdminUser";
 import PageShopNot from "pages/notfound/PageShopNot";
 import PageNotAccess from "pages/notfound/PageNotAccess";
 import PageNotLogin from "pages/notfound/PageNotLogin";
+import Footer from "components/Footer/Footer";
 
 function App() {
   const [auth] = useAuth();
@@ -59,6 +60,7 @@ function App() {
               <Route path="/admin/booking/" element={<PageAdminBooking />} />
             </Routes>
           </div>
+          <Footer />
         </>
       );
     } else {
