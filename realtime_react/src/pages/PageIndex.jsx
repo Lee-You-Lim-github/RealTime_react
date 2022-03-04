@@ -33,7 +33,7 @@ function PageIndex() {
   };
 
   useEffect(() => {
-    refetch().then((request) => console.log(request));
+    refetch().then();
   }, [reload]);
 
   return (

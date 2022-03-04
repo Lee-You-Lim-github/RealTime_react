@@ -50,8 +50,6 @@ function UserBookingComponent({ bookingList, booking_object }) {
       { manual: true }
     );
 
-  console.log(booking_object.book_table_count);
-
   const handleDelete = () => {
     if (booking_object.method === "1") {
       setTableCount(
@@ -71,7 +69,6 @@ function UserBookingComponent({ bookingList, booking_object }) {
   useEffect(() => {
     shopPatchrefetch({ data: { now_table_count: tableCount } })
       .then((response) => {
-        console.log(response.data);
         setTableCount(response.data.now_table_count);
       })
       .catch((error) => console.log(error));

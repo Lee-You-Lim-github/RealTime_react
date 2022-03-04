@@ -119,7 +119,6 @@ function Modal(props) {
       data: { now_table_count: tableCount },
     })
       .then((response) => {
-        console.log(response.data);
         setTableCount(response.data.now_table_count);
       })
       .catch((error) => console.log(error));
