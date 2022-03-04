@@ -33,7 +33,7 @@ function UserReviewList(props) {
                       <button
                         // disabled={deleteLoading}
                         onClick={openModal}
-                        value={review.id}
+                        onChange={review.id}
                         className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1 px-2"
                       >
                         삭제

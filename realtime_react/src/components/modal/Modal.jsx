@@ -1,11 +1,8 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./modal.css";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function Modal(props) {
   // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
@@ -97,6 +94,7 @@ function Modal(props) {
     };
     let timestring_day = `${time.year}-${time.month}-${time.date}`;
     let timestring_time = `${time.hours}:${time.minutes}:${time.seconds}`;
+
     if (value !== 0) {
       saveNowBooking({
         data: {
@@ -109,15 +107,6 @@ function Modal(props) {
           time: timestring_time,
         },
       }).then((response) => {
-        toast.info("예약되었습니다. 🚀 ", {
-          position: "top-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
         if (value >= 1) {
           window.location.replace(`/user/${auth.id}/bookings/`);
         }
@@ -130,7 +119,6 @@ function Modal(props) {
       data: { now_table_count: tableCount },
     })
       .then((response) => {
-        console.log(response.data);
         setTableCount(response.data.now_table_count);
       })
       .catch((error) => console.log(error));
@@ -138,7 +126,6 @@ function Modal(props) {
 
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
-
     <div className={open ? "openModal modal" : "modal"}>
       {open ? (
         <section>

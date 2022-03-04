@@ -46,15 +46,15 @@ function AdminBookingComponent({ booking, index }) {
           </p>
         </td>
         <td className="px-3 py-5 border-b border-gray-200 bg-white text-sm">
-          <p className="text-gray-900 whitespace-no-wrap">
+          <div className="text-gray-900 whitespace-no-wrap">
             {booking.visit_status === "1" ? (
-              <p>방문</p>
+              <div>방문</div>
             ) : booking.visit_status === "2" ? (
-              <p>미방문</p>
+              <div>미방문</div>
             ) : (
-              <p>방문예정</p>
+              <div>방문예정</div>
             )}
-          </p>
+          </div>
         </td>
       </tr>
     </React.Fragment>

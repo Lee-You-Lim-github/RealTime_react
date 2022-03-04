@@ -228,7 +228,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                   잔여 테이블수: {shopData.now_table_count}/
                   {shopData.total_table_count}
                 </p>
-                <div class="mb-5">
+                <div className="mb-5">
                   {!shopData?.photo ? (
                     <img
                       className="rounded h-80"
@@ -248,7 +248,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
           </div>
 
           <div className="relativ flex flex-col w-3/5">
-            <div class="">
+            <div>
               <ul className="">
                 <li className="flex justify-center">
                   <div className="text-xl border border-violet-400 p-2 mx-2 mt-10 w-5/6">

@@ -159,7 +159,9 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
             />
             <h2
               className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
-              onClick={() => window.location.replace("/admin/user/")}
+              onClick={() =>
+                window.location.replace(`/shop/${shopId}/bookings/`)
+              }
             >
               예약자 명단
             </h2>

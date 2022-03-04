@@ -1,4 +1,3 @@
-import DebugStates from "components/DebugStates";
 import { useEffect, useState } from "react";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import marker1 from "assets/img/marker1.png";
@@ -80,7 +79,6 @@ function TypeMap({ getData }) {
   }, [selectedCategory]);
 
   var positions = getData?.map((data) => {
-    // console.log("data:", data);
     return {
       shop_id: data.id,
       name: data.name,

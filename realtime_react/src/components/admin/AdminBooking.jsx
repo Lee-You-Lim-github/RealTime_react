@@ -74,11 +74,14 @@ function AdminBooking({ itemsPerPage = 10 }) {
   };
 
   return (
-    <div className="bg-white p-8 rounded-md w-[900px] m-auto">
+    <div className="bg-white p-8 rounded-md w-[900px] mx-auto">
       <div className="flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
           <img className="w-9 h-9 ml-2" src={shop_booking} alt="shop_booking" />
-          <h2 className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer">
+          <h2
+            className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
+            onClick={() => window.location.replace("/admin/booking/")}
+          >
             예약현황
           </h2>
         </div>
@@ -94,13 +97,13 @@ function AdminBooking({ itemsPerPage = 10 }) {
               onChange={getQuery}
               onKeyPress={search}
               placeholder="매장명/예약자명"
-              class="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+              className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
             />
             <button
               type="button"
               onClick={search}
-              value={getQuery}
-              class="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
+              onChange={getQuery}
+              className="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
             >
               <svg
                 className="bg-white h-4 w-4 fill-current"
@@ -157,24 +160,28 @@ function AdminBooking({ itemsPerPage = 10 }) {
                 <tbody>
                   {getBookingData?.results?.map((booking, index) => {
                     return (
-                      <AdminBookingComponent booking={booking} index={index} />
+                      <AdminBookingComponent
+                        booking={booking}
+                        key={booking.id}
+                        index={index}
+                      />
                     );
                   })}
                 </tbody>
               </table>
-              <ReactPaginate
-                breakLabel="..."
-                nextLabel=">"
-                onPageChange={handlePage}
-                pageRangeDisplayed={itemsPerPage}
-                pageCount={pageCount}
-                previousLabel="<"
-                renderOnZeroPageCount={null}
-                className="pagination"
-              />
             </div>
           </div>
         )}
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=">"
+          onPageChange={handlePage}
+          pageRangeDisplayed={itemsPerPage}
+          pageCount={pageCount}
+          previousLabel="<"
+          renderOnZeroPageCount={null}
+          className="pagination"
+        />
       </div>
     </div>
   );

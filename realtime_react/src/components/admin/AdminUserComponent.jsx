@@ -26,7 +26,9 @@ function AdminUserComponent(props) {
   const penalty = (visit, index) => {
     if (index === 0) {
       if (visit === "2") {
-        return <img className="w-6 h-6" src={penalty_check} alt="" />;
+        return (
+          <img className="w-6 h-6" src={penalty_check} alt="" key={index} />
+        );
       } else {
         return null;
       }
