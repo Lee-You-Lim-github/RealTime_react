@@ -6,10 +6,6 @@ function AdminUserComponent(props) {
 
   const [userId, setUserId] = useState();
 
-  console.log(user.id);
-  console.log(user);
-  console.log(user.booking_set);
-
   useEffect(() => {
     setUserId(user.user_id);
   }, []);

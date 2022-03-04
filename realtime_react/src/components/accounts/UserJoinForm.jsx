@@ -34,8 +34,6 @@ function UserJoinForm({ handleDidSave }) {
 
   const handleSubmit = () => {
     requestMember({ data: fieldValues }).then((response) => {
-      console.log("가입완료");
-
       const {
         user_id,
         password,

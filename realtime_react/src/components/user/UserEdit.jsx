@@ -53,7 +53,6 @@ function UserEdit({ userId }) {
       data: fieldValues,
     }).then((response) => {
       setReload(true);
-      console.log("response.data:", response.data);
       if (userData !== fieldValues) {
         logout();
         navigate("/accounts/login/");

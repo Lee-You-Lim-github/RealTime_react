@@ -37,7 +37,7 @@ function UserBooking() {
   }, [bookingList, auth.id]);
 
   useEffect(() => {
-    refetch().then((response) => console.log(response.data));
+    refetch().then();
   }, []);
 
   return (

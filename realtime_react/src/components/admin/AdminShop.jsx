@@ -25,20 +25,17 @@ function AdminShop({ itemsPerPage = 10 }) {
 
   const fetchApplication = useCallback(
     async (newPage, newQuery = query) => {
-      console.log(newPage);
       const params = {
         page: newPage,
         query: newQuery,
       };
 
       const { data } = await adminRefetch({ params });
-      console.log(data);
 
       setPage(newPage);
 
-      console.log(data.count);
       setPageCount(Math.ceil(data.count / itemsPerPage));
-      console.log(pageCount);
+
       setItem(data?.results);
     },
     [query, adminRefetch]
@@ -72,7 +69,7 @@ function AdminShop({ itemsPerPage = 10 }) {
         alert("삭제되었습니다.");
         fetchApplication(page);
       })
-      .catch((error) => console.log(error));
+      .catch();
   };
 
   // 사업자번호 / 매장명으로 검색

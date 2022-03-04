@@ -4,8 +4,6 @@ function useFieldValues(initialValues) {
   const [fieldValues, setFieldValues] = useState(initialValues);
 
   const handleFieldChange = useCallback((e) => {
-    console.log(e.target.value);
-
     const { type, name, value, files, checked } = e.target;
 
     let newValue;

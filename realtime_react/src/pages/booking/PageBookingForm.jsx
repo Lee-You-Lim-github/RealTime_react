@@ -10,7 +10,6 @@ function PageBookingForm() {
       <BookingForm
         shopId={shopId}
         handleDidSave={(saveBooking) => {
-          console.log(saveBooking.user_id);
           navigate(`/user/${saveBooking.user_id}/bookings/`);
         }}
       />

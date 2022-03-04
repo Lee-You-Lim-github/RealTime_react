@@ -58,7 +58,7 @@ function Myshop({ shopId }) {
         alert("휴일로 변경되었습니다.");
         refetch();
       })
-      .catch((error) => console.log(error));
+      .catch();
   };
 
   // 영업중을 눌렀을 때
@@ -70,7 +70,7 @@ function Myshop({ shopId }) {
         alert("영업 중으로 변경되었습니다.");
         refetch();
       })
-      .catch((error) => console.log(error));
+      .catch();
   };
 
   // Plus를 눌렀을 때(전체 테이블 수보다 추가할 수 없음.)
@@ -103,7 +103,7 @@ function Myshop({ shopId }) {
       .then((response) => {
         setTableCount(response.data.now_table_count);
       })
-      .catch((error) => console.log(error));
+      .catch();
   }, [tableCount]);
 
   return (

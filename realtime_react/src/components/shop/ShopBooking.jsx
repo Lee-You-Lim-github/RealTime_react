@@ -63,8 +63,6 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     [query]
   );
 
-  console.log(query);
-
   // get_bookings_refetch()
   useEffect(() => {
     refetch();
@@ -108,11 +106,10 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     })
       .then((response) => {
         alert("방문이 확인되었습니다.");
-        console.log(response.data.visit_status);
         refetch();
         setLoading(true);
       })
-      .catch((error) => console.log(error));
+      .catch();
   }, []);
 
   // 회원이 미방문한 경우
@@ -124,16 +121,14 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     })
       .then((response) => {
         alert("패널티가 부여되었습니다.");
-        console.log(response.data.visit_status);
         refetch();
         setLoading(true);
       })
-      .catch((error) => console.log(error));
+      .catch();
   }, []);
 
   // 이름 / 휴대폰 뒷자리로 검색
   const search = (e) => {
-    console.log(e.target.value);
     if (e.key === "Enter") {
       const { value } = e.target;
       setQuery(value);

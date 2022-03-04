@@ -121,7 +121,7 @@ function Modal(props) {
       .then((response) => {
         setTableCount(response.data.now_table_count);
       })
-      .catch((error) => console.log(error));
+      .catch();
   }, [tableCount]);
 
   return (

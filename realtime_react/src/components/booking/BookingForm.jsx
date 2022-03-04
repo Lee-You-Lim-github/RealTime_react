@@ -43,7 +43,6 @@ function BookingForm({ shopId, handleDidSave }) {
       }).then((response) => {
         alert("예약되었습니다.");
         const saveBooking = response.data;
-        console.log(saveBooking);
         if (handleDidSave) handleDidSave(saveBooking);
       });
     } else {

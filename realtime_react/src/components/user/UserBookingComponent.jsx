@@ -71,7 +71,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
       .then((response) => {
         setTableCount(response.data.now_table_count);
       })
-      .catch((error) => console.log(error));
+      .catch();
   }, [tableCount]);
 
   // confirm 모달 열기

@@ -107,13 +107,10 @@ function ShopForm({ shopId, handleDidSave }) {
     });
     formData.append("user_id", auth.id);
 
-    console.log(formData);
-
     if (!shopId) {
       saveShopRequest({
         data: formData,
       }).then((response) => {
-        console.log(response.data);
         alert("등록되었습니다! 재로그인 해주세요.");
         logout();
         navigate("/accounts/login/");
