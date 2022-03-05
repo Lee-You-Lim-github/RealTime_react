@@ -54,6 +54,7 @@ function UserEdit({ userId }) {
     }).then((response) => {
       setReload(true);
       if (userData !== fieldValues) {
+        alert("수정되었습니다. 재로그인 해주세요!");
         logout();
         navigate("/accounts/login/");
       } else navigate(`/user/mypage/${userId}/`);
