@@ -83,7 +83,7 @@ function TypeMap({ getData }) {
       shop_id: data.id,
       name: data.name,
       lat: data.lat,
-      lng: data.long,
+      lng: data.longitude,
       address: data.address,
       now_table_count: data.now_table_count,
       total_table_count: data.total_table_count,

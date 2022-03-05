@@ -13,7 +13,7 @@ const INIT_FIELD_VALUES = {
   category: "한식",
   address: "",
   lat: 0,
-  long: 0,
+  longitude: 0,
   telephone: "",
   opening_hours: "",
   total_table_count: 0,
@@ -266,15 +266,15 @@ function ShopForm({ shopId, handleDidSave }) {
               </label>
               <input
                 type="number"
-                name="long"
-                value={fieldValues.long}
+                name="longitude"
+                value={fieldValues.longitude}
                 onChange={handleFieldChange}
                 placeholder="경도를 입력해주세요. 예) 36.00000"
                 step="0.00001"
                 min="0"
                 className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
               />
-              {ShopSavedErrorMessages.long?.map((message, index) => (
+              {ShopSavedErrorMessages.longitude?.map((message, index) => (
                 <p key={index} className="text-xs text-red-400">
                   {message}
                 </p>
