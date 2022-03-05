@@ -106,6 +106,24 @@ function Myshop({ shopId }) {
       .catch();
   }, [tableCount]);
 
+  // 매장소개 -- blank or "NULL"일 때 "등록된 매장소개가 없습니다."
+  const intro_null = (a) => {
+    if (a === "NULL" || !myShopData.intro) {
+      return "등록된 매장소개가 없습니다.";
+    } else {
+      return `${myShopData?.intro}`;
+    }
+  };
+
+  // 공지사항 -- blank or "NULL"일 때 "등록된 공지사항이 없습니다."
+  const notice_null = (a) => {
+    if (a === "NULL" || !myShopData.notice) {
+      return "등록된 공지가 없습니다.";
+    } else {
+      return `${myShopData.notice}`;
+    }
+  };
+
   return (
     <div>
       {myShopData && (
@@ -314,7 +332,7 @@ function Myshop({ shopId }) {
                     ></svg>
                   </span>
                   <div className="ml-2 xl:text-xl">
-                    <p>{myShopData.notice}</p>
+                    <p>{notice_null(myShopData?.notice)}</p>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -329,7 +347,7 @@ function Myshop({ shopId }) {
                     ></svg>
                   </span>
                   <div className="ml-2 xl:text-xl">
-                    <p>{myShopData.intro}</p>
+                    <p>{intro_null(myShopData.intro)}</p>
                   </div>
                 </li>
               </ul>

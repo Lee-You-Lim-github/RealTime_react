@@ -14,7 +14,7 @@ function ShopDetailComponent({ shopinfo }) {
 
   const intro_null = (a) => {
     if (a === "NULL" || !intro) {
-      return "등록된 공지가 없습니다.";
+      return "등록된 매장소개가 없습니다.";
     } else {
       return `${intro}`;
     }
