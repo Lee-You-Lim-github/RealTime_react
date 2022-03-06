@@ -127,6 +127,7 @@ function App() {
               </Routes>
               <NotAccess />
             </div>
+            <Footer />
           </>
         );
       }
@@ -167,6 +168,7 @@ function App() {
                 />
               </Routes>
               <NotAccess />
+              <Footer />
             </div>
           </>
         );
@@ -197,6 +199,7 @@ function App() {
             <Route path="/user/:userId/bookings/" element={<PageNotAccess />} />
           </Routes>
           <NotAccess />
+          <Footer />
         </div>
       </>
     );
