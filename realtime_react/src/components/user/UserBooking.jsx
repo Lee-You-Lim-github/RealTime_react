@@ -17,7 +17,7 @@ function UserBooking() {
     refetch,
   ] = useApiAxios(
     {
-      url: "/booking/api/bookings/?all&ordering=-day",
+      url: "/booking/api/bookings/?all&ordering=day",
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
