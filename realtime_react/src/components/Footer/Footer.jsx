@@ -8,7 +8,7 @@ import kakaomapLogo from "assets/img/kakaomapLogo.png";
 
 const Footer = () => {
   return (
-    <footer className="text-center lg:text-left bg-gray-100 text-gray-600">
+    <footer className="text-center lg:text-left bg-gray-100 text-gray-600 mt-32">
       {/* footer body */}
       <div className="mx-10 py-3 text-center md:text-left">
         <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -30,7 +30,7 @@ const Footer = () => {
             <p>
               외식을 즐기는 소비구조의 변화로 인해 소비자가 특정 매장을
               방문하고자 하는 니즈를 파악하여 시각적 시스템을 제공해 혼잡도
-              현황을 확인할 수 있도록 구현한다.
+              현황을 확인할 수 있습니다.
             </p>
           </div>
           <div className="">
