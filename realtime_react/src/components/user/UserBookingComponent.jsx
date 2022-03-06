@@ -142,7 +142,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
                   <button
                     disabled={deleteLoading}
                     onClick={openModal}
-                    onChange={booking_object.id}
+                    value={booking_object.id}
                     className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1"
                   >
                     예약취소
