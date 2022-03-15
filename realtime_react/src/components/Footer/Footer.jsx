@@ -8,7 +8,7 @@ import kakaomapLogo from "assets/img/kakaomapLogo.png";
 
 const Footer = () => {
   return (
-    <footer className="text-center lg:text-left bg-gray-100 text-gray-600 mt-32">
+    <footer className="text-center lg:text-left bg-gray-100 text-gray-600">
       {/* footer body */}
       <div className="mx-10 py-3 text-center md:text-left">
         <div className="grid grid-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
