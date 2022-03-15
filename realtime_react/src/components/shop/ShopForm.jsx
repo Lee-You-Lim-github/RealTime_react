@@ -321,7 +321,7 @@ function ShopForm({ shopId, handleDidSave }) {
                 value={fieldValues.total_table_count}
                 onChange={handleFieldChange}
                 placeholder="10"
-                min={0}
+                min={1}
                 className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
               />
             </div>
