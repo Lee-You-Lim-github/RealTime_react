@@ -105,12 +105,15 @@ function UserBookingComponent({ bookingList, booking_object }) {
 
   // 0: 방문예정 1:방문완료
   const visit_state = (visit) => {
-    if (visit === "0") {
-      return <div className="flex justify-end">방문예정 🚀</div>;
+    if (
+      visit === "2" ||
+      new Date(`${booking_object.day} ${booking_object.time}`) - today < 0
+    ) {
+      return <div className="flex justify-end text-red-600">미방문 😢</div>;
     } else if (visit === "1") {
       return <div className="flex justify-end ">방문완료 ✅</div>;
     } else {
-      return <div className="flex justify-end text-red-600">미방문 😢</div>;
+      return <div className="flex justify-end">방문예정 🚀</div>;
     }
   };
 
@@ -135,6 +138,9 @@ function UserBookingComponent({ bookingList, booking_object }) {
           <p className="text-left">{booking_object.book_table_count}</p>
 
           <React.Fragment>
+            <div className="mt-2">
+              {visit_state(booking_object.visit_status)}
+            </div>
             {booking_object.visit_status !== "1" &&
               new Date(`${booking_object.day} ${booking_object.time}`) - today >
                 0 && (
@@ -149,9 +155,14 @@ function UserBookingComponent({ bookingList, booking_object }) {
                   </button>
                 </div>
               )}
-            <div className="mt-2">
-              {visit_state(booking_object.visit_status)}
-            </div>
+
+            {booking_object.visit_status === "1" && (
+              <div className="flex justify-end">
+                <button className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1">
+                  리뷰작성
+                </button>
+              </div>
+            )}
 
             <DeleteConfirmModal
               handleDelete={handleDelete}
