@@ -51,7 +51,7 @@ function Modal(props) {
   const [{ loading: NowLoading, error: NowError }, saveNowBooking] =
     useApiAxios(
       {
-        url: `/booking/api/newbooking/`,
+        url: `/booking/api/bookings/`,
         method: "POST",
         headers: {
           Authorization: `Bearer ${auth.access}`,
