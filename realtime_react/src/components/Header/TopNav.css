@@ -2,4 +2,18 @@
 
 .header {
   font-family: "Jua", sans-serif;
+  width: 100%;
+}
+
+.navigation {
+  width: 100%;
+  padding: 18px 0;
+  text-align: center;
+}
+
+.nav {
+  position: fixed;
+  background: #ffffff;
+  box-shadow: 0 4px 4px -4px black;
+  z-index: 99;
 }
