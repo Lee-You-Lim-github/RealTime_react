@@ -134,7 +134,7 @@ function TopNav() {
               {/* 관리자로 로그인 */}
               {auth.isLoggedIn && auth.is_superuser && (
                 <>
-                  <MyLink to="/admin/user/">관리자님</MyLink>
+                  <MyLink to="/admin/dashboard/">관리자님</MyLink>
                   <span>
                     <button onClick={handleLogout} className={baseClassName}>
                       로그아웃

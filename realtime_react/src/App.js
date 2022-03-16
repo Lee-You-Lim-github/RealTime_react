@@ -20,6 +20,7 @@ import PageShopNot from "pages/notfound/PageShopNot";
 import PageNotAccess from "pages/notfound/PageNotAccess";
 import PageNotLogin from "pages/notfound/PageNotLogin";
 import Footer from "components/Footer/Footer";
+import PageAdminDashboard from "components/admin/PageAdminDashboard";
 
 function App() {
   const [auth] = useAuth();
@@ -55,6 +56,10 @@ function App() {
           </Routes>
           <div className="App">
             <Routes>
+              <Route
+                path="/admin/dashboard/"
+                element={<PageAdminDashboard />}
+              />
               <Route path="/admin/user/" element={<PageAdminUser />} />
               <Route path="/admin/shop/" element={<PageAdminShop />} />
               <Route path="/admin/booking/" element={<PageAdminBooking />} />
