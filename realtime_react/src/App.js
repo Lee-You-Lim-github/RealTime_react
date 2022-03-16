@@ -21,6 +21,7 @@ import PageNotAccess from "pages/notfound/PageNotAccess";
 import PageNotLogin from "pages/notfound/PageNotLogin";
 import Footer from "components/Footer/Footer";
 import PageAdminDashboard from "pages/admin/PageAdminDashboard";
+import PageShopWaiting from "pages/shop/PageShopWaiting";
 
 function App() {
   const [auth] = useAuth();
@@ -157,6 +158,10 @@ function App() {
                 <Route
                   path="/shop/:shopId/bookings/"
                   element={<PageShopBooking />}
+                />
+                <Route
+                  path="/shop/:shopId/waitings/"
+                  element={<PageShopWaiting />}
                 />
                 <Route path="/shop/myshop/:shopId/" element={<PageMyShop />} />
                 <Route
