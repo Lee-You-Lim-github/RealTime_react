@@ -39,9 +39,6 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     {
       url: `/booking/api/bookings/${query ? "?query=" + query : ""}`,
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.access}`,
-      },
     },
     { manual: true }
   );
