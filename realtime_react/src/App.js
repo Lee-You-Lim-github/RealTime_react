@@ -20,7 +20,7 @@ import PageShopNot from "pages/notfound/PageShopNot";
 import PageNotAccess from "pages/notfound/PageNotAccess";
 import PageNotLogin from "pages/notfound/PageNotLogin";
 import Footer from "components/Footer/Footer";
-import PageAdminDashboard from "components/admin/PageAdminDashboard";
+import PageAdminDashboard from "pages/admin/PageAdminDashboard";
 
 function App() {
   const [auth] = useAuth();
