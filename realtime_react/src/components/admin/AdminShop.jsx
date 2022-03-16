@@ -5,6 +5,7 @@ import ReactPaginate from "react-paginate";
 import AdminShopComponent from "./AdminShopComponent";
 import LoadingIndicator from "components/LoadingIndicator";
 import myshop from "assets/img/myshop.png";
+import { useAuth } from "contexts/AuthContext";
 
 function AdminShop({ itemsPerPage = 10 }) {
   // paging
@@ -14,6 +15,8 @@ function AdminShop({ itemsPerPage = 10 }) {
 
   // search
   const [query, setQuery] = useState();
+
+  const [auth] = useAuth();
 
   const [{ data: adminShopData, loading, error }, adminRefetch] = useApiAxios(
     {
@@ -55,6 +58,9 @@ function AdminShop({ itemsPerPage = 10 }) {
       {
         url: `/shop/api/shops/`,
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
       },
       { manual: true }
     );
