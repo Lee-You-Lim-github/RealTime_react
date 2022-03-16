@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import marker1 from "assets/img/marker1.png";
 import marker2 from "assets/img/marker2.png";
@@ -6,12 +6,87 @@ import marker3 from "assets/img/marker3.png";
 import marker4 from "assets/img/marker4.png";
 import marker5 from "assets/img/marker5.png";
 import { Link } from "react-router-dom";
+import styles from "./sidebar.module.css";
+import question from "assets/img/question.png";
+import remove from "assets/img/remove.png";
+
 import "./Map.css";
 
 function TypeMap({ getData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [overlay, setOverlay] = useState();
   const [closeMarker, setCloseMarker] = useState();
+  const [open, setOpen] = useState(false);
+  const [xPosition, setX] = useState(-217);
+  const side = useRef();
+  const [state, setState] = useState({
+    center: {
+      lat: 36.337490378182764,
+      lng: 127.44915430991462,
+    },
+    errMsg: null,
+    isLoading: true,
+  });
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setState((prev) => ({
+            ...prev,
+            center: {
+              lat: position.coords.latitude, // 위도
+              lng: position.coords.longitude, // 경도
+            },
+            isLoading: false,
+          }));
+        },
+        (err) => {
+          setState((prev) => ({
+            ...prev,
+            errMsg: err.message,
+            isLoading: false,
+          }));
+        }
+      );
+    } else {
+      // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+      setState((prev) => ({
+        ...prev,
+        errMsg: "geolocation을 사용할수 없어요..",
+        isLoading: false,
+      }));
+    }
+  }, []);
+
+  // button 클릭 시 토글
+  const toggleMenu = () => {
+    if (xPosition < 0) {
+      setX(0);
+      setOpen(true);
+    } else {
+      setX(-217);
+      setOpen(false);
+    }
+  };
+
+  // 사이드바 외부 클릭시 닫히는 함수
+  const handleClose = async (e) => {
+    let sideArea = side.current;
+    let sideCildren = side.current.contains(e.target);
+    if (open && (!sideArea || !sideCildren)) {
+      await setX(-217);
+      await setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("click", handleClose);
+    return () => {
+      window.removeEventListener("click", handleClose);
+    };
+  });
 
   const event = (name) => {
     setIsOpen(true);
@@ -25,58 +100,7 @@ function TypeMap({ getData }) {
 
   const [selectedCategory, setSelectedCategory] = useState("whole");
 
-  useEffect(() => {
-    const whole = document.getElementById("whole");
-    const korea = document.getElementById("korea");
-    const china = document.getElementById("china");
-    const japan = document.getElementById("japan");
-    const western = document.getElementById("western");
-    const cafe = document.getElementById("cafe");
-
-    if (selectedCategory === "whole") {
-      whole.className = "menu_selected";
-      korea.className = "";
-      china.className = "";
-      japan.className = "";
-      western.className = "";
-      cafe.className = "";
-    } else if (selectedCategory === "korea") {
-      whole.className = "";
-      korea.className = "menu_selected";
-      china.className = "";
-      japan.className = "";
-      western.className = "";
-      cafe.className = "";
-    } else if (selectedCategory === "china") {
-      whole.className = "";
-      korea.className = "";
-      china.className = "menu_selected";
-      japan.className = "";
-      western.className = "";
-      cafe.className = "";
-    } else if (selectedCategory === "japan") {
-      whole.className = "";
-      korea.className = "";
-      china.className = "";
-      japan.className = "menu_selected";
-      western.className = "";
-      cafe.className = "";
-    } else if (selectedCategory === "western") {
-      whole.className = "";
-      korea.className = "";
-      china.className = "";
-      japan.className = "";
-      western.className = "menu_selected";
-      cafe.className = "";
-    } else if (selectedCategory === "cafe") {
-      whole.className = "";
-      korea.className = "";
-      china.className = "";
-      japan.className = "";
-      western.className = "";
-      cafe.className = "menu_selected";
-    }
-  }, [selectedCategory]);
+  useEffect(() => {}, [selectedCategory]);
 
   var positions = getData?.map((data) => {
     return {
@@ -246,22 +270,27 @@ function TypeMap({ getData }) {
     <>
       {/* <DebugStates positions={positions} getData={getData} /> */}
       {/* <RemovableCustomOverlayStyle /> */}
-      <div id="map_wrap">
+      <div>
         <Map // 지도를 표시할 Container
-          id={`map`}
           className=""
-          center={{
+          center={
             // 지도의 중심좌표
-            lat: 36.337490378182764,
-            lng: 127.44915430991462,
-          }}
+            state.center
+          }
           style={{
             // 지도의 크기
-            width: "100%",
-            height: "700px",
+            width: "1000px",
+            height: "450px",
           }}
           level={6} // 지도의 확대 레벨
         >
+          {!state.isLoading && (
+            <MapMarker position={state.center}>
+              <div style={{ padding: "5px", color: "#000" }}>
+                {state.errMsg ? state.errMsg : "현위치"}
+              </div>
+            </MapMarker>
+          )}
           {/* 테이블 수 비율별 마커색 변경 */}
           {selectedCategory === "whole" &&
             positions?.map((marker_object) => {
@@ -294,6 +323,59 @@ function TypeMap({ getData }) {
           {selectedCategory === "cafe" &&
             positions
               ?.filter((p) => p.category === "카페")
+              .map((marker_object) => {
+                return map_marker(marker_object);
+              })}
+
+          {selectedCategory === "relax" &&
+            positions
+              ?.filter(
+                (p) =>
+                  p.holiday === "0" &&
+                  (p.now_table_count / p.total_table_count) * 100 < 34
+              )
+              .map((marker_object) => {
+                return map_marker(marker_object);
+              })}
+
+          {selectedCategory === "normal" &&
+            positions
+              ?.filter(
+                (p) =>
+                  p.holiday === "0" &&
+                  (p.now_table_count / p.total_table_count) * 100 > 33 &&
+                  (p.now_table_count / p.total_table_count) * 100 < 67
+              )
+              .map((marker_object) => {
+                return map_marker(marker_object);
+              })}
+
+          {selectedCategory === "chaos" &&
+            positions
+              ?.filter(
+                (p) =>
+                  p.holiday === "0" &&
+                  (p.now_table_count / p.total_table_count) * 100 > 66 &&
+                  (p.now_table_count / p.total_table_count) * 100 < 100
+              )
+              .map((marker_object) => {
+                return map_marker(marker_object);
+              })}
+
+          {selectedCategory === "max" &&
+            positions
+              ?.filter(
+                (p) =>
+                  p.holiday === "0" &&
+                  (p.now_table_count / p.total_table_count) * 100 === 100
+              )
+              .map((marker_object) => {
+                return map_marker(marker_object);
+              })}
+
+          {selectedCategory === "holiday" &&
+            positions
+              ?.filter((p) => p.holiday === "1")
               .map((marker_object) => {
                 return map_marker(marker_object);
               })}
@@ -352,43 +434,237 @@ function TypeMap({ getData }) {
           )}
         </Map>
         {/* 카테고리 부분 */}
-        <div className="category">
+        <div className="flex justify-center mt-8">
           <ul>
-            <li
-              className="xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10"
+            <button
+              className="mr-5"
               id="whole"
               onClick={() => closeEvent("whole")}
             >
               전체
-            </li>
-            <li
-              className="xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10"
+            </button>
+            <button
+              className="mr-5"
               id="korea"
               onClick={() => closeEvent("korea")}
             >
               한식
-            </li>
-            <li
-              className="xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10"
+            </button>
+            <button
+              className="mr-5"
               id="china"
               onClick={() => closeEvent("china")}
             >
               중식
-            </li>
-            <li
-              className="xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10"
+            </button>
+            <button
+              className="mr-5"
               id="japan"
               onClick={() => closeEvent("japan")}
             >
               일식
-            </li>
-            <li id="western" onClick={() => closeEvent("western")}>
+            </button>
+            <button
+              className="mr-5"
+              id="western"
+              onClick={() => closeEvent("western")}
+            >
               양식
-            </li>
-            <li id="cafe" onClick={() => closeEvent("cafe")}>
+            </button>
+            <button
+              className="mr-5"
+              id="cafe"
+              onClick={() => closeEvent("cafe")}
+            >
               카페
-            </li>
+            </button>
           </ul>
+        </div>
+      </div>
+      <div className={styles.container}>
+        <div
+          ref={side}
+          className={styles.sidebar}
+          style={{
+            width: `${200}px`,
+
+            transform: `translatex(${-xPosition}px)`,
+          }}
+        >
+          <button onClick={() => toggleMenu()} className={styles.button}>
+            {open ? (
+              <span>
+                <img className="bg-auto" src={remove} />
+              </span>
+            ) : (
+              <div
+                style={{
+                  textAlign: "center",
+                  display: "inline-block",
+                  lineHeight: "25px",
+                }}
+                className="text-4xl"
+              >
+                <img className="w-30 h-30" src={question} />
+              </div>
+            )}
+          </button>
+          <div className="px-4">
+            <h2 className="ml-5 mb-5 text-2xl">혼잡도 상태</h2>
+            <ul>
+              <li className="mb-5">
+                <div
+                  style={{
+                    backgroundColor: "blue",
+                    width: 50,
+                    height: 50,
+                    display: "inline-block",
+                    margin: 5,
+                    borderRadius: 50,
+                    textAlign: "center",
+                    userSelect: "none",
+                    lineHeight: "50px",
+                  }}
+                >
+                  <button
+                    id="relax"
+                    onClick={() => closeEvent("relax")}
+                    className="text-white font-bold"
+                  >
+                    여유
+                  </button>
+                </div>
+                <span
+                  style={{
+                    margin: 10,
+                  }}
+                >
+                  0~33%
+                </span>
+              </li>
+              <li className="mb-5">
+                <div
+                  style={{
+                    backgroundColor: "green",
+                    width: 50,
+                    height: 50,
+                    display: "inline-block",
+                    margin: 5,
+                    borderRadius: 50,
+                    textAlign: "center",
+                    userSelect: "none",
+                    lineHeight: "50px",
+                  }}
+                >
+                  <button
+                    id="normal"
+                    onClick={() => closeEvent("normal")}
+                    className="text-white font-bold"
+                  >
+                    보통
+                  </button>
+                </div>
+                <span
+                  style={{
+                    margin: 10,
+                  }}
+                >
+                  33~66%
+                </span>
+              </li>
+              <li className="mb-5">
+                <div
+                  style={{
+                    backgroundColor: "orange",
+                    width: 50,
+                    height: 50,
+                    display: "inline-block",
+                    margin: 5,
+                    borderRadius: 50,
+                    textAlign: "center",
+                    userSelect: "none",
+                    lineHeight: "50px",
+                  }}
+                >
+                  <button
+                    id="chaos"
+                    onClick={() => closeEvent("chaos")}
+                    className="text-white font-bold"
+                  >
+                    혼잡
+                  </button>
+                </div>
+                <span
+                  style={{
+                    margin: 10,
+                  }}
+                >
+                  66~99%
+                </span>
+              </li>
+              <li className="mb-5">
+                <div
+                  style={{
+                    backgroundColor: "red",
+                    width: 50,
+                    height: 50,
+                    display: "inline-block",
+                    margin: 5,
+                    borderRadius: 50,
+                    textAlign: "center",
+                    userSelect: "none",
+                    lineHeight: "50px",
+                  }}
+                >
+                  <button
+                    id="max"
+                    onClick={() => closeEvent("max")}
+                    className="text-white font-bold"
+                  >
+                    만석
+                  </button>
+                </div>
+                <span
+                  style={{
+                    margin: 10,
+                  }}
+                >
+                  100%
+                </span>
+              </li>
+              <li className="mb-5">
+                <div
+                  style={{
+                    backgroundColor: "gray",
+                    width: 50,
+                    height: 50,
+                    display: "inline-block",
+                    margin: 5,
+                    borderRadius: 50,
+                    textAlign: "center",
+                    userSelect: "none",
+                    lineHeight: "50px",
+                  }}
+                >
+                  <button
+                    id="holiday"
+                    onClick={() => closeEvent("holiday")}
+                    className="text-white font-bold"
+                  >
+                    휴일
+                  </button>
+                </div>
+                <span
+                  style={{
+                    display: "inline-block",
+                    margin: 10,
+                  }}
+                >
+                  휴일
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </>

@@ -83,7 +83,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="text-white font-bold">여유</span>
+                <button className="text-white font-bold">여유</button>
               </div>
               <span
                 style={{
@@ -107,7 +107,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="text-white font-bold">보통</span>
+                <button className="text-white font-bold">보통</button>
               </div>
               <span
                 style={{
@@ -131,7 +131,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="text-white font-bold">혼잡</span>
+                <button className="text-white font-bold">혼잡</button>
               </div>
               <span
                 style={{
@@ -155,7 +155,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="text-white font-bold">만석</span>
+                <button className="text-white font-bold">만석</button>
               </div>
               <span
                 style={{
@@ -179,7 +179,7 @@ const Sidebar = ({ width = 280, children }) => {
                   lineHeight: "50px",
                 }}
               >
-                <span className="text-white font-bold">휴일</span>
+                <button className="text-white font-bold">휴일</button>
               </div>
               <span
                 style={{

@@ -1,6 +1,6 @@
 import { useApiAxios } from "api/base";
 import Map from "components/map/Map";
-import Sidebar from "components/map/SideBar";
+
 import React, { useEffect, useState } from "react";
 
 function PageIndex() {
@@ -38,10 +38,19 @@ function PageIndex() {
 
   return (
     <>
-      <div className="page">{getData && <Map getData={getData} />}</div>
-      <div className="paging shadow-lg shadow-gray-500/80">
+      <div className="text-white">.</div>
+      <div className="flex justify-center">
+        <button className="border-2 border-gray-400 bg-gray-400 text-white">
+          사용 안내
+        </button>
+      </div>
+
+      <div className="page flex justify-center mt-4">
+        {getData && <Map getData={getData} />}
+      </div>
+      <div className=" shadow-lg shadow-gray-500/80">
         <div className="xl:w-90">
-          <div className="input-group relative flex flex-wrap items-stretch w-full rounded">
+          <div className="input-group flex flex-wrap items-stretch w-full rounded">
             <input
               className="w-60 h-9"
               type="search"
@@ -72,8 +81,6 @@ function PageIndex() {
           </div>
         </div>
       </div>
-
-      <Sidebar width={200} />
     </>
   );
 }

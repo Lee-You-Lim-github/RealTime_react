@@ -1,214 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 
-@media (max-width: 1440px) {
+.container {
+  background-color: #e3ecf1;
 }
 
-/* 세로모드 모바일 디바이스 (가로 해상도가 400px 보다 작은 화면에 적용)*/
-@media (max-width: 400px) {
-  .container {
-    background-color: #e3ecf1;
-  }
-
-  .sidebar {
-    background-color: rgba(255, 255, 255, 0.6);
-    position: fixed;
-    top: 205px;
-    bottom: 0;
-    right: 0;
-    margin-top: 2em;
-    margin-right: 1em;
-    transition: 0.4s ease;
-    height: 100%;
-    z-index: 99;
-    font-family: "Jua", sans-serif;
-    box-sizing: border-box;
-    border-radius: 20px;
-  }
-  .button {
-    position: relative;
-    left: -50px;
-    top: 20px;
-    width: 43px;
-    height: 43px;
-    z-index: 99;
-    transition: 0.8s ease;
-    border-radius: 40px;
-    overflow: hidden;
-    background-color: #f5c3c3;
-  }
+.sidebar {
+  background-color: rgba(255, 255, 255, 0.6);
+  position: fixed;
+  top: 75px;
+  bottom: 0;
+  right: 0;
+  margin-top: 2em;
+  margin-right: 1em;
+  transition: 0.4s ease;
+  height: 100%;
+  z-index: 99;
+  font-family: "Jua", sans-serif;
+  box-sizing: border-box;
+  border-radius: 20px;
 }
-
-/* 가로모드 모바일 디바이스 (가로 해상도가 400px보다 크고 640px 보다 작은 화면에 적용) -- xs */
-@media (min-width: 400px) and (max-width: 640px) {
-  .container {
-    background-color: #e3ecf1;
-  }
-
-  .sidebar {
-    background-color: rgba(255, 255, 255, 0.6);
-    position: fixed;
-    top: 200px;
-    bottom: 0;
-    right: 0;
-    margin-top: 2em;
-    margin-right: 1em;
-    transition: 0.4s ease;
-    height: 100%;
-    z-index: 99;
-    font-family: "Jua", sans-serif;
-    box-sizing: border-box;
-    border-radius: 20px;
-  }
-  .button {
-    position: relative;
-    left: -50px;
-    top: 20px;
-    width: 43px;
-    height: 43px;
-    z-index: 99;
-    transition: 0.8s ease;
-    border-radius: 40px;
-    overflow: hidden;
-    background-color: #f5c3c3;
-  }
-}
-
-/*태블릿 디바이스 (가로 해상도가 640px보다 크고 768px 보다 작은 화면에 적용) -- sm */
-@media (min-width: 640px) and (max-width: 768px) {
-  .container {
-    background-color: #e3ecf1;
-  }
-
-  .sidebar {
-    background-color: rgba(255, 255, 255, 0.6);
-    position: fixed;
-    top: 75px;
-    bottom: 0;
-    right: 0;
-    margin-top: 2em;
-    margin-right: 1em;
-    transition: 0.4s ease;
-    height: 100%;
-    z-index: 99;
-    font-family: "Jua", sans-serif;
-    box-sizing: border-box;
-    border-radius: 20px;
-  }
-  .button {
-    position: relative;
-    left: -50px;
-    top: 10px;
-    width: 43px;
-    height: 43px;
-    z-index: 99;
-    transition: 0.8s ease;
-    border-radius: 40px;
-    overflow: hidden;
-    background-color: #f5c3c3;
-  }
-}
-
-/* 데스크탑 (가로 해상도가 768px보다 크고 1024px 보다 작은 화면에 적용) -- md */
-@media (min-width: 768px) and (max-width: 1024px) {
-  .container {
-    background-color: #e3ecf1;
-  }
-
-  .sidebar {
-    background-color: rgba(255, 255, 255, 0.6);
-    position: fixed;
-    top: 115px;
-    bottom: 0;
-    right: 0;
-    margin-top: 2em;
-    margin-right: 1em;
-    transition: 0.4s ease;
-    /* height: 100%; */
-    z-index: 99;
-    font-family: "Jua", sans-serif;
-    box-sizing: border-box;
-    border-radius: 20px;
-  }
-  .button {
-    position: relative;
-    left: -50px;
-    top: 20px;
-    width: 43px;
-    height: 43px;
-    z-index: 99;
-    transition: 0.8s ease;
-    border-radius: 40px;
-    overflow: hidden;
-    background-color: #f5c3c3;
-  }
-}
-
-/* 큰화면 데스크탑 (가로 해상도가 1024px 보다 크고 1280px 보다 작은 화면에 적용) -- lg */
-@media (min-width: 1024px) and (max-width: 1280px) {
-  .container {
-    background-color: #e3ecf1;
-  }
-
-  .sidebar {
-    background-color: rgba(255, 255, 255, 0.6);
-    position: fixed;
-    top: 75px;
-    bottom: 0;
-    right: 0;
-    margin-top: 2em;
-    margin-right: 1em;
-    transition: 0.4s ease;
-    height: 100%;
-    z-index: 99;
-    font-family: "Jua", sans-serif;
-    box-sizing: border-box;
-    border-radius: 20px;
-  }
-  .button {
-    position: relative;
-    left: -50px;
-    top: 10px;
-    width: 43px;
-    height: 43px;
-    z-index: 99;
-    transition: 0.8s ease;
-    border-radius: 40px;
-    overflow: hidden;
-    background-color: #f5c3c3;
-  }
-}
-
-/* 큰화면 데스크탑 (가로 해상도가 1280px 보다 큰 화면에 적용) --xl */
-@media (min-width: 1280px) {
-  .container {
-    background-color: #e3ecf1;
-  }
-
-  .sidebar {
-    background-color: rgba(255, 255, 255, 0.6);
-    position: fixed;
-    top: 75px;
-    bottom: 0;
-    right: 0;
-    margin-top: 2em;
-    margin-right: 1em;
-    transition: 0.4s ease;
-    height: 100%;
-    z-index: 99;
-    font-family: "Jua", sans-serif;
-    box-sizing: border-box;
-    border-radius: 20px;
-  }
-  .button {
-    position: relative;
-    left: -50px;
-    top: 10px;
-    width: 43px;
-    height: 43px;
-    z-index: 99;
-    transition: 0.8s ease;
-    border-radius: 40px;
-    overflow: hidden;
-    background-color: #f5c3c3;
-  }
+.button {
+  position: relative;
+  left: -50px;
+  top: 10px;
+  width: 43px;
+  height: 43px;
+  z-index: 99;
+  transition: 0.8s ease;
+  border-radius: 40px;
+  overflow: hidden;
+  background-color: #f5c3c3;
 }

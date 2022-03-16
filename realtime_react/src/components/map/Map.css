@@ -96,61 +96,17 @@
   color: #5085bb;
 }
 
-.category .menu_selected {
-  background: #ff5f4a;
-  color: #fff;
-  border-left: 1px solid #915b2f;
-  border-right: 1px solid #915b2f;
-  margin: 0 -1px;
-}
-
 .map_wrap,
 .map_wrap * {
-  margin: 0;
-  padding: 0;
   font-family: "Malgun Gothic", dotum, "돋움", sans-serif;
   font-size: 12px;
 }
 .map_wrap {
-  position: relative;
   width: 100%;
   height: 100%;
 }
 
-.category {
-  position: absolute;
-  top: 20px;
-  left: 10px;
-  border-radius: 5px;
-  border: 1px solid #909090;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-  background: #fff;
-  overflow: hidden;
-  z-index: 2;
-}
-.category li {
-  float: left;
-  list-style: none;
-  width: 50px;
-  border-right: 1px solid #acacac;
-  padding: 6px 0;
-  text-align: center;
-  cursor: pointer;
-}
-.category li.on {
-  background: #eee;
-}
-.category li:hover {
-  background: #ffe6e6;
-  border-left: 1px solid #acacac;
-  margin-left: -1px;
-}
-.category li:last-child {
-  margin-right: 0;
-  border-right: 0;
-}
-
-/* 세로모드 모바일 디바이스 (가로 해상도가 400px 보다 작은 화면에 적용)*/
+/* 
 @media (max-width: 400px) {
   .page {
     position: relative;
@@ -185,7 +141,6 @@
   }
 }
 
-/* 가로모드 모바일 디바이스 (가로 해상도가 400px보다 크고 640px 보다 작은 화면에 적용) -- xs */
 @media (min-width: 500px) and (max-width: 640px) {
   .page {
     position: relative;
@@ -203,7 +158,6 @@
   }
 }
 
-/*태블릿 디바이스 (가로 해상도가 640px보다 크고 768px 보다 작은 화면에 적용) -- sm */
 @media (min-width: 640px) and (max-width: 768px) {
   .page {
     position: relative;
@@ -221,7 +175,6 @@
   }
 }
 
-/* 데스크탑 (가로 해상도가 768px보다 크고 1024px 보다 작은 화면에 적용) -- md */
 @media (min-width: 768px) and (max-width: 1024px) {
   .page {
     position: relative;
@@ -239,7 +192,6 @@
   }
 }
 
-/* 큰화면 데스크탑 (가로 해상도가 1024px 보다 크고 1280px 보다 작은 화면에 적용) -- lg */
 @media (min-width: 1024px) and (max-width: 1280px) {
   .page {
     position: relative;
@@ -255,22 +207,19 @@
     overflow: hidden;
     z-index: 2;
   }
-}
+} */
 
 /* 큰화면 데스크탑 (가로 해상도가 1280px 보다 큰 화면에 적용) --xl */
-@media (min-width: 1280px) {
-  .page {
-    position: relative;
-    width: 100%;
-    height: 100%;
-  }
-  .paging {
-    position: absolute;
-    top: 97px;
-    left: 340px;
-    border-radius: 5px;
-    background: #fff;
-    overflow: hidden;
-    z-index: 2;
-  }
+
+.page {
+  width: 100%;
+  height: 100%;
+}
+.paging {
+  top: 97px;
+  left: 340px;
+  border-radius: 5px;
+  background: #fff;
+  /* overflow: hidden; */
+  /* z-index: 2; */
 }
