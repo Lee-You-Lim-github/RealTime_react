@@ -159,7 +159,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
             {booking_object.visit_status === "1" && (
               <div className="flex justify-end">
                 <Link
-                  to={`/user/${auth.id}/review/new/`}
+                  to={`/user/${auth.id}/book/${booking_object.id}/review/new/`}
                   className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1"
                 >
                   리뷰작성
