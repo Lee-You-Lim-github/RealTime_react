@@ -11,6 +11,7 @@ import PageMyShop from "pages/shop/PageMyShop";
 import PageShopDetail from "pages/shop/PageShopDetail";
 import PageShopBooking from "pages/shop/PageShopBooking";
 import PageUserBooking from "pages/user/PageUserBooking";
+import PageUserDashboard from "pages/user/PageUserDashboard";
 import { useAuth } from "contexts/AuthContext";
 import PageUserEdit from "pages/user/PageUserEdit";
 import PageAdminShop from "pages/admin/PageAdminShop";
@@ -102,6 +103,10 @@ function App() {
             </Routes>
             <div className="App">
               <Routes>
+                <Route
+                  path="/:userId/dashboard/"
+                  element={<PageUserDashboard />}
+                />
                 <Route path="/accounts/userjoin/" element={<PageUserJoin />} />
                 <Route path="/shop/new/" element={<PageNotAccess />} />
                 <Route path="/shop/:shopId/" element={<PageShopDetail />} />
