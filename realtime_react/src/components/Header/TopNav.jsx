@@ -90,26 +90,21 @@ function TopNav() {
                 !auth.is_superuser &&
                 !authority_topnavi(auth.authority) && (
                   <>
-                    <MyLink to={`/user/mypage/${data?.id}/`}>
-                      {" "}
-                      {/* 관리자 대쉬보드 이동으로 변경하기 */} {auth.nickname}{" "}
-                      님
-                    </MyLink>
-
                     {/* 매장이 등록되지 않은 경우 */}
-                    {/* {data?.shop_set.length === 0 && (
+                    {data?.shop_set.length === 0 ? (
                       <>
+                        <MyLink to={`/shop/new/`}> {auth.nickname} 님</MyLink>
                         <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
-                        <span>
-                          <button
-                            onClick={handleJoin}
-                            className={baseClassName}
-                          >
-                            마이스토어
-                          </button>
-                        </span>
                       </>
-                    )} */}
+                    ) : (
+                      <>
+                        <MyLink to={`/shop/${data?.shop_set[0]}/dashboard/`}>
+                          {" "}
+                          {auth.nickname} 님
+                        </MyLink>
+                        <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
+                      </>
+                    )}
                     {/* 매장이 등록된 경우 */}
                     {/* {data?.shop_set.length === 1 && (
                       <>
