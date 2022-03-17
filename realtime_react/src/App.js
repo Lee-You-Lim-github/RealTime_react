@@ -104,7 +104,7 @@ function App() {
             <div className="App">
               <Routes>
                 <Route
-                  path="/:userId/dashboard/"
+                  path="/user/:userId/dashboard/"
                   element={<PageUserDashboard />}
                 />
                 <Route path="/accounts/userjoin/" element={<PageUserJoin />} />
