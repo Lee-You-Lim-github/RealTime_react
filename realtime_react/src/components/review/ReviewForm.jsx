@@ -1,4 +1,5 @@
 import { useApiAxios } from "api/base";
+import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
@@ -48,12 +49,17 @@ function ReviewForm({ type, Id }) {
           book_id,
           wait_id,
         } = response.data;
+        navigate(`/user/${auth.id}/review/`);
       }
     );
   };
 
   return (
     <div>
+      {loading && <LoadingIndicator>저장 중...</LoadingIndicator>}
+      {error?.response?.status >= 400 && (
+        <div className="text-red-400 my-5">저장에 실패했습니다.</div>
+      )}
       <form onSubmit={handleSubmit}>
         <h1>리뷰쓰기</h1>
         {Object.keys(names).map((name) => (
@@ -91,9 +97,7 @@ function ReviewForm({ type, Id }) {
         <button onClick={() => navigate(`/user/${auth.id}/bookings/`)}>
           취소
         </button>
-        <button onClick={() => navigate(`/user/${auth.id}/review/`)}>
-          저장
-        </button>
+        <button>저장</button>
       </form>
     </div>
   );
