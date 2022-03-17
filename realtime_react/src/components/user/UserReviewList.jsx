@@ -28,25 +28,6 @@ function UserReviewList(props) {
                   <span className="text-right">
                     <Timestamp relative date={review.created_at} autoUpdate />
                   </span>
-                  <React.Fragment>
-                    <p className="text-right">
-                      <button
-                        // disabled={deleteLoading}
-                        onClick={openModal}
-                        value={review.id}
-                        className="bg-violet-300 hover:bg-red-200 text-sm text-right rounded p-1 px-2"
-                      >
-                        삭제
-                      </button>
-                    </p>
-                    <DeleteConfirmModal
-                      handleDelete={handleDelete}
-                      open={modalOpen}
-                      close={closeModal}
-                      name="review_delete"
-                      header="정말 삭제하시겠습니까?"
-                    />
-                  </React.Fragment>
                 </div>
               </div>
             ))}
