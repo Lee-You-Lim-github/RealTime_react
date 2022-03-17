@@ -75,11 +75,8 @@ function TopNav() {
                 !auth.is_superuser &&
                 authority_topnavi(auth.authority) && (
                   <>
-                    <MyLink to={`/user/mypage/${data?.id}/`}>
+                    <MyLink to={`/${data?.id}/dashboard/`}>
                       {auth.nickname} 님
-                    </MyLink>
-                    <MyLink to={`/user/${data?.id}/bookings/`}>
-                      예약/대기현황
                     </MyLink>
                     <span>
                       <button onClick={handleLogout} className={baseClassName}>

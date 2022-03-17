@@ -9,6 +9,12 @@ import { Link } from "react-router-dom";
 import styles from "./sidebar.module.css";
 import question from "assets/img/question.png";
 import remove from "assets/img/remove.png";
+import category_whole from "assets/img/whole.png";
+import category_korea from "assets/img/korea.png";
+import category_china from "assets/img/china.png";
+import category_japan from "assets/img/japan.png";
+import category_western from "assets/img/western.png";
+import category_cafe from "assets/img/cafe.png";
 
 import "./Map.css";
 
@@ -272,7 +278,7 @@ function TypeMap({ getData }) {
       {/* <RemovableCustomOverlayStyle /> */}
       <div>
         <Map // 지도를 표시할 Container
-          className=""
+          className="ml-6"
           center={
             // 지도의 중심좌표
             state.center
@@ -280,15 +286,15 @@ function TypeMap({ getData }) {
           style={{
             // 지도의 크기
             width: "1000px",
-            height: "450px",
+            height: "400px",
           }}
           level={6} // 지도의 확대 레벨
         >
           {!state.isLoading && (
             <MapMarker position={state.center}>
-              <div style={{ padding: "5px", color: "#000" }}>
+              {/* <div style={{ padding: "5px", color: "#000" }}>
                 {state.errMsg ? state.errMsg : "현위치"}
-              </div>
+              </div> */}
             </MapMarker>
           )}
           {/* 테이블 수 비율별 마커색 변경 */}
@@ -434,48 +440,54 @@ function TypeMap({ getData }) {
           )}
         </Map>
         {/* 카테고리 부분 */}
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center ml-14">
           <ul>
             <button
-              className="mr-5"
+              className="mr-16"
               id="whole"
               onClick={() => closeEvent("whole")}
             >
+              <img src={category_whole} height="100" width="100" />
               전체
             </button>
             <button
-              className="mr-5"
+              className="mr-16"
               id="korea"
               onClick={() => closeEvent("korea")}
             >
+              <img src={category_korea} height="100" width="100" />
               한식
             </button>
             <button
-              className="mr-5"
+              className="mr-16"
               id="china"
               onClick={() => closeEvent("china")}
             >
+              <img src={category_china} height="100" width="100" />
               중식
             </button>
             <button
-              className="mr-5"
+              className="mr-16"
               id="japan"
               onClick={() => closeEvent("japan")}
             >
+              <img src={category_japan} height="100" width="100" />
               일식
             </button>
             <button
-              className="mr-5"
+              className="mr-16"
               id="western"
               onClick={() => closeEvent("western")}
             >
+              <img src={category_western} height="100" width="100" />
               양식
             </button>
             <button
-              className="mr-5"
+              className="mr-16"
               id="cafe"
               onClick={() => closeEvent("cafe")}
             >
+              <img src={category_cafe} height="100" width="100" />
               카페
             </button>
           </ul>
