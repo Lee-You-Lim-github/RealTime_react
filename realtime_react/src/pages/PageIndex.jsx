@@ -18,8 +18,18 @@ function PageIndex() {
     { manual: true }
   );
 
+  const [{ data: reviewData, reviewLoading, reviewError }, reviewRefetch] =
+    useApiAxios(
+      {
+        url: `/review/api/review/?all${query ? "&query=" + query : ""}`,
+        method: "GET",
+      },
+      { manual: true }
+    );
+
   useEffect(() => {
     refetch();
+    reviewRefetch();
   }, []);
 
   const getQuery = (e) => {
@@ -87,7 +97,7 @@ function PageIndex() {
           </div>
         </div>
         {getData && <NewShopList getData={getData} />}
-        <NewReviewList />
+        {reviewData && <NewReviewList reviewData={reviewData} />}
       </div>
     </>
   );
