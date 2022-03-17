@@ -3,6 +3,9 @@ import WaitingVisitConfirm from "components/modal/WaitingVisitConfirm";
 import React, { useState } from "react";
 
 function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
+  // disable
+  const [loading, setloading] = useState(false);
+
   // 회원이 입장한 경우
   const clickedVisit = () => {
     saveWaitVisitStatus({
@@ -10,6 +13,7 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
       data: { wait_visit_status: "1" },
     }).then(() => {
       alert("입장이 확인되었습니다.");
+      setloading(true);
       refetch();
     });
   };
@@ -21,6 +25,7 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
       data: { wait_visit_status: "2" },
     }).then(() => {
       alert("미입장이 확인되었습니다.");
+      setloading(true);
       refetch();
     });
   };
@@ -43,7 +48,7 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
       </span>
       <span className="mx-3">
         <React.Fragment>
-          <button disabled={false} onClick={() => setModalOpen(true)}>
+          <button disabled={loading} onClick={() => setModalOpen(true)}>
             입장
           </button>
           <WaitingVisitConfirm
@@ -56,7 +61,9 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
       </span>
       <span>
         <React.Fragment>
-          <button onClick={() => setModalOpenNotVisit(true)}>미입장</button>
+          <button disabled={loading} onClick={() => setModalOpenNotVisit(true)}>
+            미입장
+          </button>
           <WaitingNotVisitConfirm
             clickedNotVisit={clickedNotVisit}
             open={modalOpenNotVisit}

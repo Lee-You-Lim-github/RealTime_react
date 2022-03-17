@@ -98,7 +98,6 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     <div>
       {shopWaitingData && (
         <div>
-          <DebugStates shopWaitingData={shopWaitingData} />
           <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
             <input
               type="search"
