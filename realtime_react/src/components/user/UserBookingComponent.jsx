@@ -156,7 +156,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
                 </div>
               )}
 
-            {booking_object.visit_status === "1" && (
+            {booking_object.visit_status === "1" && !booking_object.review_set && (
               <div className="flex justify-end">
                 <Link
                   to={`/user/${auth.id}/book/${booking_object.id}/review/new/`}

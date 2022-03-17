@@ -25,6 +25,7 @@ function NewShopList({ getData }) {
           //   holiday: data.holiday,
           //   category: data.category,
         })}
+      <DebugStates getData={getData} />
     </div>
   );
 }
