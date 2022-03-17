@@ -24,6 +24,7 @@ import Footer from "components/Footer/Footer";
 import PageAdminDashboard from "pages/admin/PageAdminDashboard";
 import PageShopWaiting from "pages/shop/PageShopWaiting";
 import PageReviewForm from "pages/review/PageReviewForm";
+import PageReivewList from "pages/review/PageReivewList";
 
 function App() {
   const [auth] = useAuth();
@@ -137,8 +138,12 @@ function App() {
                   element={<PageUserBooking />}
                 />
                 <Route
-                  path="/user/:userId/review/new/"
+                  path="/user/:userId/:type/:Id/review/new/"
                   element={<PageReviewForm />}
+                />
+                <Route
+                  path="/user/:userId/review/"
+                  element={<PageReivewList />}
                 />
               </Routes>
               <NotAccess />
