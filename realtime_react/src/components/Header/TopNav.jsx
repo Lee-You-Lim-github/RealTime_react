@@ -75,7 +75,7 @@ function TopNav() {
                 !auth.is_superuser &&
                 authority_topnavi(auth.authority) && (
                   <>
-                    <MyLink to={`/${data?.id}/dashboard/`}>
+                    <MyLink to={`/user/${data?.id}/dashboard/`}>
                       {auth.nickname} 님
                     </MyLink>
                     <span>
