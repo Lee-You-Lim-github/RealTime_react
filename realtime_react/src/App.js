@@ -69,7 +69,7 @@ function App() {
               <Route path="/accounts/login/" element={<PageNotAccess />} />
               <Route path="/accounts/userjoin/" element={<PageNotAccess />} />
               <Route path="/shop/new/" element={<PageNotAccess />} />
-              <Route path="/shop/:shopId/" element={<PageNotAccess />} />
+              <Route path="/shop/:shopId/" element={<PageShopDetail />} />
               <Route path="/shop/:shopId/edit/" element={<PageNotAccess />} />
               <Route
                 path="/shop/:shopId/booking/new/"
@@ -159,7 +159,7 @@ function App() {
               <Routes>
                 <Route path="/accounts/userjoin/" element={<PageUserJoin />} />
                 <Route path="/shop/new/" element={<PageShopForm />} />
-                <Route path="/shop/:shopId/" element={<PageShopNot />} />
+                <Route path="/shop/:shopId/" element={<PageShopDetail />} />
                 <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
                 <Route
                   path="/shop/:shopId/booking/new/"

@@ -53,7 +53,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     reviewRefetch,
   ] = useApiAxios(
     {
-      url: `/shop/api/reviews/`,
+      url: `/review/api/review/`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -67,7 +67,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     async (newPage) => {
       const params = {
         page: newPage,
-        query: shopData.name,
+        query: shopData?.name,
       };
       const { data } = await reviewRefetch({ params });
       setPage(newPage);
@@ -88,35 +88,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const { fieldValues, handleFieldChange } = useFieldValues(
     INIT_REVIEW_FIELD_VALUES
   );
-
-  // postReview
-  const [{ loading: savedLoading, error: savedError }, requestReview] =
-    useApiAxios(
-      {
-        url: `/shop/api/newreview/`,
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${auth.access}`,
-        },
-      },
-      { manual: true }
-    );
-
-  const reviewHandleSubmit = (e) => {
-    e.preventDefault();
-
-    requestReview({
-      data: {
-        ...fieldValues,
-        user_id: auth.id,
-        shop_id: shopData.id,
-      },
-    }).then((response) => {
-      alert("리뷰가 등록되었습니다.");
-      const { rating, content } = response.data;
-    });
-    window.location.replace(`/shop/${shopId}/`);
-  };
 
   useEffect(() => {
     reviewRefetch();
@@ -154,15 +125,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                 <div className="text-red-400 my-5">
                   데이터를 불러오는데 실패했습니다.
                 </div>
-              )}
-              {(shopError || reviewError)?.response?.status >= 400 && (
-                <div className="text-red-400 my-5">
-                  데이터를 불러오는데 실패했습니다.
-                </div>
-              )}
-              {savedLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
-              {savedError?.response?.status >= 400 && (
-                <div className="text-red-400 my-5">저장에 실패했습니다.</div>
               )}
 
               <div className="mt-10 ml-4 mb-4 title-font font-medium">
@@ -287,7 +249,8 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         {reviewData?.results
                           ?.filter(
                             (review_shop) =>
-                              review_shop.shop_id.id === parseInt(shopId)
+                              review_shop.book_id.shop_id.id ===
+                              parseInt(shopId)
                           )
                           .map((review) => {
                             return (
@@ -309,33 +272,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                           className="pagination"
                         />
                       </div>
-                    </div>
-
-                    <div>
-                      <form onSubmit={reviewHandleSubmit}>
-                        <input
-                          type="number"
-                          name="rating"
-                          value={fieldValues.rating}
-                          onChange={handleFieldChange}
-                          placeholder="0"
-                          min="0"
-                          max="5"
-                          className="border border-violet-400 rounded my-1 mx-1 p-1"
-                        />
-                        <span>{reviewData.nickname}</span>
-                        <input
-                          type="text"
-                          name="content"
-                          value={fieldValues.content}
-                          onChange={handleFieldChange}
-                          placeholder="리뷰를 작성해주세요"
-                          className="border border-violet-400 rounded my-1 mx-1 p-1"
-                        />
-                        <button className="bg-violet-400 border border-violet-400 text-white rounded w-2/2 my-1 mx-1 p-1">
-                          저장하기
-                        </button>
-                      </form>
                     </div>
                   </>
                 )}

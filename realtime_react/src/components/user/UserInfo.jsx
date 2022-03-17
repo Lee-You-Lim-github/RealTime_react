@@ -6,14 +6,7 @@ import "./UserInfo.css";
 function UserInfo() {
   const [auth] = useAuth();
 
-  // const [reviewList, setReviewList] = useState([]);
-
-  // const [reviewId, setReviewId] = useState(0);
-
-  // // confirm 모달창
-  // const [modalOpen, setModalOpen] = useState(false);
-
-  const [{ data: userData }, refetch] = useApiAxios(
+  const [data, refetch] = useApiAxios(
     {
       url: `/accounts/api/users/${auth.id}/`,
       method: "GET",
@@ -27,32 +20,6 @@ function UserInfo() {
   useEffect(() => {
     refetch();
   }, []);
-
-  // const [{ loading: deleteLoading, error: deleteError }, deleteBooking] =
-  //   useApiAxios(
-  //     {
-  //       url: `/shop/api/reviews/${reviewData?.id}/`,
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: `Bearer ${auth.access}`,
-  //       },
-  //     },
-  //     { manual: true }
-  //   );
-
-  // const handleDelete = (e) => {
-  //   deleteBooking({
-  //     url: `/shop/api/reviews/${reviewId}/`,
-  //     method: "DELETE",
-  //   });
-  //   alert("삭제되었습니다.");
-
-  //   window.location.replace(`/user/mypage/${userId}/`);
-  // };
-
-  // useEffect(() => {
-  //   reviewRefetch();
-  // }, []);
 
   return (
     <div className="ml-3">
