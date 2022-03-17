@@ -21,7 +21,7 @@ function PageIndex() {
   const [{ data: reviewData, reviewLoading, reviewError }, reviewRefetch] =
     useApiAxios(
       {
-        url: `/review/api/review/?all${query ? "&query=" + query : ""}`,
+        url: `/review/api/review/?all`,
         method: "GET",
       },
       { manual: true }
@@ -48,9 +48,8 @@ function PageIndex() {
 
   useEffect(() => {
     refetch().then();
+    reviewRefetch().then();
   }, [reload]);
-
-  console.log(getData);
 
   return (
     <>
