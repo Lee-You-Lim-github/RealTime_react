@@ -4,7 +4,6 @@ import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 
 function UserEdit({ userId }) {
   const [auth, , , logout] = useAuth();
@@ -13,7 +12,7 @@ function UserEdit({ userId }) {
 
   const navigate = useNavigate();
 
-  const [{ data: userData, loading: getLoading, error: getError }] =
+  const [{ data: userData, loading: getLoading, error: getError }, refetch] =
     useApiAxios(
       {
         url: `/accounts/api/users/${userId}/`,
@@ -24,6 +23,10 @@ function UserEdit({ userId }) {
       },
       { manual: !userId }
     );
+
+  useEffect(() => {
+    refetch();
+  }, [reload]);
 
   const [
     {
@@ -42,10 +45,6 @@ function UserEdit({ userId }) {
   );
 
   const { fieldValues, handleFieldChange } = useFieldValues(userData);
-
-  useEffect(() => {
-    saveRequest();
-  }, [reload]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -121,7 +120,7 @@ function UserEdit({ userId }) {
                 ))}
               </div>
               <div>
-                <label class="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
+                <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
                   휴대폰 번호
                 </label>
                 <input
@@ -152,8 +151,6 @@ function UserEdit({ userId }) {
             취소
           </button>
         </div>
-
-        <div></div>
       </div>
     </div>
   );
