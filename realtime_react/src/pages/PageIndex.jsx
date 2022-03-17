@@ -4,8 +4,10 @@ import NewReviewList from "components/map/NewReviewList";
 import NewShopList from "components/map/NewShopList";
 
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 function PageIndex() {
+  const { shopId } = useParams();
   const [query, setQuery] = useState();
   const [reload, setReload] = useState(false);
   const [{ data: getData, loading, error }, refetch] = useApiAxios(
@@ -37,6 +39,8 @@ function PageIndex() {
   useEffect(() => {
     refetch().then();
   }, [reload]);
+
+  console.log(getData);
 
   return (
     <>
@@ -82,7 +86,7 @@ function PageIndex() {
             </span>
           </div>
         </div>
-        <NewShopList />
+        {getData && <NewShopList getData={getData} />}
         <NewReviewList />
       </div>
     </>

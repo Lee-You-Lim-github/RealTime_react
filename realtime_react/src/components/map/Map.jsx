@@ -17,6 +17,7 @@ import category_western from "assets/img/western.png";
 import category_cafe from "assets/img/cafe.png";
 
 import "./Map.css";
+import DebugStates from "components/DebugStates";
 
 function TypeMap({ getData }) {
   const [isOpen, setIsOpen] = useState(false);
