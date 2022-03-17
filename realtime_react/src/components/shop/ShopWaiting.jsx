@@ -4,8 +4,11 @@ import React, { useCallback, useEffect, useState } from "react";
 import ShopWaitingList from "./ShopWaitingList";
 import "../Paginations/Paginations.css";
 import ReactPaginate from "react-paginate";
+import { useAuth } from "contexts/AuthContext";
 
 function ShopWaiting({ shopId, itemsPerPage = 10 }) {
+  const [auth] = useAuth();
+
   // paging
   const [, setItem] = useState(null);
   const [pageCount, setPageCount] = useState(1);
@@ -35,6 +38,22 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     refetch();
   }, []);
 
+  // waiting : wait_visit_status만 수정
+  const [
+    { loading: shopWaitLoading, error: shopWaitError },
+    saveWaitVisitStatus,
+  ] = useApiAxios(
+    {
+      url: `/waiting/api/waiting/`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  // 페이징
   const fetchApplication = useCallback(
     async (newPage) => {
       const params = {
@@ -48,7 +67,6 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
       setPageCount(Math.ceil(data.count / itemsPerPage));
 
       setItem(data?.results);
-      setPageCount(page);
     },
     [refetch]
   );
@@ -118,7 +136,12 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
           <span className="mx-10">입장 요청</span>
           <span className="mx-10">입장 여부</span>
           {shopWaitingData?.results?.map((shopwaiting) => (
-            <ShopWaitingList key={shopwaiting.id} shopwaiting={shopwaiting} />
+            <ShopWaitingList
+              key={shopwaiting.id}
+              shopwaiting={shopwaiting}
+              saveWaitVisitStatus={saveWaitVisitStatus}
+              refetch={refetch}
+            />
           ))}
           <ReactPaginate
             breakLabel="..."
