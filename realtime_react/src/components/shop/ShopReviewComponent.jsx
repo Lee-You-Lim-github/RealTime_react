@@ -2,9 +2,36 @@ import React from "react";
 import Star from "./ShopStar";
 import Timestamp from "react-timestamp";
 import { useAuth } from "contexts/AuthContext";
+import { useApiAxios } from "api/base";
+import { useParams } from "react-router-dom";
 
 function ShopReviewComponent({ review }) {
   const [auth] = useAuth();
+  const { shopId } = useParams();
+
+  const [{ loading: deleteLoading, error: deleteError }, deleteReview] =
+    useApiAxios(
+      {
+        url: `/review/api/review/${review.id}/`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
+      },
+      { manual: true }
+    );
+
+  const handleDelete = () => {
+    if (window.confirm("Are you sure?")) {
+      deleteReview({
+        url: `/review/api/review/${review.id}/`,
+        method: "DELETE",
+      });
+
+      alert("리뷰가 삭제되었습니다.");
+      window.location.replace(`/shop/${shopId}/`);
+    }
+  };
 
   return (
     <React.Fragment>
@@ -32,7 +59,10 @@ function ShopReviewComponent({ review }) {
 
           {auth.is_superuser && (
             <span className="absolute right-20 text-right">
-              <button className="border border-orange-300 text-orange-300 rounded px-1">
+              <button
+                onClick={handleDelete}
+                className="border border-orange-300 text-orange-300 rounded px-1"
+              >
                 삭제
               </button>
             </span>

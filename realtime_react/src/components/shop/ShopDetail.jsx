@@ -62,6 +62,31 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     { manual: true }
   );
 
+  // deleteReview
+  // const [{ loading: deleteLoading, error: deleteError }, deleteReview] =
+  //   useApiAxios(
+  //     {
+  //       url: `/review/api/review/${reviewData?.id}/`,
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: `Bearer ${auth.access}`,
+  //       },
+  //     },
+  //     { manual: true }
+  //   );
+
+  // const handleDelete = () => {
+  //   if (window.confirm("Are you sure?")) {
+  //     deleteReview({
+  //       url: `/review/api/review/${reviewData?.id}/`,
+  //       method: "DELETE",
+  //     });
+
+  //     alert("리뷰가 삭제되었습니다.");
+  //     window.location.replace(`/shop/${shopId}/`);
+  //   }
+  // };
+
   // reviewList Paging
   const fetchApplications = useCallback(
     async (newPage) => {
