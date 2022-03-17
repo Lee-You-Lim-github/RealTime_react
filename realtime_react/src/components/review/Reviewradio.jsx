@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 function Reviewradio({ name, handleFieldChange }) {
   return (
     <div onChange={handleFieldChange}>
