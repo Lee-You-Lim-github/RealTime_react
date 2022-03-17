@@ -25,6 +25,7 @@ import PageAdminDashboard from "pages/admin/PageAdminDashboard";
 import PageShopWaiting from "pages/shop/PageShopWaiting";
 import PageReviewForm from "pages/review/PageReviewForm";
 import PageReivewList from "pages/review/PageReivewList";
+import PageShopDashboard from "pages/shop/PageShopDashboard";
 
 function App() {
   const [auth] = useAuth();
@@ -165,6 +166,10 @@ function App() {
                 <Route path="/accounts/userjoin/" element={<PageUserJoin />} />
                 <Route path="/shop/new/" element={<PageShopForm />} />
                 <Route path="/shop/:shopId/" element={<PageShopDetail />} />
+                <Route
+                  path="/shop/:shopId/dashboard/"
+                  element={<PageShopDashboard />}
+                />
                 <Route path="/shop/:shopId/edit/" element={<PageShopForm />} />
                 <Route
                   path="/shop/:shopId/booking/new/"
