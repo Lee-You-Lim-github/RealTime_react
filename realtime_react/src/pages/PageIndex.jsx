@@ -1,5 +1,7 @@
 import { useApiAxios } from "api/base";
 import Map from "components/map/Map";
+import NewReviewList from "components/map/NewReviewList";
+import NewShopList from "components/map/NewShopList";
 
 import React, { useEffect, useState } from "react";
 
@@ -80,6 +82,8 @@ function PageIndex() {
             </span>
           </div>
         </div>
+        <NewShopList />
+        <NewReviewList />
       </div>
     </>
   );
