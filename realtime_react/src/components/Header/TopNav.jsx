@@ -93,29 +93,18 @@ function TopNav() {
                     {/* 매장이 등록되지 않은 경우 */}
                     {data?.shop_set.length === 0 ? (
                       <>
-                        <MyLink to={`/shop/new/`}> {auth.nickname} 님</MyLink>
+                        <MyLink to={`/shop/new/`}>{auth.nickname} 님</MyLink>
                         <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
                       </>
                     ) : (
                       <>
+                        {/* 매장이 등록된 경우 */}
                         <MyLink to={`/shop/${data?.shop_set[0]}/dashboard/`}>
                           {" "}
                           {auth.nickname} 님
                         </MyLink>
-                        <MyLink to={`/shop/new/`}>가맹점 가입</MyLink>
                       </>
                     )}
-                    {/* 매장이 등록된 경우 */}
-                    {/* {data?.shop_set.length === 1 && (
-                      <>
-                        <MyLink to={`/shop/${data?.shop_set[0]}/bookings/`}>
-                          매장 예약현황
-                        </MyLink>
-                        <MyLink to={`/shop/myshop/${data?.shop_set[0]}/`}>
-                          마이스토어
-                        </MyLink>
-                      </>
-                    )} */}
                     <span>
                       <button onClick={handleLogout} className={baseClassName}>
                         로그아웃
