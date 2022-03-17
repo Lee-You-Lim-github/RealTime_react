@@ -23,6 +23,7 @@ import PageNotLogin from "pages/notfound/PageNotLogin";
 import Footer from "components/Footer/Footer";
 import PageAdminDashboard from "pages/admin/PageAdminDashboard";
 import PageShopWaiting from "pages/shop/PageShopWaiting";
+import PageReviewForm from "pages/review/PageReviewForm";
 
 function App() {
   const [auth] = useAuth();
@@ -134,6 +135,10 @@ function App() {
                 <Route
                   path="/user/:userId/bookings/"
                   element={<PageUserBooking />}
+                />
+                <Route
+                  path="/user/:userId/review/new/"
+                  element={<PageReviewForm />}
                 />
               </Routes>
               <NotAccess />

@@ -105,13 +105,13 @@ function UserBookingComponent({ bookingList, booking_object }) {
 
   // 0: 방문예정 1:방문완료
   const visit_state = (visit) => {
-    if (
+    if (visit === "1") {
+      return <div className="flex justify-end ">방문완료 ✅</div>;
+    } else if (
       visit === "2" ||
       new Date(`${booking_object.day} ${booking_object.time}`) - today < 0
     ) {
       return <div className="flex justify-end text-red-600">미방문 😢</div>;
-    } else if (visit === "1") {
-      return <div className="flex justify-end ">방문완료 ✅</div>;
     } else {
       return <div className="flex justify-end">방문예정 🚀</div>;
     }
@@ -158,9 +158,12 @@ function UserBookingComponent({ bookingList, booking_object }) {
 
             {booking_object.visit_status === "1" && (
               <div className="flex justify-end">
-                <button className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1">
+                <Link
+                  to={`/user/${auth.id}/review/new/`}
+                  className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1"
+                >
                   리뷰작성
-                </button>
+                </Link>
               </div>
             )}
 
