@@ -161,6 +161,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
                 <Link
                   to={`/user/${auth.id}/book/${booking_object.id}/review/new/`}
                   className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1"
+                  state={booking_object.user_id.id}
                 >
                   리뷰작성
                 </Link>
