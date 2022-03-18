@@ -1,11 +1,12 @@
 import { useApiAxios } from "api/base";
-import { data } from "autoprefixer";
 import DebugStates from "components/DebugStates";
 import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
 import { useLocation, useNavigate } from "react-router-dom";
 import Reviewradio from "./Reviewradio";
+import StarRatingComponent from "react-star-rating-component";
+import { useEffect, useState } from "react";
 
 const INIT_FIELD_VALUES = {
   flavor: "",
@@ -21,10 +22,9 @@ const INIT_FIELD_VALUES = {
 function ReviewForm({ type, Id }) {
   const navigate = useNavigate();
   const [auth] = useAuth();
+  const [value, setValue] = useState(5);
   let location = useLocation();
   let state = location.state;
-
-  console.log(state);
 
   const names = {
     flavor: "맛은",
@@ -32,7 +32,8 @@ function ReviewForm({ type, Id }) {
     kindness: "친절은",
     mood: "분위기는",
   };
-  const { fieldValues, handleFieldChange } = useFieldValues(INIT_FIELD_VALUES);
+  const { fieldValues, handleFieldChange, setFieldValues } =
+    useFieldValues(INIT_FIELD_VALUES);
   const [{ loading, error, errorMessages }, requestreview] = useApiAxios(
     {
       url: "/review/api/review/",
@@ -60,8 +61,15 @@ function ReviewForm({ type, Id }) {
       }
     );
   };
+  const onStarClick = (nextValue, prevValue, name) => {
+    setValue(nextValue);
+  };
 
-  console.log(auth.id);
+  useEffect(() => {
+    setFieldValues((prev) => {
+      return { ...prev, rating: value };
+    });
+  }, [value]);
 
   return (
     <div>
@@ -85,18 +93,15 @@ function ReviewForm({ type, Id }) {
 
           <div>
             <span>별점을 주세요!</span>
-            <select
-              name="rating"
-              value={fieldValues.rating}
-              onChange={handleFieldChange}
-            >
-              <option value="selected">---</option>
-              <option value="5">5</option>
-              <option value="4">4</option>
-              <option value="3">3</option>
-              <option value="2">2</option>
-              <option value="1">1</option>
-            </select>
+            <div className="text-6xl">
+              <StarRatingComponent
+                name="rating"
+                starCount={5}
+                value={value}
+                onStarClick={onStarClick}
+                emptyStarColor="#ddd9cc"
+              />
+            </div>
           </div>
           <textarea
             name="content"
