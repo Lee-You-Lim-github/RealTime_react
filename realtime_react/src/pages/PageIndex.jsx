@@ -52,9 +52,26 @@ function PageIndex() {
     refetch().then();
   }, [reload]);
 
+  const scrollUp = () => {
+    window.scrollTo(0, 0);
+  };
+
+  const scrollDown = () => {
+    window.scrollTo(0, document.body.scrollHeight);
+  };
+
+  const scrollShop = () => {
+    window.scrollTo(0, 500);
+  };
+
+  const scrollReview = () => {
+    window.scrollTo(0, 1100);
+  };
+
   return (
     <>
       <div className="text-white">.</div>
+      <button onClick={scrollDown}>하단</button>
       <div className="flex justify-center">
         <button className="border-2 border-gray-400 bg-gray-400 text-white">
           사용 안내
@@ -98,6 +115,9 @@ function PageIndex() {
         </div>
         {getData && <NewShopList getData={getData} />}
         {reviewData && <NewReviewList reviewData={reviewData} />}
+        <button onClick={scrollUp}>상단버튼</button>
+        <button onClick={scrollShop}>신규매장버튼</button>
+        <button onClick={scrollReview}>최근리뷰버튼</button>
       </div>
     </>
   );
