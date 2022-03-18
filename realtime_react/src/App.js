@@ -27,6 +27,8 @@ import PageReviewForm from "pages/review/PageReviewForm";
 import PageReivewList from "pages/review/PageReivewList";
 import PageShopDashboard from "pages/shop/PageShopDashboard";
 import PagePickList from "pages/pick/PagePickList";
+import PageQnaList from "pages/qna/PageQnaList";
+import PageQnaDetail from "pages/qna/PageQnaDetail";
 
 function App() {
   const [auth] = useAuth();
@@ -147,6 +149,11 @@ function App() {
                 <Route
                   path="/user/:userId/review/"
                   element={<PageReivewList />}
+                />
+                <Route path="/user/:userId/qna/" element={<PageQnaList />} />
+                <Route
+                  path="/user/:userId/qna/:qnaId/"
+                  element={<PageQnaDetail />}
                 />
               </Routes>
               <NotAccess />

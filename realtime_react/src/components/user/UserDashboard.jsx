@@ -50,7 +50,12 @@ function AdminDashboard() {
           >
             리뷰내역
           </Link>
-          <div className="text-white mx-3 w-60 h-60 bg-stone-400">1:1문의</div>
+          <Link
+            to={`/user/${auth.id}/qna/`}
+            className="text-white mx-3 w-60 h-60 bg-stone-400"
+          >
+            1:1문의
+          </Link>
         </div>
       </div>
     </div>
