@@ -31,6 +31,7 @@ function TypeMap({ getData }) {
       lat: 36.337490378182764,
       lng: 127.44915430991462,
     },
+    isPanto: false,
     errMsg: null,
     isLoading: true,
   });
@@ -46,7 +47,6 @@ function TypeMap({ getData }) {
               lat: position.coords.latitude, // 위도
               lng: position.coords.longitude, // 경도
             },
-            isLoading: false,
           }));
         },
         (err) => {
@@ -95,9 +95,13 @@ function TypeMap({ getData }) {
     };
   });
 
-  const event = (name, marker) => {
+  const event = (name, lat, lng) => {
     setIsOpen(true);
     setOverlay(name);
+    setState({
+      center: { lat: lat, lng: lng },
+      isPanto: true,
+    });
   };
 
   const closeEvent = (category) => {
@@ -140,8 +144,9 @@ function TypeMap({ getData }) {
             lat: marker_object.lat,
             lng: marker_object.lng,
           }}
-          center={{ lat: marker_object.lat, lng: marker_object.lng }}
-          onClick={() => event(marker_object.name)}
+          onClick={() =>
+            event(marker_object.name, marker_object.lat, marker_object.lng)
+          }
           image={{
             src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
             size: {
@@ -170,8 +175,9 @@ function TypeMap({ getData }) {
               lat: marker_object.lat,
               lng: marker_object.lng,
             }}
-            center={{ lat: marker_object.lat, lng: marker_object.lng }}
-            onClick={() => event(marker_object.name)}
+            onClick={() =>
+              event(marker_object.name, marker_object.lat, marker_object.lng)
+            }
             image={{
               src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
               size: {
@@ -199,8 +205,9 @@ function TypeMap({ getData }) {
               lat: marker_object.lat,
               lng: marker_object.lng,
             }}
-            center={{ lat: marker_object.lat, lng: marker_object.lng }}
-            onClick={() => event(marker_object.name)}
+            onClick={() =>
+              event(marker_object.name, marker_object.lat, marker_object.lng)
+            }
             image={{
               src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
               size: {
@@ -228,8 +235,9 @@ function TypeMap({ getData }) {
               lat: marker_object.lat,
               lng: marker_object.lng,
             }}
-            center={{ lat: marker_object.lat, lng: marker_object.lng }}
-            onClick={() => event(marker_object.name)}
+            onClick={() =>
+              event(marker_object.name, marker_object.lat, marker_object.lng)
+            }
             image={{
               src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
               size: {
@@ -257,8 +265,9 @@ function TypeMap({ getData }) {
               lat: marker_object.lat,
               lng: marker_object.lng,
             }}
-            center={{ lat: marker_object.lat, lng: marker_object.lng }}
-            onClick={() => event(marker_object.name)}
+            onClick={() =>
+              event(marker_object.name, marker_object.lat, marker_object.lng)
+            }
             image={{
               src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
               size: {
@@ -296,13 +305,6 @@ function TypeMap({ getData }) {
           }}
           level={6} // 지도의 확대 레벨
         >
-          {!state.isLoading && (
-            <MapMarker position={state.center}>
-              {/* <div style={{ padding: "5px", color: "#000" }}>
-                {state.errMsg ? state.errMsg : "현위치"}
-              </div> */}
-            </MapMarker>
-          )}
           {/* 테이블 수 비율별 마커색 변경 */}
           {selectedCategory === "whole" &&
             positions?.map((marker_object) => {
