@@ -50,7 +50,6 @@ function PageIndex() {
 
   useEffect(() => {
     refetch().then();
-    reviewRefetch().then();
   }, [reload]);
 
   return (

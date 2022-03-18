@@ -95,7 +95,7 @@ function TypeMap({ getData }) {
     };
   });
 
-  const event = (name) => {
+  const event = (name, marker) => {
     setIsOpen(true);
     setOverlay(name);
   };
@@ -140,6 +140,7 @@ function TypeMap({ getData }) {
             lat: marker_object.lat,
             lng: marker_object.lng,
           }}
+          center={{ lat: marker_object.lat, lng: marker_object.lng }}
           onClick={() => event(marker_object.name)}
           image={{
             src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
@@ -169,6 +170,7 @@ function TypeMap({ getData }) {
               lat: marker_object.lat,
               lng: marker_object.lng,
             }}
+            center={{ lat: marker_object.lat, lng: marker_object.lng }}
             onClick={() => event(marker_object.name)}
             image={{
               src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
@@ -197,6 +199,7 @@ function TypeMap({ getData }) {
               lat: marker_object.lat,
               lng: marker_object.lng,
             }}
+            center={{ lat: marker_object.lat, lng: marker_object.lng }}
             onClick={() => event(marker_object.name)}
             image={{
               src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
@@ -225,6 +228,7 @@ function TypeMap({ getData }) {
               lat: marker_object.lat,
               lng: marker_object.lng,
             }}
+            center={{ lat: marker_object.lat, lng: marker_object.lng }}
             onClick={() => event(marker_object.name)}
             image={{
               src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
@@ -253,6 +257,7 @@ function TypeMap({ getData }) {
               lat: marker_object.lat,
               lng: marker_object.lng,
             }}
+            center={{ lat: marker_object.lat, lng: marker_object.lng }}
             onClick={() => event(marker_object.name)}
             image={{
               src: `${marker_object.marker4}`, // 마커이미지의 주소입니다

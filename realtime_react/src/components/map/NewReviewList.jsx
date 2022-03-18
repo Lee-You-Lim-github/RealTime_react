@@ -14,7 +14,8 @@ function NewReviewList({ reviewData }) {
             <div>
               <div>{data.rating}</div>
               <div>{data.content}</div>
-              <div>{data.book_id.user_id.nickname}</div>
+              <div>{data.book_id?.user_id.nickname}</div>
+              <div>{data.wait_id?.user_id.nickname}</div>
             </div>
           );
         })}
