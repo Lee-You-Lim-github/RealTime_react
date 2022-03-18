@@ -26,6 +26,7 @@ import PageShopWaiting from "pages/shop/PageShopWaiting";
 import PageReviewForm from "pages/review/PageReviewForm";
 import PageReivewList from "pages/review/PageReivewList";
 import PageShopDashboard from "pages/shop/PageShopDashboard";
+import PagePickList from "pages/pick/PagePickList";
 
 function App() {
   const [auth] = useAuth();
@@ -138,6 +139,7 @@ function App() {
                   path="/user/:userId/bookings/"
                   element={<PageUserBooking />}
                 />
+                <Route path="/user/:userId/pick/" element={<PagePickList />} />
                 <Route
                   path="/user/:userId/:type/:Id/review/new/"
                   element={<PageReviewForm />}

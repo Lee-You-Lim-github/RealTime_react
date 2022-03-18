@@ -9,7 +9,7 @@ import ShopDetailComponent from "./ShopDetailComponent";
 import ShopReviewComponent from "./ShopReviewComponent";
 import LoadingIndicator from "components/LoadingIndicator";
 import noimages from "assets/img/noimages.png";
-import WishToggle from "components/wish/WishToggle";
+import PickToggle from "components/pick/PickToggle";
 import DebugStates from "components/DebugStates";
 
 const INIT_REVIEW_FIELD_VALUES = {
@@ -212,7 +212,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                 <div className="flex">
                   <span className="select-none">찜하기</span>
                   <div className="mx-1 hover:scale-110">
-                    <WishToggle
+                    <PickToggle
                       shop={shopData}
                       pick={pickData && pickData[0]}
                       user_id={auth.id}

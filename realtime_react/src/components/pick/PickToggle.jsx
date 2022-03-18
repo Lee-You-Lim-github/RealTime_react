@@ -2,9 +2,9 @@ import { useApiAxios } from "api/base";
 import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
-import { EmptyHeart, FilledHeart } from "./WishHeart";
+import { EmptyHeart, FilledHeart } from "./PickHeart";
 
-function WishToggle({ shop, pick, user_id, reload }) {
+function PickToggle({ shop, pick, user_id, reload }) {
   const [auth] = useAuth();
 
   const [picks, setPick] = useState(false);
@@ -68,4 +68,4 @@ function WishToggle({ shop, pick, user_id, reload }) {
   );
 }
 
-export default WishToggle;
+export default PickToggle;

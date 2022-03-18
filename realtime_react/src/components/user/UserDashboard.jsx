@@ -35,8 +35,14 @@ function AdminDashboard() {
         </div>
 
         <div className="flex justify-center">
-          <div className="text-white mx-3 w-60 h-60 bg-stone-400">
-            위시리스트
+          <div className="mx-3 w-60 h-60 bg-stone-400">
+            <h3 className="text-white">위시리스트</h3>
+            <Link
+              to={`/user/${auth.id}/pick/`}
+              className="text-white ml-3 w-60 h-60"
+            >
+              건
+            </Link>
           </div>
           <Link
             to={`/user/${auth.id}/review/`}
