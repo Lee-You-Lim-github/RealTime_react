@@ -9,6 +9,8 @@ import ShopDetailComponent from "./ShopDetailComponent";
 import ShopReviewComponent from "./ShopReviewComponent";
 import LoadingIndicator from "components/LoadingIndicator";
 import noimages from "assets/img/noimages.png";
+import WishToggle from "components/wish/WishToggle";
+import DebugStates from "components/DebugStates";
 
 const INIT_REVIEW_FIELD_VALUES = {
   content: "",
@@ -26,8 +28,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [pageCount, setPageCount] = useState(0);
   const [page, setPage] = useState(1);
 
-  //reload
-
   // getShopData
   const [
     { data: shopData, loading: shopLoading, error: shopError },
@@ -43,9 +43,27 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     { manual: true }
   );
 
+  //
+  const [{ data: pickData }, getPick] = useApiAxios(
+    {
+      url: `/user/api/picks/?user_id=${auth.id}&shop_id=${shopId}`,
+      method: "GET",
+    },
+    { manual: true }
+  );
+
   useEffect(() => {
     ShopRefetch();
-  }, [shopId]);
+  }, [ShopRefetch]);
+
+  useEffect(() => {
+    shopData && getPick();
+  }, [auth, shopData, getPick]);
+
+  const reload = () => {
+    getPick();
+    ShopRefetch();
+  };
 
   // getReviewData
   const [
@@ -62,31 +80,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     { manual: true }
   );
 
-  // deleteReview
-  // const [{ loading: deleteLoading, error: deleteError }, deleteReview] =
-  //   useApiAxios(
-  //     {
-  //       url: `/review/api/review/${reviewData?.id}/`,
-  //       method: "DELETE",
-  //       headers: {
-  //         Authorization: `Bearer ${auth.access}`,
-  //       },
-  //     },
-  //     { manual: true }
-  //   );
-
-  // const handleDelete = () => {
-  //   if (window.confirm("Are you sure?")) {
-  //     deleteReview({
-  //       url: `/review/api/review/${reviewData?.id}/`,
-  //       method: "DELETE",
-  //     });
-
-  //     alert("리뷰가 삭제되었습니다.");
-  //     window.location.replace(`/shop/${shopId}/`);
-  //   }
-  // };
-
   // reviewList Paging
   const fetchApplications = useCallback(
     async (newPage) => {
@@ -99,7 +92,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
       setPageCount(Math.ceil(data.count / itemsPerPage));
       setItems(data?.results);
     },
-    [shopData]
+    [shopId]
   );
 
   useEffect(() => {
@@ -215,8 +208,22 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                   잔여 테이블수: {shopData.now_table_count}/
                   {shopData.total_table_count}
                 </p>
+
+                <div className="flex">
+                  <span className="select-none">찜하기</span>
+                  <div className="mx-1 hover:scale-110">
+                    <WishToggle
+                      shop={shopData}
+                      pick={pickData && pickData[0]}
+                      user_id={auth.id}
+                      getPick={getPick}
+                      reload={reload}
+                    />
+                  </div>
+                </div>
+
                 <div className="mb-5">
-                  {!shopData?.photo ? (
+                  {!shopData?.photo1 ? (
                     <img
                       className="rounded h-80"
                       src={noimages}
@@ -225,7 +232,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                   ) : (
                     <img
                       className="rounded"
-                      src={shopData.photo}
+                      src={shopData.photo1}
                       alt={shopData.name}
                     />
                   )}
