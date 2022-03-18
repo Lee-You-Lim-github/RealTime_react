@@ -3,7 +3,7 @@ import DebugStates from "components/DebugStates";
 function NewReviewList({ reviewData }) {
   return (
     <div>
-      {reviewData.results
+      {reviewData
         .sort(
           (newShop, newShop2) =>
             new Date(newShop2.created_at) - new Date(newShop.created_at)

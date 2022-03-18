@@ -18,14 +18,16 @@ function PageIndex() {
     { manual: true }
   );
 
-  const [{ data: reviewData, reviewLoading, reviewError }, reviewRefetch] =
-    useApiAxios(
-      {
-        url: `/review/api/review/?all`,
-        method: "GET",
-      },
-      { manual: true }
-    );
+  const [
+    { data: reviewData, loading: reviewLoading, Error: reviewError },
+    reviewRefetch,
+  ] = useApiAxios(
+    {
+      url: `/review/api/review/?all`,
+      method: "GET",
+    },
+    { manual: true }
+  );
 
   useEffect(() => {
     refetch();
