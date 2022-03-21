@@ -7,7 +7,21 @@ module.exports = {
       xs: "400px",
       ...defaultTheme.screens,
     },
-    extend: {},
+    extend: {
+      keyframes: {
+        slider: {
+          "0%": {
+            transform: "translateX(0px)",
+          },
+          "100%": {
+            transform: "translateX(-1400px)",
+          },
+        },
+      },
+      animation: {
+        slider: "slider 20s linear infinite",
+      },
+    },
   },
   plugins: [],
 };
