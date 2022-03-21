@@ -19,7 +19,7 @@ import category_cafe from "assets/img/cafe.png";
 import "./Map.css";
 import DebugStates from "components/DebugStates";
 
-function TypeMap({ getData }) {
+function TypeMap({ getData, pickData }) {
   const [isOpen, setIsOpen] = useState(false);
   const [overlay, setOverlay] = useState();
   const [closeMarker, setCloseMarker] = useState();
@@ -113,7 +113,7 @@ function TypeMap({ getData }) {
 
   useEffect(() => {}, [selectedCategory]);
 
-  var positions = getData?.map((data) => {
+  const positions = getData?.map((data) => {
     return {
       shop_id: data.id,
       name: data.name,
@@ -134,6 +134,30 @@ function TypeMap({ getData }) {
       marker5: marker5,
     };
   });
+
+  const positions2 = pickData?.map((data) => {
+    return {
+      shop_id: data.shop_id.id,
+      name: data.shop_id.name,
+      lat: data.shop_id.lat,
+      lng: data.shop_id.longitude,
+      address: data.shop_id.address,
+      now_table_count: data.shop_id.now_table_count,
+      total_table_count: data.shop_id.total_table_count,
+      photo: data.shop_id.photo,
+      telephone: data.shop_id.telephone,
+      holiday: data.shop_id.holiday,
+      category: data.shop_id.category,
+      marker1: marker1,
+      marker2: marker2,
+      marker3: marker3,
+      marker4: marker4,
+      marker5: marker5,
+    };
+  });
+
+  console.log("positions2", positions2);
+  console.log("positions", positions);
 
   function map_marker(marker_object) {
     if (marker_object.holiday === "1") {
@@ -334,12 +358,18 @@ function TypeMap({ getData }) {
               .map((marker_object) => {
                 return map_marker(marker_object);
               })}
+
           {selectedCategory === "cafe" &&
             positions
               ?.filter((p) => p.category === "카페")
               .map((marker_object) => {
                 return map_marker(marker_object);
               })}
+
+          {selectedCategory === "pick" &&
+            positions2?.map((marker_object) => {
+              return map_marker(marker_object);
+            })}
 
           {selectedCategory === "relax" &&
             positions
@@ -497,6 +527,13 @@ function TypeMap({ getData }) {
             >
               <img src={category_cafe} height="100" width="100" />
               카페
+            </button>
+            <button
+              className="mr-16"
+              id="pick"
+              onClick={() => closeEvent("pick")}
+            >
+              <img src={category_cafe} height="100" width="100" />찜
             </button>
           </ul>
         </div>

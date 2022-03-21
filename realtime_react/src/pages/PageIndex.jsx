@@ -2,11 +2,13 @@ import { useApiAxios } from "api/base";
 import Map from "components/map/Map";
 import NewReviewList from "components/map/NewReviewList";
 import NewShopList from "components/map/NewShopList";
+import { useAuth } from "contexts/AuthContext";
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function PageIndex() {
+  const [auth] = useAuth();
   const { shopId } = useParams();
   const [query, setQuery] = useState();
   const [reload, setReload] = useState(false);
@@ -29,9 +31,21 @@ function PageIndex() {
     { manual: true }
   );
 
+  const [
+    { data: pickData, loading: pickLoading, Error: pickError },
+    pickRefetch,
+  ] = useApiAxios(
+    {
+      url: `/user/api/picks/?user_id=${auth.id}`,
+      method: "GET",
+    },
+    { manual: true }
+  );
+
   useEffect(() => {
     refetch();
     reviewRefetch();
+    pickRefetch();
   }, []);
 
   const getQuery = (e) => {
@@ -79,7 +93,7 @@ function PageIndex() {
       </div>
 
       <div className="page flex justify-center mt-4">
-        {getData && <Map getData={getData} />}
+        {getData && <Map getData={getData} pickData={pickData} />}
       </div>
       <div className=" shadow-lg shadow-gray-500/80">
         <div className="xl:w-90">
