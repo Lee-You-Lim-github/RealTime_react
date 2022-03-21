@@ -35,8 +35,10 @@ function LoginForm() {
         refresh,
         id,
         user_id,
+        username,
         nickname,
         authority,
+        telephone,
         is_superuser,
       } = response.data;
       login({
@@ -44,11 +46,12 @@ function LoginForm() {
         refresh,
         id,
         user_id,
+        username,
         nickname,
         authority,
+        telephone,
         is_superuser,
       });
-
       navigate("/");
     });
   };

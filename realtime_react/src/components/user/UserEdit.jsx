@@ -146,7 +146,7 @@ function UserEdit({ userId }) {
           </form>
           <button
             className="mt-4 w-full bg-white text-violet-400 border-2 border-violet-300 py-2 rounded-md text-lg tracking-wide hover:text-red-300 hover:border-red-300"
-            onClick={() => navigate(`/user/mypage/${userId}/`)}
+            onClick={() => navigate(`/user/${userId}/dashboard/`)}
           >
             취소
           </button>

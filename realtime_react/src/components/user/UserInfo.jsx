@@ -21,6 +21,8 @@ function UserInfo() {
     refetch();
   }, []);
 
+  console.log(auth);
+
   return (
     <div className="ml-3">
       <p className="text-left">ID : {auth.user_id}</p>
