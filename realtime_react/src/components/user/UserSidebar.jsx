@@ -24,7 +24,9 @@ function UserSidebar({ userId }) {
       <Link to={`/user/${userId}/review/`} className="text-white text-xl my-5">
         리뷰내역
       </Link>
-      <div className="text-white text-xl my-5">1:1문의</div>
+      <Link to={`/user/${userId}/qna/`} className="text-white text-xl my-5">
+        1:1문의
+      </Link>
     </div>
   );
 }
