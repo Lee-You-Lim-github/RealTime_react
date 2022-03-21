@@ -2,7 +2,7 @@ import UserDashboard from "components/user/UserDashboard";
 import UserSidebar from "components/user/UserSidebar";
 import { useParams } from "react-router-dom";
 
-function PageAdminDashboard() {
+function PageUserDashboard() {
   const { userId } = useParams();
 
   return (
@@ -17,4 +17,4 @@ function PageAdminDashboard() {
   );
 }
 
-export default PageAdminDashboard;
+export default PageUserDashboard;
