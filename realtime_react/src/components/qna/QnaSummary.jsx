@@ -10,6 +10,10 @@ function QnaSummary({ qna, index }) {
         </Link>
       </div>
       <div>{qna.qna_registered_date}</div>
+      <div>
+        <div>{qna.qna_answer && <div> ✔ </div>}</div>
+        <div>{!qna.qna_answer && <div> ✖ </div>}</div>
+      </div>
     </div>
   );
 }
