@@ -29,6 +29,7 @@ import PageShopDashboard from "pages/shop/PageShopDashboard";
 import PagePickList from "pages/pick/PagePickList";
 import PageQnaList from "pages/qna/PageQnaList";
 import PageQnaDetail from "pages/qna/PageQnaDetail";
+import PageQnaForm from "pages/qna/PageQnaForm";
 
 function App() {
   const [auth] = useAuth();
@@ -155,6 +156,7 @@ function App() {
                   path="/user/:userId/qna/:qnaId/"
                   element={<PageQnaDetail />}
                 />
+                <Route path="/user/:userId/qna/new" element={<PageQnaForm />} />
               </Routes>
               <NotAccess />
             </div>
