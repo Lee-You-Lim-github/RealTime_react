@@ -30,7 +30,7 @@ function ShopSidebar({ shopId }) {
         >
           대기현황
         </Link>
-        <Link to="#" className="text-white text-xl mb-5">
+        <Link to={`/user/${auth.id}/qna/`} className="text-white text-xl mb-5">
           1:1문의
         </Link>
       </div>

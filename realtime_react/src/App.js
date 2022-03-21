@@ -207,6 +207,12 @@ function App() {
                   path="/user/:userId/bookings/"
                   element={<PageShopNot />}
                 />
+                <Route path="/user/:userId/qna/" element={<PageQnaList />} />
+                <Route
+                  path="/user/:userId/qna/:qnaId/"
+                  element={<PageQnaDetail />}
+                />
+                <Route path="/user/:userId/qna/new" element={<PageQnaForm />} />
               </Routes>
               <NotAccess />
               <Footer />

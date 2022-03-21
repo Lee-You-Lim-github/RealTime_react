@@ -19,8 +19,9 @@ function QnaDetail({ qnaId, userId }) {
 
   const handleDeleted = () => {
     if (window.confirm("삭제하시겠습니까?")) {
-      deleteQna().then();
-      navigate(`user/${userId}/qna/`);
+      deleteQna().then(() => {
+        navigate(`/user/${userId}/qna/`);
+      });
     }
   };
 
