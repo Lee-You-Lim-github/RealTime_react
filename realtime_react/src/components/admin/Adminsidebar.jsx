@@ -13,7 +13,9 @@ function Adminsidebar() {
         <Link to="/admin/booking/" className="text-white text-xl mb-5">
           예약관리
         </Link>
-        <div className="text-white text-xl mb-5">1:1문의</div>
+        <Link to="/admin/qna" className="text-white text-xl mb-5">
+          1:1문의
+        </Link>
       </div>
     </div>
   );

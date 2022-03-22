@@ -26,7 +26,12 @@ function AdminDashboard() {
           >
             예약관리
           </Link>
-          <div className="ml-3 w-60 h-60 bg-orange-400 rounded-xl">1:1문의</div>
+          <Link
+            to="/admin/qna"
+            className="ml-3 w-60 h-60 bg-orange-400 rounded-xl"
+          >
+            1:1문의
+          </Link>
         </div>
       </div>
     </div>

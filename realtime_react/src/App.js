@@ -30,6 +30,8 @@ import PagePickList from "pages/pick/PagePickList";
 import PageQnaList from "pages/qna/PageQnaList";
 import PageQnaDetail from "pages/qna/PageQnaDetail";
 import PageQnaForm from "pages/qna/PageQnaForm";
+import PageAdminQnaList from "pages/qna/PageAdminQnaList";
+import PageAdminQnaDetail from "pages/qna/PageAdminQnaDetail";
 
 function App() {
   const [auth] = useAuth();
@@ -94,6 +96,9 @@ function App() {
                 path="/user/:userId/bookings/"
                 element={<PageNotAccess />}
               />
+
+              {/* 관리자 qna */}
+              <Route path="/admin/qna/" element={<PageAdminQnaList />} />
             </Routes>
           </div>
           <Footer />
