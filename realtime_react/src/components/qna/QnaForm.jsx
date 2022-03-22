@@ -5,10 +5,10 @@ import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const INIT_FIELD_VALUES = {
-  qna_title: "",
-  qna_content: "",
-  qna_answer: "",
-  qna_photo: "",
+  title: "",
+  content: "",
+  answer: "",
+  photo: "",
   user_id: "",
 };
 
@@ -63,8 +63,8 @@ function QnaForm({ userId, handleDidSave }) {
           <div>
             <input
               type="text"
-              name="qna_title"
-              value={fieldValues.qna_title}
+              name="title"
+              value={fieldValues.title}
               onChange={handleFieldChange}
             />
           </div>
@@ -72,15 +72,15 @@ function QnaForm({ userId, handleDidSave }) {
           <div>
             <textarea
               type="textarea"
-              name="qna_content"
-              value={fieldValues.qna_content}
+              name="content"
+              value={fieldValues.content}
               onChange={handleFieldChange}
             />
 
             <div>
               <input
                 type="file"
-                name="qna_photo"
+                name="photo"
                 onChange={handleFieldChange}
                 accept=".jpg, .png, .jpeg"
               />
