@@ -34,7 +34,6 @@ function UserQnaList({ itemsPerPage = 10, userId }) {
       .then(({ data }) => {
         setPageCount(Math.ceil((data?.count ? data.count : 1) / itemsPerPage));
         setCurrentItems(data?.results);
-        // setQuery("");
       })
       .catch((error) => {
         console.log(error);

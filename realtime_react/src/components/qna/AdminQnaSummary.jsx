@@ -9,14 +9,12 @@ function AdminQnaSummary({ qna, index }) {
         <div>{qna.user_id.authority === "1" && <div>사업자</div>}</div>
       </div>
       <div>
-        <Link to={`/admin/${qna.user_id.id}/qna/${qna.id}/`}>
-          {qna.qna_title}
-        </Link>
+        <Link to={`/admin/${qna.user_id.id}/qna/${qna.id}/`}>{qna.title}</Link>
       </div>
-      <div>{qna.qna_registered_date}</div>
+      <div>{qna.registered_date}</div>
       <div>
-        <div>{qna.qna_answer && <div> ✔ </div>}</div>
-        <div>{!qna.qna_answer && <div> ✖ </div>}</div>
+        <div>{qna.answer && <div> ✔ </div>}</div>
+        <div>{!qna.answer && <div> ✖ </div>}</div>
       </div>
     </div>
   );
