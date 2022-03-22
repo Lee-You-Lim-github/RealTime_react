@@ -32,6 +32,7 @@ import PageQnaDetail from "pages/qna/PageQnaDetail";
 import PageQnaForm from "pages/qna/PageQnaForm";
 import PageAdminQnaList from "pages/qna/PageAdminQnaList";
 import PageAdminQnaDetail from "pages/qna/PageAdminQnaDetail";
+import PageAdminQnaForm from "pages/qna/PageAdminQnaForm";
 
 function App() {
   const [auth] = useAuth();
@@ -99,6 +100,14 @@ function App() {
 
               {/* 관리자 qna */}
               <Route path="/admin/qna/" element={<PageAdminQnaList />} />
+              <Route
+                path="/admin/:userId/qna/:qnaId/"
+                element={<PageAdminQnaDetail />}
+              />
+              <Route
+                path="/admin/:userId/qna/:qnaId/answer"
+                element={<PageAdminQnaForm />}
+              />
             </Routes>
           </div>
           <Footer />
