@@ -1,6 +1,7 @@
 import { useApiAxios } from "api/base";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import AdminQnaDetailSummary from "./AdminQnaDetailSummary";
 import QnaDetailSummary from "./QnaDetailSummary";
 
 function AdminQnaDetail({ userId, qnaId }) {
@@ -29,7 +30,8 @@ function AdminQnaDetail({ userId, qnaId }) {
   return (
     <div>
       <div>AdminQnaDetail</div>
-      <QnaDetailSummary qna={qna} />
+      <AdminQnaDetailSummary qna={qna} />
+
       <div className=" flex justify-end p-1 mt-3  text-sm align-middle">
         <button
           className="w-24 h-8 ml-2   border border-orange-400 rounded-sm text-orange-400"
