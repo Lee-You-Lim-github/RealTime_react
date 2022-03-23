@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 function UserSidebar({ userId }) {
   return (
-    <div className="flex flex-col h-full bg-orange-400">
+    <div className="flex flex-col w-full h-full bg-orange-400">
       <Link
         to={`/user/mypage/${userId}/edit/`}
         className="text-white text-xl my-5"
