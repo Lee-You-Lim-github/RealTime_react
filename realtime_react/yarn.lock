@@ -7837,6 +7837,11 @@ react-scripts@5.0.0:
   optionalDependencies:
     fsevents "^2.3.2"
 
+react-show-more-list@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/react-show-more-list/-/react-show-more-list-0.5.2.tgz#29b852d903cc50358e5bc595053a84f63d62d0d9"
+  integrity sha1-KbhS2QPMUDWOW8WVBTqE9j1i0Nk=
+
 react-star-rating-component@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/react-star-rating-component/-/react-star-rating-component-1.4.1.tgz#74dc1c73493f088013331c234190b8cccad31f6b"
