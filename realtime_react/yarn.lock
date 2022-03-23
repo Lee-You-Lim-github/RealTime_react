@@ -7850,6 +7850,13 @@ react-star-rating-component@^1.4.1:
     classnames "^2.2.5"
     prop-types "^15.6.1"
 
+react-sticky-box@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-sticky-box/-/react-sticky-box-1.0.1.tgz#9fb3fd3485985d28df60e7fb48f03a1000804cbd"
+  integrity sha512-CmxcLnMLXvNgslf70SXAduh/4Be8xiB6znW4aUCWv8qNbZjDlFjC5WptbyiKT6465AYuNCg6NGapWlyoN/o7Ew==
+  dependencies:
+    resize-observer-polyfill "^1.5.1"
+
 react-timestamp@^5.1.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/react-timestamp/-/react-timestamp-5.1.0.tgz#fb2ee03fee3f2d2d1ea457d26b8f19e8817644f9"
@@ -8046,6 +8053,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+resize-observer-polyfill@^1.5.1:
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
+  integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==
 
 resolve-cwd@^3.0.0:
   version "3.0.0"
