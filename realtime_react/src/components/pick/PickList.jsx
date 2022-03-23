@@ -32,24 +32,44 @@ function PickList() {
     refetch().then();
   }, []);
 
+  const scrollUp = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <>
       <ShowMore items={pickArray} by={4}>
         {({ current, onMore }) => (
           <div>
             <div>위시리스트</div>
-            {current?.map((pick_obj) => (
-              <PickComponent key={pick_obj.id} pick_obj={pick_obj} />
-            ))}
-            <button
-              disabled={!onMore}
-              onClick={() => {
-                if (!!onMore) onMore();
-              }}
-              className="text-lg border-2 border-stone-300 p-2"
-            >
-              더보기
-            </button>
+            {pickArray.length > 0 ? (
+              <>
+                {current?.map((pick_obj) => (
+                  <PickComponent key={pick_obj.id} pick_obj={pick_obj} />
+                ))}
+              </>
+            ) : (
+              "찜 내역이 없습니다."
+            )}
+
+            {onMore ? (
+              <button
+                disabled={!onMore}
+                onClick={() => {
+                  if (!!onMore) onMore();
+                }}
+                className="text-lg border-2 border-stone-300 p-2"
+              >
+                SHOW MORE
+              </button>
+            ) : (
+              <button
+                onClick={scrollUp}
+                className="text-lg border-2 border-stone-300 p-2"
+              >
+                TOP
+              </button>
+            )}
           </div>
         )}
       </ShowMore>
