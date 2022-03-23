@@ -73,7 +73,7 @@ function AdminQnaList({ itemsPerPage = 10 }) {
       <div>
         <select onChange={(e) => setAuthority(e.target.value)}>
           <option value="" selected>
-            선택
+            전체
           </option>
           <option value="0">개인</option>
           <option value="1">사업자</option>
