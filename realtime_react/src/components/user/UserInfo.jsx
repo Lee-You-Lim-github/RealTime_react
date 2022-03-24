@@ -6,7 +6,7 @@ import "./UserInfo.css";
 function UserInfo() {
   const [auth] = useAuth();
 
-  const [data, refetch] = useApiAxios(
+  const [, refetch] = useApiAxios(
     {
       url: `/accounts/api/users/${auth.id}/`,
       method: "GET",

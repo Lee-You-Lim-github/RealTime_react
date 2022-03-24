@@ -222,20 +222,48 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                   </div>
                 </div>
 
-                <div className="mb-5">
-                  {!shopData?.photo1 ? (
-                    <img
-                      className="rounded h-80"
-                      src={noimages}
-                      alt="no_images"
-                    />
-                  ) : (
-                    <img
-                      className="rounded"
-                      src={shopData.photo1}
-                      alt={shopData.name}
-                    />
-                  )}
+                <div className="relative overflow-hidden">
+                  <div className="mb-5 flex flex-row animate-slider">
+                    {!shopData?.photo1 ? (
+                      <img
+                        className="rounded h-80"
+                        src={noimages}
+                        alt="no_images"
+                      />
+                    ) : (
+                      <img
+                        className="rounded"
+                        src={shopData.photo1}
+                        alt={shopData.name}
+                      />
+                    )}
+                    {!shopData?.photo2 ? (
+                      <img
+                        className="rounded h-80"
+                        src={noimages}
+                        alt="no_images"
+                      />
+                    ) : (
+                      <img
+                        className="rounded"
+                        src={shopData.photo2}
+                        alt={shopData.name}
+                      />
+                    )}
+                    {!shopData?.photo3 ? (
+                      <img
+                        className="rounded h-80"
+                        src={noimages}
+                        alt="no_images"
+                      />
+                    ) : (
+                      <img
+                        className="rounded"
+                        src={shopData.photo3}
+                        alt={shopData.name}
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>

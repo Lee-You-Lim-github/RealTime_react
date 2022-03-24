@@ -8024,6 +8024,7 @@ react-scripts@5.0.0:
   optionalDependencies:
     fsevents "^2.3.2"
 
+<<<<<<< HEAD
 react-slick@^0.28.1:
   version "0.28.1"
   resolved "https://registry.yarnpkg.com/react-slick/-/react-slick-0.28.1.tgz#12c18d991b59432df9c3757ba540a227b3fb85b9"
@@ -8034,6 +8035,12 @@ react-slick@^0.28.1:
     json2mq "^0.2.0"
     lodash.debounce "^4.0.8"
     resize-observer-polyfill "^1.5.0"
+=======
+react-show-more-list@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/react-show-more-list/-/react-show-more-list-0.5.2.tgz#29b852d903cc50358e5bc595053a84f63d62d0d9"
+  integrity sha1-KbhS2QPMUDWOW8WVBTqE9j1i0Nk=
+>>>>>>> 0a063bc2ffe4df195c5eec429eba2682e5531ab5
 
 react-star-rating-component@^1.4.1:
   version "1.4.1"
@@ -8042,6 +8049,13 @@ react-star-rating-component@^1.4.1:
   dependencies:
     classnames "^2.2.5"
     prop-types "^15.6.1"
+
+react-sticky-box@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-sticky-box/-/react-sticky-box-1.0.1.tgz#9fb3fd3485985d28df60e7fb48f03a1000804cbd"
+  integrity sha512-CmxcLnMLXvNgslf70SXAduh/4Be8xiB6znW4aUCWv8qNbZjDlFjC5WptbyiKT6465AYuNCg6NGapWlyoN/o7Ew==
+  dependencies:
+    resize-observer-polyfill "^1.5.1"
 
 react-timestamp@^5.1.0:
   version "5.1.0"
@@ -8274,12 +8288,16 @@ requires-port@^1.0.0:
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
 
+<<<<<<< HEAD
 resize-observer-polyfill@1.5.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.0.tgz#660ff1d9712a2382baa2cad450a4716209f9ca69"
   integrity sha512-M2AelyJDVR/oLnToJLtuDJRBBWUGUvvGigj1411hXhAdyFWqMaqHp7TixW3FpiLuVaikIcR1QL+zqoJoZlOgpg==
 
 resize-observer-polyfill@^1.5.0:
+=======
+resize-observer-polyfill@^1.5.1:
+>>>>>>> 0a063bc2ffe4df195c5eec429eba2682e5531ab5
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/resize-observer-polyfill/-/resize-observer-polyfill-1.5.1.tgz#0e9020dd3d21024458d4ebd27e23e40269810464"
   integrity sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==

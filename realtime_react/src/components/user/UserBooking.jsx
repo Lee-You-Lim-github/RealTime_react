@@ -3,6 +3,7 @@ import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import LoadingIndicator from "components/LoadingIndicator";
 import DebugStates from "components/DebugStates";
+import ShowMore from "react-show-more-list";
 import UserBookingComponent from "./UserBookingComponent";
 import user_booking from "assets/img/shop_booking.png";
 
@@ -40,6 +41,10 @@ function UserBooking() {
     refetch().then();
   }, []);
 
+  const scrollUp = () => {
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div className="w-[900px] mx-auto mt-14 mb-20">
       <div className="flex flex-row mt-14 mb-5">
@@ -49,19 +54,44 @@ function UserBooking() {
 
       {bookingLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
 
-      {bookingArray.length > 0 ? (
-        <>
-          {bookingArray?.map((booking_object) => (
-            <UserBookingComponent
-              key={booking_object.id}
-              booking_object={booking_object}
-              bookingList={bookingList}
-            />
-          ))}
-        </>
-      ) : (
-        "예약 내역이 없습니다."
-      )}
+      <ShowMore items={bookingArray} by={3}>
+        {({ current, onMore }) => (
+          <>
+            {bookingArray.length > 0 ? (
+              <>
+                {current?.map((booking_object) => (
+                  <UserBookingComponent
+                    key={booking_object.id}
+                    booking_object={booking_object}
+                    bookingList={bookingList}
+                  />
+                ))}
+              </>
+            ) : (
+              "예약 내역이 없습니다."
+            )}
+
+            {onMore ? (
+              <button
+                disabled={!onMore}
+                onClick={() => {
+                  if (!!onMore) onMore();
+                }}
+                className="text-lg border-2 border-stone-300 p-2"
+              >
+                SHOW MORE
+              </button>
+            ) : (
+              <button
+                onClick={scrollUp}
+                className="text-lg border-2 border-stone-300 p-2"
+              >
+                TOP
+              </button>
+            )}
+          </>
+        )}
+      </ShowMore>
     </div>
   );
 }

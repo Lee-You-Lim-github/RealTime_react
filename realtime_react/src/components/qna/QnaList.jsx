@@ -7,7 +7,6 @@ import QnaSummary from "./QnaSummary";
 
 function UserQnaList({ itemsPerPage = 10, userId }) {
   const navigate = useNavigate();
-  const [auth] = useAuth();
   const [query, setQuery] = useState();
   const [currentItems, setCurrentItems] = useState(null);
   const [pageCount, setPageCount] = useState();
@@ -35,7 +34,6 @@ function UserQnaList({ itemsPerPage = 10, userId }) {
       .then(({ data }) => {
         setPageCount(Math.ceil((data?.count ? data.count : 1) / itemsPerPage));
         setCurrentItems(data?.results);
-        // setQuery("");
       })
       .catch((error) => {
         console.log(error);
@@ -56,6 +54,10 @@ function UserQnaList({ itemsPerPage = 10, userId }) {
           <QnaSummary qna={qna} key={qna.id} index={index} />
         ))}
       </div>
+
+      <button onClick={() => navigate(`/user/${userId}/qna/new`)}>
+        글쓰기
+      </button>
 
       <ReactPaginate
         className="pagination"

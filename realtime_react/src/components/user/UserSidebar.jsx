@@ -1,30 +1,35 @@
+import { useAuth } from "contexts/AuthContext";
 import { Link } from "react-router-dom";
 
-function UserSidebar({ userId }) {
+function UserSidebar() {
+  const [auth] = useAuth();
+
   return (
-    <div className="flex flex-col h-full bg-orange-400">
+    <div className="flex flex-col w-full h-full bg-orange-400">
       <Link
-        to={`/user/mypage/${userId}/edit/`}
+        to={`/user/mypage/${auth.id}/edit/`}
         className="text-white text-xl my-5"
       >
         개인정보수정
       </Link>
 
       <Link
-        to={`/user/${userId}/bookings/`}
+        to={`/user/${auth.id}/bookings/`}
         className="text-white text-xl my-5"
       >
         예약내역
       </Link>
 
       <div className="text-white text-xl my-5">대기내역</div>
-      <Link to={`/user/${userId}/pick/`} className="text-white text-xl my-5">
+      <Link to={`/user/${auth.id}/pick/`} className="text-white text-xl my-5">
         위시리스트
       </Link>
-      <Link to={`/user/${userId}/review/`} className="text-white text-xl my-5">
+      <Link to={`/user/${auth.id}/review/`} className="text-white text-xl my-5">
         리뷰내역
       </Link>
-      <div className="text-white text-xl my-5">1:1문의</div>
+      <Link to={`/user/${auth.id}/qna/`} className="text-white text-xl my-5">
+        1:1문의
+      </Link>
     </div>
   );
 }
