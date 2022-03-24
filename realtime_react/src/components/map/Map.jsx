@@ -156,9 +156,6 @@ function TypeMap({ getData, pickData }) {
     };
   });
 
-  console.log("positions2", positions2);
-  console.log("positions", positions);
-
   function map_marker(marker_object) {
     if (marker_object.holiday === "1") {
       return (
@@ -481,7 +478,7 @@ function TypeMap({ getData, pickData }) {
         <div className="flex justify-center ml-14">
           <ul>
             <button
-              className="mr-16"
+              className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="whole"
               onClick={() => closeEvent("whole")}
             >
@@ -489,7 +486,7 @@ function TypeMap({ getData, pickData }) {
               전체
             </button>
             <button
-              className="mr-16"
+              className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="korea"
               onClick={() => closeEvent("korea")}
             >
@@ -497,7 +494,7 @@ function TypeMap({ getData, pickData }) {
               한식
             </button>
             <button
-              className="mr-16"
+              className="mr-16 focus:-y-10 focus:ring-purple-300"
               id="china"
               onClick={() => closeEvent("china")}
             >
@@ -505,7 +502,7 @@ function TypeMap({ getData, pickData }) {
               중식
             </button>
             <button
-              className="mr-16"
+              className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="japan"
               onClick={() => closeEvent("japan")}
             >
@@ -513,7 +510,7 @@ function TypeMap({ getData, pickData }) {
               일식
             </button>
             <button
-              className="mr-16"
+              className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="western"
               onClick={() => closeEvent("western")}
             >
@@ -521,7 +518,7 @@ function TypeMap({ getData, pickData }) {
               양식
             </button>
             <button
-              className="mr-16"
+              className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="cafe"
               onClick={() => closeEvent("cafe")}
             >
@@ -529,7 +526,7 @@ function TypeMap({ getData, pickData }) {
               카페
             </button>
             <button
-              className="mr-16"
+              className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="pick"
               onClick={() => closeEvent("pick")}
             >

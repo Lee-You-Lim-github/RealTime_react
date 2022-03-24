@@ -6,6 +6,7 @@ import { useAuth } from "contexts/AuthContext";
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import ShopCarousel from "components/map/ShopCarousel";
 
 function PageIndex() {
   const [auth] = useAuth();
@@ -85,7 +86,7 @@ function PageIndex() {
   return (
     <>
       <div className="text-white">.</div>
-      <button onClick={scrollDown}>하단</button>
+
       <div className="flex justify-center">
         <button className="border-2 border-gray-400 bg-gray-400 text-white">
           사용 안내
@@ -129,9 +130,106 @@ function PageIndex() {
         </div>
         {getData && <NewShopList getData={getData} />}
         {reviewData && <NewReviewList reviewData={reviewData} />}
-        <button onClick={scrollUp}>상단버튼</button>
-        <button onClick={scrollShop}>신규매장버튼</button>
-        <button onClick={scrollReview}>최근리뷰버튼</button>
+        <div class="floating">
+          {" "}
+          <div>
+            <button onClick={scrollDown}>하단</button>
+          </div>{" "}
+          <div>
+            <button onClick={scrollUp}>상단버튼</button>
+          </div>{" "}
+          <div>
+            <button onClick={scrollShop}>신규매장버튼</button>
+          </div>{" "}
+          <div>
+            {" "}
+            <button onClick={scrollReview}>최근리뷰버튼</button>
+          </div>{" "}
+        </div>
+      </div>
+      <div
+        style={{
+          maxWidth: 1200,
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: 64,
+        }}
+      >
+        <ShopCarousel show={3}>
+          <div>
+            <div style={{ padding: 8 }}>
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: "100%" }}
+              />
+              asd
+            </div>
+          </div>
+          <div>
+            <div style={{ padding: 8 }}>
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
+          <div>
+            <div style={{ padding: 8 }}>
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
+          <div>
+            <div style={{ padding: 8 }}>
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
+          <div>
+            <div style={{ padding: 8 }}>
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
+          <div>
+            <div style={{ padding: 8 }}>
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
+          <div>
+            <div style={{ padding: 8 }}>
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
+          <div>
+            <div style={{ padding: 8 }}>
+              <img
+                src="https://via.placeholder.com/300x300"
+                alt="placeholder"
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
+        </ShopCarousel>
       </div>
     </>
   );
