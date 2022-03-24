@@ -6,7 +6,6 @@ import { useAuth } from "contexts/AuthContext";
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ShopCarousel from "components/map/ShopCarousel";
 
 function PageIndex() {
   const [auth] = useAuth();
@@ -146,90 +145,6 @@ function PageIndex() {
             <button onClick={scrollReview}>최근리뷰버튼</button>
           </div>{" "}
         </div>
-      </div>
-      <div
-        style={{
-          maxWidth: 1200,
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginTop: 64,
-        }}
-      >
-        <ShopCarousel show={3}>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-              asd
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-            </div>
-          </div>
-        </ShopCarousel>
       </div>
     </>
   );

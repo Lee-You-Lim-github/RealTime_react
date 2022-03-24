@@ -13,6 +13,7 @@ function NewShopList({ getData }) {
 
   return (
     <>
+      신규 매장
       <div
         style={{
           maxWidth: 1200,
