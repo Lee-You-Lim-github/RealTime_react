@@ -6,6 +6,8 @@ import produce from "immer";
 import ConfirmModal from "components/modal/ConfirmModal";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
+import ShopFormMap from "./ShopFormMap";
+import DebugStates from "components/DebugStates";
 
 const INIT_FIELD_VALUES = {
   shop_num: "",
@@ -23,7 +25,7 @@ const INIT_FIELD_VALUES = {
   conv_pack: false,
   notice: "",
   intro: "",
-  photo: "",
+  photo1: "",
 };
 
 function ShopForm({ shopId, handleDidSave }) {
@@ -36,6 +38,9 @@ function ShopForm({ shopId, handleDidSave }) {
   const [modalOpen, setModalOpen] = useState(false);
 
   const navigate = useNavigate();
+
+  // 위도, 경도 값
+  // const [] = useState();
 
   // 사진 파일 업로드 시 사진이 보이게
   const preview_photo = (e, fileData) => {
@@ -70,7 +75,7 @@ function ShopForm({ shopId, handleDidSave }) {
   useEffect(() => {
     setFieldValues(
       produce((draft) => {
-        draft.photo = "";
+        draft.photo1 = "";
       })
     );
   }, [getShopData]);
@@ -140,12 +145,17 @@ function ShopForm({ shopId, handleDidSave }) {
     <div className="bg-scroll bg-[url('assets/img/koreafood.png')] bg-cover">
       <div className="flex justify-center items-center">
         <div className="lg:w-2/5 md:w-1/2 w-2/3">
+          <DebugStates fieldValues={fieldValues} />
           <div className="bg-white border-2 border-violet-300 rounded-lg shadow-xl mx-auto p-10 my-20">
             {!shopId ? (
               <h2 className="text-center text-3xl mb-10">가맹점 가입</h2>
             ) : (
               <h2 className="text-center text-3xl mb-10">매장정보 수정</h2>
             )}
+            <ShopFormMap
+              fieldValues={fieldValues}
+              setFieldValues={setFieldValues}
+            />
             {getShopLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
             {shopFormLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
             {getShopError?.response?.status >= 400 && (
@@ -240,7 +250,7 @@ function ShopForm({ shopId, handleDidSave }) {
                 </p>
               ))}
             </div>
-            <div>
+            {/* <div>
               <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
                 위도
               </label>
@@ -279,7 +289,7 @@ function ShopForm({ shopId, handleDidSave }) {
                   {message}
                 </p>
               ))}
-            </div>
+            </div> */}
             <div>
               <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
                 매장 전화번호
@@ -395,7 +405,7 @@ function ShopForm({ shopId, handleDidSave }) {
               </label>
               <input
                 type="file"
-                name="photo"
+                name="photo1"
                 onChange={(e) => {
                   preview_photo(e, e.target.files[0]);
                 }}
@@ -404,7 +414,7 @@ function ShopForm({ shopId, handleDidSave }) {
               />
               <div className="mt-2">
                 <img
-                  src={imageSrc || getShopData?.photo}
+                  src={imageSrc || getShopData?.photo1}
                   alt=""
                   className="ml-24 w-80 h-64 mb-5"
                 />
