@@ -33,6 +33,7 @@ import PageQnaForm from "pages/qna/PageQnaForm";
 import PageAdminQnaList from "pages/qna/PageAdminQnaList";
 import PageAdminQnaDetail from "pages/qna/PageAdminQnaDetail";
 import PageAdminQnaForm from "pages/qna/PageAdminQnaForm";
+import PageAdminwaitingList from "pages/waiting/PageAdminwaitingList";
 
 function App() {
   const [auth] = useAuth();
@@ -107,6 +108,13 @@ function App() {
               <Route
                 path="/admin/:userId/qna/:qnaId/answer"
                 element={<PageAdminQnaForm />}
+              />
+
+              {/* 관리자 waiting */}
+
+              <Route
+                path="/admin/waiting/"
+                element={<PageAdminwaitingList />}
               />
             </Routes>
           </div>

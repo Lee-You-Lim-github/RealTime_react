@@ -1,17 +1,20 @@
 import { useApiAxios } from "api/base";
 import { useEffect } from "react";
 
-function Bookinginadmindashboard() {
-  const [{ data: booking, loading, error }, refetch] = useApiAxios(
+function Waitinginadmindashboard() {
+  const [
+    { data: waiting, loading: waitloading, error: waitingerror },
+    getwaiting,
+  ] = useApiAxios(
     {
-      url: `/booking/api/bookings/?all`,
+      url: `/waiting/api/waitings/?all`,
       method: "GET",
     },
     { manual: true }
   );
 
   useEffect(() => {
-    refetch();
+    getwaiting();
   }, []);
 
   const today = new Date();
@@ -23,12 +26,15 @@ function Bookinginadmindashboard() {
 
   return (
     <div className="mt-16">
-      <div> 오늘의 예약내역은?</div>
+      <div> 오늘의 대기내역은?</div>
       <div className="text-4xl">
-        {booking && booking?.filter((book) => book.day === dateString).length}건
+        {waiting &&
+          waiting?.filter((wait) => wait.wait_date.slice(0, 10) === dateString)
+            .length}
+        건
       </div>
     </div>
   );
 }
 
-export default Bookinginadmindashboard;
+export default Waitinginadmindashboard;
