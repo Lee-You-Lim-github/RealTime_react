@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import UserInfo from "./UserInfo";
+import BookingInfo from "./DashboardInfo/BookingInfo";
+import PickInfo from "./DashboardInfo/PickInfo";
+import ReviewInfo from "./DashboardInfo/ReviewInfo";
+import QnAInfo from "./DashboardInfo/QnAInfo";
 
 function UserDashboard() {
   const [auth] = useAuth();
@@ -27,7 +31,7 @@ function UserDashboard() {
               to={`/user/${auth.id}/bookings/`}
               className="text-white ml-3 w-60 h-60 text-3xl"
             >
-              건
+              <BookingInfo /> 건
             </Link>
           </div>
           <div className="mx-7 w-60 h-60 bg-orange-400">
@@ -45,7 +49,7 @@ function UserDashboard() {
               to={`/user/${auth.id}/pick/`}
               className="text-white ml-3 w-60 h-60 text-3xl"
             >
-              건
+              <PickInfo /> 건
             </Link>
           </div>
 
@@ -56,7 +60,7 @@ function UserDashboard() {
               to={`/user/${auth.id}/review/`}
               className="text-white ml-3 w-60 h-60 text-3xl"
             >
-              건
+              <ReviewInfo /> 건
             </Link>
           </div>
 
@@ -67,7 +71,7 @@ function UserDashboard() {
               to={`/user/${auth.id}/qna/`}
               className="text-white ml-3 w-60 h-60 text-3xl"
             >
-              건
+              <QnAInfo /> 건
             </Link>
           </div>
         </div>
