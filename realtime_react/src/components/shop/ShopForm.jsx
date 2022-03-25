@@ -26,6 +26,8 @@ const INIT_FIELD_VALUES = {
   notice: "",
   intro: "",
   photo1: "",
+  photo2: "",
+  photo3: "",
 };
 
 function ShopForm({ shopId, handleDidSave }) {
@@ -153,7 +155,7 @@ function ShopForm({ shopId, handleDidSave }) {
               <h2 className="text-center text-3xl mb-10">매장정보 수정</h2>
             )}
             <ShopFormMap
-              fieldValues={fieldValues}
+              getShopData={getShopData}
               setFieldValues={setFieldValues}
             />
             {getShopLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
@@ -250,46 +252,6 @@ function ShopForm({ shopId, handleDidSave }) {
                 </p>
               ))}
             </div>
-            {/* <div>
-              <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
-                위도
-              </label>
-              <input
-                type="number"
-                name="lat"
-                value={fieldValues.lat}
-                onChange={handleFieldChange}
-                placeholder="위도를 입력해주세요. 예) 127.00000"
-                step="0.00001"
-                min="0"
-                className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
-              />
-              {ShopSavedErrorMessages.lat?.map((message, index) => (
-                <p key={index} className="text-xs text-red-400">
-                  {message}
-                </p>
-              ))}
-            </div>
-            <div>
-              <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
-                경도
-              </label>
-              <input
-                type="number"
-                name="longitude"
-                value={fieldValues.longitude}
-                onChange={handleFieldChange}
-                placeholder="경도를 입력해주세요. 예) 36.00000"
-                step="0.00001"
-                min="0"
-                className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
-              />
-              {ShopSavedErrorMessages.longitude?.map((message, index) => (
-                <p key={index} className="text-xs text-red-400">
-                  {message}
-                </p>
-              ))}
-            </div> */}
             <div>
               <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
                 매장 전화번호
