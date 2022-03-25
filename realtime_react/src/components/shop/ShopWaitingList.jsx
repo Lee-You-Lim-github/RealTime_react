@@ -1,8 +1,11 @@
+import { useApiAxios } from "api/base";
 import WaitingNotVisitConfirm from "components/modal/WaitingNotVisitConfirm";
 import WaitingVisitConfirm from "components/modal/WaitingVisitConfirm";
+import { useAuth } from "contexts/AuthContext";
 import React, { useState } from "react";
 
 function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
+  const [auth] = useAuth();
   // disable
   const [loading, setloading] = useState(false);
 
@@ -36,6 +39,33 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
   // WaitingNotVisitConfirm 모달창
   const [modalOpenNotVisit, setModalOpenNotVisit] = useState(false);
 
+  // 문자 발송
+  const [{ loading: smsLoading, error }, saveSms] = useApiAxios(
+    {
+      url: "/accounts/api/naver_sms_api/",
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  const naver_sms = () => {
+    saveSms({
+      data: {
+        content: `${shopwaiting.user_id.username} 고객님 입장해주세요!`,
+        messages: [
+          {
+            to: "01038336177",
+          },
+        ],
+      },
+    })
+      .then(() => console.log("장고로 보냄!"))
+      .catch((error) => console.log("에러:", error));
+  };
+
   return (
     <div>
       <span className="mx-10">{shopwaiting.wait_count}</span>
@@ -44,7 +74,7 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
       <span className="mx-10">{shopwaiting.wait_table_count}</span>
       <span className="mx-10">{shopwaiting.wait_date.slice(11, 16)}</span>
       <span className="mx-10">
-        <button>요청</button>
+        <button onClick={naver_sms}>요청</button>
       </span>
       <span className="mx-3">
         <React.Fragment>
