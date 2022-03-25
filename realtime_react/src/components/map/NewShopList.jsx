@@ -23,56 +23,20 @@ function NewShopList({ getData }) {
         }}
       >
         <ShopCarousel show={3}>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src={shopData[0].photo1}
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-              <div>{shopData[0].name}</div>
+          {shopData.map((data, index) => (
+            <div>
+              <div>
+                <div style={{ padding: 8 }}>
+                  <img
+                    src={data.photo1}
+                    alt="placeholder"
+                    style={{ width: "100%" }}
+                  />
+                  <div>{data.name}</div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-              <div>{shopData[1].name}</div>
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-              <div>{shopData[2].name}</div>
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-              <div>{shopData[3].name}</div>
-            </div>
-          </div>
-          <div>
-            <div style={{ padding: 8 }}>
-              <img
-                src="https://via.placeholder.com/300x300"
-                alt="placeholder"
-                style={{ width: "100%" }}
-              />
-              <div>{shopData[4].name}</div>
-            </div>
-          </div>
+          ))}
         </ShopCarousel>
       </div>
     </>
