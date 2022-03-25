@@ -6,12 +6,14 @@ import { useAuth } from "contexts/AuthContext";
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import DirectionModal from "components/modal/DirectionModal";
 
 function PageIndex() {
   const [auth] = useAuth();
   const { shopId } = useParams();
   const [query, setQuery] = useState();
   const [reload, setReload] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   const [{ data: getData, loading, error }, refetch] = useApiAxios(
     {
       url: `/shop/api/shops/?all${query ? "&query=" + query : ""}`,
@@ -82,14 +84,32 @@ function PageIndex() {
     window.scrollTo(0, 1100);
   };
 
+  const openModal = () => {
+    setModalOpen(true);
+  };
+
+  // confirm 모달 닫기
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
   return (
     <>
       <div className="text-white">.</div>
 
       <div className="flex justify-center">
-        <button className="border-2 border-gray-400 bg-gray-400 text-white">
+        <button
+          onClick={openModal}
+          className="border-2 border-gray-400 bg-gray-400 text-white"
+        >
           사용 안내
         </button>
+        <DirectionModal
+          open={modalOpen}
+          close={closeModal}
+          name="not_now_booking"
+          header="원격 줄서기 사용 안내"
+        ></DirectionModal>
       </div>
 
       <div className="page flex justify-center mt-4">
