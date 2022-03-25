@@ -1,12 +1,25 @@
 import UserBooking from "components/user/UserBooking";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import PageUserSidebar from "./PageUserSidebar";
 
 function PageUserBooking() {
   const { userId } = useParams();
+  const [xPosition, setX] = useState(0);
 
   return (
-    <div>
-      <UserBooking userId={userId} />
+    <div
+      className="grid grid-cols-8"
+      style={{
+        transform: `translatex(${xPosition}px)`,
+      }}
+    >
+      <div className="grid col-span-2">
+        <PageUserSidebar />
+      </div>
+      <div className="grid col-span-5 auto-rows-max">
+        <UserBooking userId={userId} />
+      </div>
     </div>
   );
 }
