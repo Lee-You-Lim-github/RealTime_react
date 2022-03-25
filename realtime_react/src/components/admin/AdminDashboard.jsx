@@ -1,4 +1,8 @@
 import { Link } from "react-router-dom";
+import Bookinginadmindashboard from "./Bookinginadmindashboard";
+import Qnainadmindashboard from "./Qnainadmindashboard";
+import Shopinadmindashboard from "./Shopinadmindashboard";
+import Userinadmindashboard from "./Userinadmindashboard";
 
 function AdminDashboard() {
   return (
@@ -11,12 +15,14 @@ function AdminDashboard() {
             className="w-60 h-60 bg-orange-400 rounded-xl"
           >
             회원관리
+            <Userinadmindashboard />
           </Link>
           <Link
             to="/admin/shop/"
             className="ml-3 w-60 h-60 bg-stone-400 rounded-xl"
           >
             매장관리
+            <Shopinadmindashboard />
           </Link>
         </div>
         <div className="flex justify-center mt-5">
@@ -25,13 +31,17 @@ function AdminDashboard() {
             className="w-60 h-60 bg-stone-400 rounded-xl"
           >
             예약관리
+            <Bookinginadmindashboard />
           </Link>
-          <Link
-            to="/admin/qna"
-            className="ml-3 w-60 h-60 bg-orange-400 rounded-xl"
-          >
-            1:1문의
-          </Link>
+          <>
+            <Link
+              to="/admin/qna"
+              className="ml-3 w-60 h-60 bg-orange-400 rounded-xl"
+            >
+              1:1문의
+              <Qnainadmindashboard />
+            </Link>
+          </>
         </div>
       </div>
     </div>
