@@ -1,5 +1,6 @@
 import DebugStates from "components/DebugStates";
 import ShopCarousel from "components/map/ShopCarousel";
+import Star from "components/shop/ShopStar";
 
 function NewReviewList({ reviewData }) {
   const sortReviewData = reviewData
@@ -22,8 +23,10 @@ function NewReviewList({ reviewData }) {
         {sortReviewData.map((data, index) => (
           <div>
             <div>
-              <div style={{ padding: 8 }}>
-                <div>{data.rating}</div>
+              <div className="border-solid border-2 m-1" style={{ padding: 8 }}>
+                <div>
+                  <Star score={data.rating} />
+                </div>
                 <div>{data.content}</div>
                 <div>{data.book_id?.user_id.nickname}</div>
                 <div>{data.wait_id?.user_id.nickname}</div>{" "}
