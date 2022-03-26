@@ -172,9 +172,35 @@ function Myshop({ shopId }) {
           {/* 매장 사진 */}
           <div className=" relative flex flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-row">
             <div className="mb-5 mt-5 2xl:w-1/3 xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
-              {myShopData?.photo ? (
+              {myShopData?.photo1 ? (
                 <img
-                  src={myShopData.photo}
+                  src={myShopData.photo1}
+                  alt={myShopData.name}
+                  className="shopimage relative object-center rounded mx-auto my-auto"
+                />
+              ) : (
+                <img
+                  className="shopimage relative object-center rounded mx-auto"
+                  src={noimages}
+                  alt="no_images"
+                />
+              )}
+              {myShopData?.photo1 ? (
+                <img
+                  src={myShopData.photo2}
+                  alt={myShopData.name}
+                  className="shopimage relative object-center rounded mx-auto my-auto"
+                />
+              ) : (
+                <img
+                  className="shopimage relative object-center rounded mx-auto"
+                  src={noimages}
+                  alt="no_images"
+                />
+              )}
+              {myShopData?.photo1 ? (
+                <img
+                  src={myShopData.photo3}
                   alt={myShopData.name}
                   className="shopimage relative object-center rounded mx-auto my-auto"
                 />
