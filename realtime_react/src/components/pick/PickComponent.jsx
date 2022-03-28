@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function PickComponent({ pick_obj }) {
   return (
     <>
-      <div className="max-w-sm my-2 rounded overflow-hidden shadow-lg hover:-translate-y-1">
+      <div className="max-w-sm my-3 rounded overflow-hidden shadow-lg hover:-translate-y-1">
         <img
           className="w-full"
           src={pick_obj.shop_id.photo1}

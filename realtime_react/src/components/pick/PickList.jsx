@@ -43,11 +43,11 @@ function PickList() {
           <div>
             <div>위시리스트</div>
             {pickArray.length > 0 ? (
-              <>
+              <div className="grid grid-cols-2">
                 {current?.map((pick_obj) => (
                   <PickComponent key={pick_obj.id} pick_obj={pick_obj} />
                 ))}
-              </>
+              </div>
             ) : (
               "찜 내역이 없습니다."
             )}
