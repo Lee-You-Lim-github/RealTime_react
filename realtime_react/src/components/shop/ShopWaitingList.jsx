@@ -1,4 +1,5 @@
 import { useApiAxios } from "api/base";
+import SmsConfirm from "components/modal/SmsConfirm";
 import WaitingNotVisitConfirm from "components/modal/WaitingNotVisitConfirm";
 import WaitingVisitConfirm from "components/modal/WaitingVisitConfirm";
 import { useAuth } from "contexts/AuthContext";
@@ -39,6 +40,9 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
   // WaitingNotVisitConfirm 모달창
   const [modalOpenNotVisit, setModalOpenNotVisit] = useState(false);
 
+  // ModalOpenSms 모달창
+  const [modalOpenSms, setModalOpenSms] = useState(false);
+
   // 문자 발송
   const [{ loading: smsLoading, error }, saveSms] = useApiAxios(
     {
@@ -62,7 +66,7 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
         ],
       },
     })
-      .then(() => console.log("장고로 보냄!"))
+      .then(() => alert("요청되었습니다."))
       .catch((error) => console.log("에러:", error));
   };
 
@@ -74,7 +78,15 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
       <span className="mx-10">{shopwaiting.wait_table_count}</span>
       <span className="mx-10">{shopwaiting.wait_date.slice(11, 16)}</span>
       <span className="mx-10">
-        <button onClick={naver_sms}>요청</button>
+        <React.Fragment>
+          <button onClick={() => setModalOpenSms(true)}>요청</button>
+          <SmsConfirm
+            naver_sms={naver_sms}
+            open={modalOpenSms}
+            close={() => setModalOpenSms(false)}
+            header="입장 요청하시겠습니까?"
+          />
+        </React.Fragment>
       </span>
       <span className="mx-3">
         <React.Fragment>
