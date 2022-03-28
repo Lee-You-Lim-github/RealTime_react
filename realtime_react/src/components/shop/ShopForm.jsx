@@ -176,18 +176,12 @@ function ShopForm({ shopId, handleDidSave }) {
     <div className="bg-scroll bg-[url('assets/img/koreafood.png')] bg-cover">
       <div className="flex justify-center items-center">
         <div className="lg:w-2/5 md:w-1/2 w-2/3">
-          <DebugStates fieldValues={fieldValues} />
           <div className="bg-white border-2 border-violet-300 rounded-lg shadow-xl mx-auto p-10 my-20">
             {!shopId ? (
               <h2 className="text-center text-3xl mb-10">가맹점 가입</h2>
             ) : (
               <h2 className="text-center text-3xl mb-10">매장정보 수정</h2>
             )}
-            <ShopFormMap
-              getShopData={getShopData}
-              setFieldValues={setFieldValues}
-              refetch={refetch}
-            />
             {getShopLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
             {shopFormLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
             {getShopError?.response?.status >= 400 && (
@@ -282,6 +276,10 @@ function ShopForm({ shopId, handleDidSave }) {
                 </p>
               ))}
             </div>
+            <ShopFormMap
+              getShopData={getShopData}
+              setFieldValues={setFieldValues}
+            />
             <div>
               <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
                 매장 전화번호
