@@ -17,7 +17,10 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
   // search
   const [query, setQuery] = useState();
 
-  // waiting 데이터 불러오기
+  // 현재 테이블 카운트 수 변경
+  const [tableCount, setTableCount] = useState(0);
+
+  // waiting - get
   const [
     {
       data: shopWaitingData,
@@ -34,17 +37,19 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     { manual: true }
   );
 
-  useEffect(() => {
-    refetch();
-  }, []);
-
-  // waiting : wait_visit_status만 수정
-  const [
-    { loading: shopWaitLoading, error: shopWaitError },
-    saveWaitVisitStatus,
-  ] = useApiAxios(
+  // shopData - get
+  const [{ data: shopData }, shopDataRefetch] = useApiAxios(
     {
-      url: `/waiting/api/waiting/`,
+      url: `/shop/api/shops/${shopId}/`,
+      method: "GET",
+    },
+    { manual: true }
+  );
+
+  // 현재 테이블 수 수정
+  const [{}, saveShop] = useApiAxios(
+    {
+      url: `/shop/api/shops/${shopId}/`,
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -52,6 +57,38 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     },
     { manual: true }
   );
+
+  // 대기여부 수정
+  const [{ loading: shopWaitLoading, error: shopWaitError }, saveWaiting] =
+    useApiAxios(
+      {
+        url: `/waiting/api/waiting/`,
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
+      },
+      { manual: true }
+    );
+
+  useEffect(() => {
+    refetch();
+    shopDataRefetch();
+  }, []);
+
+  useEffect(() => {
+    setTableCount(shopData?.now_table_count);
+  }, [shopData]);
+
+  useEffect(() => {
+    saveShop({
+      data: { now_table_count: tableCount },
+    });
+  }, [tableCount]);
+
+  console.log("현재 테이블 수: ", tableCount);
+
+  // const [hid, setHid] = useState(shopWaitingData?.results);
 
   // 페이징
   const fetchApplication = useCallback(
@@ -94,11 +131,20 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     setQuery(value);
   };
 
+  // // hidden_state 추가
+  // const new_obj = { ...shopWaitingData };
+
+  // console.log(new_obj);
+
   return (
     <div>
       {shopWaitingData && (
         <div>
           <div>대기 현황</div>
+          <DebugStates
+            // new_array={new_array}
+            shopWaitingData={shopWaitingData?.results}
+          />
           <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
             <input
               type="search"
@@ -135,12 +181,15 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
           <span className="mx-10">대기 등록시간</span>
           <span className="mx-10">입장 요청</span>
           <span className="mx-10">입장 여부</span>
-          {shopWaitingData?.results?.map((shopwaiting) => (
+          {shopWaitingData?.results?.map((waiting_obj) => (
             <ShopWaitingList
-              key={shopwaiting.id}
-              shopwaiting={shopwaiting}
-              saveWaitVisitStatus={saveWaitVisitStatus}
+              key={waiting_obj.id}
+              waiting_obj={waiting_obj}
+              saveWaiting={saveWaiting}
               refetch={refetch}
+              shopId={shopId}
+              tableCount={tableCount}
+              setTableCount={setTableCount}
             />
           ))}
           <ReactPaginate
