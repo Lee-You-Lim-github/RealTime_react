@@ -24,34 +24,34 @@ function ReviewLike() {
         <span className="text-left">음식이 맛있어요!</span>
         <span className="text-right">
           {reviews &&
-            reviews.filter(({ flavor }) => (flavor === "매우좋아요") | "좋아요")
-              .length}
+            reviews.filter(({ flavor }) => flavor === "매우좋아요").length * 2 +
+              reviews.filter(({ flavor }) => flavor === "좋아요").length}
         </span>
       </div>
       <div className="grid grid-cols-2 border mr-20 py-2 px-5 rounded">
         <span className="text-left">매장이 청결해요!</span>
         <span className=" text-right">
           {reviews &&
-            reviews.filter(
-              ({ cleaned }) => (cleaned === "매우좋아요") | "좋아요"
-            ).length}
+            reviews.filter(({ cleaned }) => cleaned === "매우좋아요").length *
+              2 +
+              reviews.filter(({ cleaned }) => cleaned === "좋아요").length}
         </span>
       </div>
       <div className="grid grid-cols-2 border ml-20 py-2 px-5 rounded">
         <span className="text-left">친절해요!</span>
         <span className="text-right">
           {reviews &&
-            reviews.filter(
-              ({ kindness }) => (kindness === "매우좋아요") | "좋아요"
-            ).length}
+            reviews.filter(({ kindness }) => kindness === "매우좋아요").length *
+              2 +
+              reviews.filter(({ kindness }) => kindness === "좋아요").length}
         </span>
       </div>
       <div className="grid grid-cols-2 border mr-20 py-2 px-5 rounded">
         <span className="text-left">분위기가 좋아요!</span>
         <span className="text-right">
           {reviews &&
-            reviews.filter(({ mood }) => (mood === "매우좋아요") | "좋아요")
-              .length}
+            reviews.filter(({ mood }) => mood === "매우좋아요").length * 2 +
+              reviews.filter(({ mood }) => mood === "좋아요").length}
         </span>
       </div>
     </div>
