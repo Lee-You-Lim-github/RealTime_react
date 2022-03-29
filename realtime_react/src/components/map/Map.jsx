@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useMemo } from "react";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import marker1 from "assets/img/marker1.png";
 import marker2 from "assets/img/marker2.png";
@@ -15,7 +15,7 @@ import category_china from "assets/img/china.png";
 import category_japan from "assets/img/japan.png";
 import category_western from "assets/img/western.png";
 import category_cafe from "assets/img/cafe.png";
-
+/*global kakao*/
 import "./Map.css";
 import DebugStates from "components/DebugStates";
 

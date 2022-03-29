@@ -61,11 +61,11 @@
 }
 
 .left-arrow {
-  left: 24px;
+  left: 12px;
 }
 
 .right-arrow {
-  right: 24px;
+  right: 12px;
 }
 
 @media (hover: none) and (pointer: coarse) {
