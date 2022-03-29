@@ -5,6 +5,7 @@ import BookingInfo from "./DashboardInfo/BookingInfo";
 import PickInfo from "./DashboardInfo/PickInfo";
 import ReviewInfo from "./DashboardInfo/ReviewInfo";
 import QnAInfo from "./DashboardInfo/QnAInfo";
+import UnWrittenReview from "./DashboardInfo/UnWrittenReview";
 
 function UserDashboard() {
   const [auth] = useAuth();
@@ -55,6 +56,14 @@ function UserDashboard() {
 
           <div className="mx-7 w-60 h-60 bg-orange-400">
             <h3 className="text-white">리뷰내역</h3>
+            <div>작성되지 않은 리뷰</div>
+            <Link
+              to={`/user/${auth.id}/bookings/`}
+              className="text-white ml-3 w-60 h-60 text-3xl"
+            >
+              <UnWrittenReview /> 건
+            </Link>
+
             <div>내가 작성한 리뷰</div>
             <Link
               to={`/user/${auth.id}/review/`}

@@ -6,6 +6,8 @@ import produce from "immer";
 import ConfirmModal from "components/modal/ConfirmModal";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
+import ShopFormMap from "./ShopFormMap";
+import DebugStates from "components/DebugStates";
 
 const INIT_FIELD_VALUES = {
   shop_num: "",
@@ -23,14 +25,18 @@ const INIT_FIELD_VALUES = {
   conv_pack: false,
   notice: "",
   intro: "",
-  photo: "",
+  photo1: "",
+  photo2: "",
+  photo3: "",
 };
 
 function ShopForm({ shopId, handleDidSave }) {
   const [auth, , , logout] = useAuth();
 
   // 사진 파일 업로드 시 사진이 보이게
-  const [imageSrc, setImageSrc] = useState("");
+  const [imageSrc1, setImageSrc1] = useState("");
+  const [imageSrc2, setImageSrc2] = useState("");
+  const [imageSrc3, setImageSrc3] = useState("");
 
   // confirm 모달창
   const [modalOpen, setModalOpen] = useState(false);
@@ -38,12 +44,38 @@ function ShopForm({ shopId, handleDidSave }) {
   const navigate = useNavigate();
 
   // 사진 파일 업로드 시 사진이 보이게
-  const preview_photo = (e, fileData) => {
+  const preview_photo1 = (e, fileData) => {
     const reader = new FileReader();
     reader.readAsDataURL(fileData);
     return new Promise((resolve) => {
       reader.onload = () => {
-        setImageSrc(reader.result);
+        setImageSrc1(reader.result);
+        resolve();
+        handleFieldChange(e);
+      };
+    });
+  };
+
+  // 사진 파일 업로드 시 사진이 보이게
+  const preview_photo2 = (e, fileData) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileData);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc2(reader.result);
+        resolve();
+        handleFieldChange(e);
+      };
+    });
+  };
+
+  // 사진 파일 업로드 시 사진이 보이게
+  const preview_photo3 = (e, fileData) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(fileData);
+    return new Promise((resolve) => {
+      reader.onload = () => {
+        setImageSrc3(reader.result);
         resolve();
         handleFieldChange(e);
       };
@@ -51,17 +83,19 @@ function ShopForm({ shopId, handleDidSave }) {
   };
 
   // shop/api/100 조회
-  const [{ data: getShopData, loading: getShopLoading, error: getShopError }] =
-    useApiAxios(
-      {
-        url: `/shop/api/shops/${shopId}/`,
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${auth.access}`,
-        },
+  const [
+    { data: getShopData, loading: getShopLoading, error: getShopError },
+    refetch,
+  ] = useApiAxios(
+    {
+      url: `/shop/api/shops/${shopId}/`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
       },
-      { manual: !shopId }
-    );
+    },
+    { manual: !shopId }
+  );
 
   const { fieldValues, handleFieldChange, setFieldValues } = useFieldValues(
     getShopData || INIT_FIELD_VALUES
@@ -70,7 +104,9 @@ function ShopForm({ shopId, handleDidSave }) {
   useEffect(() => {
     setFieldValues(
       produce((draft) => {
-        draft.photo = "";
+        draft.photo1 = "";
+        draft.photo2 = "";
+        draft.photo3 = "";
       })
     );
   }, [getShopData]);
@@ -111,7 +147,7 @@ function ShopForm({ shopId, handleDidSave }) {
       saveShopRequest({
         data: formData,
       }).then((response) => {
-        alert("등록되었습니다! 재로그인 해주세요.");
+        alert("등록되었습니다! 재로그인 해주세요!");
         logout();
         navigate("/accounts/login/");
       });
@@ -240,46 +276,10 @@ function ShopForm({ shopId, handleDidSave }) {
                 </p>
               ))}
             </div>
-            <div>
-              <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
-                위도
-              </label>
-              <input
-                type="number"
-                name="lat"
-                value={fieldValues.lat}
-                onChange={handleFieldChange}
-                placeholder="위도를 입력해주세요. 예) 127.00000"
-                step="0.00001"
-                min="0"
-                className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
-              />
-              {ShopSavedErrorMessages.lat?.map((message, index) => (
-                <p key={index} className="text-xs text-red-400">
-                  {message}
-                </p>
-              ))}
-            </div>
-            <div>
-              <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
-                경도
-              </label>
-              <input
-                type="number"
-                name="longitude"
-                value={fieldValues.longitude}
-                onChange={handleFieldChange}
-                placeholder="경도를 입력해주세요. 예) 36.00000"
-                step="0.00001"
-                min="0"
-                className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
-              />
-              {ShopSavedErrorMessages.longitude?.map((message, index) => (
-                <p key={index} className="text-xs text-red-400">
-                  {message}
-                </p>
-              ))}
-            </div>
+            <ShopFormMap
+              getShopData={getShopData}
+              setFieldValues={setFieldValues}
+            />
             <div>
               <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
                 매장 전화번호
@@ -391,20 +391,62 @@ function ShopForm({ shopId, handleDidSave }) {
             </div>
             <div>
               <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
-                매장 사진
+                매장 사진 1
               </label>
               <input
                 type="file"
-                name="photo"
+                name="photo1"
                 onChange={(e) => {
-                  preview_photo(e, e.target.files[0]);
+                  preview_photo1(e, e.target.files[0]);
                 }}
                 accept=".png, .jpg, .jpeg"
                 className="w-full px-1 py-2 rounded-lg"
               />
               <div className="mt-2">
                 <img
-                  src={imageSrc || getShopData?.photo}
+                  src={imageSrc1 || getShopData?.photo1}
+                  alt=""
+                  className="ml-24 w-80 h-64 mb-5"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
+                매장 사진 2
+              </label>
+              <input
+                type="file"
+                name="photo2"
+                onChange={(e) => {
+                  preview_photo2(e, e.target.files[0]);
+                }}
+                accept=".png, .jpg, .jpeg"
+                className="w-full px-1 py-2 rounded-lg"
+              />
+              <div className="mt-2">
+                <img
+                  src={imageSrc2 || getShopData?.photo2}
+                  alt=""
+                  className="ml-24 w-80 h-64 mb-5"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
+                매장 사진 3
+              </label>
+              <input
+                type="file"
+                name="photo3"
+                onChange={(e) => {
+                  preview_photo3(e, e.target.files[0]);
+                }}
+                accept=".png, .jpg, .jpeg"
+                className="w-full px-1 py-2 rounded-lg"
+              />
+              <div className="mt-2">
+                <img
+                  src={imageSrc3 || getShopData?.photo3}
                   alt=""
                   className="ml-24 w-80 h-64 mb-5"
                 />

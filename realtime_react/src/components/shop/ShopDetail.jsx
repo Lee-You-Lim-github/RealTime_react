@@ -11,6 +11,7 @@ import LoadingIndicator from "components/LoadingIndicator";
 import noimages from "assets/img/noimages.png";
 import PickToggle from "components/pick/PickToggle";
 import DebugStates from "components/DebugStates";
+import ReviewLike from "components/review/ReviewLike";
 
 const INIT_REVIEW_FIELD_VALUES = {
   content: "",
@@ -21,12 +22,13 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [auth] = useAuth();
   const [showReview, setShowReview] = useState(false);
   const [showInfo, setShowInfo] = useState(true);
+  const [reloadReview, setReloadReview] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
 
   // paging
-  const [, setItems] = useState(null);
+  const [items, setItems] = useState(null);
   const [pageCount, setPageCount] = useState(0);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
 
   // getShopData
   const [
@@ -71,7 +73,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     reviewRefetch,
   ] = useApiAxios(
     {
-      url: `/review/api/review/`,
+      url: `/review/api/review/?${
+        page ? "page=" + (page + 1) : "page=1"
+      }&shop_id=${shopId}`,
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
@@ -81,35 +85,49 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   );
 
   // reviewList Paging
-  const fetchApplications = useCallback(
-    async (newPage) => {
-      const params = {
-        page: newPage,
-        query: shopData?.name,
-      };
-      const { data } = await reviewRefetch({ params });
-      setPage(newPage);
-      setPageCount(Math.ceil(data.count / itemsPerPage));
-      setItems(data?.results);
-    },
-    [shopId]
-  );
-
   useEffect(() => {
-    fetchApplications(1);
-  }, [fetchApplications, showReview]);
+    reviewRefetch()
+      .then(({ data }) => {
+        setPageCount(Math.ceil((data?.count ? data.count : 1) / itemsPerPage));
+        setItems(data?.results);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [reloadReview]);
+  // const fetchApplications = useCallback(
+  //   async (newPage) => {
+  //     const params = {
+  //       page: newPage,
+  //       query: shopData?.name,
+  //     };
+  //     const { data } = await reviewRefetch({ params });
+  //     setPage(newPage);
+  //     setPageCount(Math.ceil(data.count / itemsPerPage));
+  //     setItems(data?.results);
+  //   },
+  //   [shopId]
+  // );
+
+  // useEffect(() => {
+  //   fetchApplications(1);
+  // }, [fetchApplications, showReview]);
 
   const handlePage = (event) => {
-    fetchApplications(event.selected + 1);
+    setPage(event.selected);
   };
 
   const { fieldValues, handleFieldChange } = useFieldValues(
     INIT_REVIEW_FIELD_VALUES
   );
 
+  // useEffect(() => {
+  //   reviewRefetch();
+  // }, []);
+
   useEffect(() => {
-    reviewRefetch();
-  }, []);
+    setReloadReview((prevState) => !prevState);
+  }, [page]);
 
   const openModal = () => {
     setModalOpen(true);
@@ -278,6 +296,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                     <div>{notice_null(shopData?.notice)}</div>
                   </div>
                 </li>
+                <div>
+                  <ReviewLike />
+                </div>
                 <div className="my-2">
                   <button
                     onClick={() => setShowInfo(true)}
