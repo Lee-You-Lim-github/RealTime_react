@@ -1,5 +1,6 @@
 import DebugStates from "components/DebugStates";
 import ShopCarousel from "components/map/ShopCarousel";
+import { Link } from "react-router-dom";
 
 function NewShopList({ getData }) {
   const shopData = getData
@@ -25,7 +26,7 @@ function NewShopList({ getData }) {
         <ShopCarousel show={3}>
           {shopData.map((data, index) => (
             <div>
-              <div>
+              <Link to={`/shop/${data.id}/`}>
                 <div style={{ padding: 8 }}>
                   <img
                     src={data.photo1}
@@ -34,7 +35,7 @@ function NewShopList({ getData }) {
                   />
                   <div>{data.name}</div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </ShopCarousel>
