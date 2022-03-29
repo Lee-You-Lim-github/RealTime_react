@@ -5,34 +5,16 @@ import WaitingVisitConfirm from "components/modal/WaitingVisitConfirm";
 import { useAuth } from "contexts/AuthContext";
 import React, { useState } from "react";
 
-function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
+function ShopWaitingList({
+  waiting_obj,
+  saveWaiting,
+  refetch,
+  tableCount,
+  setTableCount,
+}) {
   const [auth] = useAuth();
   // disable
   const [loading, setloading] = useState(false);
-
-  // 회원이 입장한 경우
-  const clickedVisit = () => {
-    saveWaitVisitStatus({
-      url: `/waiting/api/waitings/${shopwaiting.id}/`,
-      data: { wait_visit_status: "1" },
-    }).then(() => {
-      alert("입장이 확인되었습니다.");
-      setloading(true);
-      refetch();
-    });
-  };
-
-  // 회원이 미입장한 경우
-  const clickedNotVisit = () => {
-    saveWaitVisitStatus({
-      url: `/waiting/api/waitings/${shopwaiting.id}/`,
-      data: { wait_visit_status: "2" },
-    }).then(() => {
-      alert("미입장이 확인되었습니다.");
-      setloading(true);
-      refetch();
-    });
-  };
 
   // WaitingVisitConfirm 모달창
   const [modalOpen, setModalOpen] = useState(false);
@@ -58,7 +40,7 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
   const naver_sms = () => {
     saveSms({
       data: {
-        content: `${shopwaiting.user_id.username} 고객님 입장해주세요!`,
+        content: `${waiting_obj.user_id.username} 고객님 입장해주세요!`,
         messages: [
           {
             to: "01038336177",
@@ -70,13 +52,47 @@ function ShopWaitingList({ shopwaiting, saveWaitVisitStatus, refetch }) {
       .catch((error) => console.log("에러:", error));
   };
 
+  // 회원이 입장한 경우
+  const clickedVisit = () => {
+    console.log("클릭 전 테이블 수: ", tableCount);
+    setTableCount((prev) => prev - waiting_obj.wait_count);
+    console.log("클릭한 후 테이블 수: ", tableCount);
+
+    saveWaiting({
+      url: `/waiting/api/waitings/${waiting_obj.id}/`,
+      data: { wait_visit_status: "1" },
+    })
+      .then(() => {
+        alert("입장이 확인되었습니다.");
+        setloading(true);
+        refetch();
+      })
+      .catch((error) => console.log(error));
+  };
+
+  // 회원이 미입장한 경우
+  const clickedNotVisit = () => {
+    console.log("클릭 전 테이블 수: ", tableCount);
+    setTableCount((prev) => prev - waiting_obj.wait_count);
+    console.log("클릭한 후 테이블 수: ", tableCount);
+
+    saveWaiting({
+      url: `/waiting/api/waitings/${waiting_obj.id}/`,
+      data: { wait_visit_status: "2" },
+    }).then(() => {
+      alert("미입장이 확인되었습니다.");
+      setloading(true);
+      refetch();
+    });
+  };
+
   return (
     <div>
-      <span className="mx-10">{shopwaiting.wait_count}</span>
-      <span className="mx-10">{shopwaiting.user_id.username}</span>
-      <span className="mx-10">{shopwaiting.user_id.telephone}</span>
-      <span className="mx-10">{shopwaiting.wait_table_count}</span>
-      <span className="mx-10">{shopwaiting.wait_date.slice(11, 16)}</span>
+      <span className="mx-10">{waiting_obj.wait_count}</span>
+      <span className="mx-10">{waiting_obj.user_id.username}</span>
+      <span className="mx-10">{waiting_obj.user_id.telephone}</span>
+      <span className="mx-10">{waiting_obj.wait_table_count}</span>
+      <span className="mx-10">{waiting_obj.wait_date.slice(11, 16)}</span>
       <span className="mx-10">
         <React.Fragment>
           <button onClick={() => setModalOpenSms(true)}>요청</button>
