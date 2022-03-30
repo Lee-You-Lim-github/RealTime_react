@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-function ShopFormMap({ getShopData, setFieldValues, refetch }) {
+function ShopFormMap({ getShopData, setFieldValues, refetch, shopId }) {
   // 위치(위,경도)
   const [position, setPosition] = useState({});
 
   useEffect(() => {
-    refetch();
+    if (shopId) refetch();
+    else {
+    }
   }, []);
 
   useEffect(() => {
