@@ -131,13 +131,11 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   }, []);
 
   // 이름 / 휴대폰 뒷자리로 검색
+
   const search = (e) => {
     if (e.key === "Enter") {
-      const { value } = e.target;
-      setQuery(value);
-      setReload((prevState) => !prevState);
+      fetchApplication(1, query);
     }
-    refetch();
   };
 
   const getQuery = (e) => {
