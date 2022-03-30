@@ -279,6 +279,8 @@ function ShopForm({ shopId, handleDidSave }) {
             <ShopFormMap
               getShopData={getShopData}
               setFieldValues={setFieldValues}
+              refetch={refetch}
+              shopId={shopId}
             />
             <div>
               <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">

@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-function ShopFormMap({ getShopData, setFieldValues }) {
-  useEffect(() => {}, [getShopData]);
-
+function ShopFormMap({ getShopData, setFieldValues, refetch, shopId }) {
   // 위치(위,경도)
-  const [position, setPosition] = useState(
-    getShopData
-      ? { lat: getShopData.lat, lng: getShopData.longitude }
-      : {
-          lat: 36.337490378182764,
-          lng: 127.44915430991462,
-        }
-  );
+  const [position, setPosition] = useState({});
+
+  useEffect(() => {
+    if (shopId) refetch();
+    else {
+    }
+  }, []);
+
+  useEffect(() => {
+    setPosition(
+      getShopData
+        ? { lat: getShopData.lat, lng: getShopData.longitude }
+        : {
+            lat: 36.337490378182764,
+            lng: 127.44915430991462,
+          }
+    );
+  }, [getShopData]);
 
   // 도로명 주소
   const [roadAddress, setRoadAddress] = useState("");
