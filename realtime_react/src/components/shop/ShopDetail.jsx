@@ -2,7 +2,7 @@ import { useApiAxios } from "api/base";
 import Modal from "components/modal/Modal";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
 import ShopDetailComponent from "./ShopDetailComponent";
@@ -12,11 +12,12 @@ import noimages from "assets/img/noimages.png";
 import PickToggle from "components/pick/PickToggle";
 import DebugStates from "components/DebugStates";
 import ReviewLike from "components/review/ReviewLike";
+import WaitingModal from "components/modal/WaitingModal";
 
-const INIT_REVIEW_FIELD_VALUES = {
-  content: "",
-  rating: "",
-};
+// const INIT_REVIEW_FIELD_VALUES = {
+//   content: "",
+//   rating: "",
+// };
 
 function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [auth] = useAuth();
@@ -24,6 +25,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [showInfo, setShowInfo] = useState(true);
   const [reloadReview, setReloadReview] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [waitModalOpen, setWaitModalOpen] = useState(false);
 
   // paging
   const [items, setItems] = useState(null);
@@ -95,35 +97,10 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
         console.log(error);
       });
   }, [reloadReview]);
-  // const fetchApplications = useCallback(
-  //   async (newPage) => {
-  //     const params = {
-  //       page: newPage,
-  //       query: shopData?.name,
-  //     };
-  //     const { data } = await reviewRefetch({ params });
-  //     setPage(newPage);
-  //     setPageCount(Math.ceil(data.count / itemsPerPage));
-  //     setItems(data?.results);
-  //   },
-  //   [shopId]
-  // );
-
-  // useEffect(() => {
-  //   fetchApplications(1);
-  // }, [fetchApplications, showReview]);
 
   const handlePage = (event) => {
     setPage(event.selected);
   };
-
-  const { fieldValues, handleFieldChange } = useFieldValues(
-    INIT_REVIEW_FIELD_VALUES
-  );
-
-  // useEffect(() => {
-  //   reviewRefetch();
-  // }, []);
 
   useEffect(() => {
     setReloadReview((prevState) => !prevState);
@@ -136,8 +113,12 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     setModalOpen(false);
   };
 
-  const alertFull = () => {
-    alert("만석입니다.");
+  const waitingOpenModal = () => {
+    setWaitModalOpen(true);
+  };
+
+  const waitingCloseModal = () => {
+    setWaitModalOpen(false);
   };
 
   const notice_null = (a) => {
@@ -182,9 +163,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                       shopData.holiday == 0 && (
                         <button
                           className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
-                          onClick={alertFull}
+                          onClick={waitingOpenModal}
                         >
-                          지금예약‼
+                          줄서기‼
                         </button>
                       )}
 
@@ -212,8 +193,20 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         지금 예약하시겠어요?
                       </div>
                     </Modal>
+
+                    <WaitingModal
+                      shopId={shopId}
+                      open={waitModalOpen}
+                      close={waitingCloseModal}
+                      header="줄서기"
+                    >
+                      <div className="flex justify-center">
+                        줄서기 하시겠어요?
+                      </div>
+                    </WaitingModal>
                   </React.Fragment>
                 </span>
+
                 <span className="mx-2 mt-3">
                   <Link
                     to={`/shop/${shopId}/booking/new/`}
@@ -222,6 +215,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                     지금말고예약
                   </Link>
                 </span>
+
                 <p className="flex justify-start mb-3">
                   잔여 테이블수: {shopData.now_table_count}/
                   {shopData.total_table_count}
