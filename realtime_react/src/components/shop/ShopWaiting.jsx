@@ -86,10 +86,6 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     });
   }, [tableCount]);
 
-  console.log("현재 테이블 수: ", tableCount);
-
-  // const [hid, setHid] = useState(shopWaitingData?.results);
-
   // 페이징
   const fetchApplication = useCallback(
     async (newPage) => {
@@ -131,20 +127,12 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     setQuery(value);
   };
 
-  // // hidden_state 추가
-  // const new_obj = { ...shopWaitingData };
-
-  // console.log(new_obj);
-
   return (
     <div>
       {shopWaitingData && (
         <div>
           <div>대기 현황</div>
-          <DebugStates
-            // new_array={new_array}
-            shopWaitingData={shopWaitingData?.results}
-          />
+          <DebugStates shopWaitingData={shopWaitingData} />
           <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
             <input
               type="search"
@@ -181,17 +169,19 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
           <span className="mx-10">대기 등록시간</span>
           <span className="mx-10">입장 요청</span>
           <span className="mx-10">입장 여부</span>
-          {shopWaitingData?.results?.map((waiting_obj) => (
-            <ShopWaitingList
-              key={waiting_obj.id}
-              waiting_obj={waiting_obj}
-              saveWaiting={saveWaiting}
-              refetch={refetch}
-              shopId={shopId}
-              tableCount={tableCount}
-              setTableCount={setTableCount}
-            />
-          ))}
+          {shopWaitingData?.results
+            ?.filter((obj) => obj.wait_visit_status === "0")
+            .map((waiting_obj) => (
+              <ShopWaitingList
+                key={waiting_obj.id}
+                waiting_obj={waiting_obj}
+                saveWaiting={saveWaiting}
+                refetch={refetch}
+                shopId={shopId}
+                tableCount={tableCount}
+                setTableCount={setTableCount}
+              />
+            ))}
           <ReactPaginate
             breakLabel="..."
             nextLabel=">"
