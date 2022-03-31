@@ -121,7 +121,7 @@ function UserBookingComponent({ bookingList, booking_object }) {
     <div className="mb-3">
       {deleteLoading && <LoadingIndicator>취소 중...</LoadingIndicator>}
       {deleteError?.response?.status >= 400 && (
-        <div className="text-red-400">삭제에 실패했습니다.</div>
+        <div className="text-red-400">취소에 실패했습니다.</div>
       )}
       <Link to={`/shop/${booking_object.shop_id.id}/`} className="text-2xl">
         <p className="text-left">{booking_object.shop_id.name}</p>
