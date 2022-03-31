@@ -92,11 +92,9 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
 
   useEffect(() => {
     setTableCount(shopData?.now_table_count);
-    console.log("현재 테이블 수", shopData?.now_table_count);
   }, [shopData]);
 
   useEffect(() => {
-    console.log("테이블 카운트 변경 시:", tableCount);
     saveShop({
       data: { now_table_count: tableCount },
     });
