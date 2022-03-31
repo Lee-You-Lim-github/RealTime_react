@@ -38,7 +38,12 @@ function UserDashboard() {
           <div className="mx-7 w-60 h-60 bg-orange-400">
             <h3 className="text-white">대기내역</h3>
             <div>나의 대기 순서</div>
-            <button className="text-white ml-3 w-60 h-60 text-3xl">건</button>
+            <Link
+              to={`/user/${auth.id}/waitings/`}
+              className="text-white ml-3 w-60 h-60 text-3xl"
+            >
+              건
+            </Link>
           </div>
         </div>
 

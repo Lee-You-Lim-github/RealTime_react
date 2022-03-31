@@ -2,7 +2,6 @@ import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import LoadingIndicator from "components/LoadingIndicator";
-import DebugStates from "components/DebugStates";
 import ShowMore from "react-show-more-list";
 import UserBookingComponent from "./UserBookingComponent";
 import user_booking from "assets/img/shop_booking.png";
@@ -18,7 +17,7 @@ function UserBooking() {
     refetch,
   ] = useApiAxios(
     {
-      url: "/booking/api/bookings/?all&ordering=day",
+      url: "/booking/api/bookings/?ordering=-day&all",
       method: "GET",
       headers: {
         Authorization: `Bearer ${auth.access}`,
