@@ -20,7 +20,12 @@ function UserSidebar() {
         예약내역
       </Link>
 
-      <div className="text-white text-xl my-5">대기내역</div>
+      <Link
+        to={`/user/${auth.id}/waitings/`}
+        className="text-white text-xl my-5"
+      >
+        대기내역
+      </Link>
       <Link to={`/user/${auth.id}/pick/`} className="text-white text-xl my-5">
         위시리스트
       </Link>
