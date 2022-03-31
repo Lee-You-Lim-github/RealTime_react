@@ -5,16 +5,11 @@ import WaitingVisitConfirm from "components/modal/WaitingVisitConfirm";
 import { useAuth } from "contexts/AuthContext";
 import React, { useState } from "react";
 
-function ShopWaitingList({
-  waiting_obj,
-  saveWaiting,
-  refetch,
-  tableCount,
-  setTableCount,
-}) {
+function ShopWaitingList({ waiting_obj, saveWaiting, refetch, setTableCount }) {
   const [auth] = useAuth();
+
   // disable
-  const [loading, setloading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // WaitingVisitConfirm 모달창
   const [modalOpen, setModalOpen] = useState(false);
@@ -54,9 +49,7 @@ function ShopWaitingList({
 
   // 회원이 입장한 경우
   const clickedVisit = () => {
-    console.log("클릭 전 테이블 수: ", tableCount);
     setTableCount((prev) => prev - waiting_obj.wait_table_count);
-    console.log("클릭한 후 테이블 수: ", tableCount);
 
     saveWaiting({
       url: `/waiting/api/waitings/${waiting_obj.id}/`,
@@ -64,7 +57,7 @@ function ShopWaitingList({
     })
       .then(() => {
         alert("입장이 확인되었습니다.");
-        setloading(true);
+        setLoading(true);
         refetch();
       })
       .catch((error) => console.log(error));
@@ -72,16 +65,14 @@ function ShopWaitingList({
 
   // 회원이 미입장한 경우
   const clickedNotVisit = () => {
-    console.log("클릭 전 테이블 수: ", tableCount);
     setTableCount((prev) => prev - waiting_obj.wait_table_count);
-    console.log("클릭한 후 테이블 수: ", tableCount);
 
     saveWaiting({
       url: `/waiting/api/waitings/${waiting_obj.id}/`,
       data: { wait_visit_status: "2" },
     }).then(() => {
       alert("미입장이 확인되었습니다.");
-      setloading(true);
+      setLoading(true);
       refetch();
     });
   };

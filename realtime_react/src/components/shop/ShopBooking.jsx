@@ -24,8 +24,8 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   // reload
   const [reload, setReload] = useState(false);
 
-  // 값 빼오기
-  const [shop_array, setShop_array] = useState([]);
+  // 현재 테이블 카운트 수 변경
+  const [tableCount, setTableCount] = useState(0);
 
   // get_bookingss
   const [
@@ -41,6 +41,27 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
         query ? "&query=" + query : ""
       }`,
       method: "GET",
+    },
+    { manual: true }
+  );
+
+  // shopData - get
+  const [{ data: shopData }, shopDataRefetch] = useApiAxios(
+    {
+      url: `/shop/api/shops/${shopId}/`,
+      method: "GET",
+    },
+    { manual: true }
+  );
+
+  // 현재 테이블 수 수정
+  const [{}, saveShop] = useApiAxios(
+    {
+      url: `/shop/api/shops/${shopId}/`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
     },
     { manual: true }
   );
@@ -65,22 +86,23 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   // get_bookings_refetch()
   useEffect(() => {
     refetch();
+    shopDataRefetch();
     fetchApplication(1);
-    setLoading(false);
   }, []);
+
+  useEffect(() => {
+    setTableCount(shopData?.now_table_count);
+  }, [shopData]);
+
+  useEffect(() => {
+    saveShop({
+      data: { now_table_count: tableCount },
+    });
+  }, [tableCount]);
 
   const handlePage = (event) => {
     fetchApplication(event.selected + 1);
   };
-
-  // 해당 매장의 예약자만 보이기
-  useEffect(() => {
-    const abc = getBookingData?.results?.filter(
-      (shop_booking) => parseInt(shopId) === shop_booking.shop_id.id
-    );
-
-    setShop_array(abc);
-  }, [getBookingData, shopId]);
 
   // booking - visit_status만 수정
   const [
@@ -97,41 +119,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     { manual: true }
   );
 
-  // 회원이 방문한 경우
-  const clickedVisit = useCallback((booking_id) => {
-    saveBookingVisitState({
-      url: `/booking/api/bookings/${booking_id}/`,
-      data: { visit_status: "1" },
-    })
-      .then((response) => {
-        alert("방문이 확인되었습니다.");
-        refetch();
-        setLoading(true);
-      })
-      .catch();
-  }, []);
-
-  // 회원이 미방문한 경우
-
-  const clickedUnvisited = useCallback((booking_id) => {
-    saveBookingVisitState({
-      url: `/booking/api/bookings/${booking_id}/`,
-
-      data: {
-        black_set: [{ user_id: auth.id, book_id: booking_id }],
-        visit_status: "2",
-      },
-    })
-      .then((response) => {
-        alert("패널티가 부여되었습니다.");
-        refetch();
-        setLoading(true);
-      })
-      .catch();
-  }, []);
-
   // 이름 / 휴대폰 뒷자리로 검색
-
   const search = (e) => {
     if (e.key === "Enter") {
       fetchApplication(1, query);
@@ -188,7 +176,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
               <button
                 type="button"
                 onClick={search}
-                value={getQuery}
+                onChange={getQuery}
                 className="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
               >
                 <svg
@@ -239,20 +227,20 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
                   </thead>
                   <tbody>
                     {/* ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ */}
-                    {shop_array
-                      ?.sort((a, b) => new Date(a.day) - new Date(b.day))
-                      .map((shop_booking, index) => {
-                        return (
-                          <ShopBookingComponent
-                            index={index + 1}
-                            key={shop_booking.id}
-                            shop_booking={shop_booking}
-                            clickedVisit={clickedVisit}
-                            clickedUnvisited={clickedUnvisited}
-                            loading={loading}
-                          />
-                        );
-                      })}
+                    {getBookingData.results.map((book_obj, index) => {
+                      return (
+                        <ShopBookingComponent
+                          index={index + 1}
+                          key={book_obj.id}
+                          book_obj={book_obj}
+                          saveBookingVisitState={saveBookingVisitState}
+                          loading={loading}
+                          refetch={refetch}
+                          tableCount={tableCount}
+                          setTableCount={setTableCount}
+                        />
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>

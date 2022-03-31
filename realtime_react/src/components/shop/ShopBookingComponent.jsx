@@ -1,38 +1,58 @@
 import NotVisitConfirmModal from "components/modal/NotVisitConfirmModal";
 import VisitConfirmModal from "components/modal/VisitConfirmModal";
+import { useAuth } from "contexts/AuthContext";
 import React, { useState } from "react";
 
 function ShopBookingComponent({
-  shop_booking,
-  clickedVisit,
-  clickedUnvisited,
-  loading,
+  book_obj,
   index,
+  saveBookingVisitState,
+  refetch,
+  setTableCount,
 }) {
+  const [auth] = useAuth();
   // visit_confirm 모달창
   const [modalOpen, setModalOpen] = useState(false);
-
-  // visit_confirm 모달 열기
-  const openModal = () => {
-    setModalOpen(true);
-  };
-
-  // visit_confirm 모달 닫기
-  const closeModal = () => {
-    setModalOpen(false);
-  };
 
   // not_visit_confirm 모달창
   const [modalOpenNotVisit, setModalOpenNotVisit] = useState(false);
 
-  // not_visit_confirm 모달 열기
-  const openModalNotVisit = () => {
-    setModalOpenNotVisit(true);
+  // disable
+  const [loading, setLoading] = useState(false);
+
+  // 회원이 방문한 경우
+  const clickedVisit = () => {
+    setTableCount((prev) => prev - book_obj.book_table_count);
+
+    saveBookingVisitState({
+      url: `/booking/api/bookings/${book_obj.id}/`,
+      data: { visit_status: "1" },
+    })
+      .then((response) => {
+        alert("방문이 확인되었습니다.");
+        refetch();
+        setLoading(true);
+      })
+      .catch();
   };
 
-  // not_visit_confirm 모달 닫기
-  const closeModalNotVisit = () => {
-    setModalOpenNotVisit(false);
+  // 회원이 미방문한 경우
+  const clickedUnvisited = () => {
+    setTableCount((prev) => prev - book_obj.book_table_count);
+
+    saveBookingVisitState({
+      url: `/booking/api/bookings/${book_obj.id}/`,
+      data: {
+        black_set: [{ user_id: auth.id, book_id: book_obj.id }],
+        visit_status: "2",
+      },
+    })
+      .then((response) => {
+        alert("패널티가 부여되었습니다.");
+        refetch();
+        setLoading(true);
+      })
+      .catch();
   };
 
   return (
@@ -43,26 +63,26 @@ function ShopBookingComponent({
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-            {shop_booking.user_id.username}
+            {book_obj.user_id.username}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-            {shop_booking.user_id.telephone}
+            {book_obj.user_id.telephone}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <p className="text-gray-900 whitespace-no-wrap">{shop_booking.day}</p>
+          <p className="text-gray-900 whitespace-no-wrap">{book_obj.day}</p>
         </td>
 
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-            {shop_booking.time.slice(0, 5)}
+            {book_obj.time.slice(0, 5)}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-900 whitespace-no-wrap">
-            {shop_booking.book_table_count}
+            {book_obj.book_table_count}
           </p>
         </td>
 
@@ -71,16 +91,15 @@ function ShopBookingComponent({
             <button
               type="button"
               disabled={loading}
-              onClick={openModal}
-              onChange={shop_booking.id}
+              onClick={() => setModalOpen(true)}
               className="mr-3 text-sm bg-violet-400 hover:bg-red-300 border-2 border-violet-400 hover:border-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               방문
             </button>
             <VisitConfirmModal
-              clickedVisit={(e) => clickedVisit(shop_booking.id)}
+              clickedVisit={(e) => clickedVisit(book_obj.id)}
               open={modalOpen}
-              close={closeModal}
+              close={() => setModalOpen(false)}
               name="visit"
               header="방문하셨습니까?"
             />
@@ -89,16 +108,15 @@ function ShopBookingComponent({
             <button
               type="button"
               disabled={loading}
-              onClick={openModalNotVisit}
-              onChange={shop_booking.id}
+              onClick={() => setModalOpenNotVisit(true)}
               className="text-sm bg-wihte border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
             >
               미방문
             </button>
             <NotVisitConfirmModal
-              clickedUnvisited={(e) => clickedUnvisited(shop_booking.id)}
+              clickedUnvisited={(e) => clickedUnvisited(book_obj.id)}
               open={modalOpenNotVisit}
-              close={closeModalNotVisit}
+              close={() => setModalOpenNotVisit(false)}
               name="not_visit"
               header="미방문으로 인해 사용자에게 패널티가 부여됩니다."
             />

@@ -30,7 +30,7 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     refetch,
   ] = useApiAxios(
     {
-      url: `/waiting/api/waitings/?shop_id=${shopId}${
+      url: `/waiting/api/waitings/?shop_id=${shopId}&wait_visit_status=${0}&${
         query ? "&query=" + query : ""
       }`,
     },
@@ -177,7 +177,6 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
                 waiting_obj={waiting_obj}
                 saveWaiting={saveWaiting}
                 refetch={refetch}
-                shopId={shopId}
                 tableCount={tableCount}
                 setTableCount={setTableCount}
               />
