@@ -1,8 +1,12 @@
+import { useApiAxios } from "api/base";
 import penalty_check from "assets/img/penalty_check.png";
-import React, { useEffect, useState } from "react";
+import { useAuth } from "contexts/AuthContext";
+import React, { useEffect, useRef, useState } from "react";
 
 function AdminUserComponent(props) {
   const { user } = props;
+
+  const [auth] = useAuth();
 
   const [userId, setUserId] = useState();
 
@@ -19,18 +23,48 @@ function AdminUserComponent(props) {
     }
   };
 
+  //penalty, black 해제
+
+  // 블랙
+  const [{ errorMessages }, saveAdminblack] = useApiAxios(
+    {
+      url: `/accounts/api/users/${user.id}/`,
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  const handleSubmitactive = () => {
+    saveAdminblack({
+      data: { is_active: 1 },
+    })
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const penalty = (visit, index) => {
     if (index === 0) {
       if (visit === "2") {
         return (
-          <img className="w-6 h-6" src={penalty_check} alt="" key={index} />
+          <button onClick={handleSubmitactive}>
+            <img className="w-6 h-6" src={penalty_check} alt="" key={index} />
+          </button>
         );
       } else {
         return null;
       }
     } else if (index === 1) {
       if (visit === "2") {
-        return <img className="w-6 h-6" src={penalty_check} alt="" />;
+        return (
+          <button onClick={handleSubmitactive}>
+            <img className="w-6 h-6" src={penalty_check} alt="" />
+          </button>
+        );
       } else {
         return null;
       }
