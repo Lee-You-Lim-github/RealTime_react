@@ -12,8 +12,8 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
 
   // paging
   const [, setItem] = useState(null);
-  const [pageCount, setPageCount] = useState(1);
-  const [, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState();
+  const [page, setPage] = useState(0);
 
   //disabled
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   // 값 빼오기
   const [shop_array, setShop_array] = useState([]);
 
-  // get_bookings
+  // get_bookingss
   const [
     {
       data: getBookingData,
@@ -37,7 +37,9 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     refetch,
   ] = useApiAxios(
     {
-      url: `/booking/api/bookings/${query ? "?query=" + query : ""}`,
+      url: `/booking/api/bookings/?shop_id=${shopId}&${
+        query ? "&query=" + query : ""
+      }`,
       method: "GET",
     },
     { manual: true }
@@ -57,7 +59,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
       setPageCount(Math.ceil(data.count / itemsPerPage));
       setItem(data?.results);
     },
-    [query]
+    [query, refetch]
   );
 
   // get_bookings_refetch()
@@ -110,11 +112,15 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   }, []);
 
   // 회원이 미방문한 경우
+
   const clickedUnvisited = useCallback((booking_id) => {
     saveBookingVisitState({
       url: `/booking/api/bookings/${booking_id}/`,
 
-      data: { visit_status: "2" },
+      data: {
+        black_set: [{ user_id: auth.id, book_id: booking_id }],
+        visit_status: "2",
+      },
     })
       .then((response) => {
         alert("패널티가 부여되었습니다.");
@@ -125,13 +131,11 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   }, []);
 
   // 이름 / 휴대폰 뒷자리로 검색
+
   const search = (e) => {
     if (e.key === "Enter") {
-      const { value } = e.target;
-      setQuery(value);
-      setReload((prevState) => !prevState);
+      fetchApplication(1, query);
     }
-    refetch();
   };
 
   const getQuery = (e) => {

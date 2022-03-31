@@ -1,7 +1,6 @@
 import { useApiAxios } from "api/base";
 import Modal from "components/modal/Modal";
 import { useAuth } from "contexts/AuthContext";
-import useFieldValues from "hook/usefieldValues";
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { Link } from "react-router-dom";
@@ -10,14 +9,10 @@ import ShopReviewComponent from "./ShopReviewComponent";
 import LoadingIndicator from "components/LoadingIndicator";
 import noimages from "assets/img/noimages.png";
 import PickToggle from "components/pick/PickToggle";
-import DebugStates from "components/DebugStates";
+
 import ReviewLike from "components/review/ReviewLike";
 import WaitingModal from "components/modal/WaitingModal";
-
-// const INIT_REVIEW_FIELD_VALUES = {
-//   content: "",
-//   rating: "",
-// };
+import ShopTotalWaiting from "components/waiting/ShopTotalWaiting";
 
 function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [auth] = useAuth();
@@ -47,7 +42,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     { manual: true }
   );
 
-  //
+  // getPickData
   const [{ data: pickData }, getPick] = useApiAxios(
     {
       url: `/user/api/picks/?user_id=${auth.id}&shop_id=${shopId}`,
@@ -215,11 +210,18 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                     지금말고예약
                   </Link>
                 </span>
+                <div className="mb-3">
+                  <span className="mx-3">
+                    잔여 테이블수: {shopData.now_table_count}/
+                    {shopData.total_table_count}
+                  </span>
 
-                <p className="flex justify-start mb-3">
-                  잔여 테이블수: {shopData.now_table_count}/
-                  {shopData.total_table_count}
-                </p>
+                  {shopData.now_table_count === shopData.total_table_count && (
+                    <span>
+                      현재 대기 <ShopTotalWaiting /> 팀
+                    </span>
+                  )}
+                </div>
 
                 <div className="flex">
                   <span className="select-none">찜하기</span>
