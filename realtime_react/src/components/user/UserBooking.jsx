@@ -2,7 +2,6 @@ import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import LoadingIndicator from "components/LoadingIndicator";
-import DebugStates from "components/DebugStates";
 import ShowMore from "react-show-more-list";
 import UserBookingComponent from "./UserBookingComponent";
 import user_booking from "assets/img/shop_booking.png";
