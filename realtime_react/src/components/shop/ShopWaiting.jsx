@@ -177,7 +177,6 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
                 waiting_obj={waiting_obj}
                 saveWaiting={saveWaiting}
                 refetch={refetch}
-                shopId={shopId}
                 tableCount={tableCount}
                 setTableCount={setTableCount}
               />
