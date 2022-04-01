@@ -87,40 +87,46 @@ function ShopBookingComponent({
         </td>
 
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <React.Fragment>
-            <button
-              type="button"
-              disabled={loading}
-              onClick={() => setModalOpen(true)}
-              className="mr-3 text-sm bg-violet-400 hover:bg-red-300 border-2 border-violet-400 hover:border-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-            >
-              방문
-            </button>
-            <VisitConfirmModal
-              clickedVisit={(e) => clickedVisit(book_obj.id)}
-              open={modalOpen}
-              close={() => setModalOpen(false)}
-              name="visit"
-              header="방문하셨습니까?"
-            />
-          </React.Fragment>
-          <React.Fragment>
-            <button
-              type="button"
-              disabled={loading}
-              onClick={() => setModalOpenNotVisit(true)}
-              className="text-sm bg-wihte border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
-            >
-              미방문
-            </button>
-            <NotVisitConfirmModal
-              clickedUnvisited={(e) => clickedUnvisited(book_obj.id)}
-              open={modalOpenNotVisit}
-              close={() => setModalOpenNotVisit(false)}
-              name="not_visit"
-              header="미방문으로 인해 사용자에게 패널티가 부여됩니다."
-            />
-          </React.Fragment>
+          {book_obj.visit_status === "0" ? (
+            <>
+              <React.Fragment>
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => setModalOpen(true)}
+                  className="mr-3 text-sm bg-violet-400 hover:bg-red-300 border-2 border-violet-400 hover:border-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                >
+                  방문
+                </button>
+                <VisitConfirmModal
+                  clickedVisit={(e) => clickedVisit(book_obj.id)}
+                  open={modalOpen}
+                  close={() => setModalOpen(false)}
+                  name="visit"
+                  header="방문하셨습니까?"
+                />
+              </React.Fragment>
+              <React.Fragment>
+                <button
+                  type="button"
+                  disabled={loading}
+                  onClick={() => setModalOpenNotVisit(true)}
+                  className="text-sm bg-wihte border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                >
+                  미방문
+                </button>
+                <NotVisitConfirmModal
+                  clickedUnvisited={(e) => clickedUnvisited(book_obj.id)}
+                  open={modalOpenNotVisit}
+                  close={() => setModalOpenNotVisit(false)}
+                  name="not_visit"
+                  header="미방문으로 인해 사용자에게 패널티가 부여됩니다."
+                />
+              </React.Fragment>
+            </>
+          ) : (
+            <div>{book_obj.visit_status === "1" ? "방문" : "미방문"}</div>
+          )}
         </td>
       </tr>
     </React.Fragment>
