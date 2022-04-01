@@ -9,7 +9,7 @@ import admin_user from "assets/img/admin_user.png";
 
 function AdminUser({ itemsPerPage = 10 }) {
   const [auth] = useAuth();
-
+  const [checked, setChecked] = useState(false);
   // paging
   const [, setItem] = useState(null);
   const [pageCount, setPageCount] = useState(1);
@@ -38,6 +38,7 @@ function AdminUser({ itemsPerPage = 10 }) {
       const params = {
         page: newPage,
         query: newQuery,
+        black: checked ? "black" : "",
       };
 
       const { data } = await refetch({ params });
@@ -46,13 +47,13 @@ function AdminUser({ itemsPerPage = 10 }) {
       setPageCount(Math.ceil(data.count / itemsPerPage));
       setItem(data?.results);
     },
-    [query]
+    [query, checked]
   );
 
   // get_users_refetch()
   useEffect(() => {
     fetchApplication(1);
-  }, []);
+  }, [checked]);
 
   const handlePage = (event) => {
     fetchApplication(event.selected + 1);
@@ -128,6 +129,18 @@ function AdminUser({ itemsPerPage = 10 }) {
       <div>
         {getUserData && (
           <div className="-mx-4 sm:-mx-8 md:flex-1 px-24 sm:px-8 py-4 overflow-x-auto">
+            <label className="flex">
+              <input
+                type="checkbox"
+                value={checked}
+                className="form-checkbox h-5 w-5 text-yellow-600"
+                onChange={(e) => {
+                  setChecked(e.target.checked);
+                }}
+              />
+              <div className="ml-2 text-gray-700">블랙리스트</div>
+            </label>
+
             <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
               <table className="table-auto min-w-full whitespace-no-wrap">
                 <thead>
@@ -158,7 +171,11 @@ function AdminUser({ itemsPerPage = 10 }) {
                       (not_superuser) => not_superuser.is_superuser === false
                     )
                     .map((user, index) => {
-                      return <AdminUserComponent key={user.id} user={user} />;
+                      return (
+                        <>
+                          <AdminUserComponent key={user.id} user={user} />
+                        </>
+                      );
                     })}
                 </tbody>
               </table>

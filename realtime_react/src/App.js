@@ -34,6 +34,7 @@ import PageAdminQnaList from "pages/qna/PageAdminQnaList";
 import PageAdminQnaDetail from "pages/qna/PageAdminQnaDetail";
 import PageAdminQnaForm from "pages/qna/PageAdminQnaForm";
 import PageAdminwaitingList from "pages/waiting/PageAdminwaitingList";
+import PageUserWaiting from "pages/user/PageUserWaiting";
 
 function App() {
   const [auth] = useAuth();
@@ -163,6 +164,10 @@ function App() {
                 <Route
                   path="/user/:userId/bookings/"
                   element={<PageUserBooking />}
+                />
+                <Route
+                  path="/user/:userId/waitings/"
+                  element={<PageUserWaiting />}
                 />
                 <Route path="/user/:userId/pick/" element={<PagePickList />} />
                 <Route

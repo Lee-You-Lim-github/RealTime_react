@@ -17,9 +17,22 @@ function ShopTotalWaiting() {
     waitRefetch();
   }, []);
 
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = ("0" + (today.getMonth() + 1)).slice(-2);
+  const day = ("0" + today.getDate()).slice(-2);
+
+  const dateString = year + "-" + month + "-" + day;
+
   return (
     <span className="text-xl">
-      {waits && waits.filter((wait) => wait.wait_visit_status === "0").length}
+      {waits &&
+        waits.filter(
+          (wait) =>
+            wait.wait_visit_status === "0" &&
+            wait.wait_cancel === "0" &&
+            wait.wait_date.slice(0, -16) === dateString
+        ).length}
     </span>
   );
 }
