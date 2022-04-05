@@ -9,18 +9,21 @@ import ShopReviewComponent from "./ShopReviewComponent";
 import LoadingIndicator from "components/LoadingIndicator";
 import noimages from "assets/img/noimages.png";
 import PickToggle from "components/pick/PickToggle";
-
 import ReviewLike from "components/review/ReviewLike";
 import WaitingModal from "components/modal/WaitingModal";
 import ShopTotalWaiting from "components/waiting/ShopTotalWaiting";
+import DontWaitingModal from "components/modal/DontWaitingModal";
 
 function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [auth] = useAuth();
   const [showReview, setShowReview] = useState(false);
   const [showInfo, setShowInfo] = useState(true);
   const [reloadReview, setReloadReview] = useState(false);
+
+  // modal
   const [modalOpen, setModalOpen] = useState(false);
   const [waitModalOpen, setWaitModalOpen] = useState(false);
+  const [dontWaitModal, setDontWaitModal] = useState(false);
 
   // paging
   const [items, setItems] = useState(null);
@@ -41,6 +44,22 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     },
     { manual: true }
   );
+
+  // getWait
+  const [{ data: waits }, waitRefetch] = useApiAxios(
+    {
+      url: `/waiting/api/waitings/?all&user_id=${auth.id}`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  useEffect(() => {
+    waitRefetch();
+  }, []);
 
   // getPickData
   const [{ data: pickData }, getPick] = useApiAxios(
@@ -101,21 +120,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     setReloadReview((prevState) => !prevState);
   }, [page]);
 
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
-
-  const waitingOpenModal = () => {
-    setWaitModalOpen(true);
-  };
-
-  const waitingCloseModal = () => {
-    setWaitModalOpen(false);
-  };
-
   const notice_null = (a) => {
     if (a === "NULL" || !shopData.notice) {
       return "등록된 공지가 없습니다.";
@@ -123,6 +127,14 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
       return `${shopData.notice}`;
     }
   };
+
+  // comst today = new Date.now();
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = ("0" + (today.getMonth() + 1)).slice(-2);
+  const day = ("0" + today.getDate()).slice(-2);
+
+  const dateString = year + "-" + month + "-" + day;
 
   return (
     <div>
@@ -148,21 +160,33 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                       shopData.holiday == 0 && (
                         <button
                           className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
-                          onClick={openModal}
+                          onClick={() => setModalOpen(true)}
                         >
                           지금예약‼
                         </button>
                       )}
 
-                    {shopData.now_table_count === shopData.total_table_count &&
-                      shopData.holiday == 0 && (
-                        <button
-                          className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
-                          onClick={waitingOpenModal}
-                        >
-                          줄서기‼
-                        </button>
-                      )}
+                    {waits &&
+                    waits.filter(
+                      (wait) =>
+                        wait.wait_visit_status === "0" &&
+                        wait.wait_cancel === "0" &&
+                        wait.wait_date.slice(0, -16) === dateString
+                    ).length === 1 ? (
+                      <button
+                        className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                        onClick={() => setDontWaitModal(true)}
+                      >
+                        줄서기‼
+                      </button>
+                    ) : (
+                      <button
+                        className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                        onClick={() => setWaitModalOpen(true)}
+                      >
+                        줄서기‼
+                      </button>
+                    )}
 
                     {shopData.holiday == 1 && (
                       <button
@@ -181,7 +205,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                       shopId={shopId}
                       ShopData={shopData}
                       open={modalOpen}
-                      close={closeModal}
+                      close={() => setModalOpen(false)}
                       header="지금 예약"
                     >
                       <div className="flex justify-center">
@@ -192,13 +216,29 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                     <WaitingModal
                       shopId={shopId}
                       open={waitModalOpen}
-                      close={waitingCloseModal}
+                      close={() => setWaitModalOpen(false)}
                       header="줄서기"
                     >
-                      <div className="flex justify-center">
-                        줄서기 하시겠어요?
+                      <div>
+                        <p>
+                          줄서기 등록시 다른 매장의 줄서기는 이용하실 수
+                          없습니다.
+                        </p>
+                        <p>줄서기 하시겠습니까?</p>
                       </div>
                     </WaitingModal>
+
+                    <DontWaitingModal
+                      shopId={shopId}
+                      open={dontWaitModal}
+                      close={() => setDontWaitModal(false)}
+                      header="줄서기"
+                    >
+                      <div>
+                        <p>대기는 1건만 가능하며,</p>
+                        <p>대기취소 후에 새로운 대기가 가능합니다. </p>
+                      </div>
+                    </DontWaitingModal>
                   </React.Fragment>
                 </span>
 
@@ -211,10 +251,12 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                   </Link>
                 </span>
                 <div className="mb-3">
-                  <span className="mx-3">
-                    잔여 테이블수: {shopData.now_table_count}/
-                    {shopData.total_table_count}
-                  </span>
+                  {shopData.holiday != 1 && (
+                    <span className="mx-3">
+                      잔여 테이블수: {shopData.now_table_count}/
+                      {shopData.total_table_count}
+                    </span>
+                  )}
 
                   {shopData.now_table_count === shopData.total_table_count && (
                     <span>
