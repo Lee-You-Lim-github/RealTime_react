@@ -11,22 +11,6 @@ function WaitingModal(props) {
   const [auth] = useAuth();
   const { shopId } = useParams();
 
-  // shop/api/100/ -- object
-  const [{ data: ShopModalData }, refetch] = useApiAxios(
-    {
-      url: `/shop/api/shops/${shopId}/`,
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${auth.access}`,
-      },
-    },
-    { manual: true }
-  );
-
-  useEffect(() => {
-    refetch();
-  }, [shopId]);
-
   //  저장
   const [, saveWating] = useApiAxios(
     {
@@ -82,16 +66,6 @@ function WaitingModal(props) {
     } else alert("테이블 수를 확인해주세요");
   };
 
-  // useEffect(() => {
-  //   saveRuquest({
-  //     data: { now_table_count: tableCount },
-  //   })
-  //     .then((response) => {
-  //       setTableCount(response.data.now_table_count);
-  //     })
-  //     .catch();
-  // }, [tableCount]);
-
   return (
     // 모달이 열릴때 openModal 클래스가 생성된다.
     <div className={open ? "openModal modal" : "modal"}>
@@ -104,6 +78,7 @@ function WaitingModal(props) {
               &times;{" "}
             </button>
           </header>
+
           <main>{props.children}</main>
           <div className="flex justify-center mr-3 my-1">
             <div className="py-1">
