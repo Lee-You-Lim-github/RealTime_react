@@ -49,7 +49,7 @@ function ShopWaitingList({ waiting_obj, saveWaiting, refetch, setTableCount }) {
 
   // 회원이 입장한 경우
   const clickedVisit = () => {
-    setTableCount((prev) => prev - waiting_obj.wait_table_count);
+    // setTableCount((prev) => prev - waiting_obj.wait_table_count);
 
     saveWaiting({
       url: `/waiting/api/waitings/${waiting_obj.id}/`,
@@ -65,7 +65,7 @@ function ShopWaitingList({ waiting_obj, saveWaiting, refetch, setTableCount }) {
 
   // 회원이 미입장한 경우
   const clickedNotVisit = () => {
-    setTableCount((prev) => prev - waiting_obj.wait_table_count);
+    // setTableCount((prev) => prev - waiting_obj.wait_table_count);
 
     saveWaiting({
       url: `/waiting/api/waitings/${waiting_obj.id}/`,
