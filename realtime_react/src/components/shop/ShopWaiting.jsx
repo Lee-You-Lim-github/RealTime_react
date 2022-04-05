@@ -80,11 +80,11 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     setTableCount(shopData?.now_table_count);
   }, [shopData]);
 
-  useEffect(() => {
-    saveShop({
-      data: { now_table_count: tableCount },
-    });
-  }, [tableCount]);
+  // useEffect(() => {
+  //   saveShop({
+  //     data: { now_table_count: tableCount },
+  //   });
+  // }, [tableCount]);
 
   // 페이징
   const fetchApplication = useCallback(
