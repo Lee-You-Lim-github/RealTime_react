@@ -60,14 +60,14 @@ function UserWaiting() {
                 onClick={() => {
                   if (!!onMore) onMore();
                 }}
-                className="text-lg border-2 border-stone-300 p-2 mb-2"
+                className="text-lg border-2 border-stone-300 px-1 my-5"
               >
                 SHOW MORE
               </button>
             ) : (
               <button
                 onClick={scrollUp}
-                className="text-lg border-2 border-stone-300 p-2 mb-2"
+                className="text-lg border-2 border-stone-300 px-1 my-5"
               >
                 TOP
               </button>

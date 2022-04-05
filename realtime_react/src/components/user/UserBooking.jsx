@@ -70,24 +70,26 @@ function UserBooking() {
               "예약 내역이 없습니다."
             )}
 
-            {onMore ? (
-              <button
-                disabled={!onMore}
-                onClick={() => {
-                  if (!!onMore) onMore();
-                }}
-                className="text-lg border-2 border-stone-300 p-2"
-              >
-                SHOW MORE
-              </button>
-            ) : (
-              <button
-                onClick={scrollUp}
-                className="text-lg border-2 border-stone-300 p-2"
-              >
-                TOP
-              </button>
-            )}
+            <div>
+              {onMore ? (
+                <button
+                  disabled={!onMore}
+                  onClick={() => {
+                    if (!!onMore) onMore();
+                  }}
+                  className="text-lg border-2 border-stone-300 px-1 my-5"
+                >
+                  SHOW MORE
+                </button>
+              ) : (
+                <button
+                  onClick={scrollUp}
+                  className="text-lg border-2 border-stone-300 px-1 my-5"
+                >
+                  TOP
+                </button>
+              )}
+            </div>
           </>
         )}
       </ShowMore>
