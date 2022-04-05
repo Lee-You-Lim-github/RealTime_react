@@ -1,4 +1,4 @@
-import UserWaiting from "components/user/UserWaiting";
+import UserWaitingList from "components/user/UserWaitingList";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import PageUserSidebar from "./PageUserSidebar";
@@ -18,7 +18,7 @@ function PageUserWaiting() {
         <PageUserSidebar />
       </div>
       <div className="grid col-span-5 auto-rows-max">
-        <UserWaiting userId={userId} />
+        <UserWaitingList userId={userId} />
       </div>
     </div>
   );
