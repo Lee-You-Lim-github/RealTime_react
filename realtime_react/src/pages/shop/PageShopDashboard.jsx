@@ -1,3 +1,4 @@
+import Shopdashboard from "components/shop/Shopdashboard";
 import ShopSidebar from "components/shop/ShopSidebar";
 import React from "react";
 import { useParams } from "react-router-dom";
@@ -10,7 +11,7 @@ function PageShopDashboard(props) {
         <ShopSidebar shopId={shopId} />
       </div>
       <div className="grid col-span-4 auto-rows-max">
-        {/* <AdminDashboard /> */}
+        <Shopdashboard shopId={shopId} />
       </div>
     </div>
   );
