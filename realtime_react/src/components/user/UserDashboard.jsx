@@ -6,6 +6,7 @@ import PickInfo from "./DashboardInfo/PickInfo";
 import ReviewInfo from "./DashboardInfo/ReviewInfo";
 import QnAInfo from "./DashboardInfo/QnAInfo";
 import UnWrittenReview from "./DashboardInfo/UnWrittenReview";
+import WaitingInfo from "./DashboardInfo/WaitingInfo";
 
 function UserDashboard() {
   const [auth] = useAuth();
@@ -37,12 +38,12 @@ function UserDashboard() {
           </div>
           <div className="mx-7 w-60 h-60 bg-orange-400">
             <h3 className="text-white">대기내역</h3>
-            <div>나의 대기 순서</div>
+            <div>내 대기 번호</div>
             <Link
               to={`/user/${auth.id}/waitings/`}
               className="text-white ml-3 w-60 h-60 text-3xl"
             >
-              건
+              <WaitingInfo /> 번
             </Link>
           </div>
         </div>
