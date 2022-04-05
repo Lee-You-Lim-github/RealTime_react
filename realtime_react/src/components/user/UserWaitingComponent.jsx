@@ -78,64 +78,81 @@ function UserWaitingComponent({ wait_obj }) {
       <Link to={`/shop/${wait_obj.shop_id.id}/`} className="text-2xl">
         <p className="text-left">{wait_obj.shop_id.name}</p>
       </Link>
-      <div className="flex flex-wrap">
-        <div className="bg-violet-300 border border-violet-400 w-1/5 text-left rounded-sm p-3">
+      <div className="grid grid-cols-4">
+        <div className="bg-violet-300 border border-violet-400 text-left rounded-sm p-3">
           <p>나의 대기 번호</p>
           <p>대기 등록 시간</p>
           <p>대기 테이블 수</p>
         </div>
-        <div className="border border-violet-400 w-4/5 rounded-sm p-3">
-          <p className="text-left">{wait_obj.wait_count}</p>
-          <p className="text-left">
-            {wait_obj.wait_date.slice(0, -16)}{" "}
-            {wait_obj.wait_date.slice(11, -7)}
-          </p>
-          <p className="text-left">{wait_obj.wait_table_count}</p>
-
-          <React.Fragment>
-            <div className="mt-2">
-              {wait_obj.wait_cancel === "0" ? (
-                <div>{visit_state(wait_obj.wait_visit_status)}</div>
-              ) : (
-                <div className="flex justify-end">대기취소 😥</div>
-              )}
+        <div className="col-span-3 border border-violet-400 rounded-sm p-3">
+          <div className="grid grid-cols-3">
+            <div className="col-span-1">
+              <p className="text-left">{wait_obj.wait_count}</p>
+              <p className="text-left">
+                {wait_obj.wait_date.slice(0, -16)}{" "}
+                {wait_obj.wait_date.slice(11, -7)}
+              </p>
+              <p className="text-left">{wait_obj.wait_table_count}</p>
             </div>
-            {wait_obj.wait_visit_status !== "1" &&
-            wait_obj.wait_cancel === "0" ? (
-              <div className="flex justify-end">
-                <button
-                  disabled={waitLoading}
-                  onClick={openModal}
-                  onChange={wait_obj.id}
-                  className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1"
-                >
-                  대기취소
-                </button>
-              </div>
-            ) : (
-              <div className="flex justify-end"> </div>
-            )}
+            <div className="col-start-3">
+              <div className="grid grid-rows-2">
+                <div>대기인원</div>
+                <div>
+                  <React.Fragment>
+                    <div className="text-right">
+                      {wait_obj.wait_cancel === "0" ? (
+                        <div>{visit_state(wait_obj.wait_visit_status)}</div>
+                      ) : (
+                        <div className="">대기취소 😥</div>
+                      )}
+                    </div>
 
-            <WaitingCancelModal
-              handleCancle={handleCancle}
-              open={modalOpen}
-              close={closeModal}
-              header="대기를 취소 하시겠습니까?"
-              ref={el}
-            >
-              <div>
-                <div className="flex flex-col justify-center text-xs text-red-600 -mt-3">
-                  <div className="flex justify-center">
-                    <img src={noshow_warning} alt="" className="w-8 h-8" />
-                  </div>
-                  <div className="mt-1">
-                    취소 후 대기 등록시 새로운 대기번호가 부여됩니다. 정말
-                    취소하시겠습니까?
-                  </div>
+                    {wait_obj.wait_visit_status !== "1" &&
+                    wait_obj.wait_cancel === "0" ? (
+                      <div className="text-right">
+                        <button
+                          disabled={waitLoading}
+                          onClick={openModal}
+                          onChange={wait_obj.id}
+                          className=" bg-violet-300 hover:bg-red-200 text-white text-sm text-right rounded p-1"
+                        >
+                          대기취소
+                        </button>
+                      </div>
+                    ) : (
+                      <div> </div>
+                    )}
+
+                    <WaitingCancelModal
+                      handleCancle={handleCancle}
+                      open={modalOpen}
+                      close={closeModal}
+                      header="대기를 취소 하시겠습니까?"
+                      ref={el}
+                    >
+                      <div>
+                        <div className="flex flex-col justify-center text-xs text-red-600 -mt-3">
+                          <div className="flex justify-center">
+                            <img
+                              src={noshow_warning}
+                              alt=""
+                              className="w-8 h-8"
+                            />
+                          </div>
+                          <div className="mt-1 text-base">
+                            <p>
+                              취소 후 대기 등록시 새로운 대기번호가 부여됩니다.
+                            </p>
+                            <p>정말 취소하시겠습니까?</p>
+                          </div>
+                        </div>
+                      </div>
+                    </WaitingCancelModal>
+                  </React.Fragment>
                 </div>
               </div>
-            </WaitingCancelModal>
-          </React.Fragment>
+            </div>
+          </div>
         </div>
       </div>
     </div>
