@@ -92,8 +92,6 @@ function Waitinginshopdashboard({ shopId }) {
           width={70}
         />
       </div>
-      {/* <button onClick={stopwaiting}>대기중지</button>
-      <button onClick={startwaiting}>대기시작</button> */}
     </div>
   );
 }
