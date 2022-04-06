@@ -7,10 +7,10 @@ import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DirectionModal from "components/modal/DirectionModal";
+import WaitingStatus from "components/waiting/WaitingStatus";
 
 function PageIndex() {
   const [auth] = useAuth();
-  const { shopId } = useParams();
   const [query, setQuery] = useState();
   const [reload, setReload] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -108,7 +108,7 @@ function PageIndex() {
           open={modalOpen}
           close={closeModal}
           name="not_now_booking"
-          header="원격 줄서기 사용 안내"
+          header="사용 안내"
         ></DirectionModal>
       </div>
 
@@ -165,6 +165,10 @@ function PageIndex() {
             <button onClick={scrollReview}>최근리뷰버튼</button>
           </div>{" "}
         </div>
+      </div>
+      <div>
+        {/* className="fixed left-[1370px] bottom-[100px]" */}
+        <WaitingStatus />
       </div>
     </>
   );
