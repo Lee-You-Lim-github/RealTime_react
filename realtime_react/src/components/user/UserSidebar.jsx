@@ -1,5 +1,11 @@
 import { useAuth } from "contexts/AuthContext";
 import { Link } from "react-router-dom";
+import useredit from "assets/img/useredit.png";
+import booknotes from "assets/img/booknotes.png";
+import waitnotes from "assets/img/waitnotes.png";
+import qna from "assets/img/qna.png";
+import pickstore from "assets/img/pickstore.png";
+import review from "assets/img/review.png";
 
 function UserSidebar() {
   const [auth] = useAuth();
@@ -10,30 +16,48 @@ function UserSidebar() {
         to={`/user/mypage/${auth.id}/edit/`}
         className="text-white text-xl my-5"
       >
-        개인정보수정
+        <div className="flex">
+          <img src={useredit} alt="useredit" className="w-8 h-8 ml-7" />
+          <span className="ml-4 mt-1">개인정보수정</span>
+        </div>
       </Link>
 
       <Link
         to={`/user/${auth.id}/bookings/`}
         className="text-white text-xl my-5"
       >
-        예약내역
+        <div className="flex">
+          <img src={booknotes} alt="booknotes" className="w-9 h-9 ml-7" />
+          <span className="ml-4 mt-1">예약내역</span>
+        </div>
       </Link>
 
       <Link
         to={`/user/${auth.id}/waitings/`}
         className="text-white text-xl my-5"
       >
-        대기내역
+        <div className="flex">
+          <img src={waitnotes} alt="waitnotes" className="w-8 h-8 ml-8" />
+          <span className="ml-5 mt-1">대기내역</span>
+        </div>
       </Link>
       <Link to={`/user/${auth.id}/pick/`} className="text-white text-xl my-5">
-        위시리스트
+        <div className="flex">
+          <img src={pickstore} alt="pickstore" className="w-8 h-8 ml-8" />
+          <span className="ml-5 mt-1">위시리스트</span>
+        </div>
       </Link>
       <Link to={`/user/${auth.id}/review/`} className="text-white text-xl my-5">
-        리뷰내역
+        <div className="flex">
+          <img src={review} alt="review" className="w-9 h-9 ml-8" />
+          <span className="ml-5 mt-1">리뷰내역</span>
+        </div>
       </Link>
       <Link to={`/user/${auth.id}/qna/`} className="text-white text-xl my-5">
-        1:1문의
+        <div className="flex">
+          <img src={qna} alt="qna" className="w-8 h-8 ml-8" />
+          <span className="ml-5">1:1문의</span>
+        </div>
       </Link>
     </div>
   );
