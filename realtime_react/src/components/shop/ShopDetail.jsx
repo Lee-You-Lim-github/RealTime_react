@@ -57,10 +57,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
     { manual: true }
   );
 
-  useEffect(() => {
-    waitRefetch();
-  }, []);
-
   // getPickData
   const [{ data: pickData }, getPick] = useApiAxios(
     {
@@ -71,8 +67,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   );
 
   useEffect(() => {
+    waitRefetch();
     ShopRefetch();
-  }, [ShopRefetch]);
+  }, [ShopRefetch, waitRefetch]);
 
   useEffect(() => {
     shopData && getPick();
@@ -166,27 +163,37 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         </button>
                       )}
 
-                    {waits &&
-                    waits.filter(
-                      (wait) =>
-                        wait.wait_visit_status === "0" &&
-                        wait.wait_cancel === "0" &&
-                        wait.wait_date.slice(0, -16) === dateString
-                    ).length === 1 ? (
-                      <button
-                        className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
-                        onClick={() => setDontWaitModal(true)}
-                      >
-                        줄서기‼
-                      </button>
-                    ) : (
-                      <button
-                        className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
-                        onClick={() => setWaitModalOpen(true)}
-                      >
-                        줄서기‼
-                      </button>
-                    )}
+                    {shopData.now_table_count === shopData.total_table_count &&
+                      shopData.holiday == 0 &&
+                      waits?.filter(
+                        (wait) =>
+                          wait.wait_visit_status === "0" &&
+                          wait.wait_cancel === "0" &&
+                          wait.wait_date.slice(0, -16) === dateString
+                      ).length === 1 && (
+                        <button
+                          className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                          onClick={() => setDontWaitModal(true)}
+                        >
+                          줄서기‼
+                        </button>
+                      )}
+
+                    {shopData.now_table_count === shopData.total_table_count &&
+                      shopData.holiday == 0 &&
+                      waits?.filter(
+                        (wait) =>
+                          wait.wait_visit_status === "0" &&
+                          wait.wait_cancel === "0" &&
+                          wait.wait_date.slice(0, -16) === dateString
+                      ).length !== 1 && (
+                        <button
+                          className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                          onClick={() => setWaitModalOpen(true)}
+                        >
+                          줄서기‼
+                        </button>
+                      )}
 
                     {shopData.holiday == 1 && (
                       <button
@@ -200,7 +207,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         휴일
                       </button>
                     )}
-
                     <Modal
                       shopId={shopId}
                       ShopData={shopData}
@@ -212,7 +218,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         지금 예약하시겠어요?
                       </div>
                     </Modal>
-
                     <WaitingModal
                       shopId={shopId}
                       open={waitModalOpen}
@@ -227,7 +232,6 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         <p>줄서기 하시겠습니까?</p>
                       </div>
                     </WaitingModal>
-
                     <DontWaitingModal
                       shopId={shopId}
                       open={dontWaitModal}
