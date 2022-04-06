@@ -2,6 +2,8 @@ import AdminDashboard from "components/admin/AdminDashboard";
 import Adminsidebar from "components/admin/Adminsidebar";
 import { useEffect, useRef, useState } from "react";
 import ReactStickyBox from "react-sticky-box";
+import adminlist from "assets/img/adminlist.png";
+import adminlist2 from "assets/img/adminlist2.png";
 
 function PageAdminDashboard() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -39,7 +41,7 @@ function PageAdminDashboard() {
       style={{ transform: `translatex(${xPosition}px)` }}
     >
       <div
-        className="bg-orange-400 grid col-span-1 "
+        className="bg-stone-400 grid col-span-1 "
         ref={side}
         style={{ transform: `translatex(${xPosition}px)` }}
       >
@@ -52,7 +54,15 @@ function PageAdminDashboard() {
       <div className="w-1/3 text-xl">
         <ReactStickyBox ReactStickyBox offsetTop={120} offsetBottom={20}>
           <button onClick={() => handleOpen()}>
-            {openSidebar ? <span>😍</span> : <span>😎</span>}
+            {openSidebar ? (
+              <span>
+                <img className="w-8 h-8" src={adminlist2} alt="adminlist2" />
+              </span>
+            ) : (
+              <span>
+                <img className="w-9 h-9" src={adminlist} alt="adminlist" />
+              </span>
+            )}
           </button>
         </ReactStickyBox>
       </div>
