@@ -94,7 +94,7 @@ function ShopBookingComponent({
                   type="button"
                   disabled={loading}
                   onClick={() => setModalOpen(true)}
-                  className="mr-3 text-sm bg-violet-400 hover:bg-red-300 border-2 border-violet-400 hover:border-red-300 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  className="mr-3 text-sm bg-orange-400 border-2 border-orange-400 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                 >
                   방문
                 </button>
@@ -111,7 +111,7 @@ function ShopBookingComponent({
                   type="button"
                   disabled={loading}
                   onClick={() => setModalOpenNotVisit(true)}
-                  className="text-sm bg-wihte border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                  className="text-sm bg-wihte border-2 border-orange-400 text-orange-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                 >
                   미방문
                 </button>

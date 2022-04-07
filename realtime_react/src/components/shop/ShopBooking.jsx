@@ -122,8 +122,11 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   // 이름 / 휴대폰 뒷자리로 검색
   const search = (e) => {
     if (e.key === "Enter") {
+      const { value } = e.target;
+      setQuery(value);
       fetchApplication(1, query);
     }
+    refetch();
   };
 
   const getQuery = (e) => {
@@ -167,7 +170,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
             <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
               <input
                 type="search"
-                name="serch"
+                name="search"
                 onChange={getQuery}
                 onKeyPress={search}
                 placeholder="이름/휴대폰 번호"
@@ -198,29 +201,29 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
         <div>
           {getBookingData && (
             <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
-              <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <div className="inline-block min-w-full overflow-hidden">
                 <table className="table-auto min-w-full whitespace-no-wrap">
                   <thead>
                     <tr>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         No.
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         이름
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         휴대폰 번호
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약날짜
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약시간
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         예약 테이블 수
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         방문여부
                       </th>
                     </tr>
