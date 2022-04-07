@@ -48,7 +48,7 @@ function UserBooking() {
     <div className="w-full mx-auto mb-20">
       <div className="flex flex-row my-10">
         <img src={user_booking} alt="" className="w-8 h-8 ml-2" />
-        <h2 className="text-left text-2xl ml-2">예약현황</h2>
+        <h2 className="text-left text-2xl ml-2">예약내역</h2>
       </div>
 
       {bookingLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
@@ -57,7 +57,7 @@ function UserBooking() {
         {({ current, onMore }) => (
           <>
             {bookingArray.length > 0 ? (
-              <>
+              <div className="grid grid-cols-3">
                 {current?.map((booking_object) => (
                   <UserBookingComponent
                     key={booking_object.id}
@@ -65,7 +65,7 @@ function UserBooking() {
                     bookingList={bookingList}
                   />
                 ))}
-              </>
+              </div>
             ) : (
               "예약 내역이 없습니다."
             )}
