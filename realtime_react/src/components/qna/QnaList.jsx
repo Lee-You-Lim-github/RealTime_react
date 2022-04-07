@@ -49,15 +49,30 @@ function UserQnaList({ itemsPerPage = 10, userId }) {
   console.log(currentItems);
   return (
     <div>
+      <table className="border-t-2  border-stone-400 w-full">
+        <thead className="border-b border-stone-400">
+          <tr>
+            <td className="p-5 w-20 text-justify">번호</td>
+            <td className="p-5 w-80 text-center">제목</td>
+            <td className="p-5 w-60">등록일</td>
+            <td className="p-5 w-24 text-right">답변여부</td>
+          </tr>
+        </thead>
+      </table>
       <div>
         {currentItems?.map((qna, index) => (
           <QnaSummary qna={qna} key={qna.id} index={index} />
         ))}
-      </div>
 
-      <button onClick={() => navigate(`/user/${userId}/qna/new`)}>
-        글쓰기
-      </button>
+        <hr className="border-stone-400" />
+
+        <button
+          className="bg-orange-400 text-white w-20 h-8 mt-3 rounded-md relative left-[438px]"
+          onClick={() => navigate(`/user/${userId}/qna/new`)}
+        >
+          문의하기
+        </button>
+      </div>
 
       <ReactPaginate
         className="pagination"
