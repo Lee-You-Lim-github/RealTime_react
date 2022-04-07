@@ -32,9 +32,6 @@ function ShopFormMap({ getShopData, setFieldValues, refetch, shopId }) {
     if (status === window.kakao.maps.services.Status.OK) {
       const road_address = result[0].road_address?.address_name || "";
       const address = result[0].address?.address_name || "";
-      console.log("결과 :", result);
-      console.log("도로명 주소:", road_address);
-      console.log("지번 주소:", address);
       setRoadAddress(road_address);
       setAddress(address);
     }
@@ -51,6 +48,7 @@ function ShopFormMap({ getShopData, setFieldValues, refetch, shopId }) {
   }, [position, setFieldValues, handleGeocode]);
 
   const handleMapClick = useCallback((map, mouseEvent) => {
+    console.log(mouseEvent);
     setPosition({
       lat: mouseEvent.latLng.getLat(),
       lng: mouseEvent.latLng.getLng(),
@@ -79,8 +77,8 @@ function ShopFormMap({ getShopData, setFieldValues, refetch, shopId }) {
       </Map>
       {position && (
         <>
-          <p>{`클릭한 도로명 주소는 ${roadAddress}입니다.`}</p>
-          <p>{`클릭한 주소는 ${address}입니다.`}</p>
+          <p className="my-5 text-left">{`📭 도로명 주소:  ${roadAddress}`}</p>
+          <p className="mb-7 text-left">{`📬 지번 주소: ${address}`}</p>
         </>
       )}
     </div>
