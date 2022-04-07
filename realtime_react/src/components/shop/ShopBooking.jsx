@@ -167,14 +167,14 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
             </div>
           )}
           <div className="flex items-center justify-between">
-            <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
+            <div className="relative text-gray-600  mr-2">
               <input
                 type="search"
                 name="search"
                 onChange={getQuery}
                 onKeyPress={search}
                 placeholder="이름/휴대폰 번호"
-                className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+                className="bg-wihte h-9 px-2 pr-10 text-sm outline-none border-b-2 border-orange-400"
               />
               <button
                 type="button"
