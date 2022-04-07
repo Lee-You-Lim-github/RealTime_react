@@ -2,6 +2,8 @@ import DebugStates from "components/DebugStates";
 import ShopCarousel from "components/map/ShopCarousel";
 import Star from "components/shop/ShopStar";
 import { Link } from "react-router-dom";
+import Timestamp from "react-timestamp";
+import quotes from "assets/img/quotes.png";
 
 function NewReviewList({ reviewData }) {
   const sortReviewData = reviewData
@@ -11,31 +13,46 @@ function NewReviewList({ reviewData }) {
     )
     .slice(0, 5);
 
+  console.log("review", reviewData);
+
   return (
-    <div
-      style={{
-        maxWidth: 1200,
-        marginLeft: "auto",
-        marginRight: "auto",
-        marginTop: 64,
-      }}
-    >
-      <ShopCarousel show={3}>
-        {sortReviewData.map((data, index) => (
-          <div>
-            <Link to={`/shop/${data.id}/`}>
-              <div className="border-solid border-2 m-1" style={{ padding: 8 }}>
-                <div>
-                  <Star score={data.rating} />
+    <div>
+      <div className="ml-44 text-xl font-bold">방문자가 남긴 최근 리뷰!</div>
+      <div
+        style={{
+          maxWidth: 1200,
+          marginLeft: "auto",
+          marginRight: "auto",
+          marginTop: 10,
+        }}
+      >
+        <ShopCarousel show={4}>
+          {sortReviewData.map((data, index) => (
+            <div>
+              <Link to={`/shop/${data.book_id.shop_id.id}/`}>
+                <div
+                  className="border-solid border-2 m-3 w-72 h-60 rounded"
+                  style={{ padding: 8 }}
+                >
+                  <div className="ml-2 mt-4">
+                    <img src={quotes} width="15px" height="15px" />
+                  </div>
+                  <div className="font-bold mb-1 ml-2 mt-4">
+                    {data.book_id.shop_id.name}
+                  </div>
+                  <div className="ml-2 mt-3">
+                    <Star score={data.rating} />
+                  </div>
+                  <div className="target mt-3 ml-2">{data.content}</div>
+                  <div className="bottom-0 left-0 ml-44 mt-4">
+                    <Timestamp relative date={data.created_at} autoUpdate />
+                  </div>{" "}
                 </div>
-                <div>{data.content}</div>
-                <div>{data.book_id?.user_id.nickname}</div>
-                <div>{data.wait_id?.user_id.nickname}</div>{" "}
-              </div>
-            </Link>
-          </div>
-        ))}
-      </ShopCarousel>
+              </Link>
+            </div>
+          ))}
+        </ShopCarousel>
+      </div>
     </div>
   );
 }
