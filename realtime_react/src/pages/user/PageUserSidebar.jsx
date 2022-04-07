@@ -1,6 +1,8 @@
 import UserSidebar from "components/user/UserSidebar";
 import { useEffect, useState, useRef } from "react";
 import ReactStickyBox from "react-sticky-box";
+import list from "assets/img/adminlist.png";
+import list2 from "assets/img/adminlist2.png";
 
 function PageUserSidebar() {
   const [openSidebar, setOpenSidebar] = useState(false);
@@ -56,7 +58,15 @@ function PageUserSidebar() {
       <div className="w-1/3 text-xl">
         <ReactStickyBox offsetTop={120} offsetBottom={20}>
           <button onClick={() => handleOpen()}>
-            {openSidebar ? <span>😍</span> : <span>😎</span>}
+            {openSidebar ? (
+              <span>
+                <img className="w-8 h-8" src={list2} alt="list2" />
+              </span>
+            ) : (
+              <span>
+                <img className="w-9 h-9" src={list} alt="list" />
+              </span>
+            )}
           </button>
         </ReactStickyBox>
       </div>
