@@ -13,6 +13,7 @@ import ReviewLike from "components/review/ReviewLike";
 import WaitingModal from "components/modal/WaitingModal";
 import ShopTotalWaiting from "components/waiting/ShopTotalWaiting";
 import DontWaitingModal from "components/modal/DontWaitingModal";
+import WaitStop from "components/modal/WaitStop";
 
 function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [auth] = useAuth();
@@ -24,6 +25,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [waitModalOpen, setWaitModalOpen] = useState(false);
   const [dontWaitModal, setDontWaitModal] = useState(false);
+  const [waitStop, setWaitStop] = useState(false);
 
   // paging
   const [items, setItems] = useState(null);
@@ -165,6 +167,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
 
                     {shopData.now_table_count === shopData.total_table_count &&
                       shopData.holiday == 0 &&
+                      shopData.wait_state === "0" &&
                       waits?.filter(
                         (wait) =>
                           wait.wait_visit_status === "0" &&
@@ -181,6 +184,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
 
                     {shopData.now_table_count === shopData.total_table_count &&
                       shopData.holiday == 0 &&
+                      shopData.wait_state === "0" &&
                       waits?.filter(
                         (wait) =>
                           wait.wait_visit_status === "0" &&
@@ -190,6 +194,23 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         <button
                           className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
                           onClick={() => setWaitModalOpen(true)}
+                        >
+                          줄서기‼
+                        </button>
+                      )}
+
+                    {shopData.now_table_count === shopData.total_table_count &&
+                      shopData.holiday == 0 &&
+                      shopData.wait_state === "1" &&
+                      waits?.filter(
+                        (wait) =>
+                          wait.wait_visit_status === "0" &&
+                          wait.wait_cancel === "0" &&
+                          wait.wait_date.slice(0, -16) === dateString
+                      ).length !== 1 && (
+                        <button
+                          className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
+                          onClick={() => setWaitStop(true)}
                         >
                           줄서기‼
                         </button>
@@ -232,6 +253,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         <p>줄서기 하시겠습니까?</p>
                       </div>
                     </WaitingModal>
+
                     <DontWaitingModal
                       shopId={shopId}
                       open={dontWaitModal}
@@ -243,6 +265,18 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         <p>대기취소 후에 새로운 대기가 가능합니다. </p>
                       </div>
                     </DontWaitingModal>
+
+                    <WaitStop
+                      shopId={shopId}
+                      open={waitStop}
+                      close={() => setWaitStop(false)}
+                      header="줄서기"
+                    >
+                      <div>
+                        <p>해당 매장은 더이상 대기를 받지 않습니다.</p>
+                        <p>다음에 다시 이용바랍니다. </p>
+                      </div>
+                    </WaitStop>
                   </React.Fragment>
                 </span>
 
