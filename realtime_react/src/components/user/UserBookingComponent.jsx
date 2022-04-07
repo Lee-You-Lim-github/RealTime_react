@@ -174,15 +174,13 @@ function UserBookingComponent({ bookingList, booking_object }) {
 
                 {booking_object.visit_status === "1" &&
                   booking_object.review_set.length === 0 && (
-                    <div className="">
-                      <Link
-                        to={`/user/${auth.id}/book/${booking_object.id}/review/new/`}
-                        className="border-1 border-orange-400 bg-orange-400 text-white text-sm rounded px-1 py-2"
-                        state={booking_object.user_id.id}
-                      >
-                        리뷰작성
-                      </Link>
-                    </div>
+                    <Link
+                      to={`/user/${auth.id}/book/${booking_object.id}/review/new/`}
+                      className="border-2 border-orange-400 bg-orange-400 text-white text-sm rounded px-[5px] py-[8px]"
+                      state={booking_object.user_id.id}
+                    >
+                      리뷰작성
+                    </Link>
                   )}
 
                 <DeleteConfirmModal
