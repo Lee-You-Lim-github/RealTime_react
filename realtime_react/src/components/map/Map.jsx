@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, useCallback } from "react";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import marker1 from "assets/img/marker1.png";
 import marker2 from "assets/img/marker2.png";
@@ -35,6 +35,20 @@ function TypeMap({ getData, pickData }) {
     errMsg: null,
     isLoading: true,
   });
+
+  const [map, setMap] = useState();
+  // const [points, setPoints] = useState([
+  //   { lat: 36.3299315, lng: 127.442948 },
+  // ]);
+
+  // const bounds = useMemo(() => {
+  //   const bounds = new kakao.maps.LatLngBounds();
+
+  //   points.forEach((point) => {
+  //     bounds.extend(new kakao.maps.LatLng(point.lat, point.lng));
+  //   });
+  //   return bounds;
+  // }, [points]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -156,7 +170,11 @@ function TypeMap({ getData, pickData }) {
     };
   });
 
-  function map_marker(marker_object) {
+  const map_marker = useCallback((marker_object) => {
+    // setPoints((prev) => [
+    //   ...prev,
+    //   { lat: marker_object.lat, lng: marker_object.lng },
+    // ]);
     if (marker_object.holiday === "1") {
       return (
         <MapMarker
@@ -306,7 +324,7 @@ function TypeMap({ getData, pickData }) {
         );
       }
     }
-  }
+  });
 
   return (
     <>
@@ -314,7 +332,7 @@ function TypeMap({ getData, pickData }) {
       {/* <RemovableCustomOverlayStyle /> */}
       <div>
         <Map // 지도를 표시할 Container
-          className="ml-6"
+          className="ml-9"
           center={
             // 지도의 중심좌표
             state.center
@@ -325,6 +343,7 @@ function TypeMap({ getData, pickData }) {
             height: "400px",
           }}
           level={6} // 지도의 확대 레벨
+          onCreate={setMap}
         >
           {/* 테이블 수 비율별 마커색 변경 */}
           {selectedCategory === "whole" &&
@@ -475,12 +494,15 @@ function TypeMap({ getData, pickData }) {
           )}
         </Map>
         {/* 카테고리 부분 */}
-        <div className="flex justify-center ml-14">
+        <div className="flex justify-center mr-24">
           <ul>
             <button
               className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="whole"
-              onClick={() => closeEvent("whole")}
+              onClick={() => {
+                // if (map) map.setBounds(bounds);
+                closeEvent("whole");
+              }}
             >
               <img src={category_whole} height="100" width="100" />
               전체
@@ -488,13 +510,16 @@ function TypeMap({ getData, pickData }) {
             <button
               className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="korea"
-              onClick={() => closeEvent("korea")}
+              onClick={() => {
+                // if (map) map.setBounds(bounds);
+                closeEvent("korea");
+              }}
             >
               <img src={category_korea} height="100" width="100" />
               한식
             </button>
             <button
-              className="mr-16 focus:-y-10 focus:ring-purple-300"
+              className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="china"
               onClick={() => closeEvent("china")}
             >

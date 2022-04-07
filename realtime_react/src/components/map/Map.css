@@ -12,6 +12,12 @@
   line-height: 1.5;
   z-index: 0;
 }
+
+.search {
+  position: absolute;
+  z-index: 50;
+}
+
 .wrap * {
   padding: 0;
   margin: 0;
@@ -230,7 +236,7 @@
   position: fixed;
   right: 50%;
   top: 180px;
-  margin-right: -615px;
+  margin-right: -715px;
   text-align: center;
   width: 70px;
   border-radius: 8px;

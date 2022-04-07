@@ -69,13 +69,7 @@ function WaitingStatus() {
   // console.log("dddd", dddd);
   // console.log("aaaa", aaaa);
 
-  return (
-    <div>
-      <DebugStates waitData={waitData} />
-      <DebugStates waitAllData={waitAllData} />
-      {num}번째
-    </div>
-  );
+  return <div>{auth.id && num}</div>;
 }
 
 export default WaitingStatus;

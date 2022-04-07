@@ -23,6 +23,17 @@ function PageIndex() {
   );
 
   const [
+    { data: listData, loading: listLoding, error: listError },
+    listRefetch,
+  ] = useApiAxios(
+    {
+      url: `/shop/api/shops/?all`,
+      method: "GET",
+    },
+    { manual: true }
+  );
+
+  const [
     { data: reviewData, loading: reviewLoading, Error: reviewError },
     reviewRefetch,
   ] = useApiAxios(
@@ -47,6 +58,7 @@ function PageIndex() {
   useEffect(() => {
     refetch();
     reviewRefetch();
+    listRefetch();
     pickRefetch();
   }, []);
 
@@ -111,12 +123,8 @@ function PageIndex() {
           header="사용 안내"
         ></DirectionModal>
       </div>
-
-      <div className="page flex justify-center mt-4">
-        {getData && <Map getData={getData} pickData={pickData} />}
-      </div>
-      <div className=" shadow-lg shadow-gray-500/80">
-        <div className="xl:w-90">
+      <div className="shadow-lg shadow-gray-500/80">
+        <div className="search ml-[260px] mt-6 ">
           <div className="input-group flex flex-wrap items-stretch w-full rounded">
             <input
               className="w-60 h-9"
@@ -147,25 +155,31 @@ function PageIndex() {
             </span>
           </div>
         </div>
-        {getData && <NewShopList getData={getData} />}
-        {reviewData && <NewReviewList reviewData={reviewData} />}
-        <div class="floating">
-          {" "}
-          <div>
-            <button onClick={scrollDown}>하단</button>
-          </div>{" "}
-          <div>
-            <button onClick={scrollUp}>상단버튼</button>
-          </div>{" "}
-          <div>
-            <button onClick={scrollShop}>신규매장버튼</button>
-          </div>{" "}
-          <div>
-            {" "}
-            <button onClick={scrollReview}>최근리뷰버튼</button>
-          </div>{" "}
-        </div>
       </div>
+
+      <div className="page flex justify-center ml-20 mt-4">
+        {getData && <Map getData={getData} pickData={pickData} />}
+      </div>
+
+      {listData && <NewShopList listData={listData} />}
+      {reviewData && <NewReviewList reviewData={reviewData} />}
+      <div className="floating">
+        {" "}
+        <div>
+          <button onClick={scrollDown}>하단</button>
+        </div>{" "}
+        <div>
+          <button onClick={scrollUp}>상단버튼</button>
+        </div>{" "}
+        <div>
+          <button onClick={scrollShop}>신규매장버튼</button>
+        </div>{" "}
+        <div>
+          {" "}
+          <button onClick={scrollReview}>최근리뷰버튼</button>
+        </div>{" "}
+      </div>
+
       <div>
         {/* className="fixed left-[1370px] bottom-[100px]" */}
         <WaitingStatus />

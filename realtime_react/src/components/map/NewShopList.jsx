@@ -2,8 +2,8 @@ import DebugStates from "components/DebugStates";
 import ShopCarousel from "components/map/ShopCarousel";
 import { Link } from "react-router-dom";
 
-function NewShopList({ getData }) {
-  const shopData = getData
+function NewShopList({ listData }) {
+  const shopData = listData
     ?.sort(
       (newShop, newShop2) =>
         new Date(newShop2.registered_date) - new Date(newShop.registered_date)

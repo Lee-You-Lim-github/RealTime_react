@@ -56,7 +56,7 @@ function TopNav() {
   };
 
   return (
-    <div className="bg-red-200">
+    <div className="bg-orange-300">
       <div className="header">
         <div className="navigation">
           <div className="flex place-content-between gap-3 ">
@@ -136,7 +136,7 @@ function MyLink({ to, children }) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        baseClassName + " " + (isActive ? "border-b-4 border-red-400" : "")
+        baseClassName + " " + (isActive ? "border-b-2 border-orange-400" : "")
       }
     >
       {children}
@@ -144,6 +144,6 @@ function MyLink({ to, children }) {
   );
 }
 
-const baseClassName = "px-4 pt-6 mt-4 font-semibold hover:text-red-500";
+const baseClassName = "px-4 pt-6 mt-4 font-semibold hover:text-orange-500";
 
 export default TopNav;
