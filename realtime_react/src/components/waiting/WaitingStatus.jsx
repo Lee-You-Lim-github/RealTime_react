@@ -69,7 +69,11 @@ function WaitingStatus() {
   // console.log("dddd", dddd);
   // console.log("aaaa", aaaa);
 
-  return <div>{auth.id && num}</div>;
+  return (
+    <div className="wait">
+      <div className="mt-4">{auth.id && num}</div>
+    </div>
+  );
 }
 
 export default WaitingStatus;

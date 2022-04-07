@@ -15,9 +15,8 @@ import category_china from "assets/img/china.png";
 import category_japan from "assets/img/japan.png";
 import category_western from "assets/img/western.png";
 import category_cafe from "assets/img/cafe.png";
-/*global kakao*/
+import category_pick from "assets/img/pick1.png";
 import "./Map.css";
-import DebugStates from "components/DebugStates";
 
 function TypeMap({ getData, pickData }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -555,7 +554,13 @@ function TypeMap({ getData, pickData }) {
               id="pick"
               onClick={() => closeEvent("pick")}
             >
-              <img src={category_cafe} height="100" width="100" />찜
+              <img
+                src={category_pick}
+                height="60"
+                width="60"
+                style={{ marginBottom: 15 }}
+              />
+              찜
             </button>
           </ul>
         </div>
