@@ -155,7 +155,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                 <span className="mx-3">{shopData.category}</span>
                 <span>
                   <React.Fragment>
-                    {shopData.now_table_count !== shopData.total_table_count &&
+                    {auth.authority === "0" &&
+                      !auth.is_superuser &&
+                      shopData.now_table_count !== shopData.total_table_count &&
                       shopData.holiday == 0 && (
                         <button
                           className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 my-1 mx-1 p-2"
@@ -165,7 +167,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         </button>
                       )}
 
-                    {shopData.now_table_count === shopData.total_table_count &&
+                    {auth.authority === "0" &&
+                      !auth.is_superuser &&
+                      shopData.now_table_count === shopData.total_table_count &&
                       shopData.holiday == 0 &&
                       shopData.wait_state === "0" &&
                       waits?.filter(
@@ -182,7 +186,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         </button>
                       )}
 
-                    {shopData.now_table_count === shopData.total_table_count &&
+                    {auth.authority === "0" &&
+                      !auth.is_superuser &&
+                      shopData.now_table_count === shopData.total_table_count &&
                       shopData.holiday == 0 &&
                       shopData.wait_state === "0" &&
                       waits?.filter(
@@ -199,7 +205,9 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         </button>
                       )}
 
-                    {shopData.now_table_count === shopData.total_table_count &&
+                    {auth.authority === "0" &&
+                      !auth.is_superuser &&
+                      shopData.now_table_count === shopData.total_table_count &&
                       shopData.holiday == 0 &&
                       shopData.wait_state === "1" &&
                       waits?.filter(
@@ -281,12 +289,14 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                 </span>
 
                 <span className="mx-2 mt-3">
-                  <Link
-                    to={`/shop/${shopId}/booking/new/`}
-                    className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 p-3"
-                  >
-                    지금말고예약
-                  </Link>
+                  {auth.authority === "0" && !auth.is_superuser && (
+                    <Link
+                      to={`/shop/${shopId}/booking/new/`}
+                      className="bg-violet-400 border border-violet-400 hover:border-red-300 hover:bg-red-300 text-white rounded w-2/2 p-3"
+                    >
+                      지금말고예약
+                    </Link>
+                  )}
                 </span>
                 <div className="mb-3">
                   {shopData.holiday != 1 && (
