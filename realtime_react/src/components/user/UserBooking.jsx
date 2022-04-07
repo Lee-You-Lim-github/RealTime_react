@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import LoadingIndicator from "components/LoadingIndicator";
 import ShowMore from "react-show-more-list";
 import UserBookingComponent from "./UserBookingComponent";
-import user_booking from "assets/img/shop_booking.png";
+import booklist from "assets/img/booklist.png";
 
 function UserBooking() {
   const [auth] = useAuth();
@@ -47,8 +47,8 @@ function UserBooking() {
   return (
     <div className="w-full mx-auto mb-20">
       <div className="flex flex-row my-10">
-        <img src={user_booking} alt="" className="w-8 h-8 ml-2" />
-        <h2 className="text-left text-2xl ml-2">예약내역</h2>
+        <img src={booklist} alt="booklist" className="w-10 h-10 ml-7" />
+        <h2 className="text-left text-2xl ml-2 mt-1">예약내역</h2>
       </div>
 
       {bookingLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}

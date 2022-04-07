@@ -70,7 +70,7 @@ function AdminQnaList({ itemsPerPage = 10 }) {
 
   return (
     <div>
-      <div>
+      <div className="text-right flex justify-end mb-3">
         <select onChange={(e) => setAuthority(e.target.value)}>
           <option value="" selected>
             전체
@@ -78,26 +78,46 @@ function AdminQnaList({ itemsPerPage = 10 }) {
           <option value="0">개인</option>
           <option value="1">사업자</option>
         </select>
-        <button onClick={Authoritycategory}>검색</button>
-      </div>
-      <div className="text-right mb-2 flex justify-end">
+        <button
+          className="mr-8 bg-stone-400 text-white w-12 h-6 rounded rounded-sm"
+          onClick={Authoritycategory}
+        >
+          검색
+        </button>
+
         <input
-          className="w-70 h-10 border-b border-orange-400 outline-none"
+          className="w-40 outline-none  border-b border-orange-400"
           type="search"
           name="search"
-          placeholder="제목으로 검색할 수 있어요."
+          placeholder="제목으로 검색"
           onKeyPress={search}
           onChange={(e) => {
             setQuery(e.target.value);
           }}
         />
       </div>
-      <div>
-        {currentItems?.map((qna, index) => (
-          <AdminQnaSummary qna={qna} key={qna.id} index={index} />
-        ))}
-      </div>
 
+      <div>
+        <table className="border-t-2  border-orange-400 w-full">
+          <thead className="border-b border-orange-400">
+            <tr>
+              <td className="p-5 w-30 text-justify">번호</td>
+              <td className="p-5 w-30 pl-10 text-center">구분</td>
+              <td className="p-5 w-80 pl-20 text-center">제목</td>
+              <td className="p-5 w-70 pl-20">등록일</td>
+              <td className="p-5 w-30 text-right">답변여부</td>
+            </tr>
+          </thead>
+        </table>
+
+        <div>
+          {currentItems?.map((qna, index) => (
+            <div className="m-auto">
+              <AdminQnaSummary qna={qna} key={qna.id} index={index} />
+            </div>
+          ))}
+        </div>
+      </div>
       <ReactPaginate
         className="pagination"
         breakLabel="..."
