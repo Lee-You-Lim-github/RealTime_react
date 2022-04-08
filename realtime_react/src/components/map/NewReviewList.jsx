@@ -17,7 +17,9 @@ function NewReviewList({ reviewData }) {
 
   return (
     <div>
-      <div className="ml-44 text-xl font-bold">방문자가 남긴 최근 리뷰!</div>
+      <div className="mt-20 ml-44 text-xl font-bold">
+        방문자가 남긴 최근 리뷰!
+      </div>
       <div
         style={{
           maxWidth: 1200,
@@ -31,7 +33,7 @@ function NewReviewList({ reviewData }) {
             <div>
               <Link to={`/shop/${data.book_id.shop_id.id}/`}>
                 <div
-                  className="border-solid border-2 m-3 w-72 h-60 rounded"
+                  className="border-solid border-2 m-3 w-72 h-60 rounded overflow-hidden hover:-translate-y-1"
                   style={{ padding: 8 }}
                 >
                   <div className="ml-2 mt-4">

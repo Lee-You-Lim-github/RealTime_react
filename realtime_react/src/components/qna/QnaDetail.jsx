@@ -31,10 +31,10 @@ function QnaDetail({ qnaId, userId }) {
 
   return (
     <div>
-      <div>
+      <div className="mt-24">
         <QnaDetailSummary qna={qna} />
       </div>
-      <div className="flex justify-end">
+      <div className="flex justify-end my-3">
         <button
           className="mr-3 w-12 h-8 text-stone-400 border border-stone-400 rounded-lg"
           onClick={() => navigate(`/user/${userId}/qna/`)}
