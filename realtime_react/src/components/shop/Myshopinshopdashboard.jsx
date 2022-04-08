@@ -81,22 +81,22 @@ function Myshopinshopdashboard({ shopId }) {
           {tableCount}/{myShopData?.total_table_count}
         </p>
       </div>
-      <div>
+      <div className="mt-4">
         <button
           type="button"
           name="plus"
           onClick={handlePlus}
-          className="mr-4 bg-orange-400 text-sm text-right rounded p-1"
+          className="mr-4 w-10 h-10 border-2 border-white text-2xl text-white rounded p-1"
         >
-          ➕
+          +
         </button>
         <button
           type="button"
           name="minus"
           onClick={handleMinus}
-          className="bg-orange-400  text-sm text-right rounded p-1 "
+          className="w-10 h-10 border-2 border-white text-2xl text-white rounded p-1"
         >
-          ➖
+          -
         </button>
       </div>
     </div>
