@@ -165,7 +165,7 @@ function PageIndex() {
           </div>
         </div>
       </div>
-      <div className="page flex justify-center ml-14 mt-4">
+      <div className="page flex justify-center ml-24 mt-4">
         {getData && <Map getData={getData} pickData={pickData} />}
       </div>
       {listData && <NewShopList listData={listData} />}

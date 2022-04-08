@@ -9,13 +9,28 @@ import { Link } from "react-router-dom";
 import styles from "./sidebar.module.css";
 import question from "assets/img/adminlist.png";
 import remove from "assets/img/adminlist2.png";
-import category_whole from "assets/img/whole.png";
-import category_korea from "assets/img/korea.png";
-import category_china from "assets/img/china.png";
-import category_japan from "assets/img/japan.png";
-import category_western from "assets/img/western.png";
-import category_cafe from "assets/img/cafe.png";
-import category_pick from "assets/img/pick1.png";
+
+import cutlery from "assets/img/cutlery.png";
+import colorcutlery from "assets/img/colorcutlery.png";
+
+import tteok from "assets/img/tteok.png";
+import colortteok from "assets/img/colortteok.png";
+
+import dumpling from "assets/img/dumpling.png";
+import colordumpling from "assets/img/colordumpling.png";
+
+import sushi from "assets/img/sushi.png";
+import colorsushi from "assets/img/colorsushi.png";
+
+import pasta from "assets/img/pasta.png";
+import colorpasta from "assets/img/colorpasta.png";
+
+import coffee from "assets/img/coffee.png";
+import colorcoffee from "assets/img/colorcoffee.png";
+
+import pick from "assets/img/heart3.png";
+import colorpick from "assets/img/colorpick.png";
+
 import "./Map.css";
 
 function TypeMap({ getData, pickData }) {
@@ -25,6 +40,15 @@ function TypeMap({ getData, pickData }) {
   const [open, setOpen] = useState(false);
   const [xPosition, setX] = useState(217);
   const side = useRef();
+
+  const [wholeHover, setWholeHover] = useState(false);
+  const [koreaHover, setKoreaHover] = useState(false);
+  const [chinaHover, setChinaHover] = useState(false);
+  const [japanHover, setJapanHover] = useState(false);
+  const [westernHover, setWesternHover] = useState(false);
+  const [cafeHover, setCafeHover] = useState(false);
+  const [pickHover, setPickHover] = useState(false);
+
   const [state, setState] = useState({
     center: {
       lat: 36.337490378182764,
@@ -317,7 +341,6 @@ function TypeMap({ getData, pickData }) {
       {/* <RemovableCustomOverlayStyle /> */}
       <div>
         <Map // 지도를 표시할 Container
-          className="ml-9"
           center={
             // 지도의 중심좌표
             state.center
@@ -478,73 +501,131 @@ function TypeMap({ getData, pickData }) {
           )}
         </Map>
         {/* 카테고리 부분 */}
-        <div className="flex justify-center mr-24">
-          <ul className="ml-8">
+        <div className="flex justify-center mr-32 mt-4">
+          <ul className="ml-2">
             <button
-              className="mr-16 focus:ring-4 focus:ring-purple-300"
+              className="mr-[80px]"
               id="whole"
               onClick={() => {
                 // if (map) map.setBounds(bounds);
                 closeEvent("whole");
               }}
             >
-              <img src={category_whole} height="90" width="90" />
+              <p
+                onMouseOver={() => setWholeHover(true)}
+                onMouseOut={() => setWholeHover(false)}
+              >
+                <img
+                  src={wholeHover ? colorcutlery : cutlery}
+                  width="70"
+                  height="70"
+                />
+              </p>
               전체
             </button>
             <button
-              className="mr-16 focus:ring-4 focus:ring-purple-300"
+              className="mr-[80px]"
               id="korea"
               onClick={() => {
                 // if (map) map.setBounds(bounds);
                 closeEvent("korea");
               }}
             >
-              <img src={category_korea} height="90" width="90" />
+              <p
+                onMouseOver={() => setKoreaHover(true)}
+                onMouseOut={() => setKoreaHover(false)}
+              >
+                <img
+                  src={koreaHover ? colortteok : tteok}
+                  width="70"
+                  height="70"
+                />
+              </p>
               한식
             </button>
             <button
-              className="mr-16 focus:ring-4 focus:ring-purple-300"
+              className="mr-[80px]"
               id="china"
               onClick={() => closeEvent("china")}
             >
-              <img src={category_china} height="90" width="90" />
+              <p
+                onMouseOver={() => setChinaHover(true)}
+                onMouseOut={() => setChinaHover(false)}
+              >
+                <img
+                  src={chinaHover ? colordumpling : dumpling}
+                  width="70"
+                  height="70"
+                />
+              </p>
               중식
             </button>
             <button
-              className="mr-16 focus:ring-4 focus:ring-purple-300"
+              className="mr-[80px]"
               id="japan"
               onClick={() => closeEvent("japan")}
             >
-              <img src={category_japan} height="90" width="90" />
+              <p
+                onMouseOver={() => setJapanHover(true)}
+                onMouseOut={() => setJapanHover(false)}
+              >
+                <img
+                  src={japanHover ? colorsushi : sushi}
+                  width="70"
+                  height="70"
+                />
+              </p>
               일식
             </button>
             <button
-              className="mr-16 focus:ring-4 focus:ring-purple-300"
+              className="mr-[80px]"
               id="western"
               onClick={() => closeEvent("western")}
             >
-              <img src={category_western} height="90" width="90" />
+              <p
+                onMouseOver={() => setWesternHover(true)}
+                onMouseOut={() => setWesternHover(false)}
+              >
+                <img
+                  src={westernHover ? colorpasta : pasta}
+                  width="70"
+                  height="70"
+                />
+              </p>
               양식
             </button>
             <button
-              className="mr-16 focus:ring-4 focus:ring-purple-300"
+              className="mr-[80px]"
               id="cafe"
               onClick={() => closeEvent("cafe")}
             >
-              <img src={category_cafe} height="90" width="90" />
+              <p
+                onMouseOver={() => setCafeHover(true)}
+                onMouseOut={() => setCafeHover(false)}
+              >
+                <img
+                  src={cafeHover ? colorcoffee : coffee}
+                  width="70"
+                  height="70"
+                />
+              </p>
               카페
             </button>
             <button
-              className="mr-16 focus:ring-4 focus:ring-purple-300"
+              className="mr-[80px]"
               id="pick"
               onClick={() => closeEvent("pick")}
             >
-              <img
-                src={category_pick}
-                height="60"
-                width="60"
-                style={{ marginBottom: 15 }}
-              />
+              <p
+                onMouseOver={() => setPickHover(true)}
+                onMouseOut={() => setPickHover(false)}
+              >
+                <img
+                  src={pickHover ? colorpick : pick}
+                  width="70"
+                  height="70"
+                />
+              </p>
               찜
             </button>
           </ul>
