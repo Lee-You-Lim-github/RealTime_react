@@ -15,13 +15,13 @@ function NewShopList({ listData }) {
 
   return (
     <>
-      <div className="mt-20 ml-44 text-xl font-bold mb-8">
+      <div className="mt-20 ml-64 text-xl font-bold mb-8">
         따끈 따끈한 신상 맛집!
       </div>
 
       <div
         style={{
-          maxWidth: 1200,
+          maxWidth: 1060,
           marginLeft: "auto",
           marginRight: "auto",
           marginTop: 10,
@@ -29,10 +29,10 @@ function NewShopList({ listData }) {
       >
         <ShopCarousel show={3}>
           {shopData.map((data, index) => (
-            <div className="mr-2">
+            <div className="ml-2">
               <Link to={`/shop/${data.id}/`}>
                 <div
-                  className="w-[350px] h-[370px] m-3 border border-stone-300 rounded overflow-hidden hover:-translate-y-1"
+                  className="w-[300px] h-[370px] m-3 border border-stone-300 rounded overflow-hidden hover:-translate-y-1"
                   style={{ padding: 8 }}
                 >
                   {!data?.photo1 ? (
