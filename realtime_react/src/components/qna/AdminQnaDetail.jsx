@@ -29,12 +29,13 @@ function AdminQnaDetail({ userId, qnaId }) {
 
   return (
     <div>
-      <div>AdminQnaDetail</div>
-      <AdminQnaDetailSummary qna={qna} />
+      <div className="mt-24">
+        <AdminQnaDetailSummary qna={qna} />
+      </div>
 
-      <div className=" flex justify-end p-1 mt-3  text-sm align-middle">
+      <div className=" flex justify-end my-3 text-sm align-middle">
         <button
-          className="w-24 h-8 ml-2   border border-orange-400 rounded-sm text-orange-400"
+          className="w-24 h-8 ml-2 border border-orange-400 rounded-sm text-orange-400"
           disabled={deleteLoading}
           onClick={handleDelete}
         >
