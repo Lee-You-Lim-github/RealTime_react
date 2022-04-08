@@ -74,7 +74,7 @@ function Myshopinshopdashboard({ shopId }) {
   }, [tableCount]);
 
   return (
-    <div>
+    <div className="text-gray-800">
       <div className="mt-10">현재 테이블 수는?</div>
       <div className="text-2xl">
         <p>
