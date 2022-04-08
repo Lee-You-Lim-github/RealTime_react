@@ -30,7 +30,7 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     refetch,
   ] = useApiAxios(
     {
-      url: `/waiting/api/waitings/?shop_id=${shopId}&wait_visit_status=${0}&${
+      url: `/waiting/api/waitings/?ordering=wait_date&shop_id=${shopId}&wait_visit_status=${0}&wait_cancel=${0}&${
         query ? "&query=" + query : ""
       }`,
     },
@@ -42,18 +42,6 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
     {
       url: `/shop/api/shops/${shopId}/`,
       method: "GET",
-    },
-    { manual: true }
-  );
-
-  // 현재 테이블 수 수정
-  const [{}, saveShop] = useApiAxios(
-    {
-      url: `/shop/api/shops/${shopId}/`,
-      method: "PATCH",
-      headers: {
-        Authorization: `Bearer ${auth.access}`,
-      },
     },
     { manual: true }
   );
@@ -79,12 +67,6 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
   useEffect(() => {
     setTableCount(shopData?.now_table_count);
   }, [shopData]);
-
-  // useEffect(() => {
-  //   saveShop({
-  //     data: { now_table_count: tableCount },
-  //   });
-  // }, [tableCount]);
 
   // 페이징
   const fetchApplication = useCallback(
@@ -169,18 +151,16 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
           <span className="mx-10">대기 등록시간</span>
           <span className="mx-10">입장 요청</span>
           <span className="mx-10">입장 여부</span>
-          {shopWaitingData?.results
-            ?.filter((obj) => obj.wait_visit_status === "0")
-            .map((waiting_obj) => (
-              <ShopWaitingList
-                key={waiting_obj.id}
-                waiting_obj={waiting_obj}
-                saveWaiting={saveWaiting}
-                refetch={refetch}
-                tableCount={tableCount}
-                setTableCount={setTableCount}
-              />
-            ))}
+          {shopWaitingData?.results?.map((waiting_obj) => (
+            <ShopWaitingList
+              key={waiting_obj.id}
+              waiting_obj={waiting_obj}
+              saveWaiting={saveWaiting}
+              refetch={refetch}
+              tableCount={tableCount}
+              setTableCount={setTableCount}
+            />
+          ))}
           <ReactPaginate
             breakLabel="..."
             nextLabel=">"
