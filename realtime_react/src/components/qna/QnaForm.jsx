@@ -57,15 +57,20 @@ function QnaForm({ userId, handleDidSave }) {
   };
 
   return (
-    <div>
+    <div className="mt-24">
       <form onSubmit={handleSubmit}>
         <div>
-          <div>
+          <div className="flex">
+            <span className="bg-orange-400 text-white w-10 h-8 rounded rounded-lg pt-1 flex justify-center">
+              제목
+            </span>
             <input
               type="text"
               name="title"
               value={fieldValues.title}
               onChange={handleFieldChange}
+              placeholder="제목을 입력해주세요."
+              className="border-b-2 border-stone-400 ml-2 w-full outline-none"
             />
           </div>
 
@@ -75,9 +80,11 @@ function QnaForm({ userId, handleDidSave }) {
               name="content"
               value={fieldValues.content}
               onChange={handleFieldChange}
+              className="border-2 border-orange-400 w-full h-96 mt-5 outline-none"
+              placeholder="미방 및 욕설은 관리자에 의해 삭제될 수 있습니다."
             />
 
-            <div>
+            <div className="flex justify-start">
               <input
                 type="file"
                 name="photo"
@@ -86,7 +93,7 @@ function QnaForm({ userId, handleDidSave }) {
               />
             </div>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-end my-3">
             <button className="mr-3 w-12 h-8 bg-orange-400 text-white rounded-lg">
               저장
             </button>
