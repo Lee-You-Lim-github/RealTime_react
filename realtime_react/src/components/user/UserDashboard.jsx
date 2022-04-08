@@ -7,41 +7,47 @@ import ReviewInfo from "./DashboardInfo/ReviewInfo";
 import QnAInfo from "./DashboardInfo/QnAInfo";
 import UnWrittenReview from "./DashboardInfo/UnWrittenReview";
 import WaitingInfo from "./DashboardInfo/WaitingInfo";
+import user from "assets/img/adminuser.png";
 
 function UserDashboard() {
   const [auth] = useAuth();
 
   return (
     <div>
-      <h1>회원</h1>
-      <div>
+      <div className="flex mt-8 mb-4 ml-48">
+        <img className="w-12 h-12" src={user} alt="user" />
+        <div className="text-3xl ml-4 mt-3">회원</div>
+      </div>
+      <div className="mb-5">
         <div className="flex justify-center mb-6">
-          <div className="mx-7 w-60 h-60 bg-orange-400">
-            <h3 className="text-white">내정보</h3>
-            <UserInfo />
-            <Link
-              to={`/user/mypage/${auth.id}/edit/`}
-              className="border-2 border-white text-white hover text-sm text-right rounded p-1"
-            >
-              수정
-            </Link>
+          <div className="mx-3 w-60 h-60 bg-orange-400 rounded-xl">
+            <h3 className="text-white mb-8 text-lg">내정보</h3>
+            <div className="ml-3">
+              <UserInfo />
+              <Link
+                to={`/user/mypage/${auth.id}/edit/`}
+                className="border-2 border-white text-white hover text-sm text-right rounded p-1"
+              >
+                수정
+              </Link>
+            </div>
           </div>
-          <div className="mx-7 w-60 h-60 bg-stone-400">
-            <h3 className="text-white">예약내역</h3>
-            <div>방문 예정 건 수</div>
+          <div className="mx-3 w-60 h-60 bg-stone-400 rounded-xl">
+            <h3 className="text-white mb-16 text-lg">예약내역</h3>
+            <div>나의 방문예정 건 수</div>
             <Link
               to={`/user/${auth.id}/bookings/`}
-              className="text-white ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl"
             >
               <BookingInfo /> 건
             </Link>
           </div>
-          <div className="mx-7 w-60 h-60 bg-orange-400">
-            <h3 className="text-white">대기내역</h3>
-            <div>내 대기 번호</div>
+          <div className="mx-3 w-60 h-60 bg-orange-400 rounded-xl">
+            <h3 className="text-white mb-16 text-lg">대기내역</h3>
+            <div>나의 대기 번호</div>
             <Link
               to={`/user/${auth.id}/waitings/`}
-              className="text-white ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl"
             >
               <WaitingInfo /> 번
             </Link>
@@ -49,42 +55,42 @@ function UserDashboard() {
         </div>
 
         <div className="flex justify-center">
-          <div className="mx-7 w-60 h-60 bg-stone-400">
-            <h3 className="text-white">위시리스트</h3>
-            <div>내가 찜 한 매장</div>
+          <div className="mx-3 w-60 h-60 bg-stone-400 rounded-xl">
+            <h3 className="text-white mb-16 text-lg">위시리스트</h3>
+            <div>내가 찜한 매장</div>
             <Link
               to={`/user/${auth.id}/pick/`}
-              className="text-white ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl"
             >
               <PickInfo /> 건
             </Link>
           </div>
 
-          <div className="mx-7 w-60 h-60 bg-orange-400">
-            <h3 className="text-white">리뷰내역</h3>
-            <div>작성되지 않은 리뷰</div>
+          <div className="mx-3 w-60 h-60 bg-orange-400 rounded-xl">
+            <h3 className="text-white mb-8">리뷰내역</h3>
+            <div>작성하지 않은 리뷰</div>
             <Link
               to={`/user/${auth.id}/bookings/`}
-              className="text-white ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl"
             >
               <UnWrittenReview /> 건
             </Link>
 
-            <div>내가 작성한 리뷰</div>
+            <div className="mt-5">내가 작성한 리뷰</div>
             <Link
               to={`/user/${auth.id}/review/`}
-              className="text-white ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl"
             >
               <ReviewInfo /> 건
             </Link>
           </div>
 
-          <div className="mx-7 w-60 h-60 bg-stone-400">
-            <h3 className="text-white ">1:1문의</h3>
+          <div className="mx-3 w-60 h-60 bg-stone-400 rounded-xl">
+            <h3 className="text-white mb-16">1:1문의</h3>
             <div>나의 1:1문의</div>
             <Link
               to={`/user/${auth.id}/qna/`}
-              className="text-white ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl"
             >
               <QnAInfo /> 건
             </Link>
