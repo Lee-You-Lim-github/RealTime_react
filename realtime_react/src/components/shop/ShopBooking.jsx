@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import ShopBookingComponent from "./ShopBookingComponent";
 import LoadingIndicator from "components/LoadingIndicator";
-import shop_booking from "assets/img/shop_booking.png";
+import booklist from "assets/img/booklist.png";
 
 function ShopBooking({ shopId, itemsPerPage = 10 }) {
   const [auth] = useAuth();
@@ -139,11 +139,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
       <div className="bg-white p-8 rounded-md w-[900px] m-auto">
         <div className="flex items-center justify-between pb-4 md:flex">
           <div className="flex flex-row">
-            <img
-              className="w-9 h-9 ml-2"
-              src={shop_booking}
-              alt="shop_booking"
-            />
+            <img className="w-10 h-10 ml-2" src={booklist} alt="booklist" />
             <h2
               className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
               onClick={() =>

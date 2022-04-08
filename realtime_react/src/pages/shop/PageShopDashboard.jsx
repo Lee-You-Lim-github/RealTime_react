@@ -7,7 +7,6 @@ import list from "assets/img/adminlist.png";
 import list2 from "assets/img/adminlist2.png";
 import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
-import DebugStates from "components/DebugStates";
 import PageNotShopUser from "pages/notfound/PageNotShopUser";
 
 function PageShopDashboard(props) {

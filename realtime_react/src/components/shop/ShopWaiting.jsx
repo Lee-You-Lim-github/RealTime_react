@@ -1,10 +1,10 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import React, { useCallback, useEffect, useState } from "react";
 import ShopWaitingList from "./ShopWaitingList";
 import "../Paginations/Paginations.css";
 import ReactPaginate from "react-paginate";
 import { useAuth } from "contexts/AuthContext";
+import waitinglist from "assets/img/waitinglist.png";
 
 function ShopWaiting({ shopId, itemsPerPage = 10 }) {
   const [auth] = useAuth();
@@ -110,19 +110,27 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
   };
 
   return (
-    <div>
-      {shopWaitingData && (
-        <div>
-          <div>대기 현황</div>
-          <DebugStates shopWaitingData={shopWaitingData} />
-          <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
+    <div className="bg-white p-8 rounded-md w-[900px] m-auto">
+      <div className="flex items-center justify-between pb-4 md:flex">
+        <div className="flex flex-row">
+          <img className="w-10 h-10 ml-2" src={waitinglist} alt="waitinglist" />
+          <h2
+            h2
+            className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
+          >
+            대기 현황
+          </h2>
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="relative text-gray-600 mr-2">
             <input
               type="search"
               name="serch"
               onChange={getQuery}
               onKeyPress={search}
               placeholder="이름/휴대폰 번호"
-              className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+              className="bg-wihte h-9 px-2 pr-10 text-sm outline-none border-b-2 border-orange-400"
             />
             <button
               type="button"
@@ -144,35 +152,65 @@ function ShopWaiting({ shopId, itemsPerPage = 10 }) {
               </svg>
             </button>
           </div>
-          <span className="mx-10">대기번호</span>
-          <span className="mx-10">이름</span>
-          <span className="mx-10">휴대폰 번호</span>
-          <span className="mx-10">테이블 수</span>
-          <span className="mx-10">대기 등록시간</span>
-          <span className="mx-10">입장 요청</span>
-          <span className="mx-10">입장 여부</span>
-          {shopWaitingData?.results?.map((waiting_obj) => (
-            <ShopWaitingList
-              key={waiting_obj.id}
-              waiting_obj={waiting_obj}
-              saveWaiting={saveWaiting}
-              refetch={refetch}
-              tableCount={tableCount}
-              setTableCount={setTableCount}
-            />
-          ))}
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel=">"
-            onPageChange={handlePage}
-            pageRangeDisplayed={itemsPerPage}
-            pageCount={pageCount}
-            previousLabel="<"
-            renderOnZeroPageCount={null}
-            className="pagination"
-          />
         </div>
-      )}
+      </div>
+      <div>
+        {shopWaitingData && (
+          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+            <div className="inline-block min-w-full overflow-hidden">
+              <table className="table-auto min-w-full whitespace-no-wrap">
+                <thead>
+                  <tr>
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      대기번호
+                    </th>
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      이름
+                    </th>
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      휴대폰 번호
+                    </th>
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      테이블 수
+                    </th>
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      대기 등록시간
+                    </th>
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      입장 요청
+                    </th>
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      입장 여부
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {shopWaitingData?.results?.map((waiting_obj) => (
+                    <ShopWaitingList
+                      key={waiting_obj.id}
+                      waiting_obj={waiting_obj}
+                      saveWaiting={saveWaiting}
+                      refetch={refetch}
+                      tableCount={tableCount}
+                      setTableCount={setTableCount}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <ReactPaginate
+              breakLabel="..."
+              nextLabel=">"
+              onPageChange={handlePage}
+              pageRangeDisplayed={itemsPerPage}
+              pageCount={pageCount}
+              previousLabel="<"
+              renderOnZeroPageCount={null}
+              className="pagination"
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
