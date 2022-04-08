@@ -49,6 +49,8 @@ function TypeMap({ getData, pickData }) {
   const [cafeHover, setCafeHover] = useState(false);
   const [pickHover, setPickHover] = useState(false);
 
+  const [color, setColor] = useState("");
+
   const [state, setState] = useState({
     center: {
       lat: 36.337490378182764,
@@ -129,12 +131,15 @@ function TypeMap({ getData, pickData }) {
 
   const closeEvent = (category) => {
     setCloseMarker(false);
+    setColor(category);
     setSelectedCategory(category);
   };
 
   const [selectedCategory, setSelectedCategory] = useState("whole");
 
   useEffect(() => {}, [selectedCategory]);
+
+  useEffect(() => {}, [setColor]);
 
   const positions = getData?.map((data) => {
     return {
@@ -511,18 +516,14 @@ function TypeMap({ getData, pickData }) {
                 closeEvent("whole");
               }}
             >
-              <p
-                onMouseOver={() => setWholeHover(true)}
-                onMouseOut={() => setWholeHover(false)}
-              >
-                <img
-                  src={wholeHover ? colorcutlery : cutlery}
-                  width="70"
-                  height="70"
-                />
-              </p>
+              {color !== "whole" ? (
+                <img src={cutlery} width="70" height="70" />
+              ) : (
+                <img src={colorcutlery} width="70" height="70" />
+              )}
               전체
             </button>
+
             <button
               className="mr-[80px]"
               id="korea"
@@ -531,16 +532,11 @@ function TypeMap({ getData, pickData }) {
                 closeEvent("korea");
               }}
             >
-              <p
-                onMouseOver={() => setKoreaHover(true)}
-                onMouseOut={() => setKoreaHover(false)}
-              >
-                <img
-                  src={koreaHover ? colortteok : tteok}
-                  width="70"
-                  height="70"
-                />
-              </p>
+              {color !== "korea" ? (
+                <img src={tteok} width="70" height="70" />
+              ) : (
+                <img src={colortteok} width="70" height="70" />
+              )}
               한식
             </button>
             <button
@@ -548,16 +544,11 @@ function TypeMap({ getData, pickData }) {
               id="china"
               onClick={() => closeEvent("china")}
             >
-              <p
-                onMouseOver={() => setChinaHover(true)}
-                onMouseOut={() => setChinaHover(false)}
-              >
-                <img
-                  src={chinaHover ? colordumpling : dumpling}
-                  width="70"
-                  height="70"
-                />
-              </p>
+              {color !== "china" ? (
+                <img src={dumpling} width="70" height="70" />
+              ) : (
+                <img src={colordumpling} width="70" height="70" />
+              )}
               중식
             </button>
             <button
@@ -565,16 +556,11 @@ function TypeMap({ getData, pickData }) {
               id="japan"
               onClick={() => closeEvent("japan")}
             >
-              <p
-                onMouseOver={() => setJapanHover(true)}
-                onMouseOut={() => setJapanHover(false)}
-              >
-                <img
-                  src={japanHover ? colorsushi : sushi}
-                  width="70"
-                  height="70"
-                />
-              </p>
+              {color !== "japan" ? (
+                <img src={sushi} width="70" height="70" />
+              ) : (
+                <img src={colorsushi} width="70" height="70" />
+              )}
               일식
             </button>
             <button
@@ -582,16 +568,11 @@ function TypeMap({ getData, pickData }) {
               id="western"
               onClick={() => closeEvent("western")}
             >
-              <p
-                onMouseOver={() => setWesternHover(true)}
-                onMouseOut={() => setWesternHover(false)}
-              >
-                <img
-                  src={westernHover ? colorpasta : pasta}
-                  width="70"
-                  height="70"
-                />
-              </p>
+              {color !== "western" ? (
+                <img src={pasta} width="70" height="70" />
+              ) : (
+                <img src={colorpasta} width="70" height="70" />
+              )}
               양식
             </button>
             <button
@@ -599,16 +580,11 @@ function TypeMap({ getData, pickData }) {
               id="cafe"
               onClick={() => closeEvent("cafe")}
             >
-              <p
-                onMouseOver={() => setCafeHover(true)}
-                onMouseOut={() => setCafeHover(false)}
-              >
-                <img
-                  src={cafeHover ? colorcoffee : coffee}
-                  width="70"
-                  height="70"
-                />
-              </p>
+              {color !== "cafe" ? (
+                <img src={coffee} width="70" height="70" />
+              ) : (
+                <img src={colorcoffee} width="70" height="70" />
+              )}
               카페
             </button>
             <button
@@ -616,16 +592,11 @@ function TypeMap({ getData, pickData }) {
               id="pick"
               onClick={() => closeEvent("pick")}
             >
-              <p
-                onMouseOver={() => setPickHover(true)}
-                onMouseOut={() => setPickHover(false)}
-              >
-                <img
-                  src={pickHover ? colorpick : pick}
-                  width="70"
-                  height="70"
-                />
-              </p>
+              {color !== "pick" ? (
+                <img src={pick} width="70" height="70" />
+              ) : (
+                <img src={colorpick} width="70" height="70" />
+              )}
               찜
             </button>
           </ul>

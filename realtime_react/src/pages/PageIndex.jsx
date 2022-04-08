@@ -216,10 +216,7 @@ function PageIndex() {
           </button>
         </div>{" "}
       </div>
-      <div>
-        {/* className="fixed left-[1370px] bottom-[100px]" */}
-        <WaitingStatus />
-      </div>
+      <div>{auth.id && <WaitingStatus />}</div>
     </>
   );
 }
