@@ -1,5 +1,5 @@
 import { useApiAxios } from "api/base";
-import penalty_check from "assets/img/penalty_check.png";
+import black_check from "assets/img/penalty_check.png";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -41,34 +41,12 @@ function AdminUserComponent(props) {
     saveAdminblack({
       data: { is_active: 1 },
     })
-      .then(() => {})
+      .then(() => {
+        alert("블랙이 해제되었습니다.");
+      })
       .catch((error) => {
         console.log(error);
       });
-  };
-
-  const penalty = (visit, index) => {
-    if (index === 0) {
-      if (visit === "2") {
-        return (
-          <button onClick={handleSubmitactive}>
-            <img className="w-6 h-6" src={penalty_check} alt="" key={index} />
-          </button>
-        );
-      } else {
-        return null;
-      }
-    } else if (index === 1) {
-      if (visit === "2") {
-        return (
-          <button onClick={handleSubmitactive}>
-            <img className="w-6 h-6" src={penalty_check} alt="" />
-          </button>
-        );
-      } else {
-        return null;
-      }
-    }
   };
 
   return (
@@ -92,12 +70,21 @@ function AdminUserComponent(props) {
           </p>
         </td>
         <td className="px-5 border-b border-gray-200 bg-white text-sm">
-          <p className="ml-10 whitespace-no-wrap">
-            {user.booking_set
+          <p className="whitespace-no-wrap">
+            {user.black_set
               ?.filter(
-                (booking_filter) => userId === booking_filter.user_id.user_id
+                (black_filter) => userId === black_filter.user_id.user_id
               )
-              .map((booking, index) => penalty(booking.visit_status, index))}
+              .map((black, index) => (
+                <button onClick={handleSubmitactive}>
+                  <img
+                    className="w-6 h-6"
+                    src={black_check}
+                    alt="black_check"
+                    key={index}
+                  />
+                </button>
+              ))}
           </p>
         </td>
       </tr>

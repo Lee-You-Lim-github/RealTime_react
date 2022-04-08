@@ -25,7 +25,7 @@ function Waitinginadmindashboard() {
   const dateString = year + "-" + month + "-" + day;
 
   return (
-    <div className="mt-16">
+    <div className="mt-16 text-gray-800">
       <div> 오늘의 대기내역은?</div>
       <div className="text-4xl">
         {waiting &&

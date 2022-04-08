@@ -22,7 +22,7 @@ function Bookinginshopdashboard({ shopId }) {
   const dateString = year + "-" + month + "-" + day;
 
   return (
-    <div>
+    <div className="text-gray-800">
       <div className="mt-10">오늘의 예약은?</div>
       <div className="text-4xl">
         <p>

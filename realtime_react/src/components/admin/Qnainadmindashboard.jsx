@@ -23,7 +23,7 @@ function Qnainadmindashboard() {
   const dateString = year + "-" + month + "-" + day;
 
   return (
-    <div>
+    <div className="text-gray-800">
       <div className="mt-16 justify-center">
         <div> 개인/사업자</div>
 

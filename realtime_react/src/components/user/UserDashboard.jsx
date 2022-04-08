@@ -34,20 +34,20 @@ function UserDashboard() {
           </div>
           <div className="mx-3 w-60 h-60 bg-stone-400 rounded-xl">
             <h3 className="text-white mb-16 text-lg">예약내역</h3>
-            <div>나의 방문예정 건 수</div>
+            <div className="text-gray-800">나의 방문예정 건 수</div>
             <Link
               to={`/user/${auth.id}/bookings/`}
-              className="ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl text-gray-800"
             >
               <BookingInfo /> 건
             </Link>
           </div>
           <div className="mx-3 w-60 h-60 bg-orange-400 rounded-xl">
             <h3 className="text-white mb-16 text-lg">대기내역</h3>
-            <div>나의 대기 번호</div>
+            <div className="text-gray-800">나의 대기 번호</div>
             <Link
               to={`/user/${auth.id}/waitings/`}
-              className="ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl text-gray-800"
             >
               <WaitingInfo /> 번
             </Link>
@@ -57,10 +57,10 @@ function UserDashboard() {
         <div className="flex justify-center">
           <div className="mx-3 w-60 h-60 bg-stone-400 rounded-xl">
             <h3 className="text-white mb-16 text-lg">위시리스트</h3>
-            <div>내가 찜한 매장</div>
+            <div className="text-gray-800">내가 찜한 매장</div>
             <Link
               to={`/user/${auth.id}/pick/`}
-              className="ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl text-gray-800"
             >
               <PickInfo /> 건
             </Link>
@@ -68,18 +68,18 @@ function UserDashboard() {
 
           <div className="mx-3 w-60 h-60 bg-orange-400 rounded-xl">
             <h3 className="text-white mb-8">리뷰내역</h3>
-            <div>작성하지 않은 리뷰</div>
+            <div className="text-gray-800">작성하지 않은 리뷰</div>
             <Link
               to={`/user/${auth.id}/bookings/`}
-              className="ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl text-gray-800"
             >
               <UnWrittenReview /> 건
             </Link>
 
-            <div className="mt-5">내가 작성한 리뷰</div>
+            <div className="mt-5 text-gray-800">내가 작성한 리뷰</div>
             <Link
               to={`/user/${auth.id}/review/`}
-              className="ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl text-gray-800"
             >
               <ReviewInfo /> 건
             </Link>
@@ -87,10 +87,10 @@ function UserDashboard() {
 
           <div className="mx-3 w-60 h-60 bg-stone-400 rounded-xl">
             <h3 className="text-white mb-16">1:1문의</h3>
-            <div>나의 1:1문의</div>
+            <div className="text-gray-800">나의 1:1문의</div>
             <Link
               to={`/user/${auth.id}/qna/`}
-              className="ml-3 w-60 h-60 text-3xl"
+              className="ml-3 w-60 h-60 text-3xl text-gray-800"
             >
               <QnAInfo /> 건
             </Link>

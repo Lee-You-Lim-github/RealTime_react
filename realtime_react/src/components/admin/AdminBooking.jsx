@@ -5,7 +5,7 @@ import { useAuth } from "contexts/AuthContext";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import LoadingIndicator from "components/LoadingIndicator";
-import shop_booking from "assets/img/shop_booking.png";
+import shop_booking from "assets/img/booklist.png";
 
 function AdminBooking({ itemsPerPage = 10 }) {
   const [auth] = useAuth();
@@ -78,9 +78,13 @@ function AdminBooking({ itemsPerPage = 10 }) {
     <div className="bg-white p-8 rounded-md w-[900px] mx-auto">
       <div className="flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
-          <img className="w-9 h-9 ml-2" src={shop_booking} alt="shop_booking" />
+          <img
+            className="w-11 h-11 ml-2"
+            src={shop_booking}
+            alt="shop_booking"
+          />
           <h2
-            className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
+            className="text-gray-600 px-4 py-1 mt-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
             onClick={() => window.location.replace("/admin/booking/")}
           >
             예약현황
@@ -91,7 +95,7 @@ function AdminBooking({ itemsPerPage = 10 }) {
           <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
         )}
         <div className="flex items-center justify-between">
-          <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
+          <div className="relative text-gray-600 mr-2">
             <input
               type="search"
               name="search"
@@ -125,35 +129,35 @@ function AdminBooking({ itemsPerPage = 10 }) {
       <div>
         {getBookingData && (
           <div className="-mx-4 sm:-mx-8 md:flex-1 px-24 sm:px-8 py-4 overflow-x-auto">
-            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+            <div className="inline-block min-w-full overflow-hidden">
               <table className="table-auto min-w-full whitespace-no-wrap">
                 <thead>
                   <tr>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       No.
                     </th>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       사업자등록번호
                     </th>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       매장명
                     </th>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약자ID
                     </th>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약자명
                     </th>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약날짜
                     </th>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약시간
                     </th>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약 테이블 수
                     </th>
-                    <th className="px-3 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       방문여부
                     </th>
                   </tr>
