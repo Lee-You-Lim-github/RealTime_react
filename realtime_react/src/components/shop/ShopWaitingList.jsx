@@ -78,50 +78,88 @@ function ShopWaitingList({ waiting_obj, saveWaiting, refetch, setTableCount }) {
   };
 
   return (
-    <div>
-      <span className="mx-10">{waiting_obj.wait_count}</span>
-      <span className="mx-10">{waiting_obj.user_id.username}</span>
-      <span className="mx-10">{waiting_obj.user_id.telephone}</span>
-      <span className="mx-10">{waiting_obj.wait_table_count}</span>
-      <span className="mx-10">{waiting_obj.wait_date.slice(11, 16)}</span>
-      <span className="mx-10">
-        <React.Fragment>
-          <button onClick={() => setModalOpenSms(true)}>요청</button>
-          <SmsConfirm
-            naver_sms={naver_sms}
-            open={modalOpenSms}
-            close={() => setModalOpenSms(false)}
-            header="입장 요청하시겠습니까?"
-          />
-        </React.Fragment>
-      </span>
-      <span className="mx-3">
-        <React.Fragment>
-          <button disabled={loading} onClick={() => setModalOpen(true)}>
-            입장
-          </button>
-          <WaitingVisitConfirm
-            clickedVisit={clickedVisit}
-            open={modalOpen}
-            close={() => setModalOpen(false)}
-            header="입장하셨습니까?"
-          />
-        </React.Fragment>
-      </span>
-      <span>
-        <React.Fragment>
-          <button disabled={loading} onClick={() => setModalOpenNotVisit(true)}>
-            미입장
-          </button>
-          <WaitingNotVisitConfirm
-            clickedNotVisit={clickedNotVisit}
-            open={modalOpenNotVisit}
-            close={() => setModalOpenNotVisit(false)}
-            header="미입장하셨습니까?"
-          />
-        </React.Fragment>
-      </span>
-    </div>
+    <React.Fragment>
+      <tr>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <p className="text-gray-800 whitespace-no-wrap">
+            {waiting_obj.wait_count}
+          </p>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <p className="text-gray-800 whitespace-no-wrap">
+            {waiting_obj.user_id.username}
+          </p>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <p className="text-gray-800 whitespace-no-wrap">
+            {waiting_obj.user_id.telephone}
+          </p>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <p className="text-gray-800 whitespace-no-wrap">
+            {waiting_obj.wait_table_count}
+          </p>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <p className="text-gray-800 whitespace-no-wrap">
+            {waiting_obj.wait_date.slice(11, 16)}
+          </p>
+        </td>
+
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <React.Fragment>
+            <button
+              onClick={() => setModalOpenSms(true)}
+              className="text-sm bg-orange-400 border-2 border-orange-400 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+            >
+              요청
+            </button>
+            <SmsConfirm
+              naver_sms={naver_sms}
+              open={modalOpenSms}
+              close={() => setModalOpenSms(false)}
+              header="입장 요청하시겠습니까?"
+            />
+          </React.Fragment>
+        </td>
+        <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+          <span>
+            <React.Fragment>
+              <button
+                disabled={loading}
+                onClick={() => setModalOpen(true)}
+                className="mr-3 text-sm bg-orange-400 border-2 border-orange-400 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              >
+                입장
+              </button>
+              <WaitingVisitConfirm
+                clickedVisit={clickedVisit}
+                open={modalOpen}
+                close={() => setModalOpen(false)}
+                header="입장하셨습니까?"
+              />
+            </React.Fragment>
+          </span>
+          <span>
+            <React.Fragment>
+              <button
+                disabled={loading}
+                onClick={() => setModalOpenNotVisit(true)}
+                className="text-sm bg-wihte border-2 border-orange-400 text-orange-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              >
+                미입장
+              </button>
+              <WaitingNotVisitConfirm
+                clickedNotVisit={clickedNotVisit}
+                open={modalOpenNotVisit}
+                close={() => setModalOpenNotVisit(false)}
+                header="미입장하셨습니까?"
+              />
+            </React.Fragment>
+          </span>
+        </td>
+      </tr>
+    </React.Fragment>
   );
 }
 
