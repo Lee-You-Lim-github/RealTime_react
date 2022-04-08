@@ -3,8 +3,10 @@ import ReactStickyBox from "react-sticky-box";
 import list from "assets/img/adminlist.png";
 import list2 from "assets/img/adminlist2.png";
 import ShopSidebar from "components/shop/ShopSidebar";
+import { useParams } from "react-router-dom";
 
 function PageShopSidebar() {
+  const { shopId } = useParams();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [xPosition, setX] = useState(0);
   const side = useRef();
@@ -51,7 +53,7 @@ function PageShopSidebar() {
       >
         <div className="bg-orange-400">
           <ReactStickyBox offsetTop={120} offsetBottom={20}>
-            <ShopSidebar />
+            <ShopSidebar shopId={shopId} />
           </ReactStickyBox>
         </div>
       </div>
