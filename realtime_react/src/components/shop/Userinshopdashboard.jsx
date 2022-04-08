@@ -21,7 +21,7 @@ function Userinshopdashboard() {
   }, []);
 
   return (
-    <div className="ml-24 mt-10">
+    <div className="ml-24 mt-10 text-gray-800">
       <p className="text-left">ID : {auth.user_id}</p>
       <p className="text-left">이름 : {auth.username}</p>
       <p className="text-left">닉네임 : {auth.nickname}</p>

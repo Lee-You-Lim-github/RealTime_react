@@ -20,7 +20,7 @@ function Qnainshopdashboard() {
   }, []);
 
   return (
-    <div>
+    <div className="text-gray-800">
       <div className="mt-10">나의 1:1문의</div>
       <div className="text-4xl">{qnas && qnas.length}건</div>
     </div>

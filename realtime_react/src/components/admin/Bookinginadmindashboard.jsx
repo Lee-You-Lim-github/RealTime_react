@@ -22,7 +22,7 @@ function Bookinginadmindashboard() {
   const dateString = year + "-" + month + "-" + day;
 
   return (
-    <div className="mt-16">
+    <div className="mt-16 text-gray-800">
       <div> 오늘의 예약내역은?</div>
       <div className="text-4xl">
         {booking && booking?.filter((book) => book.day === dateString).length}건
