@@ -3,6 +3,7 @@ import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import PickComponent from "./PickComponent";
 import ShowMore from "react-show-more-list";
+import picklist from "assets/img/picklist.png";
 
 function PickList() {
   const [auth] = useAuth();
@@ -38,10 +39,13 @@ function PickList() {
 
   return (
     <>
+      <div className="flex flex-row my-10">
+        <img src={picklist} alt="picklist" className="w-10 h-10 ml-7" />
+        <h2 className="text-left text-2xl ml-2 mt-1">위시리스트</h2>
+      </div>
       <ShowMore items={pickArray} by={4}>
         {({ current, onMore }) => (
           <div>
-            <div>위시리스트</div>
             {pickArray.length > 0 ? (
               <div className="grid grid-cols-2">
                 {current?.map((pick_obj) => (
