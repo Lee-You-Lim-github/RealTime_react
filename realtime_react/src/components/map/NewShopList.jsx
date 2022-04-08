@@ -51,11 +51,15 @@ function NewShopList({ listData }) {
                     />
                   )}
                   <div className="grid grid-cols-1">
-                    <div className="text-left ml-8">
-                      <div className="font-bold mb-2 mt-2">{data.name}</div>
-                      <div className="mb-2">{data.category}</div>
+                    <div className="text-left ml-6">
+                      <div className="flex mt-4">
+                        <div className="font-bold mb-2 text-xl">
+                          {data.name}
+                        </div>
+                        <div className="mb-2 ml-2 mt-1">{data.category}</div>
+                      </div>
+
                       <div>{data.address}</div>
-                      <p className="mt-4 mb-20"></p>
                     </div>
                   </div>
                 </div>

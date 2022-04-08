@@ -124,7 +124,7 @@ function PageIndex() {
         ></DirectionModal>
       </div>
       <div className="shadow-lg shadow-gray-500/80">
-        <div className="search ml-[260px] mt-6 ">
+        <div className="search ml-[280px] mt-6 ">
           <div className="input-group flex flex-wrap items-stretch w-full rounded">
             <input
               className="w-60 h-9"
