@@ -175,7 +175,7 @@ function ShopForm({ shopId, handleDidSave }) {
     <div className="flex justify-center items-center">
       <div className="bg-white border border-orange-400 rounded-lg shadow-xl mx-auto p-10 my-20">
         {!shopId ? (
-          <h2 className="text-center text-3xl mb-10">가맹점 가입</h2>
+          <h2 className="text-center text-3xl mb-10">가맹점 등록</h2>
         ) : (
           <h2 className="text-center text-3xl mb-10">매장정보 수정</h2>
         )}
