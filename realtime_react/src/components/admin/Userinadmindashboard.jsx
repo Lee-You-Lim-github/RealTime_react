@@ -21,7 +21,7 @@ function Userinadmindashboard() {
 
   const dateString = year + "-" + month + "-" + day;
   return (
-    <div className="mt-16">
+    <div className="mt-16 text-gray-800">
       <div> 오늘 가입한 회원은?</div>
       <div className="text-4xl ">
         {USER &&
