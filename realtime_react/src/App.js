@@ -35,6 +35,7 @@ import PageAdminQnaDetail from "pages/qna/PageAdminQnaDetail";
 import PageAdminQnaForm from "pages/qna/PageAdminQnaForm";
 import PageAdminwaitingList from "pages/waiting/PageAdminwaitingList";
 import PageUserWaiting from "pages/user/PageUserWaiting";
+import PageShopQnaList from "pages/qna/PageShopQnaList";
 
 function App() {
   const [auth] = useAuth();
@@ -234,7 +235,10 @@ function App() {
                   path="/user/:userId/bookings/"
                   element={<PageShopNot />}
                 />
-                <Route path="/user/:userId/qna/" element={<PageQnaList />} />
+                <Route
+                  path="/user/:userId/qna/"
+                  element={<PageShopQnaList />}
+                />
                 <Route
                   path="/user/:userId/qna/:qnaId/"
                   element={<PageQnaDetail />}
