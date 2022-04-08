@@ -8,6 +8,7 @@ import qna from "assets/img/qna.png";
 
 function ShopSidebar({ shopId }) {
   const [auth] = useAuth();
+
   return (
     <div>
       <div className="flex flex-col">
