@@ -63,6 +63,7 @@ function AdminBooking({ itemsPerPage = 10 }) {
     if (e.key === "Enter") {
       const { value } = e.target;
       setQuery(value);
+      fetchApplication(1, query);
       setReload((prevState) => !prevState);
     }
     refetch();
@@ -93,7 +94,7 @@ function AdminBooking({ itemsPerPage = 10 }) {
           <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
             <input
               type="search"
-              name="serch"
+              name="search"
               onChange={getQuery}
               onKeyPress={search}
               placeholder="매장명/예약자명"
