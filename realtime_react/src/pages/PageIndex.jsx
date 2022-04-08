@@ -93,7 +93,7 @@ function PageIndex() {
   };
 
   const scrollShop = () => {
-    window.scrollTo(0, 550);
+    window.scrollTo(0, 540);
   };
 
   const scrollReview = () => {
