@@ -46,7 +46,7 @@ function NewReviewList({ reviewData }) {
                     <Star score={data.rating} />
                   </div>
                   <div className="target mt-3 ml-2">{data.content}</div>
-                  <div className="bottom-0 left-0 ml-44 mt-4">
+                  <div className="bottom-0 left-0 ml-40 mt-4">
                     <Timestamp relative date={data.created_at} autoUpdate />
                   </div>{" "}
                 </div>

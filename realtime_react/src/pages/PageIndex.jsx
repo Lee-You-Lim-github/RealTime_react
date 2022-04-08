@@ -9,6 +9,10 @@ import { useParams } from "react-router-dom";
 import DirectionModal from "components/modal/DirectionModal";
 import WaitingStatus from "components/waiting/WaitingStatus";
 
+import shop from "assets/img/shop.png";
+import star from "assets/img/star.png";
+import map from "assets/img/map.png";
+
 function PageIndex() {
   const [auth] = useAuth();
   const [query, setQuery] = useState();
@@ -89,7 +93,7 @@ function PageIndex() {
   };
 
   const scrollShop = () => {
-    window.scrollTo(0, 500);
+    window.scrollTo(0, 550);
   };
 
   const scrollReview = () => {
@@ -124,7 +128,7 @@ function PageIndex() {
         ></DirectionModal>
       </div>
       <div className="shadow-lg shadow-gray-500/80">
-        <div className="search ml-[260px] mt-6 ">
+        <div className="search ml-[280px] mt-6 ">
           <div className="input-group flex flex-wrap items-stretch w-full rounded">
             <input
               className="w-60 h-9"
@@ -157,7 +161,7 @@ function PageIndex() {
         </div>
       </div>
 
-      <div className="page flex justify-center ml-20 mt-4">
+      <div className="page flex justify-center ml-14 mt-4">
         {getData && <Map getData={getData} pickData={pickData} />}
       </div>
 
@@ -165,18 +169,21 @@ function PageIndex() {
       {reviewData && <NewReviewList reviewData={reviewData} />}
       <div className="floating">
         {" "}
-        <div>
-          <button onClick={scrollDown}>하단</button>
+        <div className="mt-3">
+          <button onClick={scrollUp}>
+            <img src={map} width="30px" height="30px" />
+          </button>
         </div>{" "}
-        <div>
-          <button onClick={scrollUp}>상단버튼</button>
+        <div className="mt-6">
+          <button onClick={scrollShop}>
+            <img src={shop} width="30px" height="30px" />
+          </button>
         </div>{" "}
-        <div>
-          <button onClick={scrollShop}>신규매장버튼</button>
-        </div>{" "}
-        <div>
+        <div className="mt-6">
           {" "}
-          <button onClick={scrollReview}>최근리뷰버튼</button>
+          <button onClick={scrollReview}>
+            <img src={star} width="30px" height="30px" />
+          </button>
         </div>{" "}
       </div>
 

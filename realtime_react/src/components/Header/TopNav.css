@@ -13,7 +13,12 @@
 
 .nav {
   position: fixed;
-  background: #ffffff;
+  background-color: rgba(255, 255, 255, 0.6);
   box-shadow: 0 4px 4px -4px black;
   z-index: 99;
+}
+
+.a{
+  background-color:orange;
+  height: 2px;
 }

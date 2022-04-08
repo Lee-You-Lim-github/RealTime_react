@@ -235,28 +235,13 @@
   border: 2px solid #000;
   position: fixed;
   right: 50%;
-  top: 180px;
+  top: 300px;
   margin-right: -715px;
   text-align: center;
-  width: 70px;
+  width: 60px;
+  height:180px;
   border-radius: 8px;
   -webkit-border-radius: 8px;
-}
-.floating div:nth-child(1) {
-  border: 2px solid #ff3535;
-  border-radius: 8px;
-}
-.floating div:nth-child(2) {
-  border: 2px solid #ff3535;
-  border-radius: 8px;
-}
-.floating div:nth-child(3) {
-  border: 2px solid #ff3535;
-  border-radius: 8px;
-}
-.floating div:nth-child(4) {
-  border: 2px solid #ff3535;
-  border-radius: 8px;
 }
 
 .wait {
@@ -269,7 +254,6 @@
   text-align: center;
   width: 70px;
   height: 70px
- 
 }
 
 .target {

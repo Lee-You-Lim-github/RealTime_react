@@ -339,7 +339,7 @@ function TypeMap({ getData, pickData }) {
           style={{
             // 지도의 크기
             width: "1000px",
-            height: "400px",
+            height: "430px",
           }}
           level={6} // 지도의 확대 레벨
           onCreate={setMap}
@@ -494,7 +494,7 @@ function TypeMap({ getData, pickData }) {
         </Map>
         {/* 카테고리 부분 */}
         <div className="flex justify-center mr-24">
-          <ul>
+          <ul className="ml-8">
             <button
               className="mr-16 focus:ring-4 focus:ring-purple-300"
               id="whole"
@@ -503,7 +503,7 @@ function TypeMap({ getData, pickData }) {
                 closeEvent("whole");
               }}
             >
-              <img src={category_whole} height="100" width="100" />
+              <img src={category_whole} height="90" width="90" />
               전체
             </button>
             <button
@@ -514,7 +514,7 @@ function TypeMap({ getData, pickData }) {
                 closeEvent("korea");
               }}
             >
-              <img src={category_korea} height="100" width="100" />
+              <img src={category_korea} height="90" width="90" />
               한식
             </button>
             <button
@@ -522,7 +522,7 @@ function TypeMap({ getData, pickData }) {
               id="china"
               onClick={() => closeEvent("china")}
             >
-              <img src={category_china} height="100" width="100" />
+              <img src={category_china} height="90" width="90" />
               중식
             </button>
             <button
@@ -530,7 +530,7 @@ function TypeMap({ getData, pickData }) {
               id="japan"
               onClick={() => closeEvent("japan")}
             >
-              <img src={category_japan} height="100" width="100" />
+              <img src={category_japan} height="90" width="90" />
               일식
             </button>
             <button
@@ -538,7 +538,7 @@ function TypeMap({ getData, pickData }) {
               id="western"
               onClick={() => closeEvent("western")}
             >
-              <img src={category_western} height="100" width="100" />
+              <img src={category_western} height="90" width="90" />
               양식
             </button>
             <button
@@ -546,7 +546,7 @@ function TypeMap({ getData, pickData }) {
               id="cafe"
               onClick={() => closeEvent("cafe")}
             >
-              <img src={category_cafe} height="100" width="100" />
+              <img src={category_cafe} height="90" width="90" />
               카페
             </button>
             <button

@@ -3,7 +3,7 @@ import { useAuth } from "contexts/AuthContext";
 import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./TopNav.css";
-import Logo from "assets/img//LogoSample.png";
+import Logo from "assets/img//logo1.png";
 
 function TopNav() {
   const [auth, , , logout] = useAuth();
@@ -56,12 +56,12 @@ function TopNav() {
   };
 
   return (
-    <div className="bg-orange-300">
+    <div className="">
       <div className="header">
         <div className="navigation">
-          <div className="flex place-content-between gap-3 ">
-            <NavLink to="/" className="px-4 py-3 mt-2 text-4xl">
-              <img src={Logo} alt="LOGO" className="w-28 h-10" />
+          <div className="flex place-content-between gap-3 mr-60">
+            <NavLink to="/" className="ml-2 text-4xl">
+              <img src={Logo} alt="LOGO" className="mt-2 ml-64 w-18 h-16" />
             </NavLink>
             <div className="flex text-xl mr-2">
               {/* 비회원이 로그인 시 */}
@@ -115,6 +115,7 @@ function TopNav() {
             </div>
           </div>
         </div>
+        <hr className="a" />
       </div>
     </div>
   );
@@ -133,6 +134,6 @@ function MyLink({ to, children }) {
   );
 }
 
-const baseClassName = "px-4 pt-6 mt-4 font-semibold hover:text-orange-500";
+const baseClassName = "px-4 pt-12 font-semibold hover:text-orange-500";
 
 export default TopNav;
