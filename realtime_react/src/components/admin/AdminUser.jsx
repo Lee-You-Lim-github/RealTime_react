@@ -5,7 +5,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import AdminUserComponent from "./AdminUserComponent";
 import LoadingIndicator from "components/LoadingIndicator";
-import admin_user from "assets/img/admin_user.png";
+import group from "assets/img/group.png";
 
 function AdminUser({ itemsPerPage = 10 }) {
   const [auth] = useAuth();
@@ -82,9 +82,9 @@ function AdminUser({ itemsPerPage = 10 }) {
     <div className="bg-white p-8 rounded-md w-[900px] m-auto">
       <div className="flex items-center justify-between pb-4 md:flex">
         <div className="flex flex-row">
-          <img className="w-9 h-9 ml-2" src={admin_user} alt="admin_user" />
+          <img className="w-12 h-12 ml-2" src={group} alt="group" />
           <h2
-            className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
+            className="text-gray-800 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer mt-2"
             onClick={() => window.location.replace("/admin/user/")}
           >
             회원관리
@@ -95,7 +95,7 @@ function AdminUser({ itemsPerPage = 10 }) {
           <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
         )}
         <div className="flex items-center justify-between">
-          <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
+          <div className="relative text-orange-400 mr-2">
             <input
               type="search"
               name="serch"
@@ -133,35 +133,36 @@ function AdminUser({ itemsPerPage = 10 }) {
               <input
                 type="checkbox"
                 value={checked}
-                className="form-checkbox h-5 w-5 text-yellow-600"
+                className="form-checkbox h-5 w-5"
                 onChange={(e) => {
                   setChecked(e.target.checked);
                 }}
               />
-              <div className="ml-2 text-gray-700">블랙리스트</div>
+              <div className="ml-2 text-gray-800">블랙리스트</div>
             </label>
+            <hr className="boder-b" />
 
-            <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+            <div className="inline-block min-w-full overflow-hidden">
               <table className="table-auto min-w-full whitespace-no-wrap">
                 <thead>
                   <tr>
-                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원ID
                     </th>
-                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원명
                     </th>
-                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       닉네임
                     </th>
-                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       휴대폰번호
                     </th>
-                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       구분
                     </th>
-                    <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      패널티 여부
+                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      블랙여부
                     </th>
                   </tr>
                 </thead>
