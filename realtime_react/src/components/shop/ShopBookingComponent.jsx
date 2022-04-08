@@ -59,29 +59,29 @@ function ShopBookingComponent({
     <React.Fragment>
       <tr>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <p className="text-gray-900 whitespace-no-wrap">{index}</p>
+          <p className="text-gray-800 whitespace-no-wrap">{index}</p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <p className="text-gray-900 whitespace-no-wrap">
+          <p className="text-gray-800 whitespace-no-wrap">
             {book_obj.user_id.username}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <p className="text-gray-900 whitespace-no-wrap">
+          <p className="text-gray-800 whitespace-no-wrap">
             {book_obj.user_id.telephone}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <p className="text-gray-900 whitespace-no-wrap">{book_obj.day}</p>
+          <p className="text-gray-800 whitespace-no-wrap">{book_obj.day}</p>
         </td>
 
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <p className="text-gray-900 whitespace-no-wrap">
+          <p className="text-gray-800 whitespace-no-wrap">
             {book_obj.time.slice(0, 5)}
           </p>
         </td>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-          <p className="text-gray-900 whitespace-no-wrap">
+          <p className="text-gray-800 whitespace-no-wrap">
             {book_obj.book_table_count}
           </p>
         </td>
@@ -125,7 +125,9 @@ function ShopBookingComponent({
               </React.Fragment>
             </>
           ) : (
-            <div>{book_obj.visit_status === "1" ? "방문" : "미방문"}</div>
+            <div className="text-gray-800">
+              {book_obj.visit_status === "1" ? "방문" : "미방문"}
+            </div>
           )}
         </td>
       </tr>
