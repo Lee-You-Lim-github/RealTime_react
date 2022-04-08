@@ -23,7 +23,7 @@ function UserInfo() {
   }, []);
 
   return (
-    <div className="ml-3">
+    <div className="ml-3 text-gray-800">
       <p className="text-left">ID : {auth.user_id}</p>
       <p className="text-left">이름 : {auth.username}</p>
       <p className="text-left">닉네임 : {auth.nickname}</p>
