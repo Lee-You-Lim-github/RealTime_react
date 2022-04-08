@@ -34,6 +34,7 @@ function WaitingStatus() {
     shop_id: waitData[0]?.shop_id.id,
     cancel: waitData[0]?.wait_cancel,
     status: waitData[0]?.wait_visit_status,
+    user_id: waitData[0]?.user_id.id,
   };
 
   const waitAllDataFilter = waitAllData?.map((data) => {
@@ -60,19 +61,17 @@ function WaitingStatus() {
     }
   }, [waitData, waitAllData]);
 
-  // const aaaa = dddd?.map((a) => {
-  //   return a?.wait_count;
-  // });
-
-  console.log("compare", compare);
-  console.log("waitAllDataFilter", waitDataFilter?.count);
-  // console.log("dddd", dddd);
-  // console.log("aaaa", aaaa);
+  console.log(waitDataFilter?.user_id);
 
   return (
-    <div className="wait">
-      <div className="mt-4">{auth.id && num}</div>
-    </div>
+    <>
+      {auth.id === waitDataFilter?.user_id && (
+        <div className="wait">
+          <div className="text-xs mt-3">대기순번</div>
+          <div className="">{num}</div>
+        </div>
+      )}
+    </>
   );
 }
 
