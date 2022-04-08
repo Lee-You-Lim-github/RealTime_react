@@ -34,7 +34,7 @@ function Waitinginshopdashboard({ shopId }) {
         data: { wait_state: "0" },
       })
         .then((response) => {
-          alert("아아아악");
+          alert("대기를 시작합니다.");
           setLoading(true);
           setChecked(true);
         })
@@ -45,7 +45,7 @@ function Waitinginshopdashboard({ shopId }) {
         data: { wait_state: "1" },
       })
         .then((response) => {
-          alert("아아아악");
+          alert("대기를 중지합니다.");
           setLoading(true);
           setChecked(false);
         })
@@ -72,7 +72,7 @@ function Waitinginshopdashboard({ shopId }) {
   return (
     <div>
       <div className="mt-10">오늘의 대기는?</div>
-      <div className="text-2xl">
+      <div className="text-4xl">
         <p>
           {waiting &&
             waiting?.results.filter(
@@ -81,15 +81,15 @@ function Waitinginshopdashboard({ shopId }) {
           건
         </p>
       </div>
-      <div className="mt-10">
+      <div className="mt-5">
         <Switch
           className="react-switch"
           id="wait_state"
           onChange={Handlechange}
           checked={checked}
-          handleDiameter={30}
-          height={35}
-          width={70}
+          handleDiameter={25}
+          height={30}
+          width={60}
         />
       </div>
     </div>

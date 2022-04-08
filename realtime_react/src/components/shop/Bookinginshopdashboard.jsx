@@ -24,7 +24,7 @@ function Bookinginshopdashboard({ shopId }) {
   return (
     <div>
       <div className="mt-10">오늘의 예약은?</div>
-      <div className="text-2xl">
+      <div className="text-4xl">
         <p>
           {booking &&
             booking?.results.filter((book) => book.day === dateString).length}
