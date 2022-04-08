@@ -7,8 +7,8 @@ import marker4 from "assets/img/marker4.png";
 import marker5 from "assets/img/marker5.png";
 import { Link } from "react-router-dom";
 import styles from "./sidebar.module.css";
-import question from "assets/img/question.png";
-import remove from "assets/img/remove.png";
+import question from "assets/img/adminlist.png";
+import remove from "assets/img/adminlist2.png";
 import category_whole from "assets/img/whole.png";
 import category_korea from "assets/img/korea.png";
 import category_china from "assets/img/china.png";
@@ -23,7 +23,7 @@ function TypeMap({ getData, pickData }) {
   const [overlay, setOverlay] = useState();
   const [closeMarker, setCloseMarker] = useState();
   const [open, setOpen] = useState(false);
-  const [xPosition, setX] = useState(-217);
+  const [xPosition, setX] = useState(217);
   const side = useRef();
   const [state, setState] = useState({
     center: {
@@ -34,20 +34,6 @@ function TypeMap({ getData, pickData }) {
     errMsg: null,
     isLoading: true,
   });
-
-  const [map, setMap] = useState();
-  // const [points, setPoints] = useState([
-  //   { lat: 36.3299315, lng: 127.442948 },
-  // ]);
-
-  // const bounds = useMemo(() => {
-  //   const bounds = new kakao.maps.LatLngBounds();
-
-  //   points.forEach((point) => {
-  //     bounds.extend(new kakao.maps.LatLng(point.lat, point.lng));
-  //   });
-  //   return bounds;
-  // }, [points]);
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -82,11 +68,11 @@ function TypeMap({ getData, pickData }) {
 
   // button 클릭 시 토글
   const toggleMenu = () => {
-    if (xPosition < 0) {
+    if (xPosition > 0) {
       setX(0);
       setOpen(true);
     } else {
-      setX(-217);
+      setX(217);
       setOpen(false);
     }
   };
@@ -96,7 +82,7 @@ function TypeMap({ getData, pickData }) {
     let sideArea = side.current;
     let sideCildren = side.current.contains(e.target);
     if (open && (!sideArea || !sideCildren)) {
-      await setX(-217);
+      await setX(217);
       await setOpen(false);
     }
   };
@@ -342,7 +328,6 @@ function TypeMap({ getData, pickData }) {
             height: "430px",
           }}
           level={6} // 지도의 확대 레벨
-          onCreate={setMap}
         >
           {/* 테이블 수 비율별 마커색 변경 */}
           {selectedCategory === "whole" &&

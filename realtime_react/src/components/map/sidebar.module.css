@@ -9,7 +9,7 @@
   position: fixed;
   top: 75px;
   bottom: 0;
-  right: 0;
+  right:1280px;
   margin-top: 2em;
   margin-right: 1em;
   transition: 0.4s ease;
@@ -21,13 +21,13 @@
 }
 .button {
   position: relative;
-  left: -50px;
-  top: 10px;
+  right:-200px;
+  top: 2px;
   width: 43px;
   height: 43px;
   z-index: 99;
   transition: 0.8s ease;
   border-radius: 40px;
   overflow: hidden;
-  background-color: #f5c3c3;
+
 }

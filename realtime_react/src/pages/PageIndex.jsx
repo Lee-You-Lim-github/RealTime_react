@@ -9,15 +9,21 @@ import { useParams } from "react-router-dom";
 import DirectionModal from "components/modal/DirectionModal";
 import WaitingStatus from "components/waiting/WaitingStatus";
 
-import shop from "assets/img/shop.png";
-import star from "assets/img/star.png";
 import map from "assets/img/map.png";
+import maporange from "assets/img/locationorange.png";
+import shop from "assets/img/shop.png";
+import shoporange from "assets/img/shoporange.png";
+import star from "assets/img/star.png";
+import starorange from "assets/img/starorange.png";
 
 function PageIndex() {
   const [auth] = useAuth();
   const [query, setQuery] = useState();
   const [reload, setReload] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [mapListHover, setMapListHover] = useState(false);
+  const [shopListHover, setShopListHover] = useState(false);
+  const [reviewListHover, setReviewListHover] = useState(false);
   const [{ data: getData, loading, error }, refetch] = useApiAxios(
     {
       url: `/shop/api/shops/?all${query ? "&query=" + query : ""}`,
@@ -93,7 +99,7 @@ function PageIndex() {
   };
 
   const scrollShop = () => {
-    window.scrollTo(0, 550);
+    window.scrollTo(0, 540);
   };
 
   const scrollReview = () => {
@@ -112,7 +118,6 @@ function PageIndex() {
   return (
     <>
       <div className="text-white">.</div>
-
       <div className="flex justify-center">
         <button
           onClick={openModal}
@@ -160,33 +165,57 @@ function PageIndex() {
           </div>
         </div>
       </div>
-
       <div className="page flex justify-center ml-14 mt-4">
         {getData && <Map getData={getData} pickData={pickData} />}
       </div>
-
       {listData && <NewShopList listData={listData} />}
       {reviewData && <NewReviewList reviewData={reviewData} />}
       <div className="floating">
         {" "}
         <div className="mt-3">
           <button onClick={scrollUp}>
-            <img src={map} width="30px" height="30px" />
+            <p
+              onMouseOver={() => setMapListHover(true)}
+              onMouseOut={() => setMapListHover(false)}
+            >
+              <img
+                src={mapListHover ? maporange : map}
+                width="30px"
+                height="30px"
+              />
+            </p>
           </button>
         </div>{" "}
         <div className="mt-6">
           <button onClick={scrollShop}>
-            <img src={shop} width="30px" height="30px" />
+            <p
+              onMouseOver={() => setShopListHover(true)}
+              onMouseOut={() => setShopListHover(false)}
+            >
+              <img
+                src={shopListHover ? shoporange : shop}
+                width="30px"
+                height="30px"
+              />
+            </p>
           </button>
         </div>{" "}
         <div className="mt-6">
           {" "}
           <button onClick={scrollReview}>
-            <img src={star} width="30px" height="30px" />
+            <p
+              onMouseOver={() => setReviewListHover(true)}
+              onMouseOut={() => setReviewListHover(false)}
+            >
+              <img
+                src={reviewListHover ? starorange : star}
+                width="30px"
+                height="30px"
+              />
+            </p>
           </button>
         </div>{" "}
       </div>
-
       <div>
         {/* className="fixed left-[1370px] bottom-[100px]" */}
         <WaitingStatus />
