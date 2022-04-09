@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationDot, faDatabase } from "@fortawesome/free-solid-svg-icons";
-import djangoLogo from "assets/img/djangoLogo.png";
-import mariadbLogo from "assets/img/mariadbLogo.png";
-import tailwindLogo from "assets/img/tailwindLogo.png";
-import kakaomapLogo from "assets/img/kakaomapLogo.png";
+
 import instagram from "assets/img/instagram1.png";
 import colorinstagram from "assets/img/colorinstagram.png";
 import facebook from "assets/img/facebook1.png";
 import colorfacebook from "assets/img/colorfacebook.png";
-
-import "./Footer.css";
 
 const Footer = () => {
   const [instaHover, setInstaHover] = useState(false);
