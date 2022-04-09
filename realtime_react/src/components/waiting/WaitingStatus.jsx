@@ -65,7 +65,7 @@ function WaitingStatus() {
 
   return (
     <>
-      {auth.id === waitDataFilter?.user_id && (
+      {auth.id === waitDataFilter?.user_id && waitDataFilter?.status === "0" && (
         <div className="wait">
           <div className="text-xs mt-3">대기순번</div>
           <div className="">{num}</div>
