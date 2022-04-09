@@ -34,10 +34,7 @@ ul.pagination li.selected a {
 ul.pagination li.selected {
   background-color: #fb923c;
 }
-ul.pagination li a:hover,
-ul.pagination li a.selected {
-  color: #fb923c;
-}
+
 .page-selection {
   width: 48px;
   height: 30px;
