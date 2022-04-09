@@ -17,17 +17,23 @@
   max-width: 450px;
   margin: 0 auto;
   border-radius: 0.3rem;
-  background-color: rgb(255, 255, 255);
+  background-color: #ffffff;
   /* 팝업이 열릴때 스르륵 열리는 효과 */
   animation: modal-show 0.3s;
   overflow: hidden;
+  /* border: solid ;
+  
+  border-color:#Fb923c ; */
 }
 .modal > section > header {
   position: relative;
   padding: 16px 64px 16px 50px;
-  background-color: #f5c3c3;
+  background-color: #d6d6d6;
   font-weight: 700;
   text-align: center;
+  
+  /* border-bottom: solid;
+  border-color:#Fb923c ; */
 }
 .modal > section > header button {
   position: absolute;
@@ -80,3 +86,4 @@
     opacity: 1;
   }
 }
+

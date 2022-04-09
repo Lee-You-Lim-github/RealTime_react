@@ -144,7 +144,7 @@ function Modal(props) {
                 type="button"
                 name="minus"
                 onClick={handleMinus}
-                className="text-sm h-6 mr-2 bg-violet-400 hover:bg-red-300 text-white px-2 rounded focus:outline-none focus:shadow-outline"
+                className="text-sm h-6 mr-2 bg-orange-400 hover:bg-orange-300 text-white px-2 rounded focus:outline-none focus:shadow-outline"
               >
                 -
               </button>
@@ -154,7 +154,7 @@ function Modal(props) {
                 type="button"
                 name="plus"
                 onClick={handlePlus}
-                className="mr-3 ml-2 h-6 text-sm bg-violet-400 hover:bg-red-300 text-white px-2 rounded focus:outline-none focus:shadow-outline"
+                className="mr-3 ml-2 h-6 text-sm bg-orange-400 hover:bg-orange-300 text-white px-2 rounded focus:outline-none focus:shadow-outline"
               >
                 +
               </button>
@@ -162,7 +162,7 @@ function Modal(props) {
             <footer>
               <button
                 onClick={handleClickBook}
-                className="ml-5 text-sm border-2 border-violet-400 hover:border-red-300 hover:text-red-300 text-violet-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+                className="ml-5 text-sm border-2 border-orange-400 hover:border-orange-300 hover:text-orange-300 text-orange-400 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
               >
                 예약하기
               </button>
