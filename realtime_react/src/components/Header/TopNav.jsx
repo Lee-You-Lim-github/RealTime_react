@@ -3,7 +3,7 @@ import { useAuth } from "contexts/AuthContext";
 import { useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./TopNav.css";
-import Logo from "assets/img//logo1.png";
+import Logo from "assets/img/logo1.png";
 
 function TopNav() {
   const [auth, , , logout] = useAuth();
