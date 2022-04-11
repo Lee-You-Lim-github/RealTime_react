@@ -4,6 +4,9 @@ import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
 import log_in from "assets/img/loginorange.png";
+import { useEffect, useState } from "react";
+import DebugStates from "components/DebugStates";
+import axios from "axios";
 
 const INIT_FIELD_VALUES = { user_id: "", password: "" };
 
@@ -11,6 +14,8 @@ function LoginForm() {
   const navigate = useNavigate();
 
   const [, , login] = useAuth();
+
+  const [userId, setUserId] = useState();
 
   const [{ loading, error }, requestToken] = useApiAxios(
     {
@@ -26,35 +31,62 @@ function LoginForm() {
     navigate("/accounts/userjoin/");
   };
 
+  const [{ data }, refetch] = useApiAxios(
+    {
+      url: `/accounts/api/users/?user_id=${userId}&all`,
+      method: "GET",
+    },
+    { manual: true }
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setUserId(fieldValues.user_id);
 
-    requestToken({ data: fieldValues }).then((response) => {
-      const {
-        access,
-        refresh,
-        id,
-        user_id,
-        username,
-        nickname,
-        authority,
-        telephone,
-        is_superuser,
-      } = response.data;
-      login({
-        access,
-        refresh,
-        id,
-        user_id,
-        username,
-        nickname,
-        authority,
-        telephone,
-        is_superuser,
+    requestToken({ data: fieldValues })
+      .then((response) => {
+        const {
+          access,
+          refresh,
+          id,
+          user_id,
+          username,
+          nickname,
+          authority,
+          telephone,
+          is_superuser,
+        } = response.data;
+        login({
+          access,
+          refresh,
+          id,
+          user_id,
+          username,
+          nickname,
+          authority,
+          telephone,
+          is_superuser,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        setUserId("");
       });
-      navigate("/");
-    });
   };
+
+  useEffect(() => {
+    userId &&
+      refetch().then((response) => {
+        if (
+          response.data[0]?.is_active == false &&
+          response.data[0]?.black_set.length > 0
+        ) {
+          alert(
+            "활동이 정지되었습니다. (주)지금어때 공식페이지를 통해서 문의해주세요. (주)지금어때는 건강한 예약문화를 추구합니다."
+          );
+        }
+      });
+  }, [userId]);
 
   return (
     <div>
@@ -66,6 +98,7 @@ function LoginForm() {
           </div>
         )}
       </div>
+
       <div className="w-30 h-30 mt-6 mb-3 flex justify-center">
         <img src={log_in} alt="log_in" />
       </div>
