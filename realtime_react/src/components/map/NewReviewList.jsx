@@ -31,7 +31,7 @@ function NewReviewList({ reviewData }) {
         <ShopCarousel show={3}>
           {sortReviewData.map((data, index) => (
             <div className="ml-2 py-1 mb-32">
-              <Link to={`/shop/${data.book_id.shop_id.id}/`}>
+              <Link to={`/shop/${data?.book_id?.shop_id.id}/`}>
                 <div
                   className="border-solid border-2 m-3 w-72 h-60 rounded overflow-hidden hover:-translate-y-1"
                   style={{ padding: 8 }}
@@ -40,7 +40,7 @@ function NewReviewList({ reviewData }) {
                     <img src={quotes} width="15px" height="15px" />
                   </div>
                   <div className="font-bold mb-1 ml-2 mt-4">
-                    {data.book_id.shop_id.name}
+                    {data?.book_id?.shop_id.name}
                   </div>
                   <div className="ml-2 mt-3">
                     <Star score={data.rating} />
