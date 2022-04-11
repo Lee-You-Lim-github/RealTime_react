@@ -3,8 +3,7 @@ import LoadingIndicator from "components/LoadingIndicator";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import myshop from "assets/img/myshop.png";
-import "./myshop.css";
+import shoporange from "assets/img/shoporange.png";
 import noimages from "assets/img/noimages.png";
 
 function Myshop({ shopId }) {
@@ -127,33 +126,8 @@ function Myshop({ shopId }) {
   return (
     <div>
       {myShopData && (
-        <section className="text-gray-600 body-font">
-          <div className="flex flex-grow justify-center xl:justify-start lg:justify-start md:justify-start sm:justify-center">
-            {/* 타이틀 */}
-            <img
-              className="mt-10 mb-8 w-8 h-8 lg:ml-14 md:ml-8 "
-              src={myshop}
-              alt="shop_booking"
-            />
-            <h1 className="text-3xl mt-10 ml-4 mb-4 title-font font-medium text-gray-900">
-              마이스토어
-            </h1>
-            <button
-              type="button"
-              name="not_holiday"
-              onClick={handleNotHolidaySubmit}
-              className="text-sm h-8 px-2 mt-10 ml-8 mr-4 rounded focus:outline-none focus:shadow-outline text-gray bg-wihte hover:border-red-300 hover:text-red-300 border-2 border-violet-400"
-            >
-              영업
-            </button>
-            <button
-              type="button"
-              name="holiday"
-              onClick={handleHolidaySubmit}
-              className="text-sm h-8 mt-10 px-2 rounded focus:outline-none focus:shadow-outline text-white bg-violet-400 hover:bg-red-300 hover:border-red-300 border-2 border-violet-400"
-            >
-              휴업
-            </button>
+        <section className="text-gray-800 body-font flex">
+          <div className="flex flex-grow w-1/2 justify-center xl:justify-start lg:justify-start md:justify-start sm:justify-center">
             <div>
               {(myShopLaoding || loading) && (
                 <LoadingIndicator>로딩 중...</LoadingIndicator>
@@ -167,55 +141,88 @@ function Myshop({ shopId }) {
                 <div className="text-red-400">변경에 실패하였습니다.</div>
               )}
             </div>
+
+            {/* 타이틀 */}
+            <div className="my-10">
+              <div className="flex mb-10">
+                <span>
+                  <img className="w-8 h-8" src={shoporange} alt="shoporange" />
+                </span>
+                <span className="ml-1 text-3xl text-gray-900">마이스토어</span>
+
+                <span>
+                  <button
+                    type="button"
+                    name="not_holiday"
+                    onClick={handleNotHolidaySubmit}
+                    className="rounded w-2/2 ml-3 p-1 border-2 border-orange-400"
+                  >
+                    영업
+                  </button>
+                </span>
+                <span>
+                  <button
+                    type="button"
+                    name="holiday"
+                    onClick={handleHolidaySubmit}
+                    className="rounded w-2/2 mx-2 p-1 text-white bg-orange-400 border-2 border-orange-400"
+                  >
+                    휴업
+                  </button>
+                </span>
+              </div>
+
+              <div className="relative overflow-hidden">
+                <div className="mx-5 mb-5 flex flex-row animate-slider">
+                  {/* 매장 사진 */}
+                  {!myShopData?.photo1 ? (
+                    <img
+                      className="rounded h-96"
+                      src={noimages}
+                      alt="no_images"
+                    />
+                  ) : (
+                    <img
+                      className="rounded h-96"
+                      src={myShopData.photo1}
+                      alt={myShopData.name}
+                    />
+                  )}
+
+                  {!myShopData?.photo2 ? (
+                    <img
+                      className="rounded h-96"
+                      src={noimages}
+                      alt="no_images"
+                    />
+                  ) : (
+                    <img
+                      className="rounded h-96"
+                      src={myShopData.photo2}
+                      alt={myShopData.name}
+                    />
+                  )}
+
+                  {!myShopData?.photo3 ? (
+                    <img
+                      className="rounded h-96"
+                      src={noimages}
+                      alt="no_images"
+                    />
+                  ) : (
+                    <img
+                      className="rounded h-96"
+                      src={myShopData.photo3}
+                      alt={myShopData.name}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* 매장 사진 */}
-          <div className=" relative flex flex-col 2xl:flex-row xl:flex-row lg:flex-row md:flex-row">
-            <div className="mb-5 mt-5 2xl:w-1/3 xl:w-1/3 xl:ml-14 lg:w-2/5 lg:ml-12 md:w-2/5 w-5/6 md:ml-8 sm:mx-auto sm:mb-10">
-              {myShopData?.photo1 ? (
-                <img
-                  src={myShopData.photo1}
-                  alt={myShopData.name}
-                  className="shopimage relative object-center rounded mx-auto my-auto"
-                />
-              ) : (
-                <img
-                  className="shopimage relative object-center rounded mx-auto"
-                  src={noimages}
-                  alt="no_images"
-                />
-              )}
-              {myShopData?.photo1 ? (
-                <img
-                  src={myShopData.photo2}
-                  alt={myShopData.name}
-                  className="shopimage relative object-center rounded mx-auto my-auto"
-                />
-              ) : (
-                <img
-                  className="shopimage relative object-center rounded mx-auto"
-                  src={noimages}
-                  alt="no_images"
-                />
-              )}
-              {myShopData?.photo1 ? (
-                <img
-                  src={myShopData.photo3}
-                  alt={myShopData.name}
-                  className="shopimage relative object-center rounded mx-auto my-auto"
-                />
-              ) : (
-                <img
-                  className="shopimage relative object-center rounded mx-auto"
-                  src={noimages}
-                  alt="no_images"
-                />
-              )}
-            </div>
-
-            <hr />
-            {/* 매장상세 정보 */}
-            <div className="items-left text-left flex px-12 xl:w-2/3 lg:w-3/5 lg:pl-14 lg:mt-0 md:w-3/5 md:pl-14 md:mt-0 flex-col md:justify-center sm:px-20">
+          <div className="relativ flex flex-col w-1/2 mt-24 ml-12">
+            <div className="items-left text-left flex justify-center flex-col md:justify-center">
               <ul className="list-disc space-y-5">
                 <li className="flex items-start">
                   <p className="flex items-start xl:text-xl">매장명</p>
@@ -313,7 +320,7 @@ function Myshop({ shopId }) {
                     type="button"
                     name="plus"
                     onClick={handlePlus}
-                    className="mr-3 text-xl w-6 h-7 text-gray rounded focus:outline-none focus:shadow-outline bg-wihte hover:border-red-300 hover:text-red-300 border-2 border-violet-400"
+                    className="mr-3 text-xl w-6 h-7 text-gray rounded focus:outline-none focus:shadow-outline bg-wihte border-2 border-orange-400"
                   >
                     +
                   </button>
@@ -321,13 +328,15 @@ function Myshop({ shopId }) {
                     type="button"
                     name="minus"
                     onClick={handleMinus}
-                    className="text-xl w-6 h-7 rounded focus:outline-none focus:shadow-outline text-white bg-violet-400 hover:bg-red-300 hover:border-red-300 border-2 border-violet-400"
+                    className="text-xl w-6 h-7 rounded focus:outline-none focus:shadow-outline text-white bg-orange-400 border-2 border-orange-400"
                   >
                     -
                   </button>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start mr-5 xl:text-xl">편의시설</p>
+                  <p className="flex items-start shrink-0 mr-5 xl:text-xl">
+                    편의시설
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-8 xl:w-12 lg:w-8 md:w-9 sm:w-9 text-cyan-500"
@@ -335,21 +344,21 @@ function Myshop({ shopId }) {
                       fill="currentColor"
                     ></svg>
                   </span>
-                  <div className="mr-2 xl:text-xl">
-                    <p>{myShopData.conv_parking ? "주차장" : ""}</p>
-                  </div>
-                  <div className="mr-2 xl:text-xl">
-                    <p>{myShopData.conv_pet ? "애완동물 동반 가능" : ""}</p>
-                  </div>
-                  <div className="mr-2 xl:text-xl">
-                    <p>{myShopData.conv_wifi ? "WIFI" : ""}</p>
-                  </div>
-                  <div className="mr-2 xl:text-xl">
-                    <p>{myShopData.conv_pack ? "포장 가능" : ""}</p>
+                  <div className="xl:text-xl">
+                    <span>주차장{myShopData.conv_parking ? "👌" : "❌"}</span>
+                    <span className="ml-2">
+                      반려동물동반{myShopData.conv_pet ? "👌" : "❌"}
+                    </span>
+                    <div>
+                      <span>와이파이{myShopData.conv_wifi ? "👌" : "❌"}</span>
+                      <span className="ml-2">
+                        포장{myShopData.conv_pack ? "👌" : "❌"}
+                      </span>
+                    </div>
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex-container xl:text-xl">공지사항</p>
+                  <p className="flex-container shrink-0 xl:text-xl">공지사항</p>
                   <span className="h-6 sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-12 xl:w-14 lg:w-12 md:w-12 sm:w-12 text-cyan-500"
@@ -362,12 +371,12 @@ function Myshop({ shopId }) {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex-container flex items-start xl:text-xl">
+                  <p className="flex items-start shrink-0 xl:text-xl">
                     매장소개
                   </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
-                      className="flex-shrink-0 h-5 w-11 xl:w-14 lg:w-11 md:w-12 sm:w-12 text-cyan-500"
+                      className="flex-shrink-0 h-5 w-12 xl:w-14 lg:w-12 md:w-12 sm:w-12 text-cyan-500"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                     ></svg>
@@ -383,7 +392,7 @@ function Myshop({ shopId }) {
       )}
       <div className="flex justify-center pt-5 text-base leading-6 font-bold mb-10 sm:text-lg sm:leading-7">
         <button
-          className="inline-flex text-white bg-violet-400 py-1 px-4 focus:outline-none hover:bg-red-300 hover:border-red-300 border-2 border-violet-400 rounded 2xl:text-xl xl:text-xl lg:text-xl md:text-xl sm:text-sm"
+          className="inline-flex text-white bg-orange-400 py-1 px-4 focus:outline-none border-2 border-orange-400 rounded 2xl:text-xl xl:text-xl lg:text-xl md:text-xl sm:text-sm"
           onClick={() => navigate(`/shop/${shopId}/edit/`)}
         >
           수정

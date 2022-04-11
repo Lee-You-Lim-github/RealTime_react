@@ -68,7 +68,7 @@ function PageShopDashboard(props) {
               style={{ transform: `translatex(${xPosition}px)` }}
             >
               <div>
-                <ReactStickyBox offsetTop={220} offsetBottom={20}>
+                <ReactStickyBox offsetTop={120} offsetBottom={20}>
                   <ShopSidebar shopId={shopId} />
                 </ReactStickyBox>
               </div>
