@@ -1,4 +1,5 @@
 import { useApiAxios } from "api/base";
+import DebugStates from "components/DebugStates";
 import SmsConfirm from "components/modal/SmsConfirm";
 import WaitingNotVisitConfirm from "components/modal/WaitingNotVisitConfirm";
 import WaitingVisitConfirm from "components/modal/WaitingVisitConfirm";
@@ -35,10 +36,11 @@ function ShopWaitingList({ waiting_obj, saveWaiting, refetch, setTableCount }) {
   const naver_sms = () => {
     saveSms({
       data: {
-        content: `${waiting_obj.user_id.username} 고객님 입장해주세요!`,
+        content: "",
         messages: [
           {
             to: "01038336177",
+            content: `[${waiting_obj.shop_id.name}] ${waiting_obj.user_id.username} 고객님 입장해주세요!`,
           },
         ],
       },
@@ -79,6 +81,7 @@ function ShopWaitingList({ waiting_obj, saveWaiting, refetch, setTableCount }) {
 
   return (
     <React.Fragment>
+      {/* <DebugStates waiting_obj={waiting_obj} /> */}
       <tr>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-800 whitespace-no-wrap">
