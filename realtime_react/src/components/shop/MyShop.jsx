@@ -221,7 +221,7 @@ function Myshop({ shopId }) {
             </div>
           </div>
 
-          <div className="relativ flex flex-col w-1/2 mt-24 ml-20">
+          <div className="relativ flex flex-col w-1/2 mt-24 ml-12">
             <div className="items-left text-left flex justify-center flex-col md:justify-center">
               <ul className="list-disc space-y-5">
                 <li className="flex items-start">
