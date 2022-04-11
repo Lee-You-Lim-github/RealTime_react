@@ -245,7 +245,8 @@
 }
 
 .wait {
-  border: 2px solid #000;
+  border: 2px solid #Fb923c;
+  background-color: #Fb923c;
   position: fixed;
   right: 50%;
   top: 600px;
