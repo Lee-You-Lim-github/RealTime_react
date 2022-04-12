@@ -102,9 +102,9 @@ function AdminQnaList({ itemsPerPage = 10 }) {
           <thead className="border-b border-orange-400">
             <tr>
               <td className="p-5 w-30 text-justify">번호</td>
-              <td className="p-5 w-30 pl-10 text-center">구분</td>
-              <td className="p-5 w-80 pl-20 text-center">제목</td>
-              <td className="p-5 w-70 pl-20">등록일</td>
+              <td className="w-30 pl-10 text-center">구분</td>
+              <td className="w-80 pl-48 text-center">제목</td>
+              <td className="w-70 pl-40 ">등록일</td>
               <td className="p-5 w-30 text-right">답변여부</td>
             </tr>
           </thead>

@@ -82,7 +82,7 @@ function LoginForm() {
           response.data[0]?.black_set.length > 0
         ) {
           alert(
-            "활동이 정지되었습니다. (주)지금어때 공식페이지를 통해서 문의해주세요. (주)지금어때는 건강한 예약문화를 추구합니다."
+            `${response.data[0]?.black_set[0]?.start_date}부터 ${response.data[0]?.black_set[0]?.end_date}까지 활동이 정지되었습니다.              (주)지금어때 공식페이지를 통해서 문의해주세요. (주)지금어때는 건강한 예약문화를 추구합니다.`
           );
         }
       });
