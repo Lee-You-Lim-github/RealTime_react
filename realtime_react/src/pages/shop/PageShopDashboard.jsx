@@ -54,49 +54,49 @@ function PageShopDashboard(props) {
     refatch();
   }, []);
 
+  // var dddd = data.shop_set;
+
+  // console.log(dddd);
+
   return (
     <>
-      {data?.shop_set[0] ? (
-        <>
+      <>
+        <div
+          className="grid grid-cols-8"
+          style={{ transform: `translatex(${xPosition}px)` }}
+        >
           <div
-            className="grid grid-cols-8"
+            className="bg-orange-400 grid col-span-1 "
+            ref={side}
             style={{ transform: `translatex(${xPosition}px)` }}
           >
-            <div
-              className="bg-orange-400 grid col-span-1 "
-              ref={side}
-              style={{ transform: `translatex(${xPosition}px)` }}
-            >
-              <div>
-                <ReactStickyBox offsetTop={120} offsetBottom={20}>
-                  <ShopSidebar shopId={shopId} />
-                </ReactStickyBox>
-              </div>
-            </div>
-            <div className="w-1/3 text-xl">
-              <ReactStickyBox ReactStickyBox offsetTop={120} offsetBottom={20}>
-                <button onClick={() => handleOpen()}>
-                  {openSidebar ? (
-                    <span>
-                      <img className="w-8 h-8" src={list2} alt="list2" />
-                    </span>
-                  ) : (
-                    <span>
-                      <img className="w-9 h-9" src={list} alt="list" />
-                    </span>
-                  )}
-                </button>
+            <div>
+              <ReactStickyBox offsetTop={120} offsetBottom={20}>
+                <ShopSidebar shopId={shopId} />
               </ReactStickyBox>
             </div>
-
-            <div className="grid col-span-6 auto-rows-max">
-              <Shopdashboard shopId={shopId} />
-            </div>
           </div>
-        </>
-      ) : (
-        <PageNotShopUser />
-      )}
+          <div className="w-1/3 text-xl">
+            <ReactStickyBox ReactStickyBox offsetTop={120} offsetBottom={20}>
+              <button onClick={() => handleOpen()}>
+                {openSidebar ? (
+                  <span>
+                    <img className="w-8 h-8" src={list2} alt="list2" />
+                  </span>
+                ) : (
+                  <span>
+                    <img className="w-9 h-9" src={list} alt="list" />
+                  </span>
+                )}
+              </button>
+            </ReactStickyBox>
+          </div>
+
+          <div className="grid col-span-6 auto-rows-max">
+            <Shopdashboard shopId={shopId} />
+          </div>
+        </div>
+      </>
     </>
   );
 }
