@@ -1,8 +1,9 @@
 import { useApiAxios } from "api/base";
 import Star from "components/shop/ShopStar";
 import { useState } from "react";
+import Timestamp from "react-timestamp";
 
-function ReviewSummary({ review, userId, index }) {
+function ReviewSummary({ review, userId }) {
   const [reload, setReload] = useState(false);
   const [{ loading: deleteLoading, error: deleteError }, deletedreview] =
     useApiAxios(
@@ -26,33 +27,42 @@ function ReviewSummary({ review, userId, index }) {
   };
 
   return (
-    <div>
-      <div className="flex justify-center">
-        <div> {index + 1}</div>
-
+    <div className="w-72 h-60 border border-stone-300 rounded overflow-hidden hover:-translate-y-1 mb-8">
+      <div className="mb-2 mx-2 mt-4">
         {review?.book_id?.id && (
-          <div className="flex">
-            <div>{review?.book_id?.shop_id.name}</div>
-            <div>{review?.book_id?.day}</div>
+          <div className="flex justify-between">
+            <div className="flex-shrink-0 truncate w-44 text-left text-xl font-bold">
+              {review?.book_id?.shop_id.name}
+            </div>
+            <div className="ml-2 mt-1">{review?.book_id?.day}</div>
           </div>
         )}
 
         {!review?.book_id?.id && (
-          <div className="flex">
-            <div>{review?.wait_id?.shop_id.name}</div>
-            <div>{review?.wait_id?.wait_date.slice(0, 10)}</div>
+          <div className="flex justify-between">
+            <div className="flex-shrink-0 truncate w-44 text-left text-xl font-bold">
+              {review?.wait_id?.shop_id.name}
+            </div>
+            <div className="ml-2 mt-1">
+              {review?.wait_id?.wait_date.slice(0, 10)}
+            </div>
           </div>
         )}
-        <div>
+      </div>
+      <div>
+        <div className="ml-3 mt-2">
           <Star score={review.rating} />
-          <div>{review.content}</div>
-          <div className="text-sm text-gray-300">
-            {review.created_at.slice(0, 10)}
-          </div>
         </div>
-
+        <div className="overflow-auto h-20 text-left mt-3 mx-3">
+          {review.content}
+        </div>
+      </div>
+      <div className="text-gray-300 text-right italic mt-3 mr-3">
+        <Timestamp relative date={review.created_at} autoUpdate />
+      </div>
+      <div className="text-right">
         <button
-          className="w-12 h-8 bg-orange-400 text-white rounded-lg"
+          className="border-2 border-orange-400 text-orange-400 rounded px-1 mt-1 mr-3"
           onClick={handleDelete}
         >
           삭제

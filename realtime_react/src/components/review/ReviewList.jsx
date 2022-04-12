@@ -1,54 +1,33 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import ReviewSummary from "./ReviewSummary";
+import reviewlist from "assets/img/reviewlist.png";
 
-function ReviewList({ userId, itemsPerPage = 5 }) {
-  const [auth] = useAuth();
-  const [currentItems, setCurrentItems] = useState(null);
-  const [pageCount, setPageCount] = useState();
-  const [page, setPage] = useState(0);
-  const [reload, setReload] = useState(false);
+function ReviewList({ userId }) {
   const [{ data, loading, error }, getreview] = useApiAxios(
     {
-      url: `/review/api/review/?${
-        page ? "page=" + (page + 1) : "page=1"
-      }&user_id=${userId}`,
+      url: `/review/api/review/?all&user_id=${userId}`,
       method: `GET`,
     },
     { manual: true }
   );
 
   useEffect(() => {
-    getreview()
-      .then(({ data }) => {
-        setPageCount(Math.ceil((data?.count ? data.count : 1) / itemsPerPage));
-        setCurrentItems(data?.results);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [reload]);
-
-  //페이지 클릭 이벤트
-  const handlePageClick = (event) => {
-    setPage(event.selected);
-  };
-
-  //페이지 넘기면 리로드
-  useEffect(() => {
-    setReload((prevState) => !prevState);
-  }, [page]);
+    getreview().then();
+  }, []);
 
   return (
     <div>
       {loading && "로딩 중 ..."}
       {error && "로딩 중 에러가 발생했습니다."}
-      <h1>리뷰내역</h1>
-      <div>
-        {currentItems?.map((review, index) => (
+      <div className="flex flex-row my-10">
+        <img src={reviewlist} alt="reviewlist" className="w-10 h-10 ml-7" />
+        <h1 className="text-left text-2xl ml-2 mt-1">리뷰내역</h1>
+      </div>
+
+      <div className="grid grid-cols-3 gap-3">
+        {data?.map((review, index) => (
           <ReviewSummary
             review={review}
             key={review.id}
@@ -57,17 +36,6 @@ function ReviewList({ userId, itemsPerPage = 5 }) {
           />
         ))}
       </div>
-      <ReactPaginate
-        className="pagination"
-        breakLabel="..."
-        previousLabel="<"
-        nextLabel=">"
-        pageCount={pageCount}
-        pageRangeDisplayed={itemsPerPage}
-        onPageChange={handlePageClick}
-        renderOnZeroPageCount={null}
-      />
-      <DebugStates currentItems={currentItems} />;
     </div>
   );
 }
