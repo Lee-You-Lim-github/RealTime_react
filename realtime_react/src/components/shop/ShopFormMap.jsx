@@ -1,7 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-function ShopFormMap({ getShopData, setFieldValues, refetch, shopId }) {
+function ShopFormMap({
+  getShopData,
+  setFieldValues,
+  refetch,
+  shopId,
+  roadAddress,
+  setRoadAddress,
+  address,
+  setAddress,
+}) {
   // 위치(위,경도)
   const [position, setPosition] = useState({});
 
@@ -22,11 +31,11 @@ function ShopFormMap({ getShopData, setFieldValues, refetch, shopId }) {
     );
   }, [getShopData]);
 
-  // 도로명 주소
-  const [roadAddress, setRoadAddress] = useState("");
+  // // 도로명 주소
+  // const [roadAddress, setRoadAddress] = useState("");
 
-  // 주소
-  const [address, setAddress] = useState("");
+  // // 지번주소
+  // const [address, setAddress] = useState("");
 
   const handleGeocode = useCallback((result, status) => {
     if (status === window.kakao.maps.services.Status.OK) {
@@ -48,7 +57,6 @@ function ShopFormMap({ getShopData, setFieldValues, refetch, shopId }) {
   }, [position, setFieldValues, handleGeocode]);
 
   const handleMapClick = useCallback((map, mouseEvent) => {
-    console.log(mouseEvent);
     setPosition({
       lat: mouseEvent.latLng.getLat(),
       lng: mouseEvent.latLng.getLng(),
