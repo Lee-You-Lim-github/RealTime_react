@@ -418,21 +418,17 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
             {showReview && reviewData && (
               <>
                 <div className="flex justify-center mb-3">
-                  <div className="w-5/6">
+                  <div className="w-4/5">
                     <hr />
-                    {reviewData?.results
-                      ?.filter(
-                        (review_shop) =>
-                          review_shop.book_id.shop_id.id === parseInt(shopId)
-                      )
-                      .map((review) => {
-                        return (
-                          <ShopReviewComponent
-                            key={review.id}
-                            review={review}
-                          />
-                        );
-                      })}
+
+                    {items?.map((review, index) => (
+                      <ShopReviewComponent
+                        review={review}
+                        key={review.id}
+                        index={index}
+                        shopId={shopId}
+                      />
+                    ))}
 
                     <ReactPaginate
                       breakLabel="..."

@@ -41,6 +41,7 @@ function NewReviewList({ reviewData }) {
                   </div>
                   <div className="font-bold mb-1 ml-2 mt-4">
                     {data?.book_id?.shop_id.name}
+                    {data?.wait_id?.shop_id.name}
                   </div>
                   <div className="ml-2 mt-3">
                     <Star score={data.rating} />
