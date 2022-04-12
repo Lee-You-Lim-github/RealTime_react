@@ -8,6 +8,7 @@ import QnAInfo from "./DashboardInfo/QnAInfo";
 import UnWrittenReview from "./DashboardInfo/UnWrittenReview";
 import WaitingInfo from "./DashboardInfo/WaitingInfo";
 import user from "assets/img/adminuser.png";
+import UnWrittenWaitReview from "./DashboardInfo/UnWrittenWaitReview";
 
 function UserDashboard() {
   const [auth] = useAuth();
@@ -67,16 +68,32 @@ function UserDashboard() {
           </div>
 
           <div className="mx-3 w-60 h-60 bg-orange-400 rounded-xl">
-            <h3 className="text-white mb-8">리뷰내역</h3>
+            <h3 className="text-white mb-6">리뷰내역</h3>
             <div className="text-gray-800">작성하지 않은 리뷰</div>
-            <Link
-              to={`/user/${auth.id}/bookings/`}
-              className="ml-3 w-60 h-60 text-3xl text-gray-800"
-            >
-              <UnWrittenReview /> 건
-            </Link>
+            <div className="text-xs text-gray-800">
+              <span className="ml-3">예약</span>
+              <span className="ml-12">대기</span>
+            </div>
 
-            <div className="mt-5 text-gray-800">내가 작성한 리뷰</div>
+            <div className="text-gray-800">
+              <span className="text-3xl">
+                <Link
+                  to={`/user/${auth.id}/bookings/`}
+                  className="ml-3 w-60 h-60"
+                >
+                  <UnWrittenReview /> 건
+                </Link>
+              </span>{" "}
+              <span className="text-3xl">/</span>{" "}
+              <span className="text-gray-800">
+                <span className="text-3xl">
+                  <Link to={`/user/${auth.id}/waitings/`} className="w-60 h-60">
+                    <UnWrittenWaitReview /> 건
+                  </Link>
+                </span>
+              </span>
+            </div>
+            <div className="mt-4 text-gray-800">내가 작성한 리뷰</div>
             <Link
               to={`/user/${auth.id}/review/`}
               className="ml-3 w-60 h-60 text-3xl text-gray-800"

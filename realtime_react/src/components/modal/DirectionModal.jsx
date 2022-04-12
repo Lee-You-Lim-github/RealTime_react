@@ -30,10 +30,10 @@ function DirectionModal(props) {
                   <div className="mt-1 ml-1 text-red-500">♡</div>
                   <div className="ml-1 mt-1 text-lg font-bold">엉클 까르보</div>
                   <div className="ml-3 border-2 border-orange-300 rounded text-sm">
-                    지금예약
+                    <div className="mt-1">지금예약</div>
                   </div>
                   <div className="ml-3 border-2 border-orange-300 rounded text-sm">
-                    지금말고 예약
+                    <div className="mt-1">지금말고 예약</div>
                   </div>
                 </div>
                 <div className="ml-6 text-xs mt-1 mb-1">
@@ -127,10 +127,10 @@ function DirectionModal(props) {
                   <div className="mt-1 ml-1 text-red-500">♡</div>
                   <div className="ml-1 mt-1 text-lg font-bold">엉클 까르보</div>
                   <div className="ml-3 border-2 border-orange-300 rounded text-sm">
-                    줄서기
+                    <div className="mt-1">줄서기</div>
                   </div>
                   <div className="ml-3 border-2 border-orange-300 rounded text-sm">
-                    지금말고 예약
+                    <div className="mt-1">지금말고 예약</div>
                   </div>
                 </div>
                 <div className="ml-6 text-xs mt-1 mb-1">

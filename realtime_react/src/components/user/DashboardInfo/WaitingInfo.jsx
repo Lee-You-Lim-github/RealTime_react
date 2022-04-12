@@ -29,15 +29,21 @@ function WaitingInfo() {
 
   return (
     <span>
-      {userWaits &&
-        userWaits
-          .filter(
-            (userWait) =>
-              userWait.wait_visit_status === "0" &&
-              userWait.wait_cancel === "0" &&
-              userWait.wait_date.slice(0, -16) === dateString
-          )
-          .map((userWait) => userWait.wait_count)}
+      {userWaits?.filter(
+        (userWait) =>
+          userWait.wait_visit_status === "0" &&
+          userWait.wait_cancel === "0" &&
+          userWait.wait_date.slice(0, -16) === dateString
+      ).length > 0
+        ? userWaits
+            .filter(
+              (userWait) =>
+                userWait.wait_visit_status === "0" &&
+                userWait.wait_cancel === "0" &&
+                userWait.wait_date.slice(0, -16) === dateString
+            )
+            .map((userWait) => userWait.wait_count)
+        : 0}
     </span>
   );
 }
