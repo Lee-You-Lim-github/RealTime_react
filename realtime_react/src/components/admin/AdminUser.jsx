@@ -64,10 +64,7 @@ function AdminUser({ itemsPerPage = 10 }) {
     if (e.key === "Enter") {
       const { value } = e.target;
       setQuery(value);
-      setReload((prevState) => !prevState);
-    } else {
-      const { value } = e.target;
-      setQuery(value);
+      fetchApplication(1, query);
       setReload((prevState) => !prevState);
     }
     refetch();
@@ -95,14 +92,14 @@ function AdminUser({ itemsPerPage = 10 }) {
           <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
         )}
         <div className="flex items-center justify-between">
-          <div className="relative text-orange-400 mr-2">
+          <div className="relative text-gray-600 mr-2">
             <input
               type="search"
-              name="serch"
+              name="search"
               onChange={getQuery}
               onKeyPress={search}
               placeholder="회원ID/회원명"
-              className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+              className="bg-wihte h-9 px-5 pr-10 text-sm border-b-2 border-orange-400 outline-none "
             />
             <button
               type="button"
@@ -146,22 +143,22 @@ function AdminUser({ itemsPerPage = 10 }) {
               <table className="table-auto min-w-full whitespace-no-wrap">
                 <thead>
                   <tr>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원ID
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원명
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       닉네임
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       휴대폰번호
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       구분
                     </th>
-                    <th className="px-5 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       블랙여부
                     </th>
                   </tr>

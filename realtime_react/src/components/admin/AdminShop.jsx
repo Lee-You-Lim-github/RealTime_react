@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import AdminShopComponent from "./AdminShopComponent";
 import LoadingIndicator from "components/LoadingIndicator";
-import myshop from "assets/img/myshop.png";
+import myshop from "assets/img/adminshop.png";
 import { useAuth } from "contexts/AuthContext";
 
 function AdminShop({ itemsPerPage = 10 }) {
@@ -16,11 +16,14 @@ function AdminShop({ itemsPerPage = 10 }) {
   // search
   const [query, setQuery] = useState();
 
+  // reload
+  const [reload, setReload] = useState(false);
+
   const [auth] = useAuth();
 
   const [{ data: adminShopData, loading, error }, adminRefetch] = useApiAxios(
     {
-      url: `/shop/api/shops/`,
+      url: `/shop/api/shops/${query ? "?query=" + query : ""}`,
       method: "GET",
     },
     { manual: true }
@@ -41,7 +44,7 @@ function AdminShop({ itemsPerPage = 10 }) {
 
       setItem(data?.results);
     },
-    [query, adminRefetch]
+    [query]
   );
 
   // get_users_refetch()
@@ -84,7 +87,9 @@ function AdminShop({ itemsPerPage = 10 }) {
       const { value } = e.target;
       setQuery(value);
       fetchApplication(1, query);
+      setReload((prevState) => !prevState);
     }
+    adminRefetch();
   };
 
   const getQuery = (e) => {
@@ -116,14 +121,14 @@ function AdminShop({ itemsPerPage = 10 }) {
             <div className="text-red-400">삭제에 실패했습니다.</div>
           )}
           <div className="flex items-center justify-between">
-            <div className="relative text-gray-600 shadow-md rounded-3xl mr-2">
+            <div className="relative text-gray-600 rounded-3xl mr-2">
               <input
                 type="search"
                 name="serch"
                 onChange={getQuery}
                 onKeyPress={search}
                 placeholder="사업자등록번호/매장명"
-                className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+                className="bg-wihte h-9 px-5 pr-10 text-sm outline-none border-b-2 border-orange-400"
               />
               <button
                 type="button"
@@ -150,23 +155,23 @@ function AdminShop({ itemsPerPage = 10 }) {
         <div>
           {adminShopData && (
             <div className="-mx-4 sm:-mx-8 md:flex-1 px-24 sm:px-8 py-4 overflow-x-auto">
-              <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
+              <div className="inline-block min-w-full overflow-hidden">
                 <table className="table-auto min-w-full whitespace-no-wrap">
                   <thead>
                     <tr>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b  text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         사업자등록번호
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장명
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장 전화번호
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         주소
                       </th>
-                      <th className="px-5 py-3 border-b-2 border-purple-200 bg-purple-100 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장 정보 삭제
                       </th>
                     </tr>
