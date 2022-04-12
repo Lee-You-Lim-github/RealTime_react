@@ -106,36 +106,36 @@ function AdminwaitingList({ itemsPerPage = 10 }) {
       </div>
       <div>
         {waiting && (
-          <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
+          <div className="-mx-4 sm:-mx-8 md:flex-1 px-24 sm:px-8 py-4 overflow-x-auto">
             <div className="inline-block min-w-full overflow-hidden">
               <table className="table-auto min-w-full whitespace-no-wrap">
                 <thead>
                   <tr>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       No.
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       사업자등록번호
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       매장명
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       대기자ID
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       대기자명
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       대기날짜
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약시간
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       대기 테이블 수
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       방문여부
                     </th>
                   </tr>

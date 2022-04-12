@@ -159,19 +159,19 @@ function AdminShop({ itemsPerPage = 10 }) {
                 <table className="table-auto min-w-full whitespace-no-wrap">
                   <thead>
                     <tr>
-                      <th className="px-5 py-3 border-b  text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         사업자등록번호
                       </th>
-                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장명
                       </th>
-                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장 전화번호
                       </th>
-                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         주소
                       </th>
-                      <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                         매장 정보 삭제
                       </th>
                     </tr>

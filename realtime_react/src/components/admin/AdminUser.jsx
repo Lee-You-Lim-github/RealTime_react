@@ -143,22 +143,22 @@ function AdminUser({ itemsPerPage = 10 }) {
               <table className="table-auto min-w-full whitespace-no-wrap">
                 <thead>
                   <tr>
-                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원ID
                     </th>
-                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       회원명
                     </th>
-                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       닉네임
                     </th>
-                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       휴대폰번호
                     </th>
-                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       구분
                     </th>
-                    <th className="px-5 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-5 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       블랙여부
                     </th>
                   </tr>
