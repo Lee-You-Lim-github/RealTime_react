@@ -173,12 +173,13 @@ function ShopForm({ shopId, handleDidSave }) {
 
   return (
     <div className="flex justify-center items-center">
-      <div className="bg-white border border-orange-400 rounded-lg shadow-xl mx-auto p-10 my-20">
+      <div className="bg-white border border-orange-400 rounded-lg shadow-xl mx-auto p-10 my-20 lg:w-2/5 md:w-1/2 w-2/3">
         {!shopId ? (
           <h2 className="text-center text-3xl mb-10">가맹점 등록</h2>
         ) : (
           <h2 className="text-center text-3xl mb-10">매장정보 수정</h2>
         )}
+        <div className="text-gray-600 text-right"> * 는 필수항목입니다. </div>
         {getShopLoading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
         {shopFormLoading && <LoadingIndicator>저장 중...</LoadingIndicator>}
         {getShopError?.response?.status >= 400 && (
@@ -207,7 +208,7 @@ function ShopForm({ shopId, handleDidSave }) {
             value={fieldValues.shop_num}
             onChange={handleFieldChange}
             placeholder="10자리 숫자로만 입력해주세요."
-            className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+            className="placeholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none"
           />
           {ShopSavedErrorMessages.shop_num?.map((message, index) => (
             <p key={index} className="text-xs text-red-400 mt-2">
@@ -225,7 +226,7 @@ function ShopForm({ shopId, handleDidSave }) {
             value={fieldValues.name}
             onChange={handleFieldChange}
             placeholder="매장명을 입력해주세요."
-            className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+            className="placeholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none"
           />
           {ShopSavedErrorMessages.name?.map((message, index) => (
             <p key={index} className="text-xs text-red-400">
@@ -241,7 +242,7 @@ function ShopForm({ shopId, handleDidSave }) {
             name="category"
             value={fieldValues.category}
             onChange={handleFieldChange}
-            className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+            className="placeholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none"
           >
             <option>한식</option>
             <option>일식</option>
@@ -264,19 +265,6 @@ function ShopForm({ shopId, handleDidSave }) {
               주소를 클릭해주세요. 🚩
             </div>
           </div>
-          {/* <input
-                type="text"
-                name="address"
-                value={fieldValues.address}
-                onChange={handleFieldChange}
-                placeholder="주소를 입력해주세요."
-                className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
-              />
-              {ShopSavedErrorMessages.address?.map((message, index) => (
-                <p key={index} className="text-xs text-red-400">
-                  {message}
-                </p>
-              ))} */}
           <ShopFormMap
             getShopData={getShopData}
             setFieldValues={setFieldValues}
@@ -294,7 +282,7 @@ function ShopForm({ shopId, handleDidSave }) {
             value={fieldValues.telephone}
             onChange={handleFieldChange}
             placeholder="숫자만 입력해주세요. 예)01022334567"
-            className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+            className="placeholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none"
           />
           {ShopSavedErrorMessages.telephone?.map((message, index) => (
             <p key={index} className="text-xs text-red-400">
@@ -312,7 +300,7 @@ function ShopForm({ shopId, handleDidSave }) {
             value={fieldValues.opening_hours}
             onChange={handleFieldChange}
             placeholder="내용을 입력해주세요."
-            className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+            className="placeholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none"
           />
         </div>
         <div>
@@ -326,7 +314,7 @@ function ShopForm({ shopId, handleDidSave }) {
             onChange={handleFieldChange}
             placeholder="10"
             min={1}
-            className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+            className="placeholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none"
           />
         </div>
         <div>
@@ -377,7 +365,7 @@ function ShopForm({ shopId, handleDidSave }) {
             value={fieldValues.notice}
             onChange={handleFieldChange}
             placeholder="내용을 입력해주세요."
-            className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+            className="placeholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none"
           />
         </div>
         <div>
@@ -390,7 +378,7 @@ function ShopForm({ shopId, handleDidSave }) {
             value={fieldValues.intro}
             onChange={handleFieldChange}
             placeholder="내용을 입력해주세요."
-            className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+            className="placeholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none"
           />
         </div>
         <div>
