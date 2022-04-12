@@ -17,9 +17,12 @@ function NewReviewList({ reviewData }) {
 
   return (
     <div>
-      <div className="mt-28 ml-64 text-xl font-bold">
-        방문자가 남긴 최근 리뷰!
+      <div className="flex mt-24 mb-8">
+        {" "}
+        <div className="ml-64 text-xl font-bold">방문자가 남긴 최근 리뷰!</div>
+        <hr className="mt-3 ml-8 w-[795px] border border-gray-500" />
       </div>
+
       <div
         style={{
           maxWidth: 1060,
@@ -30,7 +33,7 @@ function NewReviewList({ reviewData }) {
       >
         <ShopCarousel show={3}>
           {sortReviewData.map((data, index) => (
-            <div className="ml-2 py-1 mb-32">
+            <div className="ml-2 py-1 mb-28">
               <Link to={`/shop/${data.book_id.shop_id.id}/`}>
                 <div
                   className="border-solid border-2 m-3 w-72 h-60 rounded overflow-hidden hover:-translate-y-1"

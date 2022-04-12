@@ -15,6 +15,7 @@ import shop from "assets/img/shop.png";
 import shoporange from "assets/img/shoporange.png";
 import star from "assets/img/star.png";
 import starorange from "assets/img/starorange.png";
+import click from "assets/img/click.png";
 
 function PageIndex() {
   const [auth] = useAuth();
@@ -121,9 +122,16 @@ function PageIndex() {
       <div className="flex justify-center">
         <button
           onClick={openModal}
-          className="border-2 border-gray-400 bg-gray-400 text-white"
+          className="flex border-2 border-gray-400 bg-gray-400 text-white rounded"
         >
-          사용 안내
+          <div className="ml-2 mr-2 mt-1 mb-1">사용 안내</div>
+
+          <img
+            src={click}
+            width="20px"
+            height="20px"
+            className="mr-2 mt-1 mb-1"
+          />
         </button>
         <DirectionModal
           open={modalOpen}
