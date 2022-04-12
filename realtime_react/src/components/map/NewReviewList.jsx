@@ -14,8 +14,11 @@ function NewReviewList({ reviewData }) {
   console.log("review", reviewData);
   return (
     <div>
-      <div className="mt-28 ml-64 text-xl font-bold">
-        방문자가 남긴 최근 리뷰!
+      <div className="flex mb-8">
+        <div className="mt-[88px] ml-64 text-xl font-bold">
+          방문자가 남긴 최근 리뷰!
+        </div>
+        <hr className="mt-[100px] ml-8 w-[795px] border border-gray-500" />
       </div>
       <div
         style={{
