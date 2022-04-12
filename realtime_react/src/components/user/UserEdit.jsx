@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function UserEdit({ userId }) {
   const [auth, , , logout] = useAuth();
 
-  const [reload, setReload] = useState(false);
+  const [shopId, setShopId] = useState("");
 
   const navigate = useNavigate();
 
@@ -26,7 +26,11 @@ function UserEdit({ userId }) {
 
   useEffect(() => {
     refetch();
-  }, [reload]);
+  }, []);
+
+  useEffect(() => {
+    setShopId(userData?.shop_set[0]);
+  }, [shopId]);
 
   const [
     {
@@ -48,16 +52,32 @@ function UserEdit({ userId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    saveRequest({
-      data: fieldValues,
-    }).then((response) => {
-      setReload(true);
-      if (userData !== fieldValues) {
-        alert("수정되었습니다. 재로그인 해주세요!");
-        logout();
-        navigate("/accounts/login/");
-      } else navigate(`/user/mypage/${userId}/`);
-    });
+
+    if (shopId) {
+      saveRequest({
+        data: fieldValues,
+      }).then((response) => {
+        console.log(response.data.shop_set[0]);
+        setShopId(response.data.shop_set[0]);
+        if (userData !== fieldValues) {
+          alert("수정되었습니다. 재로그인 해주세요!");
+          logout();
+          navigate("/accounts/login/");
+        } else navigate(`/shop/${shopId}/dashboard/`);
+      });
+    } else {
+      saveRequest({
+        data: fieldValues,
+      }).then((response) => {
+        console.log(response.data.shop_set[0]);
+        setShopId(response.data.shop_set[0]);
+        if (userData !== fieldValues) {
+          alert("수정되었습니다. 재로그인 해주세요!");
+          logout();
+          navigate("/accounts/login/");
+        } else navigate(`/user/${userId}/dashboard/`);
+      });
+    }
   };
 
   return (
@@ -90,7 +110,7 @@ function UserEdit({ userId }) {
                 <input
                   type="text"
                   name="username"
-                  value={fieldValues.username}
+                  value={fieldValues?.username}
                   onChange={handleFieldChange}
                   placeholder="이름을 입력해주세요."
                   className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
@@ -108,7 +128,7 @@ function UserEdit({ userId }) {
                 <input
                   type="text"
                   name="nickname"
-                  value={fieldValues.nickname}
+                  value={fieldValues?.nickname}
                   onChange={handleFieldChange}
                   placeholder="한글 5자 이하로 입력해주세요."
                   className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
@@ -126,7 +146,7 @@ function UserEdit({ userId }) {
                 <input
                   type="text"
                   name="telephone"
-                  value={fieldValues.telephone}
+                  value={fieldValues?.telephone}
                   onChange={handleFieldChange}
                   placeholder="숫자만 입력해주세요. 예)01022334567"
                   className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
@@ -146,7 +166,13 @@ function UserEdit({ userId }) {
           </form>
           <button
             className="mt-4 w-full bg-white text-orange-400 border-2 border-orange-300 py-2 rounded-md text-lg tracking-wide hover:text-orange-300 hover:border-orange-300"
-            onClick={() => navigate(`/user/${userId}/dashboard/`)}
+            onClick={() =>
+              navigate(
+                shopId
+                  ? `/shop/${shopId}/dashboard/`
+                  : `/user/${userId}/dashboard/`
+              )
+            }
           >
             취소
           </button>
