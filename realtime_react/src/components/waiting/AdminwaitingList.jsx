@@ -122,19 +122,19 @@ function AdminwaitingList({ itemsPerPage = 10 }) {
                       매장명
                     </th>
                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      예약자ID
+                      대기자ID
                     </th>
                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      예약자명
+                      대기자명
                     </th>
                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      예약날짜
+                      대기날짜
                     </th>
                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약시간
                     </th>
                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                      예약 테이블 수
+                      대기 테이블 수
                     </th>
                     <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       방문여부
