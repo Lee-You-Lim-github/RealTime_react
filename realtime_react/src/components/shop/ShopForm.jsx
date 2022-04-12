@@ -40,6 +40,12 @@ function ShopForm({ shopId, handleDidSave }) {
   // confirm 모달창
   const [modalOpen, setModalOpen] = useState(false);
 
+  // 도로명 주소
+  const [roadAddress, setRoadAddress] = useState("");
+
+  // 지번 주소
+  const [address, setAddress] = useState("");
+
   const navigate = useNavigate();
 
   // 사진 파일 업로드 시 사진이 보이게
@@ -141,6 +147,7 @@ function ShopForm({ shopId, handleDidSave }) {
       }
     });
     formData.append("user_id", auth.id);
+    formData.append("address", address);
 
     if (!shopId) {
       saveShopRequest({
@@ -270,6 +277,10 @@ function ShopForm({ shopId, handleDidSave }) {
             setFieldValues={setFieldValues}
             refetch={refetch}
             shopId={shopId}
+            roadAddress={roadAddress}
+            setRoadAddress={setRoadAddress}
+            address={address}
+            setAddress={setAddress}
           />
         </div>
         <div>
