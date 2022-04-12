@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Reviewradio from "./Reviewradio";
 import StarRatingComponent from "react-star-rating-component";
 import { useEffect, useState } from "react";
+import review from "assets/img/revieworange.png";
 
 const INIT_FIELD_VALUES = {
   flavor: "",
@@ -44,22 +45,24 @@ function ReviewForm({ type, Id }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    requestreview({ data: { ...fieldValues, [type + "_id"]: Id } }).then(
-      (response) => {
-        const {
-          flavor,
-          cleaned,
-          kindness,
-          mood,
-          rating,
-          content,
-          book_id,
-          wait_id,
-        } = response.data;
-        navigate(`/user/${auth.id}/review/`);
-      }
-    );
+    if (window.confirm("리뷰를 저장하시겠습니까?")) {
+      requestreview({ data: { ...fieldValues, [type + "_id"]: Id } }).then(
+        (response) => {
+          const {
+            flavor,
+            cleaned,
+            kindness,
+            mood,
+            rating,
+            content,
+            book_id,
+            wait_id,
+          } = response.data;
+          alert("리뷰를 저장하였습니다.");
+          navigate(`/user/${auth.id}/review/`);
+        }
+      );
+    }
   };
   const onStarClick = (nextValue, prevValue, name) => {
     setValue(nextValue);
@@ -79,10 +82,15 @@ function ReviewForm({ type, Id }) {
       )}
       {auth.id === state && (
         <form onSubmit={handleSubmit}>
-          <h1>리뷰쓰기</h1>
+          <div className="flex my-10">
+            <img src={review} alt="review" className="h-11 w-11" />
+            <span className="text-2xl mt-2 ml-3 mb-10">리뷰쓰기</span>
+          </div>
           {Object.keys(names).map((name) => (
             <div>
-              <span>{names[name]} 어떠한가요?</span>
+              <span className="text-lg relative right-[20rem] border-b-4 border-orange-400">
+                {names[name]} 어떠한가요?
+              </span>
               <Reviewradio
                 name={name}
                 fieldValues={fieldValues}
@@ -92,8 +100,11 @@ function ReviewForm({ type, Id }) {
           ))}
 
           <div>
-            <span>별점을 주세요!</span>
-            <div className="text-6xl">
+            <div className="text-lg pr-10 border-b-4 border-orange-400 w-36 relative left-[7rem]">
+              별점을 주세요!
+            </div>
+
+            <div className="text-7xl mr-80 mt-6">
               <StarRatingComponent
                 name="rating"
                 starCount={5}
@@ -107,15 +118,22 @@ function ReviewForm({ type, Id }) {
             name="content"
             value={fieldValues.content}
             onChange={handleFieldChange}
-            placeholder="내용을 입력해주세요."
+            placeholder="  미방 및 욕설은 관리자에 의해 삭제될 수 있습니다."
+            className="w-[815px] h-48 outline-none border-2 border-stone-400 ml-15 mt-10"
           />
-          <button onClick={() => navigate(`/user/${auth.id}/bookings/`)}>
-            취소
-          </button>
-          <button>저장</button>
+          <div className="mb-10 mt-3">
+            <button
+              className="w-24 h-8 border border-stone-400 text-stone-400 rounded-lg mr-3"
+              onClick={() => navigate(`/user/${auth.id}/bookings/`)}
+            >
+              취소
+            </button>
+            <button className="w-24 h-8 bg-orange-400 text-white rounded-lg">
+              저장
+            </button>
+          </div>
         </form>
       )}
-      <DebugStates fieldValues={fieldValues} />;
     </div>
   );
 }
