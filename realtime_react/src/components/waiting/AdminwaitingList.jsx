@@ -12,15 +12,11 @@ function AdminwaitingList({ itemsPerPage = 10 }) {
   const [reload, setReload] = useState(false);
   const [{ data: waiting, loading, error }, getwaiting] = useApiAxios(
     {
-      url: `/waiting/api/waitings/`,
+      url: `/waiting/api/waitings/${query ? "?query=" + query : ""}`,
       method: "GET",
     },
     { manual: true }
   );
-
-  useEffect(() => {
-    setReload((prevState) => !prevState);
-  }, [page]);
 
   const fetchApplications = useCallback(
     async (newPage, newQuery = query) => {
@@ -52,8 +48,16 @@ function AdminwaitingList({ itemsPerPage = 10 }) {
 
   const search = (e) => {
     if (e.key === "Enter") {
+      const { value } = e.target;
+      setQuery(value);
       fetchApplications(1, query);
+      setReload((prevState) => !prevState);
     }
+  };
+
+  const getQuery = (e) => {
+    const { value } = e.target;
+    setQuery(value);
   };
 
   return (
@@ -68,25 +72,20 @@ function AdminwaitingList({ itemsPerPage = 10 }) {
             대기 현황
           </h2>
         </div>
-
         <div className="flex items-center justify-between">
-          <div className="relative text-gray-600 mr-2">
+          <div className="relative text-gray-600 rounded-3xl mr-2">
             <input
               type="search"
-              name="serch"
-              onChange={(e) => {
-                setQuery(e.target.value);
-              }}
+              name="search"
+              onChange={getQuery}
               onKeyPress={search}
-              placeholder="이름/휴대폰 번호"
-              className="bg-wihte h-9 px-2 pr-10 text-sm outline-none border-b-2 border-orange-400"
+              placeholder="회원명/매장명"
+              className="bg-wihte h-9 px-5 pr-10 text-sm outline-none border-b-2 border-orange-400"
             />
             <button
               type="button"
               onClick={search}
-              onChange={(e) => {
-                setQuery(e.target.value);
-              }}
+              onChange={getQuery}
               className="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
             >
               <svg
@@ -166,36 +165,6 @@ function AdminwaitingList({ itemsPerPage = 10 }) {
         )}
       </div>
     </div>
-    // <div>
-    //   <div className="text-right mb-2 flex justify-end">
-    //     <input
-    //       className=" h-10 border-b border-orange-400 outline-none"
-    //       type="search"
-    //       name="search"
-    //       placeholder="이름/전화번호 검색"
-    //       onKeyPress={search}
-    //       onChange={(e) => {
-    //         setQuery(e.target.value);
-    //       }}
-    //     />
-    //   </div>
-    //   <div>
-    //     {currentItems?.map((wait, index) => (
-    //       <AdminwaitingSummary wait={wait} key={wait.id} index={index} />
-    //     ))}
-    //   </div>
-
-    //   <ReactPaginate
-    //     className="pagination"
-    //     breakLabel="..."
-    //     previousLabel="<"
-    //     nextLabel=">"
-    //     pageCount={pageCount}
-    //     pageRangeDisplayed={itemsPerPage}
-    //     onPageChange={handlePageClick}
-    //     renderOnZeroPageCount={null}
-    //   />
-    // </div>
   );
 }
 
