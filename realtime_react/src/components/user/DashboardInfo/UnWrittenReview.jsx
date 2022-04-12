@@ -1,11 +1,9 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 function UnWrittenReview() {
   const [auth] = useAuth();
-  const [books, setBooks] = useState();
 
   const [{ data: bookings }, refetch] = useApiAxios(
     {
