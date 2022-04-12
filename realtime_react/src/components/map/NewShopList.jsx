@@ -15,8 +15,11 @@ function NewShopList({ listData }) {
 
   return (
     <>
-      <div className="mt-20 ml-64 text-xl font-bold mb-8">
-        따끈 따끈한 신상 맛집!
+      <div className="flex mt-12 mb-2">
+        <div className="mt-12 ml-64 text-xl font-bold mb-8">
+          따끈 따끈한 신상 맛집!
+        </div>
+        <hr className="mt-[60px] ml-8 w-[795px] border border-gray-500" />
       </div>
 
       <div
