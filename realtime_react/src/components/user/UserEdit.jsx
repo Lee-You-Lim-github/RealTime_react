@@ -57,7 +57,6 @@ function UserEdit({ userId }) {
       saveRequest({
         data: fieldValues,
       }).then((response) => {
-        console.log(response.data.shop_set[0]);
         setShopId(response.data.shop_set[0]);
         if (userData !== fieldValues) {
           alert("수정되었습니다. 재로그인 해주세요!");
@@ -102,7 +101,6 @@ function UserEdit({ userId }) {
                   데이터를 저장하는데 실패했습니다.
                 </div>
               )}
-
               <div>
                 <label className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
                   이름
