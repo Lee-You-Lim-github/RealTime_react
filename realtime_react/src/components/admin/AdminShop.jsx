@@ -104,7 +104,7 @@ function AdminShop({ itemsPerPage = 10 }) {
           <div className="flex flex-row">
             <img className="w-9 h-9 ml-2" src={myshop} alt="myshop" />
             <h1
-              className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
+              className="text-gray-600 px-4 py-1 mt-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer"
               onClick={() => window.location.replace("/admin/shop/")}
             >
               매장관리

@@ -81,7 +81,7 @@ function AdminUser({ itemsPerPage = 10 }) {
         <div className="flex flex-row">
           <img className="w-12 h-12 ml-2" src={group} alt="group" />
           <h2
-            className="text-gray-800 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer mt-2"
+            className="text-gray-600 px-4 py-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer mt-2"
             onClick={() => window.location.replace("/admin/user/")}
           >
             회원관리

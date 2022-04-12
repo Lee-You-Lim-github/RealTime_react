@@ -8,8 +8,7 @@ function PageAdminBooking() {
         <PageAdminsidebar />
       </div>
       <div className="grid col-span-3 auto-rows-max">
-        <div className="flex mt-10"></div>
-        <div>
+        <div className="mt-10">
           <AdminBooking />
         </div>
       </div>
