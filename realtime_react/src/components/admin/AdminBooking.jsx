@@ -102,7 +102,7 @@ function AdminBooking({ itemsPerPage = 10 }) {
               onChange={getQuery}
               onKeyPress={search}
               placeholder="매장명/예약자명"
-              className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+              className="bg-wihte h-9 px-5 pr-10 text-sm border-b-2 border-orange-400 outline-none "
             />
             <button
               type="button"
@@ -133,31 +133,31 @@ function AdminBooking({ itemsPerPage = 10 }) {
               <table className="table-auto min-w-full whitespace-no-wrap">
                 <thead>
                   <tr>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       No.
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       사업자등록번호
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       매장명
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약자ID
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약자명
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약날짜
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약시간
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       예약 테이블 수
                     </th>
-                    <th className="px-3 py-3 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                    <th className="px-3 py-3 border-b text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
                       방문여부
                     </th>
                   </tr>
