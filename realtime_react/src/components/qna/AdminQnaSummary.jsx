@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import React from "react";
 
 function truncateString(str) {
   if (str.length > 30) {
@@ -10,26 +11,40 @@ function truncateString(str) {
 
 function AdminQnaSummary({ qna, index }) {
   return (
-    <>
-      <tbody className="w-full">
-        <tr>
-          <td className="p-5 w-30  text-justify">{index + 1}</td>
-          <td className="p-5 w-60 pl-50  text-center">
-            <div>{qna.user_id.authority === "0" && <div>개인</div>}</div>
-            <div>{qna.user_id.authority === "1" && <div>사업자</div>}</div>
-          </td>
-          <td className="p-5 w-96">
-            <Link to={`/admin/${qna.user_id.id}/qna/${qna.id}/`}>
-              {truncateString(qna.title)}
-            </Link>
-          </td>
-          <td className="p-5 w-60">{qna.registered_date}</td>
-          <td className="text-right p-5 w-20 pr-10">
+    <React.Fragment>
+      <tr>
+        <td className="px-3 py-5 border-b border-gray-200 bg-white text-sm">
+          <div className="flex items-center">
+            <div className="ml-3">
+              <p className="text-gray-900 whitespace-no-wrap">{index + 1}</p>
+            </div>
+          </div>
+        </td>
+        <td className="px-3 py-5 border-b border-gray-200 bg-white text-sm">
+          <p className="text-gray-900 whitespace-no-wrap">
+            {qna.user_id.authority === "0" && <div>개인</div>}
+          </p>
+          <p className="text-gray-900 whitespace-no-wrap">
+            {qna.user_id.authority === "1" && <div>사업자</div>}
+          </p>
+        </td>
+        <td className="px-3 py-5 border-b border-gray-200 bg-white text-sm">
+          <Link to={`/admin/${qna.user_id.id}/qna/${qna.id}/`}>
+            {truncateString(qna.title)}
+          </Link>
+        </td>
+        <td className="px-3 py-5 border-b border-gray-200 bg-white text-sm">
+          <p className="text-gray-900 whitespace-no-wrap">
+            {qna.registered_date}
+          </p>
+        </td>
+        <td className="px-3 py-5 border-b border-gray-200 bg-white text-sm">
+          <p className="text-gray-900 whitespace-no-wrap">
             {qna.answer ? <> ✔</> : <> ✖ </>}
-          </td>
-        </tr>
-      </tbody>
-    </>
+          </p>
+        </td>
+      </tr>
+    </React.Fragment>
   );
 }
 
