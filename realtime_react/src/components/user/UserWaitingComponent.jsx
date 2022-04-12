@@ -165,7 +165,7 @@ function UserWaitingComponent({ wait_obj }) {
                 {wait_obj.wait_visit_status === "1" &&
                   wait_obj.review_set.length === 0 && (
                     <Link
-                      to={`/user/${auth.id}/book/${wait_obj.id}/review/new/`}
+                      to={`/user/${auth.id}/wait/${wait_obj.id}/review/new/`}
                       className="border-1 border-orange-400 bg-orange-400 text-white text-sm rounded px-[5px] py-[8px]"
                       state={wait_obj.user_id.id}
                     >
