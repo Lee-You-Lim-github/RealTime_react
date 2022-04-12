@@ -63,7 +63,7 @@ function UserEdit({ userId }) {
   return (
     <div>
       <div className="h-[650px] bg-gradient-to-br from-white flex justify-center items-center w-full">
-        <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm border-2">
+        <div className="bg-white px-10 py-8 w-screen shadow-md max-w-sm border-2">
           <form onSubmit={handleSubmit}>
             <div className="space-y-4">
               <h1 className="text-center text-2xl font-semibold text-gray-600">
@@ -132,20 +132,20 @@ function UserEdit({ userId }) {
                   className="placeholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
                 />
                 {saveErrorMessages.telephone?.map((message, index) => (
-                  <p key={index} className="text-xs text-red-400">
+                  <p key={index} className="text-xs text-orange-400">
                     {message}
                   </p>
                 ))}
               </div>
             </div>
             <div>
-              <button className="mt-4 w-full border-2 border-violet-400 bg-violet-400 text-white py-2 rounded-md text-lg tracking-wide hover:bg-red-300 hover:border-red-300">
+              <button className="mt-4 w-full border-2 border-orange-400 bg-orange-400 text-white py-2 rounded-md text-lg tracking-wide hover:bg-orange-300 hover:border-orange-300">
                 수정
               </button>
             </div>
           </form>
           <button
-            className="mt-4 w-full bg-white text-violet-400 border-2 border-violet-300 py-2 rounded-md text-lg tracking-wide hover:text-red-300 hover:border-red-300"
+            className="mt-4 w-full bg-white text-orange-400 border-2 border-orange-300 py-2 rounded-md text-lg tracking-wide hover:text-orange-300 hover:border-orange-300"
             onClick={() => navigate(`/user/${userId}/dashboard/`)}
           >
             취소
