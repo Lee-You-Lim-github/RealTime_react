@@ -95,14 +95,14 @@ function AdminUser({ itemsPerPage = 10 }) {
           <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
         )}
         <div className="flex items-center justify-between">
-          <div className="relative text-orange-400 mr-2">
+          <div className="relative  mr-2">
             <input
               type="search"
               name="serch"
               onChange={getQuery}
               onKeyPress={search}
               placeholder="회원ID/회원명"
-              className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+              className="bg-wihte h-9 px-5 pr-10 text-sm outline-none border-b-2 border-orange-400"
             />
             <button
               type="button"

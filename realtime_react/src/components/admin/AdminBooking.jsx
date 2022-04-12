@@ -102,7 +102,7 @@ function AdminBooking({ itemsPerPage = 10 }) {
               onChange={getQuery}
               onKeyPress={search}
               placeholder="매장명/예약자명"
-              className="bg-wihte h-9 px-5 pr-10 rounded-full text-sm focus:outline-none border-2 border-gray-100"
+              className="bg-wihte h-9 px-5 pr-10 text-sm border-b-2 border-orange-400 outline-none "
             />
             <button
               type="button"
