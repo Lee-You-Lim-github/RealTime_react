@@ -87,7 +87,6 @@ function AdminUser({ itemsPerPage = 10 }) {
             회원관리
           </h2>
         </div>
-        {loading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
         {error?.response?.status >= 400 && (
           <div className="text-red-400">데이터를 가져오는데 실패했습니다.</div>
         )}
