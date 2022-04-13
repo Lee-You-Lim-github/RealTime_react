@@ -64,14 +64,14 @@ function WaitingStatus() {
   console.log(waitDataFilter?.user_id);
 
   return (
-    <>
+    <div className="move">
       {auth.id === waitDataFilter?.user_id && waitDataFilter?.status === "0" && (
-        <div className="wait">
-          <div className="text-xs mt-3">대기순번</div>
+        <div className="wait chatbox">
+          <div className="text-sm  mt-3">대기순번</div>
           <div className="">{num}</div>
         </div>
       )}
-    </>
+    </div>
   );
 }
 
