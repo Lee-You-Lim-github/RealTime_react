@@ -110,7 +110,6 @@ function AdminShop({ itemsPerPage = 10 }) {
               매장관리
             </h1>
           </div>
-          {loading && <LoadingIndicator>로딩 중...</LoadingIndicator>}
           {error?.response?.status >= 400 && (
             <div className="text-red-400">
               데이터를 가져오는데 실패했습니다.
