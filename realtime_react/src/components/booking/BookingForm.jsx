@@ -111,10 +111,10 @@ function BookingForm({ shopId, handleDidSave }) {
               onChange={handleFieldChange}
               placeholder="1"
               min="1"
-              className="laceholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none text-center"
+              className="laceholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none text-center mb-3"
             />
           </div>
-          <div className="bg-stone-100 p-2">
+          <div className="bg-stone-100 p-2 rounded-lg">
             <p className="text-left text-red-500 mb-1">📢 주의해주세요</p>
             <p className="text-left">
               (주)지금어때는 건강한 예약문화를 만들어가기 위하여 노쇼 시 횟수에
@@ -125,7 +125,7 @@ function BookingForm({ shopId, handleDidSave }) {
               <p>▪ 2회 : 7일</p>
               <p>▪ 3회 : 1달</p>
               <p>▪ 4회 : 영구정지</p>
-            </p>{" "}
+            </p>
             <p className="text-left">참고하여 예약바랍니다.</p>
           </div>
 
@@ -143,7 +143,7 @@ function BookingForm({ shopId, handleDidSave }) {
                 open={modalOpen}
                 close={closeModal}
                 name="not_now_booking"
-                header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
+                header="15분 전부터 예약취소가 불가하며 노쇼(No Show)시 패널티가 적용되어 서비스 이용이 제한될 수 있습니다."
               ></BookingConfirmModal>
               <button
                 className="mt-4 w-full bg-white text-orange-400 border-2 border-orange-400 py-2 rounded-md text-lg tracking-wide"
