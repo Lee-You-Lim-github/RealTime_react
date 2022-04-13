@@ -261,9 +261,10 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                         header="지금 예약"
                       >
                         <div className="flex justify-center">
-                          지금 예약하시겠어요?
+                          지금 예약하시겠습니까?
                         </div>
                       </Modal>
+
                       <WaitingModal
                         shopId={shopId}
                         open={waitModalOpen}
