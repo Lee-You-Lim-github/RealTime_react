@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import LoadingIndicator from "components/LoadingIndicator";
 import "react-toastify/dist/ReactToastify.css";
 import BookingConfirmModal from "components/modal/BookingConfirmModal";
-import "./BookingForm.css";
 
 const INIT_FIELD_VALUES = {
   day: "",
@@ -66,10 +65,10 @@ function BookingForm({ shopId, handleDidSave }) {
   };
 
   return (
-    <div className="h-[650px] bg-gradient-to-br from-white flex justify-center items-center w-full">
-      <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm border-2">
+    <div className="h-[650px] flex justify-center items-center w-full">
+      <div className="px-10 py-8 rounded-xl w-screen shadow-md max-w-sm border border-orange-400">
         <div className="space-y-4">
-          <h2 className="text-center text-2xl font-semibold text-gray-600">
+          <h2 className="text-center text-2xl font-semibold text-gray-800">
             지금말고 예약
           </h2>
           {loading && <LoadingIndicator>예약 중...</LoadingIndicator>}
@@ -85,7 +84,7 @@ function BookingForm({ shopId, handleDidSave }) {
               name="day"
               value={fieldValues.day}
               onChange={handleFieldChange}
-              className="laceholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px- py-2 rounded-lg focus:outline-none text-center"
+              className="laceholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px- py-2 rounded-lg focus:outline-none text-center"
             />
           </div>
           <div className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
@@ -98,7 +97,7 @@ function BookingForm({ shopId, handleDidSave }) {
               step="3600"
               value={fieldValues.time}
               onChange={handleFieldChange}
-              className="laceholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none text-center"
+              className="laceholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none text-center"
             />
           </div>
           <div className="text-gray-800 text-left font-semibold block my-3 ml-1 text-md">
@@ -112,13 +111,13 @@ function BookingForm({ shopId, handleDidSave }) {
               onChange={handleFieldChange}
               placeholder="1"
               min="1"
-              className="laceholder:italic placeholder:text-md placeholder:text-slate-300 w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none text-center"
+              className="laceholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none text-center"
             />
           </div>
           <React.Fragment>
             <div className="btnBox flex-auto mt-10 mb-20">
               <button
-                className="mt-4 w-full border-2 border-violet-400 bg-violet-400 text-white py-2 rounded-md text-lg tracking-wide hover:bg-red-300 hover:border-red-300"
+                className="mt-4 w-full border-2 border-orange-400 bg-orange-400 text-white py-2 rounded-md text-lg tracking-wide hover:bg-red-300 hover:border-red-300"
                 onClick={openModal}
               >
                 예약
@@ -132,7 +131,7 @@ function BookingForm({ shopId, handleDidSave }) {
                 header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
               ></BookingConfirmModal>
               <button
-                className="mt-4 w-full bg-white text-violet-400 border-2 border-violet-300 py-2 rounded-md text-lg tracking-wide hover:text-red-300 hover:border-red-300"
+                className="mt-4 w-full bg-white text-orange-400 border-2 border-orange-400 py-2 rounded-md text-lg tracking-wide hover:text-red-300 hover:border-red-300"
                 onClick={() => navigate(`/shop/${shopId}/`)}
               >
                 취소
