@@ -65,7 +65,7 @@ function BookingForm({ shopId, handleDidSave }) {
   };
 
   return (
-    <div className="h-[650px] flex justify-center items-center w-full">
+    <div className="h-[650px] flex justify-center items-center w-full my-32">
       <div className="px-10 py-8 rounded-xl w-screen shadow-md max-w-sm border border-orange-400">
         <div className="space-y-4">
           <h2 className="text-center text-2xl font-semibold text-gray-800">
@@ -114,10 +114,25 @@ function BookingForm({ shopId, handleDidSave }) {
               className="laceholder:italic placeholder:text-md placeholder:text-stone-300 w-full bg-stone-100 px-4 py-2 rounded-lg focus:outline-none text-center"
             />
           </div>
+          <div className="bg-stone-100 p-2">
+            <p className="text-left text-red-500 mb-1">📢 주의해주세요</p>
+            <p className="text-left">
+              (주)지금어때는 건강한 예약문화를 만들어가기 위하여 노쇼 시 횟수에
+              따라 패널티(계정정지)를 부여합니다.
+            </p>
+            <p className="text-left">
+              <p>▪ 1회 : 3일</p>
+              <p>▪ 2회 : 7일</p>
+              <p>▪ 3회 : 1달</p>
+              <p>▪ 4회 : 영구정지</p>
+            </p>{" "}
+            <p className="text-left">참고하여 예약바랍니다.</p>
+          </div>
+
           <React.Fragment>
             <div className="btnBox flex-auto mt-10 mb-20">
               <button
-                className="mt-4 w-full border-2 border-orange-400 bg-orange-400 text-white py-2 rounded-md text-lg tracking-wide hover:bg-red-300 hover:border-red-300"
+                className="mt-4 w-full border-2 border-orange-400 bg-orange-400 text-white py-2 rounded-md text-lg tracking-wide"
                 onClick={openModal}
               >
                 예약
@@ -131,7 +146,7 @@ function BookingForm({ shopId, handleDidSave }) {
                 header="1시간 전 예약 취소 시 노쇼(No Show)방지 차원으로 서비스 이용이 제한될 수 있습니다."
               ></BookingConfirmModal>
               <button
-                className="mt-4 w-full bg-white text-orange-400 border-2 border-orange-400 py-2 rounded-md text-lg tracking-wide hover:text-red-300 hover:border-red-300"
+                className="mt-4 w-full bg-white text-orange-400 border-2 border-orange-400 py-2 rounded-md text-lg tracking-wide"
                 onClick={() => navigate(`/shop/${shopId}/`)}
               >
                 취소
