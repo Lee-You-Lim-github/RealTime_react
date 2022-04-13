@@ -29,10 +29,10 @@ function DirectionModal(props) {
                 <div className="flex mt-6">
                   <div className="mt-1 ml-1 text-red-500">♡</div>
                   <div className="ml-1 mt-1 text-lg font-bold">엉클 까르보</div>
-                  <div className="ml-3 border-2 border-orange-300 rounded text-sm">
+                  <div className="ml-3 border-2 border-orange-400 bg-orange-400 rounded text-white text-sm">
                     <div className="mt-1">지금예약</div>
                   </div>
-                  <div className="ml-3 border-2 border-orange-300 rounded text-sm">
+                  <div className="ml-3 border-2 border-orange-400 bg-orange-400 rounded text-white text-sm">
                     <div className="mt-1">지금말고 예약</div>
                   </div>
                 </div>
@@ -126,15 +126,15 @@ function DirectionModal(props) {
                 <div className="flex mt-6">
                   <div className="mt-1 ml-1 text-red-500">♡</div>
                   <div className="ml-1 mt-1 text-lg font-bold">엉클 까르보</div>
-                  <div className="ml-3 border-2 border-orange-300 rounded text-sm">
+                  <div className="ml-3 border-2 border-orange-400 bg-orange-400 rounded text-white text-sm">
                     <div className="mt-1">줄서기</div>
                   </div>
-                  <div className="ml-3 border-2 border-orange-300 rounded text-sm">
+                  <div className="ml-3 border-2 bg-orange-400 border-orange-400 rounded text-white text-sm">
                     <div className="mt-1">지금말고 예약</div>
                   </div>
                 </div>
                 <div className="ml-6 text-xs mt-1 mb-1">
-                  잔여 테이블 수 7/12
+                  잔여 테이블 수 12/12
                 </div>
 
                 <img className="w-96 h-48" src={uncle} />
@@ -157,6 +157,44 @@ function DirectionModal(props) {
                   1. 대기 순서는 홈 화면 하단에서 확인할 수 있습니다
                 </div>
 
+                <div className="fixed left-[2119px] top-[213px] border border-4 rounded-full w-14 h-14 border-red-500"></div>
+              </div>
+            </div>
+
+            <div className="bg-stone-100">
+              <div style={{ padding: 8 }}>
+                <div className="mt-6 ml-44">이용 제한 안내</div>
+              </div>
+
+              <div className="mt-4 mr-8 ml-[70px] h-[420px] w-[310px] bg-white border-2  rounded-tr-lg rounded-tl-lg">
+                <div className="mt-2 ml-16 text-red-600">
+                  📢 지금어때 블랙회원 안내
+                </div>
+                <div className="mt-4 ml-2">
+                  회사는 여러분의 쾌적한 서비스 이용을 위해 운영정책에 근거하여
+                  서비스를 운영하고 있습니다.
+                </div>
+
+                <div className="mt-4 ml-2">
+                  회사는 NoShow가 확인된 여러분의 계정들에 대하여 이용을 제한할
+                  수 있다는 점을 유의하여 주시기 바랍니다.
+                </div>
+
+                <div className="mt-4 ml-2">
+                  다만, 여러분은 이용제한과 관련하여 조치 결과가 불만족스러울
+                  경우 고객센터를 통해 이의를 제기할 수 있습니다.
+                </div>
+
+                <div className="mt-2 ml-2">
+                  - 첫번째 NoShow 시 서비스 3일 이용 제한
+                </div>
+                <div className="mt-2 ml-2">
+                  - 두번째 NoShow 시 서비스 7일 이용 제한
+                </div>
+                <div className="mt-2 ml-2">
+                  - 세번째 NoShow 시 서비스 30일 이용 제한
+                </div>
+                <div className="mt-2 ml-2">- 이후 서비스 영구 이용 제한</div>
                 <div className="fixed left-[2119px] top-[213px] border border-4 rounded-full w-14 h-14 border-red-500"></div>
               </div>
             </div>
