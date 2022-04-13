@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";
 import AdminQnaSummary from "./AdminQnaSummary";
+import adminqna from "assets/img/adminqna.png";
 
 function AdminQnaList({ itemsPerPage = 10 }) {
   const navigate = useNavigate();
@@ -69,65 +70,109 @@ function AdminQnaList({ itemsPerPage = 10 }) {
   };
 
   return (
-    <div>
-      <div className="text-right flex justify-end mb-3">
-        <select onChange={(e) => setAuthority(e.target.value)}>
-          <option value="" selected>
-            전체
-          </option>
-          <option value="0">개인</option>
-          <option value="1">사업자</option>
-        </select>
-        <button
-          className="mr-8 bg-stone-400 text-white w-12 h-6 rounded rounded-sm"
-          onClick={Authoritycategory}
-        >
-          검색
-        </button>
+    <div className="bg-white p-8 rounded-md w-[900px] mx-auto">
+      <div className="flex items-center justify-between pb-4 md:flex">
+        <div className="flex flex-row">
+          <img src={adminqna} alt="adminqna" className="w-11 h-11 ml-2" />
+          <h2 className="text-gray-600 px-4 py-1 mt-1 font-semibold sm:flex-1 text-3xl md:text-2xl lg:text-2xl cursor-pointer">
+            1:1문의
+          </h2>
+        </div>
 
-        <input
-          className="w-40 outline-none  border-b border-orange-400"
-          type="search"
-          name="search"
-          placeholder="제목으로 검색"
-          onKeyPress={search}
-          onChange={(e) => {
-            setQuery(e.target.value);
-          }}
-        />
+        <div className="flex items-center justify-between">
+          <div className="relative text-gray-600 mr-2">
+            <select
+              className="border-2 border-stone-300 py-2 px-1 mr-2"
+              onChange={(e) => setAuthority(e.target.value)}
+              onClick={Authoritycategory}
+            >
+              <option value="" selected>
+                전체
+              </option>
+              <option value="0">개인</option>
+              <option value="1">사업자</option>
+            </select>
+
+            <input
+              className="bg-wihte h-9 px-5 pr-10 text-sm border-b-2 border-orange-400 outline-none"
+              type="search"
+              name="search"
+              placeholder="제목"
+              onKeyPress={search}
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
+            />
+            <button
+              type="button"
+              onClick={search}
+              onChange={(e) => {
+                setQuery(e.target.value);
+              }}
+              className="absolute right-0 top-0 mt-2.5 mr-4 bg-gray-50"
+            >
+              <svg
+                className="bg-white h-4 w-4 fill-current"
+                version="1.1"
+                id="Capa_1"
+                x="0px"
+                y="0px"
+                viewBox="0 0 56.966 56.966"
+                width="512px"
+                height="512px"
+              >
+                <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
 
       <div>
-        <table className="border-t-2  border-orange-400 w-full">
-          <thead className="border-b border-orange-400">
-            <tr>
-              <td className="p-5 w-30 text-justify">번호</td>
-              <td className="w-30 pl-10 text-center">구분</td>
-              <td className="w-80 pl-48 text-center">제목</td>
-              <td className="w-70 pl-40 ">등록일</td>
-              <td className="p-5 w-30 text-right">답변여부</td>
-            </tr>
-          </thead>
-        </table>
+        {data && (
+          <div className="-mx-4 sm:-mx-8 md:flex-1 px-24 sm:px-8 py-4 overflow-x-auto">
+            <div className="inline-block min-w-full overflow-hidden">
+              <table className="table-auto min-w-full whitespace-no-wrap">
+                <thead>
+                  <tr>
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      No.
+                    </th>
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      구분
+                    </th>
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      제목
+                    </th>
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      등록일
+                    </th>
+                    <th className="px-3 py-3 border-b border-t border-orange-400 text-center text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                      답변여부
+                    </th>
+                  </tr>
+                </thead>
 
-        <div>
-          {currentItems?.map((qna, index) => (
-            <div className="m-auto">
-              <AdminQnaSummary qna={qna} key={qna.id} index={index} />
+                <tbody>
+                  {currentItems?.map((qna, index) => (
+                    <AdminQnaSummary qna={qna} key={qna.id} index={index} />
+                  ))}
+                </tbody>
+              </table>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
+        <ReactPaginate
+          className="pagination"
+          breakLabel="..."
+          previousLabel="<"
+          nextLabel=">"
+          pageCount={pageCount}
+          pageRangeDisplayed={itemsPerPage}
+          onPageChange={handlePageClick}
+          renderOnZeroPageCount={null}
+        />
       </div>
-      <ReactPaginate
-        className="pagination"
-        breakLabel="..."
-        previousLabel="<"
-        nextLabel=">"
-        pageCount={pageCount}
-        pageRangeDisplayed={itemsPerPage}
-        onPageChange={handlePageClick}
-        renderOnZeroPageCount={null}
-      />
     </div>
   );
 }
