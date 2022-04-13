@@ -226,11 +226,11 @@ function DirectionModal(props) {
                 </div>
                 <hr className="mt-2" />
                 <div className="mt-3 ml-2">
-                  <p>1. 마이 페이지 예약 내역에서 예약 내역을 확인,</p>
+                  <p>1. 마이 페이지 대기 내역에서 대기 내역을 확인,</p>
                   <p className="ml-3">취소할 수 있습니다.</p>
                 </div>
                 <div className="ml-2">
-                  2. 단, 지금 예약은 5분 이내만 가능합니다.
+                  2. 대기 취소 시에는 패널티가 부여되지 않습니다.
                 </div>
               </div>
             </div>
