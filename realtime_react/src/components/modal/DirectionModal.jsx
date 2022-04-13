@@ -1,7 +1,7 @@
 import React from "react";
 import ShopCarousel from "components/map/ShopCarousel";
 import "./modal.css";
-import main from "assets/img/main1.png";
+import main from "assets/img/waitex.png";
 import uncle from "assets/img/uncle.png";
 
 function DirectionModal(props) {
@@ -23,9 +23,9 @@ function DirectionModal(props) {
           <ShopCarousel show={1}>
             <div className="bg-stone-100">
               <div style={{ padding: 8 }}>
-                <div className="mt-6 ml-40">지금 예약 방법</div>
+                <div className="mt-4 ml-40">지금 예약 방법</div>
               </div>
-              <div className="mt-4 mr-8 ml-[70px] h-[420px] w-[310px] bg-white border-2  rounded-tr-lg rounded-tl-lg">
+              <div className="mt-2 mb-10 mr-8 ml-[70px] h-[400px] w-[310px] bg-white border-2  rounded ">
                 <div className="flex mt-6">
                   <div className="mt-1 ml-1 text-red-500">♡</div>
                   <div className="ml-1 mt-1 text-lg font-bold">엉클 까르보</div>
@@ -42,7 +42,7 @@ function DirectionModal(props) {
 
                 <img className="w-80 h-48" src={uncle} />
                 <hr className="mt-2" />
-                <div className="ml-2 mt-2">
+                <div className="ml-2 mt-5">
                   1. 먼저 원하는 매장에서 예약할 방법을 선택하세요
                 </div>
                 <div className="ml-2">2. 지금 예약은 20분 안에 방문 때,</div>
@@ -54,19 +54,28 @@ function DirectionModal(props) {
 
             <div className="bg-stone-100">
               <div style={{ padding: 8 }}>
-                <div className="mt-6 ml-40">지금 예약 방법</div>
+                <div className="mt-4 ml-40">지금 예약 방법</div>
               </div>
-              <div className="mt-4 mr-8 ml-[70px] h-[420px] w-[310px] bg-white border-2  rounded-tr-lg rounded-tl-lg">
-                <div className="border-2 rounded mt-4 ml-4 mr-4 mb-20 h-36 text-center border-gray-400">
-                  <div className="mt-4">지금 예약 하시겠어요?</div>
+              <div className="mt-2 mr-8 ml-[70px] h-[400px] w-[310px] bg-white border-2  rounded">
+                <div className="border-2 rounded mt-4 ml-4 mr-4 h-36 text-center border-gray-400">
+                  <div className="mt-4 text-gray-400">
+                    지금 예약 하시겠어요?
+                  </div>
                 </div>
-                <hr className="mt-28" />
-                <div className="mt-2 ml-2">
+                <div className="bg-stone-100 w-[275px] mt-3 ml-4 h-24 p-2 rounded-lg">
+                  <p className="text-left text-red-300 mb-1">📢 주의해주세요</p>
+                  <p className="text-left text-gray-400">
+                    (주)지금어때는 건강한 예약문화를 만들어가기 위하여 노쇼 시
+                    횟수에 따라 패널티 ...
+                  </p>
+                </div>
+                <hr className="mt-2" />
+                <div className="mt-6 ml-2">
                   1. 원하시는 매장의 테이블 수를 선택하세요
                 </div>
                 <div className=" ml-2">2. 테이블 기준 인원은 4인 입니다</div>
               </div>
-              <div className="bg-white fixed bottom-72 w-[420px] left-[470px] border-2 border-gray-600 shadow-xl rounded-full border-rounded">
+              <div className="bg-white fixed bottom-72 w-[400px] left-[470px] border-2 border-gray-600 shadow-xl rounded-full border-rounded">
                 <div className="flex mt-2 mb-2">
                   <div className="ml-4">예약 테이블 수</div>
                   <div className="ml-16 rounded border-2 border-red-200">-</div>
@@ -83,31 +92,36 @@ function DirectionModal(props) {
 
             <div className="bg-stone-100">
               <div style={{ padding: 8 }}>
-                <div className="mt-6 ml-44">예약 확인</div>
+                <div className="mt-4 ml-44">예약 확인</div>
               </div>
-              <div className="mt-4 mr-8 ml-[70px] h-[420px] w-[310px] bg-white border-2  rounded-tr-lg rounded-tl-lg">
-                <div className="ml-4 mt-2 font-bold">엉클 까르보</div>
-                <table className="mt-[5px] ml-[10px] border-collapse border border-gray-400 border-slate-400 ...">
-                  <thead>
-                    <tr>
-                      <th className="border border-slate-300">
-                        <div className="text-xs ml-2 mr-2">예약날짜</div>
-                        <div className="text-xs ml-2 mr-2">예약시간</div>
-                        <div className="text-xs mb-9 ml-2 mr-2">테이블 수</div>
-                      </th>
-                      <th className="border border-slate-300">
-                        <div className="text-xs mr-40">22-00-00</div>
-                        <div className="text-xs mr-40">12:00:00</div>
-                        <div className="text-xs mr-40">1</div>
-                        <div className="text-xs ml-40">방문예정</div>
-                        <div className="border-2 rounded text-xs ml-40 mb-1">
-                          예약취소
-                        </div>
-                      </th>
-                    </tr>
-                  </thead>
-                </table>
-                <hr className="mt-36" />
+              <div className="mt-2 mr-8 ml-[70px] h-[400px] w-[310px] bg-white border-2  rounded">
+                <div className="ml-4 mt-2 font-bold">예약 내역</div>
+
+                <div className="mt-2 ml-16 border border-gray-400 w-44 h-60">
+                  <img src={uncle} />
+                  <div className="text-xs">
+                    <div className="text-sm ml-14 mt-1">엉클까르보</div>
+                    <div className="flex">
+                      <div className=" ml-4 mt-1">예약날짜</div>
+                      <div className=" ml-12 mt-1">2022-01-01</div>
+                    </div>
+                    <div className="flex">
+                      <div className=" ml-4 mt-1">예약시간</div>
+                      <div className="ml-12 mt-1">12:00:00</div>
+                    </div>
+                    <div className="flex">
+                      <div className=" ml-4 mt-1">예약테이블 수</div>
+                      <div className="ml-6 mt-1">1</div>
+                    </div>
+                    <div className="flex">
+                      <div className="ml-4 mt-5">방문예정🚀</div>
+                      <div className="border border-orange-400 rounded p-1 ml-12 mt-4">
+                        예약취소
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr className="mt-6" />
                 <div className="mt-2 ml-2">
                   1. 마이 페이지 예약 내역에서 예약 내역을 확인, 취소할 수
                   있습니다
@@ -120,9 +134,62 @@ function DirectionModal(props) {
 
             <div className="bg-stone-100">
               <div style={{ padding: 8 }}>
-                <div className="mt-6 ml-40">줄서기 방법</div>
+                <div className="mt-4 ml-44">대기 확인</div>
               </div>
-              <div className="mt-4 mr-8 ml-[70px] h-[420px] w-[310px] bg-white border-2  rounded-tr-lg rounded-tl-lg">
+              <div className="mt-2 mr-8 ml-[70px] h-[400px] w-[310px] bg-white border-2  rounded">
+                <div className="ml-4 mt-2 font-bold">대기 내역</div>
+
+                <div className="mt-2 ml-16 border border-gray-400 w-44 h-64">
+                  <img src={uncle} />
+                  <div className="text-xs">
+                    <div className="ml-14 mt-1">엉클까르보</div>
+                    <div className="flex">
+                      <div className="ml-[48px] mt-1">대기 순서</div>
+                      <div className="mt-[3px] border ml-2 rounded-full border-orange-400 bg-orange-400 h-4">
+                        <div className="ml-1 mr-1">2</div>
+                      </div>
+                    </div>
+
+                    <div className="flex mt-1">
+                      <div className=" ml-2 ">나의 대기 번호</div>
+                      <div className=" ml-10 ">2022-01-01</div>
+                    </div>
+                    <div className="flex">
+                      <div className=" ml-2 ">대기 등록일</div>
+                      <div className="ml-[53px] ">12:00:00</div>
+                    </div>
+                    <div className="flex">
+                      <div className="ml-2 ">대기 등록 시간</div>
+                      <div className="ml-10 ">1</div>
+                    </div>
+                    <div className="flex">
+                      <div className=" ml-2 ">대기 등록 테이블 수</div>
+                      <div className="ml-[17px] ">1</div>
+                    </div>
+                    <div className="flex">
+                      <div className="ml-2 mt-3">대기중🚀</div>
+                      <div className="border border-orange-400 rounded p-1 ml-16 mt-2">
+                        대기취소
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr className="mt-2" />
+                <div className="mt-3 ml-2">
+                  1. 마이 페이지 예약 내역에서 예약 내역을 확인, 취소할 수
+                  있습니다
+                </div>
+                <div className="ml-2">
+                  2. 단, 지금 예약은 5분 이내만 가능합니다
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-stone-100">
+              <div style={{ padding: 8 }}>
+                <div className="mt-4 ml-40">줄서기 방법</div>
+              </div>
+              <div className="mt-2 mr-8 ml-[70px] h-[400px] w-[310px] bg-white border-2  rounded">
                 <div className="flex mt-6">
                   <div className="mt-1 ml-1 text-red-500">♡</div>
                   <div className="ml-1 mt-1 text-lg font-bold">엉클 까르보</div>
@@ -139,34 +206,37 @@ function DirectionModal(props) {
 
                 <img className="w-96 h-48" src={uncle} />
                 <hr className="mt-2" />
-                <div className="mt-2 ml-2">
+                <div className="mt-4 ml-2">
                   1. 만석인 매장에서 줄서기를 할 수 있습니다
+                </div>
+                <div className="mt-2 ml-2">
+                  2. "지금예약"과 동일하게 테이블 수를 선택 해주세요
                 </div>
               </div>
             </div>
 
             <div className="bg-stone-100">
               <div style={{ padding: 8 }}>
-                <div className="mt-6 ml-40">대기 순번 확인</div>
+                <div className="mt-4 ml-40">대기 순번 확인</div>
               </div>
 
-              <div className="mt-4 mr-8 ml-[70px] h-[420px] w-[310px] bg-white border-2  rounded-tr-lg rounded-tl-lg">
+              <div className="mt-2 mr-8 ml-[70px] h-[400px] w-[310px] bg-white border-2  rounded">
                 <img className="w-96 h-48" src={main} />
                 <hr className="mt-20" />
-                <div className="mt-2 ml-2">
+                <div className="mt-6 ml-2">
                   1. 대기 순서는 홈 화면 하단에서 확인할 수 있습니다
                 </div>
 
-                <div className="fixed left-[2119px] top-[213px] border border-4 rounded-full w-14 h-14 border-red-500"></div>
+                <div className="fixed left-[2568px] top-[200px] border border-4 rounded-full w-14 h-14 border-red-500"></div>
               </div>
             </div>
 
             <div className="bg-stone-100">
               <div style={{ padding: 8 }}>
-                <div className="mt-6 ml-44">이용 제한 안내</div>
+                <div className="mt-4 ml-44">이용 제한 안내</div>
               </div>
 
-              <div className="mt-4 mr-8 ml-[70px] h-[420px] w-[310px] bg-white border-2  rounded-tr-lg rounded-tl-lg">
+              <div className="mt-2 mr-8 ml-[70px] h-[400px] w-[310px] bg-white border-2  rounded">
                 <div className="mt-2 ml-16 text-red-600">
                   📢 지금어때 블랙회원 안내
                 </div>
@@ -186,16 +256,15 @@ function DirectionModal(props) {
                 </div>
 
                 <div className="mt-2 ml-2">
-                  - 첫번째 NoShow 시 서비스 3일 이용 제한
+                  - 1회 NoShow 시 서비스 3일 이용 제한
                 </div>
                 <div className="mt-2 ml-2">
-                  - 두번째 NoShow 시 서비스 7일 이용 제한
+                  - 2회 NoShow 시 서비스 7일 이용 제한
                 </div>
                 <div className="mt-2 ml-2">
-                  - 세번째 NoShow 시 서비스 30일 이용 제한
+                  - 3회 NoShow 시 서비스 30일 이용 제한
                 </div>
                 <div className="mt-2 ml-2">- 이후 서비스 영구 이용 제한</div>
-                <div className="fixed left-[2119px] top-[213px] border border-4 rounded-full w-14 h-14 border-red-500"></div>
               </div>
             </div>
           </ShopCarousel>
