@@ -82,7 +82,7 @@ function AdminQnaList({ itemsPerPage = 10 }) {
         <div className="flex items-center justify-between">
           <div className="relative text-gray-600 mr-2">
             <select
-              className="border-2 border-stone-300 py-2 px-1 mr-2"
+              className="border-2 border-stone-300 rounded py-2 px-1 mr-2"
               onChange={(e) => setAuthority(e.target.value)}
               onClick={Authoritycategory}
             >

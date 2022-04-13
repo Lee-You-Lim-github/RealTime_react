@@ -168,6 +168,20 @@ function Modal(props) {
               </button>
             </footer>
           </div>
+          <div className="bg-stone-100 p-2 mx-20 mb-2 rounded">
+            <p className="text-left text-red-500 mb-1">📢 주의해주세요</p>
+            <p className="text-left">
+              (주)지금어때는 건강한 예약문화를 만들어가기 위하여 노쇼 시 횟수에
+              따라 패널티(계정정지)를 부여합니다.
+            </p>
+            <p className="text-left">
+              <p>▪ 1회 : 3일</p>
+              <p>▪ 2회 : 7일</p>
+              <p>▪ 3회 : 1달</p>
+              <p>▪ 4회 : 영구정지</p>
+            </p>
+            <p className="text-left">참고하여 예약바랍니다.</p>
+          </div>
         </section>
       ) : null}
     </div>
