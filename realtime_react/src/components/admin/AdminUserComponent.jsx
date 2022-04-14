@@ -1,5 +1,6 @@
 import { useApiAxios } from "api/base";
 import black_check from "assets/img/penalty_check.png";
+import axios from "axios";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect, useRef, useState } from "react";
 
@@ -23,9 +24,54 @@ function AdminUserComponent(props) {
     }
   };
 
-  //penalty, black 해제
-
   // 블랙
+
+  const [{ loading: deleteLoading, error: deleteError }, deleteBlack] =
+    useApiAxios(
+      {
+        url: `/user/api/blacks/${user?.black_set[0]?.id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
+      },
+      { manual: true }
+    );
+
+  const [{ loading: deletedLoading, error: deletedError }, deleteBlacklog] =
+    useApiAxios(
+      {
+        url: `/user/api/blacklogs/${user?.blacklog_set[0]?.id}`,
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${auth.access}`,
+        },
+      },
+      { manual: true }
+    );
+
+  const handleblackDelete = (e) => {
+    deleteBlack({
+      url: `/user/api/blacks/${user?.black_set[0]?.id}`,
+      method: "DELETE",
+    })
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const handleblacklogDelete = (e) => {
+    deleteBlacklog({
+      url: `/user/api/blackLogs/${user?.blacklog_set[0]?.id}`,
+      method: "DELETE",
+    })
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const [{ errorMessages }, saveAdminblack] = useApiAxios(
     {
       url: `/accounts/api/users/${user.id}/`,
@@ -47,6 +93,14 @@ function AdminUserComponent(props) {
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleblack = () => {
+    axios.all([
+      handleblackDelete(),
+      handleSubmitactive(),
+      handleblacklogDelete(),
+    ]);
   };
 
   return (
@@ -76,7 +130,7 @@ function AdminUserComponent(props) {
                 (black_filter) => userId === black_filter.user_id.user_id
               )
               .map((black, index) => (
-                <button onClick={handleSubmitactive}>
+                <button onClick={handleblack}>
                   <img
                     className="w-6 h-6"
                     src={black_check}
