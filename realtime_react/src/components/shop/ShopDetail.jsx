@@ -253,6 +253,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
                           휴일
                         </button>
                       )}
+
                       <Modal
                         shopId={shopId}
                         ShopData={shopData}
