@@ -4,9 +4,6 @@ import useFieldValues from "hook/usefieldValues";
 import { useNavigate } from "react-router-dom";
 import LoadingIndicator from "components/LoadingIndicator";
 import log_in from "assets/img/loginorange.png";
-import { useEffect, useState } from "react";
-import DebugStates from "components/DebugStates";
-import axios from "axios";
 
 const INIT_FIELD_VALUES = { user_id: "", password: "" };
 
@@ -14,8 +11,6 @@ function LoginForm() {
   const navigate = useNavigate();
 
   const [, , login] = useAuth();
-
-  const [userId, setUserId] = useState();
 
   const [{ loading, error }, requestToken] = useApiAxios(
     {
@@ -31,17 +26,8 @@ function LoginForm() {
     navigate("/accounts/userjoin/");
   };
 
-  const [{ data }, refetch] = useApiAxios(
-    {
-      url: `/accounts/api/users/?user_id=${userId}&all`,
-      method: "GET",
-    },
-    { manual: true }
-  );
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    setUserId(fieldValues.user_id);
 
     requestToken({ data: fieldValues })
       .then((response) => {
@@ -70,23 +56,11 @@ function LoginForm() {
         navigate("/");
       })
       .catch((error) => {
-        setUserId("");
-      });
-  };
-
-  useEffect(() => {
-    userId &&
-      refetch().then((response) => {
-        if (
-          response.data[0]?.is_active == false &&
-          response.data[0]?.black_set.length > 0
-        ) {
-          alert(
-            `${response.data[0]?.black_set[0]?.start_date}부터 ${response.data[0]?.black_set[0]?.end_date}까지 활동이 정지되었습니다.              (주)지금어때 공식페이지를 통해서 문의해주세요. (주)지금어때는 건강한 예약문화를 추구합니다.`
-          );
+        if (error.response.data.detail === "블랙") {
+          alert(error.response.data.message);
         }
       });
-  }, [userId]);
+  };
 
   return (
     <div>
@@ -134,7 +108,7 @@ function LoginForm() {
             </div>
             <div className="mt-3 ml-2 flex mb-20">
               <div className="text-sm text-stone-400 mr-4 mt-1">
-                회원이 되어주세요! ------------>
+                {"회원이 되어주세요! ------------>"}
               </div>
               <button className="hover:text-orange-400" onClick={handleJoin}>
                 [회원가입]
