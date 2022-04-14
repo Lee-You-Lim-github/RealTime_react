@@ -29,13 +29,13 @@ function AdminQnaDetail({ userId, qnaId }) {
 
   return (
     <div>
-      <div className="mt-24">
+      <div className="mt-10">
         <AdminQnaDetailSummary qna={qna} />
       </div>
 
       <div className=" flex justify-end my-3 text-sm align-middle">
         <button
-          className="w-24 h-8 ml-2 border border-orange-400 rounded-sm text-orange-400"
+          className="w-20 h-8 ml-2 border border-orange-400 rounded-lg text-orange-400"
           disabled={deleteLoading}
           onClick={handleDelete}
         >
@@ -43,7 +43,7 @@ function AdminQnaDetail({ userId, qnaId }) {
         </button>
         <>
           <button
-            className="w-24 h-8 ml-2 bg-orange-400 rounded-sm text-white "
+            className="w-20 h-8 ml-2 bg-orange-400 rounded-lg text-white "
             onClick={() => navigate(`/admin/${userId}/qna/${qnaId}/answer/`)}
           >
             답변
@@ -52,7 +52,7 @@ function AdminQnaDetail({ userId, qnaId }) {
 
         <div className=" ml-2 pr-1  align-middle flex justify-end">
           <Link
-            className="w-24 h-8 border border-stone-400 rounded-sm text-stone-400  "
+            className="w-20 h-8 border border-stone-400 rounded-lg text-stone-400  "
             type="button"
             to="/admin/qna/"
           >

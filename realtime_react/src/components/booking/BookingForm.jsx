@@ -54,6 +54,7 @@ function BookingForm({ shopId, handleDidSave }) {
   const alertDate = () => {
     alert("날짜를 확인해주세요");
   };
+
   return (
     <div className="h-[650px] flex justify-center items-center w-full my-32">
       <div className="px-10 py-8 rounded-xl w-screen shadow-md max-w-sm border border-orange-400">

@@ -32,7 +32,7 @@ function AdminQnaDetailSummary({ qna }) {
                 </p>
               ))}
 
-              <div className="max-w-xs max-h-full relative left-[320px]">
+              <div className="max-w-xs max-h-full pl-20  relative left-[150px]">
                 {qna.photo && <img src={qna.photo} alt="photo" />}
               </div>
             </div>

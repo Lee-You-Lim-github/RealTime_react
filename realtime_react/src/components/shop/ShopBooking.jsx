@@ -4,11 +4,11 @@ import { useAuth } from "contexts/AuthContext";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import ShopBookingComponent from "./ShopBookingComponent";
-import LoadingIndicator from "components/LoadingIndicator";
 import booklist from "assets/img/booklist.png";
 
 function ShopBooking({ shopId, itemsPerPage = 10 }) {
   const [auth] = useAuth();
+  const [Day, setDay] = useState("");
 
   // paging
   const [, setItem] = useState(null);
@@ -21,29 +21,20 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   // search
   const [query, setQuery] = useState();
 
-  // reload
-  const [reload, setReload] = useState(false);
-
   // 현재 테이블 카운트 수 변경
   const [tableCount, setTableCount] = useState(0);
 
   // get_bookingss
-  const [
-    {
-      data: getBookingData,
-      loading: getBookingLoading,
-      error: getBookingError,
-    },
-    refetch,
-  ] = useApiAxios(
-    {
-      url: `/booking/api/bookings/?shop_id=${shopId}&${
-        query ? "&query=" + query : ""
-      }`,
-      method: "GET",
-    },
-    { manual: true }
-  );
+  const [{ data: getBookingData, error: getBookingError }, refetch] =
+    useApiAxios(
+      {
+        url: `/booking/api/bookings/?shop_id=${shopId}&${
+          query ? "&query=" + query : ""
+        }`,
+        method: "GET",
+      },
+      { manual: true }
+    );
 
   // shopData - get
   const [{ data: shopData }, shopDataRefetch] = useApiAxios(
@@ -72,6 +63,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
       const params = {
         page: newPage,
         query: newQuery,
+        day: Day,
       };
 
       const { data } = await refetch({ params });
@@ -80,7 +72,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
       setPageCount(Math.ceil(data.count / itemsPerPage));
       setItem(data?.results);
     },
-    [query, refetch]
+    [Day, query, refetch]
   );
 
   // get_bookings_refetch()
@@ -105,10 +97,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
   };
 
   // booking - visit_status만 수정
-  const [
-    { loading: shopBookingsLoading, error: shopBookingsError },
-    saveBookingVisitState,
-  ] = useApiAxios(
+  const [{ error: shopBookingsError }, saveBookingVisitState] = useApiAxios(
     {
       url: `/booking/api/bookings/`,
       method: "PATCH",
@@ -134,6 +123,12 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
     setQuery(value);
   };
 
+  // 날짜로 검색
+  const searchDate = (e) => {
+    e.preventDefault();
+    fetchApplication(1, query);
+  };
+
   return (
     <div>
       <div className="bg-white p-8 rounded-md w-[900px] m-auto">
@@ -149,9 +144,7 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
               예약자 명단
             </h2>
           </div>
-          {(getBookingLoading || shopBookingsLoading) && (
-            <LoadingIndicator>로딩 중...</LoadingIndicator>
-          )}
+
           {getBookingError?.response?.status >= 400 && (
             <div className="text-red-400">
               데이터를 가져오는데 실패했습니다.
@@ -163,6 +156,26 @@ function ShopBooking({ shopId, itemsPerPage = 10 }) {
             </div>
           )}
           <div className="flex items-center justify-between">
+            <div className="flex mr-2 mt-2">
+              <span>
+                <input
+                  type="date"
+                  name="day"
+                  value={Day}
+                  onChange={(e) => setDay(e.target.value)}
+                  className="text-gray-700 placeholder:text-stone-300 w-full border border-stone-300 rounded-sm focus:outline-none text-center"
+                />
+              </span>
+              <span>
+                <button
+                  onClick={searchDate}
+                  className="text-gray-700 bg-stone-200 border border-stone-200 rounded-sm px-1 mx-1 mt-[1px]"
+                >
+                  검색
+                </button>
+              </span>
+            </div>
+
             <div className="relative text-gray-600  mr-2">
               <input
                 type="search"
