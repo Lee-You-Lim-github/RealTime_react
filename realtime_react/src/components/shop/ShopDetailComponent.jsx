@@ -38,7 +38,7 @@ function ShopDetailComponent({ shopinfo }) {
         </li>
 
         <li className="flex items-start">
-          <p className="flex items-start text-lg">전화번호</p>
+          <p className="flex flex-shrink-0 items-start text-lg">전화번호</p>
           <span className="h-6 flex items-center sm:h-7">
             <svg
               className="flex-shrink-0 h-5 w-5 text-cyan-500"
@@ -51,7 +51,7 @@ function ShopDetailComponent({ shopinfo }) {
           </div>
         </li>
         <li className="flex items-start">
-          <p className="flex items-start text-lg">매장주소</p>
+          <p className="flex flex-shrink-0 items-start text-lg">매장주소</p>
           <span className="h-6 flex items-center sm:h-7">
             <svg
               className="flex-shrink-0 h-5 w-5 text-cyan-500"
@@ -64,7 +64,7 @@ function ShopDetailComponent({ shopinfo }) {
           </div>
         </li>
         <li className="flex items-start">
-          <p className="flex items-start text-lg">영업시간</p>
+          <p className="flex flex-shrink-0 items-start text-lg">영업시간</p>
           <span className="h-6 flex items-center sm:h-7">
             <svg
               className="flex-shrink-0 h-5 w-5 text-cyan-500"
@@ -77,7 +77,7 @@ function ShopDetailComponent({ shopinfo }) {
           </div>
         </li>
         <li className="flex items-start">
-          <p className="flex items-start text-lg">편의시설</p>
+          <p className="flex flex-shrink-0 items-start text-lg">편의시설</p>
           <span className="h-6 flex items-center sm:h-7">
             <svg
               className="flex-shrink-0 h-5 w-5 text-cyan-500"
