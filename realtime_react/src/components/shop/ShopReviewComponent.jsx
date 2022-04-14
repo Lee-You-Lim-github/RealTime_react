@@ -37,7 +37,7 @@ function ShopReviewComponent({ review }) {
     <React.Fragment>
       <div>
         <div className="flex items-start justify-between">
-          <div className="flex items-start mt-2 xl:text-lg">
+          <div className="flex items-start mt-2">
             <Star score={review.rating} />
             <span className="ml-2">
               {review.wait_id && review.wait_id.user_id.nickname}
@@ -45,14 +45,14 @@ function ShopReviewComponent({ review }) {
             </span>
           </div>
 
-          <div className="ml-5 mt-2 xl:text-xl">
+          <div className="ml-5 mt-2">
             <span>
               <Timestamp relative date={review.created_at} autoUpdate />
             </span>
           </div>
         </div>
         <div className="flex static mb-1">
-          <span className="text-xl">{review.content}</span>
+          <span className="text-left">{review.content}</span>
 
           {auth.is_superuser && (
             <span className="absolute right-20 text-right">
