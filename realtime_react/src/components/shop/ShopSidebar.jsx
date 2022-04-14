@@ -5,9 +5,29 @@ import mystore from "assets/img/mystore.png";
 import booknotes from "assets/img/booknotes.png";
 import waitnotes from "assets/img/waitnotes.png";
 import qna from "assets/img/qna.png";
+import { useApiAxios } from "api/base";
+import { useEffect, useState } from "react";
 
-function ShopSidebar({ shopId }) {
+function ShopSidebar() {
   const [auth] = useAuth();
+
+  const [userShopId, setUserShopId] = useState("");
+
+  const [{ data, laoding, error }, refetch] = useApiAxios(
+    {
+      url: `/accounts/api/users/${auth.id}/`,
+      method: "GET",
+    },
+    { manual: true }
+  );
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  useEffect(() => {
+    setUserShopId(data?.shop_set[0]);
+  }, [userShopId, data]);
 
   return (
     <div>
@@ -22,7 +42,7 @@ function ShopSidebar({ shopId }) {
           </div>
         </Link>
         <Link
-          to={`/shop/myshop/${shopId}/`}
+          to={`/shop/myshop/${userShopId}/`}
           className="text-white text-xl mb-10"
         >
           <div className="flex">
@@ -31,7 +51,7 @@ function ShopSidebar({ shopId }) {
           </div>
         </Link>
         <Link
-          to={`/shop/${shopId}/bookings/`}
+          to={`/shop/${userShopId}/bookings/`}
           className="text-white text-xl mb-10"
         >
           <div className="flex">
@@ -40,7 +60,7 @@ function ShopSidebar({ shopId }) {
           </div>
         </Link>
         <Link
-          to={`/shop/${shopId}/waitings/`}
+          to={`/shop/${userShopId}/waitings/`}
           className="text-white text-xl mb-10"
         >
           <div className="flex">
