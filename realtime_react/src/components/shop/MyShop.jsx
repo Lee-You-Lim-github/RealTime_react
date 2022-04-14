@@ -148,7 +148,7 @@ function Myshop({ shopId }) {
                 <span>
                   <img className="w-8 h-8" src={shoporange} alt="shoporange" />
                 </span>
-                <span className="ml-1 text-3xl text-gray-900">마이스토어</span>
+                <span className="ml-2 text-3xl text-gray-900">마이스토어</span>
 
                 <span>
                   <button
@@ -225,7 +225,9 @@ function Myshop({ shopId }) {
             <div className="items-left text-left flex justify-center flex-col md:justify-center">
               <ul className="list-disc space-y-5">
                 <li className="flex items-start">
-                  <p className="flex items-start xl:text-xl">매장명</p>
+                  <p className="flex flex-shrink-0 items-start xl:text-xl">
+                    매장명
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-14 xl:w-16 lg:w-14 md:w-14 sm:w-14 text-cyan-500"
@@ -238,7 +240,9 @@ function Myshop({ shopId }) {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start xl:text-xl">업종</p>
+                  <p className="flex flex-shrink-0 items-start xl:text-xl">
+                    업종
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-16 xl:w-20 lg:w-16 md:w-16 sm:w-16 text-cyan-500"
@@ -251,7 +255,9 @@ function Myshop({ shopId }) {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start xl:text-xl">주소</p>
+                  <p className="flex flex-shrink-0 items-start xl:text-xl">
+                    주소
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-16 xl:w-20 lg:w-16 md:w-16 sm:w-16 text-cyan-500"
@@ -264,7 +270,9 @@ function Myshop({ shopId }) {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start xl:text-xl">전화번호</p>
+                  <p className="flex flex-shrink-0 items-start xl:text-xl">
+                    전화번호
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-12 xl:w-14 lg:w-12 md:w-12 sm:w-12 text-cyan-500"
@@ -277,7 +285,9 @@ function Myshop({ shopId }) {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start xl:text-xl">영업시간</p>
+                  <p className="flex flex-shrink-0 items-start xl:text-xl">
+                    영업시간
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-12 xl:w-14 lg:w-12 md:w-12 sm:w-12 text-cyan-500"
@@ -290,7 +300,9 @@ function Myshop({ shopId }) {
                   </div>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start xl:text-xl">매장 테이블 수</p>
+                  <p className="flex flex-shrink-0 items-start xl:text-xl">
+                    매장 테이블 수
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-3 text-cyan-500"
@@ -303,7 +315,9 @@ function Myshop({ shopId }) {
                   </div>
                 </li>
                 <li className="flex items-center">
-                  <p className="flex items-start xl:text-xl">현재 테이블 수</p>
+                  <p className="flex flex-shrink-0 items-start xl:text-xl">
+                    현재 테이블 수
+                  </p>
                   <span className="h-6 flex items-center sm:h-7">
                     <svg
                       className="flex-shrink-0 h-5 w-3 text-cyan-500"
@@ -334,7 +348,7 @@ function Myshop({ shopId }) {
                   </button>
                 </li>
                 <li className="flex items-start">
-                  <p className="flex items-start shrink-0 mr-5 xl:text-xl">
+                  <p className="flex flex-shrink-0 items-start mr-5 xl:text-xl">
                     편의시설
                   </p>
                   <span className="h-6 flex items-center sm:h-7">
