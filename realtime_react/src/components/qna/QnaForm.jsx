@@ -57,7 +57,7 @@ function QnaForm({ userId, handleDidSave }) {
   };
 
   return (
-    <div className="mt-24">
+    <div className="mt-10">
       <form onSubmit={handleSubmit}>
         <div>
           <div className="flex">
@@ -80,7 +80,7 @@ function QnaForm({ userId, handleDidSave }) {
               name="content"
               value={fieldValues.content}
               onChange={handleFieldChange}
-              className="border-2 border-orange-400 w-full h-96 mt-5 outline-none"
+              className="border-2 border-orange-400 w-full h-80 mt-5 outline-none"
               placeholder="미방 및 욕설은 관리자에 의해 삭제될 수 있습니다."
             />
 

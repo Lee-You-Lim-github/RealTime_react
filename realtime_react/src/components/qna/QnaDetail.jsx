@@ -31,7 +31,7 @@ function QnaDetail({ qnaId, userId }) {
 
   return (
     <div>
-      <div className="mt-24">
+      <div className="mt-10">
         <QnaDetailSummary qna={qna} />
       </div>
       <div className="flex justify-end my-3">

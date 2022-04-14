@@ -43,7 +43,7 @@ function AdminQnaForm({ userId, qnaId }) {
   }, []);
 
   return (
-    <div className="mt-24">
+    <div className="mt-10">
       {qna && (
         <div>
           <hr className="border-t border-orange-400" />
@@ -73,7 +73,7 @@ function AdminQnaForm({ userId, qnaId }) {
                 </p>
               ))}
 
-              <div className="max-w-xs max-h-full relative left-[320px]">
+              <div className="max-w-xs max-h-full pl-10 relative left-[180px]">
                 {qna.photo && <img src={qna.photo} alt="photo" />}
               </div>
             </div>
@@ -97,7 +97,7 @@ function AdminQnaForm({ userId, qnaId }) {
                   setAnswer(e.target.value);
                 }}
                 placeholder="답변을 입력해주세요."
-                className="outline-none bg-white border-2 border-orange-400 w-[58rem] h-48"
+                className="outline-none bg-white border-2 border-orange-400 w-[680px] h-48"
               />
             </div>
           ))}

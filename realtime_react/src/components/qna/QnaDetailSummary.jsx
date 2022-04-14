@@ -32,7 +32,7 @@ function QnaDetailSummary({ qna }) {
                 </p>
               ))}
 
-              <div className="max-w-xs max-h-full relative left-[500px]">
+              <div className="max-w-xs max-h-full relative left-[190px]">
                 {qna.photo && <img src={qna.photo} alt="photo" />}
               </div>
             </div>
