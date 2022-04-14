@@ -31,27 +31,49 @@ function NewReviewList({ reviewData }) {
         <ShopCarousel show={3}>
           {sortReviewData.map((data, index) => (
             <div className="ml-2 py-1 mb-32">
-              <Link to={`/shop/${data?.book_id?.shop_id.id}/`}>
-                <div
-                  className="border-solid border-2 m-3 w-72 h-60 rounded overflow-hidden hover:-translate-y-1"
-                  style={{ padding: 8 }}
-                >
-                  <div className="ml-2 mt-4">
-                    <img src={quotes} width="15px" height="15px" />
+              {data.book_id ? (
+                <Link to={`/shop/${data?.book_id?.shop_id.id}/`}>
+                  <div
+                    className="border-solid border-2 m-3 w-72 h-60 rounded overflow-hidden hover:-translate-y-1"
+                    style={{ padding: 8 }}
+                  >
+                    <div className="ml-2 mt-4">
+                      <img src={quotes} width="15px" height="15px" />
+                    </div>
+                    <div className="font-bold mb-1 ml-2 mt-4">
+                      {data?.book_id?.shop_id.name}
+                    </div>
+                    <div className="ml-2 mt-3">
+                      <Star score={data.rating} />
+                    </div>
+                    <div className="target mt-3 ml-2">{data.content}</div>
+                    <div className="bottom-0 left-0 ml-40 mt-4">
+                      <Timestamp relative date={data.created_at} autoUpdate />
+                    </div>{" "}
                   </div>
-                  <div className="font-bold mb-1 ml-2 mt-4">
-                    {data?.book_id?.shop_id.name}
-                    {data?.wait_id?.shop_id.name}
+                </Link>
+              ) : (
+                <Link to={`/shop/${data?.wait_id?.shop_id.id}/`}>
+                  <div
+                    className="border-solid border-2 m-3 w-72 h-60 rounded overflow-hidden hover:-translate-y-1"
+                    style={{ padding: 8 }}
+                  >
+                    <div className="ml-2 mt-4">
+                      <img src={quotes} width="15px" height="15px" />
+                    </div>
+                    <div className="font-bold mb-1 ml-2 mt-4">
+                      {data?.wait_id?.shop_id.name}
+                    </div>
+                    <div className="ml-2 mt-3">
+                      <Star score={data.rating} />
+                    </div>
+                    <div className="target mt-3 ml-2">{data.content}</div>
+                    <div className="bottom-0 left-0 ml-40 mt-4">
+                      <Timestamp relative date={data.created_at} autoUpdate />
+                    </div>{" "}
                   </div>
-                  <div className="ml-2 mt-3">
-                    <Star score={data.rating} />
-                  </div>
-                  <div className="target mt-3 ml-2">{data.content}</div>
-                  <div className="bottom-0 left-0 ml-40 mt-4">
-                    <Timestamp relative date={data.created_at} autoUpdate />
-                  </div>{" "}
-                </div>
-              </Link>
+                </Link>
+              )}
             </div>
           ))}
         </ShopCarousel>
