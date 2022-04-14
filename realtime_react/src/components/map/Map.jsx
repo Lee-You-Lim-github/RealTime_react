@@ -203,8 +203,8 @@ function TypeMap({ getData, pickData }) {
           image={{
             src: `${marker_object.marker5}`, // 마커이미지의 주소입니다
             size: {
-              width: 44,
-              height: 55,
+              width: 33,
+              height: 44,
             }, // 마커이미지의 크기입니다
             options: {
               offset: {
@@ -234,8 +234,8 @@ function TypeMap({ getData, pickData }) {
             image={{
               src: `${marker_object.marker1}`, // 마커이미지의 주소입니다
               size: {
-                width: 44,
-                height: 55,
+                width: 33,
+                height: 44,
               }, // 마커이미지의 크기입니다
               options: {
                 offset: {
@@ -264,8 +264,8 @@ function TypeMap({ getData, pickData }) {
             image={{
               src: `${marker_object.marker2}`, // 마커이미지의 주소입니다
               size: {
-                width: 44,
-                height: 55,
+                width: 33,
+                height: 44,
               }, // 마커이미지의 크기입니다
               options: {
                 offset: {
@@ -294,8 +294,8 @@ function TypeMap({ getData, pickData }) {
             image={{
               src: `${marker_object.marker3}`, // 마커이미지의 주소입니다
               size: {
-                width: 44,
-                height: 55,
+                width: 33,
+                height: 44,
               }, // 마커이미지의 크기입니다
               options: {
                 offset: {
@@ -324,8 +324,8 @@ function TypeMap({ getData, pickData }) {
             image={{
               src: `${marker_object.marker4}`, // 마커이미지의 주소입니다
               size: {
-                width: 44,
-                height: 55,
+                width: 33,
+                height: 44,
               }, // 마커이미지의 크기입니다
               options: {
                 offset: {
@@ -355,7 +355,7 @@ function TypeMap({ getData, pickData }) {
             width: "1000px",
             height: "430px",
           }}
-          level={6} // 지도의 확대 레벨
+          level={5} // 지도의 확대 레벨
         >
           {/* 테이블 수 비율별 마커색 변경 */}
           {selectedCategory === "whole" &&
