@@ -30,8 +30,6 @@ function Shopdashboard({ shopId }) {
     refetch();
   }, [shopId]);
 
-  console.log("myshopdata", myShopData);
-
   return (
     <>
       {myShopData && (
