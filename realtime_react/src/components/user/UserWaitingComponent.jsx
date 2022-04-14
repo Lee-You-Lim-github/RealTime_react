@@ -108,7 +108,7 @@ function UserWaitingComponent({ wait_obj }) {
           <span className="mt-4 mb-3">
             대기 순서
             <span className="bg-orange-500 text-white rounded-full py-1 px-2 m-1">
-              {wait_obj.wait_count -
+              {wait_obj.wait_count &&
                 waits
                   ?.filter(
                     (shoprWaits) =>
