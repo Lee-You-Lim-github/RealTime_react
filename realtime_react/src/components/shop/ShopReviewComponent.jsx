@@ -9,11 +9,11 @@ function ShopReviewComponent({ review }) {
   const [auth] = useAuth();
   const { shopId } = useParams();
 
-  const [{ loading: deleteLoading, error: deleteError }, deleteReview] =
+  const [{ loading: deleteLoading, error: deleteError }, patchadminReview] =
     useApiAxios(
       {
         url: `/review/api/review/${review.id}/`,
-        method: "DELETE",
+        method: "PATCH",
         headers: {
           Authorization: `Bearer ${auth.access}`,
         },
@@ -22,10 +22,9 @@ function ShopReviewComponent({ review }) {
     );
 
   const handleDelete = () => {
-    if (window.confirm("Are you sure?")) {
-      deleteReview({
-        url: `/review/api/review/${review.id}/`,
-        method: "DELETE",
+    if (window.confirm("리뷰를 삭제하시겠습니까?")) {
+      patchadminReview({
+        data: { content: "관리자에 의해 삭제된 리뷰입니다." },
       });
 
       alert("리뷰가 삭제되었습니다.");
