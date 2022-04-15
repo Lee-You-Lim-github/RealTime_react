@@ -11,8 +11,11 @@ function AdminUserComponent(props) {
 
   const [userId, setUserId] = useState();
 
+  const [reload, setReload] = useState(false);
+
   useEffect(() => {
     setUserId(user.user_id);
+    setReload((prevState) => !prevState);
   }, []);
 
   // 구분(개인/사업자)
@@ -56,9 +59,7 @@ function AdminUserComponent(props) {
       method: "DELETE",
     })
       .then(() => {})
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   const handleblacklogDelete = (e) => {
@@ -66,10 +67,10 @@ function AdminUserComponent(props) {
       url: `/user/api/blackLogs/${user?.blacklog_set[0]?.id}`,
       method: "DELETE",
     })
-      .then(() => {})
-      .catch((error) => {
-        console.log(error);
-      });
+      .then(() => {
+        setReload((prevState) => !prevState);
+      })
+      .catch((error) => {});
   };
 
   const [{ errorMessages }, saveAdminblack] = useApiAxios(
@@ -89,10 +90,9 @@ function AdminUserComponent(props) {
     })
       .then(() => {
         alert("블랙이 해제되었습니다.");
+        window.location.replace(`/admin/user/`);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   const handleblack = () => {
