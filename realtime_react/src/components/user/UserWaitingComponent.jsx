@@ -107,20 +107,26 @@ function UserWaitingComponent({ wait_obj }) {
           </Link>
           <span className="mt-4 mb-3">
             대기 순서
-            <span className="bg-orange-500 text-white rounded-full py-1 px-2 m-1">
-              {wait_obj.wait_count &&
-                waits
-                  ?.filter(
-                    (shoprWaits) =>
-                      shoprWaits.wait_date.slice(0, -16) === dateString &&
-                      shoprWaits.wait_count <= wait_obj.wait_count
-                  )
-                  .filter(
-                    (shoprWait) =>
-                      shoprWait.wait_cancel === "1" ||
-                      shoprWait.wait_visit_status === "1"
-                  ).length}
-            </span>
+            {wait_obj.wait_date.slice(0, 10) === dateString ? (
+              <span className="bg-orange-500 text-white rounded-full py-1 px-2 m-1">
+                {wait_obj.wait_count -
+                  waits
+                    ?.filter(
+                      (shoprWaits) =>
+                        shoprWaits.wait_date.slice(0, 10) === dateString &&
+                        shoprWaits.wait_count <= wait_obj.wait_count
+                    )
+                    .filter(
+                      (shoprWait) =>
+                        shoprWait.wait_cancel === "1" ||
+                        shoprWait.wait_visit_status === "1"
+                    ).length}
+              </span>
+            ) : (
+              <span className="bg-orange-500 text-white rounded-full py-1 px-2 m-1">
+                0
+              </span>
+            )}
           </span>
         </div>
 
