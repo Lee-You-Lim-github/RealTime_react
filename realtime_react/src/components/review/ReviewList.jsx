@@ -1,6 +1,5 @@
 import { useApiAxios } from "api/base";
-import { useAuth } from "contexts/AuthContext";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ReviewSummary from "./ReviewSummary";
 import reviewlist from "assets/img/reviewlist.png";
 

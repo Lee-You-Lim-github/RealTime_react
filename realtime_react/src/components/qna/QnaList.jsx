@@ -1,5 +1,4 @@
 import { useApiAxios } from "api/base";
-import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useNavigate } from "react-router-dom";

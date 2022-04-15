@@ -5,7 +5,6 @@ import NewShopList from "components/map/NewShopList";
 import { useAuth } from "contexts/AuthContext";
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import DirectionModal from "components/modal/DirectionModal";
 import WaitingStatus from "components/waiting/WaitingStatus";
 

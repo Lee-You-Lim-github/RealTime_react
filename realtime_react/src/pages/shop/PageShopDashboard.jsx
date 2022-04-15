@@ -7,9 +7,8 @@ import list from "assets/img/adminlist.png";
 import list2 from "assets/img/adminlist2.png";
 import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
-import PageNotShopUser from "pages/notfound/PageNotShopUser";
 
-function PageShopDashboard(props) {
+function PageShopDashboard() {
   const { shopId } = useParams();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [xPosition, setX] = useState(0);
@@ -53,10 +52,6 @@ function PageShopDashboard(props) {
   useEffect(() => {
     refatch();
   }, []);
-
-  // var dddd = data.shop_set;
-
-  // console.log(dddd);
 
   return (
     <>

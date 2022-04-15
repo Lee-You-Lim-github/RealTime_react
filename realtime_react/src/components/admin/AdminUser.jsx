@@ -4,7 +4,6 @@ import { useAuth } from "contexts/AuthContext";
 import React, { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import AdminUserComponent from "./AdminUserComponent";
-import LoadingIndicator from "components/LoadingIndicator";
 import group from "assets/img/group.png";
 
 function AdminUser({ itemsPerPage = 10 }) {

@@ -1,5 +1,4 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import { useEffect } from "react";
 
 function Qnainadmindashboard() {

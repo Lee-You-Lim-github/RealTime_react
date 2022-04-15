@@ -1,4 +1,3 @@
-import DebugStates from "components/DebugStates";
 import ShopCarousel from "components/map/ShopCarousel";
 import Star from "components/shop/ShopStar";
 import { Link } from "react-router-dom";
@@ -11,7 +10,6 @@ function NewReviewList({ reviewData }) {
         new Date(newShop2.created_at) - new Date(newShop.created_at)
     )
     .slice(0, 5);
-  console.log("review", reviewData);
   return (
     <div>
       <div className="flex mb-8">

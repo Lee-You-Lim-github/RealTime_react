@@ -1,5 +1,4 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import { useAuth } from "contexts/AuthContext";
 import React, { useEffect } from "react";
 import "./UserInfo.css";

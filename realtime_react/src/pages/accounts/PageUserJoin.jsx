@@ -1,5 +1,5 @@
 import UserJoinForm from "components/accounts/UserJoinForm";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function PageUserJoin() {
   const navigate = useNavigate();

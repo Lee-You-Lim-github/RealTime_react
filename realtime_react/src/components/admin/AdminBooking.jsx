@@ -4,7 +4,6 @@ import AdminBookingComponent from "components/admin/AdminBookingComponent";
 import { useAuth } from "contexts/AuthContext";
 import { useCallback, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import LoadingIndicator from "components/LoadingIndicator";
 import shop_booking from "assets/img/booklist.png";
 
 function AdminBooking({ itemsPerPage = 10 }) {

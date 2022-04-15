@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useMemo, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { Map, MapMarker, CustomOverlayMap } from "react-kakao-maps-sdk";
 import marker1 from "assets/img/marker1.png";
 import marker2 from "assets/img/marker2.png";
@@ -342,8 +342,6 @@ function TypeMap({ getData, pickData }) {
 
   return (
     <>
-      {/* <DebugStates positions={positions} getData={getData} /> */}
-      {/* <RemovableCustomOverlayStyle /> */}
       <div>
         <Map // 지도를 표시할 Container
           center={

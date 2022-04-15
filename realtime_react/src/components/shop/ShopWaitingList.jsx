@@ -1,5 +1,4 @@
 import { useApiAxios } from "api/base";
-import DebugStates from "components/DebugStates";
 import SmsConfirm from "components/modal/SmsConfirm";
 import WaitingNotVisitConfirm from "components/modal/WaitingNotVisitConfirm";
 import WaitingVisitConfirm from "components/modal/WaitingVisitConfirm";
@@ -81,7 +80,6 @@ function ShopWaitingList({ waiting_obj, saveWaiting, refetch, setTableCount }) {
 
   return (
     <React.Fragment>
-      {/* <DebugStates waiting_obj={waiting_obj} /> */}
       <tr>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-800 whitespace-no-wrap">

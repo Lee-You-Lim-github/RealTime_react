@@ -1,8 +1,7 @@
 import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
 import useFieldValues from "hook/usefieldValues";
-import { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const INIT_FIELD_VALUES = {
   title: "",

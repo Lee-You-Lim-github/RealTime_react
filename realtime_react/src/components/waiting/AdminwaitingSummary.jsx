@@ -3,7 +3,6 @@ import React from "react";
 function AdminwaitingSummary({ wait, index }) {
   return (
     <React.Fragment>
-      {/* <DebugStates waiting_obj={waiting_obj} /> */}
       <tr>
         <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
           <p className="text-gray-800 whitespace-no-wrap">{index + 1}</p>

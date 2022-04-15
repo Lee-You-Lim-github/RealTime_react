@@ -2,7 +2,6 @@ import { useApiAxios } from "api/base";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AdminQnaDetailSummary from "./AdminQnaDetailSummary";
-import QnaDetailSummary from "./QnaDetailSummary";
 
 function AdminQnaDetail({ userId, qnaId }) {
   const navigate = useNavigate();

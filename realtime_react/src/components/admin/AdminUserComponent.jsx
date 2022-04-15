@@ -2,7 +2,7 @@ import { useApiAxios } from "api/base";
 import black_check from "assets/img/penalty_check.png";
 import axios from "axios";
 import { useAuth } from "contexts/AuthContext";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function AdminUserComponent(props) {
   const { user } = props;

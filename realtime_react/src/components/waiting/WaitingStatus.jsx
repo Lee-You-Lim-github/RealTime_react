@@ -1,7 +1,4 @@
 import { useApiAxios } from "api/base";
-import { data } from "autoprefixer";
-import DebugStates from "components/DebugStates";
-import WaitingVisitConfirm from "components/modal/WaitingVisitConfirm";
 import { useAuth } from "contexts/AuthContext";
 import { useEffect, useState } from "react";
 
@@ -60,8 +57,6 @@ function WaitingStatus() {
       }
     }
   }, [waitData, waitAllData]);
-
-  console.log(waitDataFilter?.user_id);
 
   return (
     <div className="move">

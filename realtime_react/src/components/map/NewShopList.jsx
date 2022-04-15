@@ -1,4 +1,3 @@
-import DebugStates from "components/DebugStates";
 import ShopCarousel from "components/map/ShopCarousel";
 import { Link } from "react-router-dom";
 import noimages from "assets/img/noimages.png";
@@ -10,8 +9,6 @@ function NewShopList({ listData }) {
         new Date(newShop2.registered_date) - new Date(newShop.registered_date)
     )
     .slice(0, 5);
-
-  console.log(shopData);
 
   return (
     <>

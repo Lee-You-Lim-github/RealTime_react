@@ -1,6 +1,6 @@
 import { useApiAxios } from "api/base";
 import { useAuth } from "contexts/AuthContext";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./modal.css";
 
