@@ -33,9 +33,7 @@ function AdminQnaForm({ userId, qnaId }) {
       .then(() => {
         navigate(`/admin/${userId}/qna/${qnaId}/`);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   };
 
   useEffect(() => {

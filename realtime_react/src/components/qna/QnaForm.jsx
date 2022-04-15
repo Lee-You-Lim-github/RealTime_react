@@ -45,13 +45,10 @@ function QnaForm({ userId, handleDidSave }) {
     });
     formData.append("user_id", auth.id);
 
-    console.log(formData);
-
     saveRequest({
       data: formData,
     }).then((response) => {
       const savedQna = response.data;
-      console.log(response.data);
       if (handleDidSave) handleDidSave(savedQna);
     });
   };

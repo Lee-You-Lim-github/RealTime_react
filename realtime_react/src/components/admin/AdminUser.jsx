@@ -43,8 +43,6 @@ function AdminUser({ itemsPerPage = 10 }) {
 
       const { data } = await refetch({ params });
 
-      console.log("abc", data?.results);
-
       setPage(newPage);
       setPageCount(Math.ceil(data.count / itemsPerPage));
       setItem(data?.results);

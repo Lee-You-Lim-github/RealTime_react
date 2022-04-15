@@ -106,9 +106,7 @@ function ShopDetail({ shopId, itemsPerPage = 5 }) {
         setPageCount(Math.ceil((data?.count ? data.count : 1) / itemsPerPage));
         setItems(data?.results);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, [reloadReview]);
 
   const handlePage = (event) => {

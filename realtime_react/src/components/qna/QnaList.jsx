@@ -35,9 +35,7 @@ function UserQnaList({ itemsPerPage = 10, userId }) {
         setPageCount(Math.ceil((data?.count ? data.count : 1) / itemsPerPage));
         setCurrentItems(data?.results);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, [reload]);
 
   // 페이지 클릭 이벤트
@@ -45,8 +43,6 @@ function UserQnaList({ itemsPerPage = 10, userId }) {
   const handlePageClick = (event) => {
     setPage(event.selected);
   };
-
-  console.log(currentItems);
   return (
     <div>
       <table className="border-t-2  border-stone-400 w-full">

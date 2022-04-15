@@ -68,7 +68,6 @@ function UserEdit({ userId }) {
       saveRequest({
         data: fieldValues,
       }).then((response) => {
-        console.log(response.data.shop_set[0]);
         setShopId(response.data.shop_set[0]);
         if (userData !== fieldValues) {
           alert("수정되었습니다. 재로그인 해주세요!");
