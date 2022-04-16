@@ -63,6 +63,29 @@ function ReviewForm({ type, Id }) {
       );
     }
   };
+
+  const [{ data: Book }, refetch] = useApiAxios(
+    {
+      url: `/booking/api/bookings/${Id}`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
+  const [{ data: Wait }, getwaiting] = useApiAxios(
+    {
+      url: `/waiting/api/waitings/${Id}`,
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${auth.access}`,
+      },
+    },
+    { manual: true }
+  );
+
   const onStarClick = (nextValue, prevValue, name) => {
     setValue(nextValue);
   };
@@ -72,6 +95,11 @@ function ReviewForm({ type, Id }) {
       return { ...prev, rating: value };
     });
   }, [value]);
+
+  useEffect(() => {
+    refetch();
+    getwaiting();
+  }, []);
 
   return (
     <div>
@@ -83,7 +111,13 @@ function ReviewForm({ type, Id }) {
         <form onSubmit={handleSubmit}>
           <div className="flex my-10">
             <img src={review} alt="review" className="h-11 w-11" />
-            <span className="text-2xl mt-2 ml-3 mb-10">리뷰쓰기</span>
+            <span className="text-xl mt-2 ml-3 mb-10 flex">
+              <div className="text-2xl">
+                {type === "book" && <div>"{Book?.shop_id.name}"</div>}
+                {type === "wait" && <div>"{Wait?.shop_id.name}"</div>}
+              </div>
+              에 대한 리뷰를 남겨주세요!
+            </span>
           </div>
           {Object.keys(names).map((name) => (
             <div>
